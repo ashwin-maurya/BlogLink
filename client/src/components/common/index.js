@@ -1,6 +1,3 @@
-import Navbar from './Navbar';
-import Search from './Search';
+import BlogCard from "./BlogCard";
 
-export {
-    Navbar,Search
-}
+export { BlogCard }

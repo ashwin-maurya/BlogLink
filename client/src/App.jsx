@@ -1,11 +1,10 @@
-import { Navbar } from "./components/common";
+import HomeLayout from "./Layouts/HomeLayout";
+
 const App = () => {
   return (
-    <>
-      <div className="max-container">
-        <Navbar />
-      </div>
-    </>
+    <section className="max-container">
+      <HomeLayout></HomeLayout>
+    </section>
   );
 };
 
