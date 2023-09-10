@@ -1,5 +1,12 @@
+import { Navbar } from "./components/common";
 const App = () => {
-  return <h2 className="bg-black">Hellow this is ashwin</h2>;
+  return (
+    <>
+      <div className="max-container">
+        <Navbar />
+      </div>
+    </>
+  );
 };
 
 export default App;
