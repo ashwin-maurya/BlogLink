@@ -3,7 +3,7 @@ import { search } from "../../assets/icons";
 export default function Search() {
   return (
     <>
-      <form className="max-lg:hidden w-[40%]">
+      <form className="max-md:hidden w-[40%]">
         <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
           Search
         </label>
