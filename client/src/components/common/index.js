@@ -1,3 +1,7 @@
 import BlogCard from "./BlogCard";
+import Navbar from './Navbar';
+import Search from './Search';
 
-export { BlogCard }
+export {
+    Navbar, Search, BlogCard
+}

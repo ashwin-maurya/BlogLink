@@ -1,4 +1,4 @@
-import { code1 } from "../../Assets/image/index.js";
+import { code1 } from "../../Assets/images/index.js";
 
 
 export const CardData = [
