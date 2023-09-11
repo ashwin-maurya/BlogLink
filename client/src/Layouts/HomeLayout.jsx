@@ -3,7 +3,7 @@ import Home from "../Pages/Home";
 
 export default function HomeLayout() {
   return (
-    <section className=" bg-gray-400">
+    <section className="">
       <Navbar></Navbar>
       <Home></Home>
     </section>
