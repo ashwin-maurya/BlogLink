@@ -1,26 +1,42 @@
-import { code1 } from "../../Assets/images/index.js";
+import { code1, blogimg1 } from "../../Assets/images/index.js";
 
 
 export const CardData = [
     {
-        imgURL: code1,
+        author_imgURL: code1,
         label: "How to export a module in Javascript ?",
-        author: "Saket Allahabadia"
+        author: "Saket Allahabadia",
+        category: "Javascript",
+        date: "28 August(3 days ago)",
+        blog_imgURL: blogimg1,
+        tags: "",
     },
     {
-        imgURL: code1,
-        label: "Secure Payment",
-        author: "Rajesh Taneja"
+        author_imgURL: code1,
+        label: "How to export a module in Javascript ?",
+        author: "Saket Allahabadia",
+        category: "Javascript",
+        date: "28 August(3 days ago)",
+        blog_imgURL: blogimg1,
+        tags: "",
     },
     {
-        imgURL: code1,
-        label: "Love to help you",
-        author: "Kirtan Dalal"
+        author_imgURL: code1,
+        label: "How to export a module in Javascript ?",
+        author: "Saket Allahabadia",
+        category: "Javascript",
+        date: "28 August(3 days ago)",
+        blog_imgURL: blogimg1,
+        tags: "",
     },
     {
-        imgURL: code1,
-        label: "Love to help you too",
-        author: "Minal Bhardwaj"
+        author_imgURL: code1,
+        label: "How to export a module in Javascript ?",
+        author: "Saket Allahabadia",
+        category: "Javascript",
+        date: "28 August(3 days ago)",
+        blog_imgURL: blogimg1,
+        tags: "",
     },
 ];
 

@@ -14,7 +14,7 @@
 
 @layer components {
   .max-container {
-    max-width: 1340px;
+    max-width: 1240px;
     margin: 0 auto;
   }
 
@@ -29,6 +29,12 @@
   }
   .theme-color {
     @apply bg-blue-400;
+  }
+  .theme-font-minor {
+    @apply font-palanquin;
+  }
+  .theme-font-major {
+    @apply font-montserrat;
   }
   .padding-x {
     @apply sm:px-16 px-8;

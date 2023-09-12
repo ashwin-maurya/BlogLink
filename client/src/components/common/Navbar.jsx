@@ -8,10 +8,10 @@ const Nav = () => {
           <img className="m-0 w-[50px] h-[29px]" src={headerLogo} alt="logo" />
         </a>
         <Search />
-        <div className="flex gap-2 text-lg leading-normal font-medium max-lg:hidden">
+        <div className="flex gap-2 text-lg leading-normal font-medium max-md:hidden">
           <a href="/">Sign in</a>
         </div>
-        <div className="hidden max-lg:block">
+        <div className="hidden max-md:block">
           <img
             src={hamburger}
             className="m-0 w-[50px] h-[29px]"
