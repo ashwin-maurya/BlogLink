@@ -24,7 +24,7 @@ const Nav = () => {
         </div>
         <div className="flex items-center w-auto">
           <div className="flex gap-2 text-lg leading-normal font-medium max-md:hidden px-4 hover:text-blue-600">
-            <a href="/">Sign in</a>
+            <a href="/">Sign in Hellow</a>
           </div>
           <div className="flex gap-2 px-4 text-lg leading-normal font-medium ">
             <button onClick={toggleDarkMode}>
