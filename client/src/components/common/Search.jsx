@@ -15,7 +15,7 @@ export default function Search() {
             type="text"
             id="search"
             className="group block w-full p-4 pl-10 text-sm rounded-lg text-gray-900 border-2 border-gray-300 hover:border-blue-300 focus:border-blue-300 outline-none transition-colors duration-300 ease-in-out"
-            placeholder="Search..."
+            placeholder="Search...."
             required
           />
           <button
