@@ -18,7 +18,7 @@ export const CardData = [
         category: "Javascript",
         date: "28 August(3 days ago)",
         blog_imgURL: blogimg1,
-        tags: "",
+        tags: ["#javascript", "module", "Web Dev"],
     },
     {
         author_imgURL: code1,
