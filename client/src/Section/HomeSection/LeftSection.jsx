@@ -3,8 +3,8 @@ import { CardData } from "../../Components/constants";
 
 export default function LeftSection() {
   return (
-    <section className="p-3 rounded-md w-full">
-      <div className=" grid grid-cols-1 justify-center  gap-6">
+    <section className=" flex justify-center rounded-md w-full">
+      <div className=" grid grid-cols-1 justify-center  ">
         {CardData.map((card) => (
           <BlogCard
             Key={card.label}
