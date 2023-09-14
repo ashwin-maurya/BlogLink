@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { headerLogo, hamburger, light, dark } from "../../assets/icons";
+import { headerLogo, hamburger, light, dark } from "../../Assets/icons";
 import Search from "./Search";
 
 const Nav = () => {
@@ -10,7 +10,7 @@ const Nav = () => {
   };
 
   return (
-    <header className="sticky top-0 border-2  border-gray-200 bg-white sm:px-2 py-2 z-10 w-full">
+    <header className="sticky top-0 border-2 border-t-0  border-gray-200 bg-white sm:px-2 py-2 z-10 w-full">
       <nav className="flex justify-between items-center">
         <div className="flex items-center w-[70%]">
           <a href="/">
@@ -27,7 +27,11 @@ const Nav = () => {
             <a href="/">Sign in</a>
           </div>
           <div className="flex gap-2 px-4 text-lg leading-normal font-medium ">
-            <button onClick={toggleDarkMode}>
+            <button
+              onClick={() => {
+                toggleDarkMode;
+              }}
+            >
               {darkMode ? (
                 <img src={dark} alt="dark" />
               ) : (

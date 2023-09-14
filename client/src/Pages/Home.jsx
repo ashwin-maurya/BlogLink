@@ -2,7 +2,7 @@ import { LeftSection, RightSection } from "../Section/index.js";
 
 export default function Home() {
   return (
-    <section className="max-container flex min-h-screen gap-3  justify-between  ">
+    <section className="flex min-h-screen gap-3  justify-between">
       {/* <div className=" max-md:hidden w-[100%] ">
         {" "}
         <LeftSection></LeftSection>{" "}

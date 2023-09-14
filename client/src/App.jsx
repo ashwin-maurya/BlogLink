@@ -2,7 +2,7 @@ import HomeLayout from "./Layouts/HomeLayout";
 
 const App = () => {
   return (
-    <section className="max-container">
+    <section className="max-container ">
       <HomeLayout></HomeLayout>
     </section>
   );

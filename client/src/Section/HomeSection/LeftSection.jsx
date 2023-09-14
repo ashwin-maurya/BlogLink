@@ -1,6 +1,5 @@
-import { BlogCard } from "../../Components/Common";
-import { CardData } from "../../Components/constants";
-
+import { CardData } from "../../Component/constants";
+import { BlogCard } from "../../Component/common";
 export default function LeftSection() {
   return (
     <section className=" flex justify-center rounded-md w-full">
