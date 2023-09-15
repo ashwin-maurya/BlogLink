@@ -1,7 +1,8 @@
 import BlogCard from "./BlogCard";
-import Navbar from "./Navbar";
+import BlogNav from "./BlogNav";
 import Search from "./Search";
 import Tags from "./Tags";
 import Share from "./Share";
+import MainNav from "./MainNav";
 
-export { Navbar, Search, BlogCard, Tags, Share };
+export { MainNav, BlogNav, Search, BlogCard, Tags, Share };

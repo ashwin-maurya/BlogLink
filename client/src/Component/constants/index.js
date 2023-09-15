@@ -1,5 +1,12 @@
 import { code1, blogimg1 } from "../../Assets/images/index.js";
 
+export const navLinks = [
+  { href: "/home", label: "Home" },
+  { href: "/blog", label: "Blogs" },
+  { href: "/post", label: "Write" },
+  { href: "/about", label: "About" },
+];
+
 export const CardData = [
   {
     author_imgURL: code1,
@@ -42,40 +49,6 @@ export const CardData = [
         label: "Hooks",
         category: "Devops",
         url: "/serverless",
-      },
-    ],
-  },
-  {
-    author_imgURL: code1,
-    label: "Node.js Best Practices for Scalability",
-    author: "Saket Allahabadia",
-    description:
-      "Websites are now an essential tool for every business. And if you are a web developer and need to find new material or resources, then this is the place for you. As a developer, it is not easy to find a website that can",
-    category: "Node.js",
-    date: "10 September (6 days ago)",
-    blog_imgURL: blogimg1,
-    tags: [
-      {
-        label: "Kubernetes",
-        category: "Devops",
-        url: "/kubernetes",
-      },
-    ],
-  },
-  {
-    author_imgURL: code1,
-    label: "Responsive Web Design Tips and Tricks",
-    author: "Saket Allahabadia",
-    description:
-      "Websites are now an essential tool for every business. And if you are a web developer and need to find new material or resources, then this is the place for you. As a developer, it is not easy to find a website that can",
-    category: "Web Design",
-    date: "5 September (11 days ago)",
-    blog_imgURL: blogimg1,
-    tags: [
-      {
-        label: "Kubernetes",
-        category: "Devops",
-        url: "/kubernetes",
       },
     ],
   },
