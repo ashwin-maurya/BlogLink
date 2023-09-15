@@ -3,7 +3,7 @@ import { Navbar } from "../Component/common";
 
 export default function HomeLayout() {
   return (
-    <section className="">
+    <section>
       <Navbar></Navbar>
       <Home></Home>
     </section>
