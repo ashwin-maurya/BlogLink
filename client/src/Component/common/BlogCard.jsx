@@ -3,7 +3,7 @@ import { Tags } from "../../Component/common";
 export default function BlogCard(props) {
   const { card } = props;
   return (
-    <div className="flex flex-col p-6  border-b-2   w-[80%] dark:border-darkBorderAll max-lg:w-[100%] group">
+    <div className="flex dark:hover:bg-[#1c1c1c] hover:bg-slate-50   flex-col p-6 border-l-[1px] m-2 dark:hover:border-secondary hover:border-primaryMain border-b-[1px]   w-[80%] dark:border-darkBorderAll max-lg:w-[100%] group">
       <div className="max-lg:gap-1  gap-10 flex  justify-center ">
         <div className="w-[70%]">
           <div className="mb-2 flex items-center max-lg:items-start max-lg:flex-col">
@@ -27,7 +27,7 @@ export default function BlogCard(props) {
             </p>
           </div>
           <div className="flex flex-col ">
-            <h3 className="theme-font-minor text-xl my-1 font-bold font-serif  group-hover:text-primaryMain dark:text-darkTextMain">
+            <h3 className="theme-font-minor text-xl my-1 font-bold font-serif group-hover:text-primaryMain  dark:group-hover:text-secondary dark:text-darkTextMain">
               {card.label}
             </h3>
           </div>
