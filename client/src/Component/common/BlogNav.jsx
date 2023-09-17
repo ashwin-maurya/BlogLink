@@ -34,7 +34,7 @@ const BlogNav = () => {
     if (scrollDirection === "up") {
       navbarRef.current.style.top = "0";
     } else {
-      navbarRef.current.style.top = `-${navbarHeight - 3}px`;
+      navbarRef.current.style.top = `-${navbarHeight}px`;
     }
   }, [scrollDirection]);
 
@@ -47,9 +47,9 @@ const BlogNav = () => {
       <section
         id="navbar"
         ref={navbarRef}
-        className="sticky top-0 select-none z-10 transition-all ease-in-out duration-300 delay-75 "
+        className="sticky top-0 select-none z-10 transition-all ease-in-out duration-300 delay-75"
       >
-        <header className="border-b-2 dark:bg-slate-600  border-gray-200 bg-white sm:px-2 py-2  w-full">
+        <header className=" dark:bg-darkBgMain  sm:px-2 py-2  w-full  border-b-[1px] border-gray-200 dark:border-darkBorderAll bg-white ">
           <nav className="flex justify-between items-center">
             <div className="flex items-center w-[70%]">
               <Link to="/">
@@ -62,7 +62,7 @@ const BlogNav = () => {
               <Search />
             </div>
             <div className="flex items-center w-auto">
-              <div className="flex gap-2 text-lg leading-normal font-medium max-md:hidden px-4 hover:text-blue-600">
+              <div className="flex gap-2 text-lg leading-normal font-medium max-md:hidden px-4 hover:text-primaryMain dark:text-darkTextMain">
                 <a href="/">Sign in</a>
               </div>
               <div className="flex gap-2 px-4 text-lg leading-normal font-medium ">

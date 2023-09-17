@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 const App = () => {
   return (
-    <section className="dark:bg-gray-700">
+    <section className="max-container dark:bg-darkBgMain">
       <Router>
         <Routes>
           <Route path="/" element={<LandingLayout />} />

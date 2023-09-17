@@ -34,7 +34,7 @@ const MainNav = () => {
     if (scrollDirection === "up") {
       navbarRef.current.style.top = "0";
     } else {
-      navbarRef.current.style.top = `-${navbarHeight - 3}px`;
+      navbarRef.current.style.top = `-${navbarHeight}px`;
     }
   }, [scrollDirection]);
 
@@ -47,9 +47,9 @@ const MainNav = () => {
       <section
         id="navbar"
         ref={navbarRef}
-        className="sticky top-0 select-none z-10 transition-all ease-in-out duration-300 delay-75 "
+        className="sticky top-0 select-none z-10 transition-all ease-in-out duration-300 delay-75"
       >
-        <header className="border-b-2 flex items-center  dark:bg-slate-600  border-gray-200 bg-white sm:px-2 py-2 h-[67px] w-full">
+        <header className="flex items-center  border-b-[1px] border-gray-200 dark:border-darkBorderAll  dark:bg-darkBgMain  sm:px-2 py-2 h-[67px] w-full bg-white ">
           <nav className="flex justify-between items-center w-full">
             <div className="flex items-center w-[70%]">
               <Link to="/">
@@ -64,7 +64,7 @@ const MainNav = () => {
                   <li key={item.label}>
                     <Link
                       to={item.href}
-                      className="font-montserrat leading-normal py-5 text-lg font-semibold hover:text-blue-500 text-slate-gray"
+                      className="font-montserrat leading-normal py-5 text-lg font-semibold hover:text-primaryMain text-slate-gray dark:text-darkTextMain"
                     >
                       {item.label}
                     </Link>
@@ -73,8 +73,13 @@ const MainNav = () => {
               </ul>
             </div>
             <div className="flex items-center w-auto">
-              <div className="flex gap-2 text-lg leading-normal font-medium max-md:hidden px-4 hover:text-blue-600">
-                <a href="/">Sign in</a>
+              <div className="flex gap-2 text-lg leading-normal font-medium max-md:hidden px-4  ">
+                <a
+                  href="/"
+                  className="dark:text-darkTextMain hover:text-primaryMain"
+                >
+                  Sign in
+                </a>
               </div>
               <div className="flex gap-2 px-4 text-lg leading-normal font-medium ">
                 <button

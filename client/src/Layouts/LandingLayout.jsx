@@ -5,8 +5,10 @@ import LandingPage from "../Pages/LandingPage";
 export default function LandingLayout() {
   return (
     <>
-      <MainNav />
-      <LandingPage />
+      <section>
+        <MainNav />
+        <LandingPage />
+      </section>
     </>
   );
 }

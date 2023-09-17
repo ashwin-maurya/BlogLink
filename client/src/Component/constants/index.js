@@ -52,6 +52,182 @@ export const CardData = [
       },
     ],
   },
+  {
+    author_imgURL: code1,
+    label: "How to export a module in Javascript?",
+    author: "Saket Allahabadia",
+    description:
+      "Websites are now an essential tool for every business. And if you are a web developer and need to find new material or resources, then this is the place for you. As a developer, it is not easy to find a website that can",
+    category: "Javascript",
+    date: "28 August (3 days ago)",
+    blog_imgURL: blogimg1,
+    tags: [
+      {
+        label: "Kubernetes",
+        category: "Devops",
+        url: "/kubernetes",
+      },
+      {
+        label: "Serverless Computing",
+        category: "Devops",
+        url: "/serverless",
+      },
+    ],
+  },
+  {
+    author_imgURL: code1,
+    label: "Introduction to React Hooks",
+    author: "Saket Allahabadia",
+    description:
+      "Websites are now an essential tool for every business. And if you are a web developer and need to find new material or resources, then this is the place for you. As a developer, it is not easy to find a website that can",
+    category: "React",
+    date: "15 September (1 day ago)",
+    blog_imgURL: blogimg1,
+    tags: [
+      {
+        label: "React",
+        category: "Devops",
+        url: "/kubernetes",
+      },
+      {
+        label: "Hooks",
+        category: "Devops",
+        url: "/serverless",
+      },
+    ],
+  },
+  {
+    author_imgURL: code1,
+    label: "How to export a module in Javascript?",
+    author: "Saket Allahabadia",
+    description:
+      "Websites are now an essential tool for every business. And if you are a web developer and need to find new material or resources, then this is the place for you. As a developer, it is not easy to find a website that can",
+    category: "Javascript",
+    date: "28 August (3 days ago)",
+    blog_imgURL: blogimg1,
+    tags: [
+      {
+        label: "Kubernetes",
+        category: "Devops",
+        url: "/kubernetes",
+      },
+      {
+        label: "Serverless Computing",
+        category: "Devops",
+        url: "/serverless",
+      },
+    ],
+  },
+  {
+    author_imgURL: code1,
+    label: "Introduction to React Hooks",
+    author: "Saket Allahabadia",
+    description:
+      "Websites are now an essential tool for every business. And if you are a web developer and need to find new material or resources, then this is the place for you. As a developer, it is not easy to find a website that can",
+    category: "React",
+    date: "15 September (1 day ago)",
+    blog_imgURL: blogimg1,
+    tags: [
+      {
+        label: "React",
+        category: "Devops",
+        url: "/kubernetes",
+      },
+      {
+        label: "Hooks",
+        category: "Devops",
+        url: "/serverless",
+      },
+    ],
+  },
+  {
+    author_imgURL: code1,
+    label: "How to export a module in Javascript?",
+    author: "Saket Allahabadia",
+    description:
+      "Websites are now an essential tool for every business. And if you are a web developer and need to find new material or resources, then this is the place for you. As a developer, it is not easy to find a website that can",
+    category: "Javascript",
+    date: "28 August (3 days ago)",
+    blog_imgURL: blogimg1,
+    tags: [
+      {
+        label: "Kubernetes",
+        category: "Devops",
+        url: "/kubernetes",
+      },
+      {
+        label: "Serverless Computing",
+        category: "Devops",
+        url: "/serverless",
+      },
+    ],
+  },
+  {
+    author_imgURL: code1,
+    label: "Introduction to React Hooks",
+    author: "Saket Allahabadia",
+    description:
+      "Websites are now an essential tool for every business. And if you are a web developer and need to find new material or resources, then this is the place for you. As a developer, it is not easy to find a website that can",
+    category: "React",
+    date: "15 September (1 day ago)",
+    blog_imgURL: blogimg1,
+    tags: [
+      {
+        label: "React",
+        category: "Devops",
+        url: "/kubernetes",
+      },
+      {
+        label: "Hooks",
+        category: "Devops",
+        url: "/serverless",
+      },
+    ],
+  },
+  {
+    author_imgURL: code1,
+    label: "How to export a module in Javascript?",
+    author: "Saket Allahabadia",
+    description:
+      "Websites are now an essential tool for every business. And if you are a web developer and need to find new material or resources, then this is the place for you. As a developer, it is not easy to find a website that can",
+    category: "Javascript",
+    date: "28 August (3 days ago)",
+    blog_imgURL: blogimg1,
+    tags: [
+      {
+        label: "Kubernetes",
+        category: "Devops",
+        url: "/kubernetes",
+      },
+      {
+        label: "Serverless Computing",
+        category: "Devops",
+        url: "/serverless",
+      },
+    ],
+  },
+  {
+    author_imgURL: code1,
+    label: "Introduction to React Hooks",
+    author: "Saket Allahabadia",
+    description:
+      "Websites are now an essential tool for every business. And if you are a web developer and need to find new material or resources, then this is the place for you. As a developer, it is not easy to find a website that can",
+    category: "React",
+    date: "15 September (1 day ago)",
+    blog_imgURL: blogimg1,
+    tags: [
+      {
+        label: "React",
+        category: "Devops",
+        url: "/kubernetes",
+      },
+      {
+        label: "Hooks",
+        category: "Devops",
+        url: "/serverless",
+      },
+    ],
+  },
 ];
 
 export const TagData = [
