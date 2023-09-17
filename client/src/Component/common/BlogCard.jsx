@@ -1,7 +1,10 @@
+import { useNavigate } from "react-router";
 import { Tags } from "../../Component/common";
+import { Link } from "react-router-dom";
 
 export default function BlogCard(props) {
   const { card } = props;
+  // const navigate = useNavigate();
   return (
     <div className="flex dark:hover:bg-[#1c1c1c] hover:bg-slate-50   flex-col p-6 border-l-[1px] m-2 dark:hover:border-secondary hover:border-primaryMain border-b-[1px]   w-[80%] dark:border-darkBorderAll max-lg:w-[100%] group">
       <div className="max-lg:gap-1  gap-10 flex  justify-center ">
@@ -26,11 +29,16 @@ export default function BlogCard(props) {
               {card.date}
             </p>
           </div>
-          <div className="flex flex-col ">
-            <h3 className="theme-font-minor text-xl my-1 font-bold font-serif group-hover:text-primaryMain  dark:group-hover:text-secondary dark:text-darkTextMain">
-              {card.label}
-            </h3>
-          </div>
+          <Link to={`/${card.label.replace(/\s+/g, "-")}`}>
+            <div
+              className="flex flex-col "
+              // onClick={() => navigate("/home/")}
+            >
+              <h3 className="theme-font-minor text-xl my-1 font-bold font-serif group-hover:text-primaryMain  dark:group-hover:text-secondary dark:text-darkTextMain">
+                {card.label}
+              </h3>
+            </div>
+          </Link>
           <div>
             <p className="max-lg:hidden text-justify dark:text-darkTextMain">
               {card.description.slice(0, 210) +

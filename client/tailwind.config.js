@@ -27,7 +27,7 @@ export default {
         darkTextPrimary: "#BDBDBD",
         lightBgMain: "#fff",
         darkBgMain: "#222222",
-        darkBgPrimary: "#272627",
+        darkBgPrimary: "#323232",
         darkBorderAll: "#2D3332",
       },
       boxShadow: {},
