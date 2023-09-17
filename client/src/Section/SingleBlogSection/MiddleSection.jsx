@@ -1,16 +1,15 @@
 import { useParams } from "react-router";
 import { CardData } from "../../Component/constants";
 
-const MiddleSection = () => {
-  const { handle } = useParams();
-  console.log(typeof handle);
-  const blog = CardData.filter((card) => {
-    console.log(card.id + typeof card.id + "id...");
-    return card.id === handle;
-  });
-
+const MiddleSection = ({ blog }) => {
   //   console.log("this is " + blog[0].content);
-  return <section>{blog[0].content}</section>;
+  return (
+    <>
+      <section className="max-container text-[27px]">
+        <div>{blog.content}</div>
+      </section>
+    </>
+  );
 };
 
 export default MiddleSection;
