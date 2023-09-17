@@ -1,5 +1,5 @@
-import LeftSection from "./BlogSection/LeftSection";
-import RightSection from "./BlogSection/RightSection";
+import LeftSection from "./HomeSection/LeftSection";
+import RightSection from "./HomeSection/RightSection";
 export {
     RightSection,
     LeftSection

@@ -6,7 +6,7 @@ export default function BlogCard(props) {
   const { card } = props;
   // const navigate = useNavigate();
   return (
-    <div className="flex dark:hover:bg-[#1c1c1c] hover:bg-slate-50   flex-col p-6 border-l-[1px] m-2 dark:hover:border-secondary hover:border-primaryMain border-b-[1px]   w-[80%] dark:border-darkBorderAll max-lg:w-[100%] group">
+    <div className="flex dark:hover:bg-darkBorderAll hover:bg-[#f0f8ff] flex-col p-6 w-[80%] max-lg:w-[100%] group">
       <div className="max-lg:gap-1  gap-10 flex  justify-center ">
         <div className="w-[70%]">
           <div className="mb-2 flex items-center max-lg:items-start max-lg:flex-col">

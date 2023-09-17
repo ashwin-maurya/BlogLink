@@ -13,7 +13,7 @@ export default function Hero() {
             <span className="text-primaryMain dark:text-secondary text-[18px] font-medium max-lg:text-[12px] tracking-widest hover:text-white">
               EXPLAINERS
             </span>
-            <h1 className="text-[50px] font-bold py-5 text-center max-lg:py-2 max-lg:text-[20px] font-serif group-hover:text-primaryMain dark:text-darkTextMain">
+            <h1 className="text-[50px] font-bold py-5 text-center max-lg:py-2 max-lg:text-[20px] font-serif group-hover:text-primaryMain dark:text-darkTextMain dark:group-hover:text-secondary">
               How Scientists Are Tackling the Tricky Task of Solar Cycle
               Prediction
             </h1>
