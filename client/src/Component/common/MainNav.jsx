@@ -83,7 +83,7 @@ const MainNav = () => {
               <div className="flex gap-2 text-lg leading-normal font-medium max-md:hidden px-4  ">
                 <a
                   href="/"
-                  className="dark:text-darkTextMain hover:text-primaryMain"
+                  className="dark:text-darkTextMain hover:text-primaryMain dark:hover:text-secondary"
                 >
                   Sign in
                 </a>

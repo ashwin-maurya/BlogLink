@@ -1,6 +1,3 @@
-import LeftSection from "./HomeSection/LeftSection";
-import RightSection from "./HomeSection/RightSection";
-export {
-    RightSection,
-    LeftSection
-}
+import LeftSection from "./BlogSection/LeftSection";
+import RightSection from "./BlogSection/RightSection";
+export { RightSection, LeftSection };
