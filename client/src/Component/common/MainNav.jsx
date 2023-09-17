@@ -2,14 +2,16 @@ import React, { useState, useEffect, useRef } from "react";
 import { headerLogo, hamburger, light, dark } from "../../Assets/icons";
 import { navLinks } from "../constants";
 import ScrollProgress from "./ScrollProgress ";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import Search from "./Search";
 
 const MainNav = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [scrollDirection, setScrollDirection] = useState("up");
   const [prevScrollPos, setPrevScrollPos] = useState(0);
-
+  console.log(darkMode);
   const navbarRef = useRef(null);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,6 +42,7 @@ const MainNav = () => {
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
+    console.log("MAIN NAV");
   };
 
   return (
@@ -59,18 +62,22 @@ const MainNav = () => {
                   alt="logo"
                 />
               </Link>
-              <ul className="flex-1 flex items-center gap-8 max-lg:hidden ml-5">
-                {navLinks.map((item) => (
-                  <li key={item.label}>
-                    <Link
-                      to={item.href}
-                      className="font-montserrat leading-normal py-5 text-lg font-semibold hover:text-primaryMain text-slate-gray dark:text-darkTextMain"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              {location.pathname === "/blog" ? (
+                <Search />
+              ) : (
+                <ul className="flex-1 flex items-center gap-8 max-lg:hidden ml-5">
+                  {navLinks.map((item) => (
+                    <li key={item.label}>
+                      <Link
+                        to={item.href}
+                        className="font-montserrat leading-normal py-5 text-lg font-semibold hover:text-primaryMain text-slate-gray dark:text-darkTextMain"
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
             <div className="flex items-center w-auto">
               <div className="flex gap-2 text-lg leading-normal font-medium max-md:hidden px-4  ">
