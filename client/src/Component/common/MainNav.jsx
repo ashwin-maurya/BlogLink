@@ -54,7 +54,7 @@ const MainNav = () => {
       >
         <header className="flex items-center  border-b-[1px] border-gray-200 dark:border-darkBorderAll  dark:bg-darkBgMain  sm:px-2 py-2 h-[67px] w-full bg-white ">
           <nav className="flex justify-between items-center w-full">
-            <div className="flex items-center w-[70%]">
+            <div className="flex  items-center w-[70%]">
               <Link to="/">
                 <img
                   className="m-0 w-[50px] h-[29px]"
@@ -70,7 +70,7 @@ const MainNav = () => {
                     <li key={item.label}>
                       <Link
                         to={item.href}
-                        className="font-montserrat leading-normal py-5 text-lg font-semibold hover:text-primaryMain text-slate-gray dark:text-darkTextMain"
+                        className="font-montserrat leading-normal py-5 text-lg font-semibold dark:hover:text-secondary hover:text-primaryMain text-slate-gray dark:text-darkTextMain"
                       >
                         {item.label}
                       </Link>
