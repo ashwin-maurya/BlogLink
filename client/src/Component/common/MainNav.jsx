@@ -1,17 +1,28 @@
 import React, { useState, useEffect, useRef } from "react";
 import { headerLogo, hamburger, light, dark } from "../../Assets/icons";
 import { navLinks } from "../constants";
-import ScrollProgress from "./ScrollProgress ";
 import { Link, useLocation } from "react-router-dom";
-import Search from "./Search";
+import { Search, Authentication, SideNav, ScrollProgress } from "./";
 
 const MainNav = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [scrollDirection, setScrollDirection] = useState("up");
   const [prevScrollPos, setPrevScrollPos] = useState(0);
-  console.log(darkMode);
-  const navbarRef = useRef(null);
+  const [showModal, setModalOpen] = useState(false);
+  const [showNav, setNav] = useState(false);
   const location = useLocation();
+  const navbarRef = useRef(null);
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const NavStatus = () => {
+    setNav((showNav) => !showNav);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,11 +53,14 @@ const MainNav = () => {
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
-    console.log("MAIN NAV");
   };
 
   return (
     <>
+      {showModal && <Authentication closeModal={closeModal}></Authentication>}
+      {showNav && (
+        <SideNav openModal={openModal} NavStatus={NavStatus}></SideNav>
+      )}
       <section
         id="navbar"
         ref={navbarRef}
@@ -65,7 +79,7 @@ const MainNav = () => {
               {location.pathname === "/blog" ? (
                 <Search />
               ) : (
-                <ul className="flex-1 flex items-center gap-8 max-lg:hidden ml-5">
+                <ul className="flex-1 flex items-center gap-8 max-lg:hidden ml-5 ">
                   {navLinks.map((item) => (
                     <li key={item.label}>
                       <Link
@@ -81,12 +95,12 @@ const MainNav = () => {
             </div>
             <div className="flex items-center w-auto">
               <div className="flex gap-2 text-lg leading-normal font-medium max-md:hidden px-4  ">
-                <a
-                  href="/"
+                <button
                   className="dark:text-darkTextMain hover:text-primaryMain dark:hover:text-secondary"
+                  onClick={openModal}
                 >
-                  Sign in
-                </a>
+                  Sign In
+                </button>
               </div>
               <div className="flex gap-2 px-4 text-lg leading-normal font-medium ">
                 <button
@@ -103,7 +117,7 @@ const MainNav = () => {
                 </button>
               </div>
             </div>
-            <div className="hidden max-md:block">
+            <div className="hidden max-md:block" onClick={NavStatus}>
               <img
                 src={hamburger}
                 className="m-0 w-[50px] h-[29px]"
