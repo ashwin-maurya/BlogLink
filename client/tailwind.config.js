@@ -16,8 +16,10 @@ export default {
     },
     extend: {
       fontFamily: {
+
         palanquin: ["Palanquin", "sans-serif"],
         montserrat: ["Montserrat", "sans-serif"],
+        // NoeDisplay: ["sans-serif"]
       },
       colors: {
         primaryMain: "#3b82f6",

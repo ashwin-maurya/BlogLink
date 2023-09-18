@@ -8,7 +8,7 @@ export default function Hero() {
         <div className=" max-h-[500px] overflow-hidden">
           <img src={hero} alt="hero-image" className="w-full" />
         </div>
-        <div className="relative w-[60%] bg-white max-lg:bottom-[30px] bottom-[100px] max-lg:w-[90%] shadow-lg group dark:bg-darkBgPrimary">
+        <div className="relative w-[60%] bg-white max-lg:bottom-[30px] bottom-[100px] max-lg:w-[90%] shadow-[0_18px_10px_-15px_rgba(0,0,0,0.1)] group  dark:bg-darkBgPrimary">
           <div className="px-20 py-10 flex flex-col items-center max-lg:px-10 max-lg:py-5">
             <span className="text-primaryMain dark:text-secondary text-[18px] font-medium max-lg:text-[12px] tracking-widest hover:text-white">
               EXPLAINERS

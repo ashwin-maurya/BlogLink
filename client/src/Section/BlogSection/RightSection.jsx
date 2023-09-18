@@ -3,7 +3,7 @@ import { TagData, shareData } from "../../Component/constants";
 
 export default function RightSection() {
   return (
-    <section className="relative justify-center w-[80%] max-lg:w-[100%] h-auto p-5">
+    <section className="relative  justify-center w-[80%] max-lg:w-[100%] h-auto p-5">
       <section className="mb-16">
         <h1 className="text-xl font-medium my-4 dark:text-darkTextMain">
           Follow Us
