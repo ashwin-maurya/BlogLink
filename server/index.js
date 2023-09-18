@@ -1,49 +1,24 @@
-const mongoose = require("mongoose")
-const express = require("express")
+const connectToMongo = require('./db')
+const express = require('express')
+var cors = require('cors')
+
+connectToMongo();
+
 const app = express()
+const port = 5001
+app.use(cors())
+app.use(express.json())
 
-const DB = "mongodb+srv://108aryanmaurya:Eastwood123@cluster0.uth4px6.mongodb.net/BLUE_SKY?retryWrites=true&w=majority"
-mongoose.connect(DB).then(() => {
-    console.log("Connection Successfull on your face")
-}).catch((err) => console.log(err + "NO connection"))
+//available routes
+app.use(
+    express.urlencoded({ extended: true })
+);
+app.use('/api/auth', require('./routes/auth'))
+app.use('/api/notes', require('./routes/notes'))
+app.use('/api/blogs', require('./routes/blog'))
 
-let Blogdata = ""
-let content = (data) => {
-    Blogdata = data
-}
-console.log(Blogdata + " blogdata")
-// Create a Mongoose schema for your data
-const schema = new mongoose.Schema({
-    name: String,
-    age: Number,
-    email: String,
-});
 
-const BlogSchema = new mongoose.Schema({
 
-    description: String
+app.listen(port, () => {
+    console.log(`app listening at port http://localhost/${port}`)
 })
-
-// Create a Mongoose model based on the schema
-const User = mongoose.model('User', schema);
-const BlogData = mongoose.model('BlogData', BlogSchema)
-// Create a new user document and save it to MongoDB
-const newUser = new User({
-    name: 'John Doe',
-    age: 30,
-    email: 'john@example.com',
-});
-
-const NewBlog = new BlogData({
-    description: Blogdata
-})
-
-newUser.save()
-    .then(() => {
-        console.log('User saved to MongoDB Atlas');
-    })
-    .catch((error) => {
-        console.error('Error saving user:', error);
-    });
-
-
