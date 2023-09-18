@@ -1,7 +1,0 @@
-backend
- >middleware
- >models
- >routes
-config.env
-db.js
-index.js
