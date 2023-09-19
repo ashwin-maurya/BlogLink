@@ -17,7 +17,6 @@ function TinyMCEEditor() {
   return (
     <>
       <div>
-        <h2>TinyMCE Editor</h2>
         <Editor
           apiKey="01yappq7mx9884k0ggoceocm8uz7ko4za08cfy5m9t039jmq" // Replace with your TinyMCE API key or use the cloud API
           initialValue="<p>This is the initial content of the editor.</p>"

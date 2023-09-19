@@ -3,9 +3,9 @@ export default function Share(props) {
   // console.log(props);
   return (
     <>
-      <div className="group">
+      <div className="group ">
         <li
-          className={`list-none border-b-2 border-t-2 dark:border-darkBorderAll dark:group-hover:border-secondary group-hover:border-primaryMain ${
+          className={`list-none  border-b-2 border-t-2 dark:border-darkBorderAll dark:group-hover:border-secondary group-hover:border-primaryMain ${
             props.check == false ? "px-1" : "px-3"
           } `}
         >

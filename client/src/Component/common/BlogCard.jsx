@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function BlogCard(props) {
   const { card } = props;
+  console.log(card);
   // const navigate = useNavigate();
   return (
     <div className="flex dark:hover:bg-darkBorderAll hover:bg-[#f0f8ff] flex-col p-6 w-[80%] max-lg:w-[100%] group">
@@ -12,7 +13,7 @@ export default function BlogCard(props) {
           <div className="mb-2 flex items-center max-lg:items-start max-lg:flex-col">
             <div className="flex items-center ">
               <img
-                // src={card.author_imgURL}
+                src={card?.author_imgURL}
                 className="rounded-full object-contain"
                 width={28}
                 height={32}
@@ -29,27 +30,27 @@ export default function BlogCard(props) {
               {card.date}
             </p>
           </div>
-          <Link to={`/${card.label.replace(/\s+/g, "-")}`}>
+          <Link to={`/${card?.label.replace(/\s+/g, "-")}`}>
             <div
               className="flex flex-col "
               // onClick={() => navigate("/home/")}
             >
               <h3 className="theme-font-minor text-xl my-1 font-bold font-serif group-hover:text-primaryMain  dark:group-hover:text-secondary dark:text-darkTextMain">
-                {card.label}
+                {card?.label}
               </h3>
             </div>
           </Link>
           <div>
             <p className="max-lg:hidden text-justify dark:text-darkTextMain">
-              {card.description.slice(0, 210) +
-                (card.description.length > 210 ? "..." : "")}
+              {card?.description.slice(0, 210) +
+                (card?.description.length > 210 ? "..." : "")}
             </p>
           </div>
           {/* <p className="dark:text-darkTextMain">{card.category}</p> */}
         </div>
         <div className="w-240 flex items-center justify-center w-[30%]">
           <img
-            src={card.blog_imgURL}
+            src={card?.blog_imgURL}
             className="max-md:w-[90px] object-contain"
             width={180}
             alt="codeimg"

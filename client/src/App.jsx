@@ -13,6 +13,7 @@ import SingleBlogLayout from "./Layouts/SingleBlogLayout";
 import EditBlog from "./Section/EditSection/EditBlog";
 import blogContext from "./Helper/Context/blogContext";
 import BlogState from "./Helper/Context/BlogState";
+import WriteBlogLayout from "./Layouts/WriteBlogLayout";
 
 const App = () => {
   const { handle } = useParams();
@@ -28,7 +29,8 @@ const App = () => {
             <Route path="/home" element={<LandingLayout />} />
             <Route path="/blog" element={<BlogLayout />} />
             <Route path="/:handle" element={<SingleBlogLayout />} />
-            <Route path="/Edit" element={<EditBlog></EditBlog>}>
+            <Route path="/Edit" element={<EditBlog></EditBlog>} />
+            <Route path="/write" element={<WriteBlogLayout></WriteBlogLayout>}>
               {" "}
             </Route>
             {/* <Route path="/*" element={<NotFound />} /> */}
