@@ -79,7 +79,7 @@ const MainNav = () => {
               {location.pathname === "/blog" ? (
                 <Search />
               ) : (
-                <ul className="flex-1 flex items-center gap-8 max-lg:hidden ml-5 ">
+                <ul className="flex-1 flex items-center gap-8 max-md:hidden ml-5 ">
                   {navLinks.map((item) => (
                     <li key={item.label}>
                       <Link
