@@ -1,14 +1,17 @@
 // import React from 'react';
 import { Editor } from "@tinymce/tinymce-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import blogContext from "./Context/blogContext";
+// import { log } from "console";
 // import { content } from "../../../server";
 
 function TinyMCEEditor() {
   const [Content, setContent] = useState("");
-
+  const context = useContext(blogContext);
+  const { addblogs } = context;
   const handleEditorChange = (content, editor) => {
     console.log("Content was updated:", content);
-    // setContent(content);
+    setContent(content);
   };
 
   return (
@@ -39,7 +42,8 @@ function TinyMCEEditor() {
       <div>
         <button
           onClick={() => {
-            // content(Content);
+            addblogs(Content);
+            console.log("blog sent");
           }}
         >
           Submit

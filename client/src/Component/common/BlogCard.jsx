@@ -12,7 +12,7 @@ export default function BlogCard(props) {
           <div className="mb-2 flex items-center max-lg:items-start max-lg:flex-col">
             <div className="flex items-center ">
               <img
-                src={card.author_imgURL}
+                // src={card.author_imgURL}
                 className="rounded-full object-contain"
                 width={28}
                 height={32}
