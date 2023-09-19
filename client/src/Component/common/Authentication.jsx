@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { auth } from "../../Assets/images";
 
 export default function Authentication(props) {
   const { closeModal } = props;
@@ -25,11 +26,8 @@ export default function Authentication(props) {
         onClick={handleOutsideClick}
       >
         <div className="w-1/2 max-lg:w-[90%] flex rounded-lg bg-white dark:bg-darkBgPrimary shadow-xl overflow-hidden">
-          <div className="flex items-center w-[50%] h-[auto]  bg-[#F2E9E4] max-lg:hidden">
-            <img
-              src="https://img.freepik.com/premium-vector/young-woman-enjoy-sitting-reading-book-hygge-concept-vector-illustration_194708-2078.jpg"
-              alt="girl-reading-a-book"
-            />
+          <div className="flex items-center w-[50%] h-[auto]  bg-[#d1e3ff] dark:bg-[#ffd4bb] max-lg:hidden">
+            <img src={auth} alt="girl-reading-a-book" />
           </div>
 
           {sign ? (
