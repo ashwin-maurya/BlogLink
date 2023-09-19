@@ -1,17 +1,27 @@
-import { useParams } from "react-router";
-import { CardData } from "../../Component/constants";
-import { useContext } from "react";
+import { useContext, useEffect, useMemo } from "react";
 
-const MiddleSection = ({ blog }) => {
-  function createMarkup() {
-    return { __html: blog.description };
-  }
-  // console.log("this is " + blog.description);
-  // const data = blog.description;
+import DOMPurify from "dompurify";
+import blogContext from "../../Helper/Context/blogContext";
+const MiddleSection = () => {
+  // console.log(blog);
+  // let data = blog.description;
+  const context = useContext(blogContext);
+  const { blog, getblogs } = context;
+
+  useEffect(() => {
+    getblogs();
+  }, []);
   return (
     <>
       <section className="max-container text-[27px]">
-        <div dangerouslySetInnerHTML={createMarkup()} />;
+        {
+          <div
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(blog[16]?.description),
+            }}
+          />
+        }
+        <div></div>
       </section>
     </>
   );
