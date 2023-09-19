@@ -1,5 +1,6 @@
 import React from "react";
 import TinyMCEEditor from "../../Helper/Editor";
+// import WysiwygEditor from "../../Helper/WysiwygEditor";
 
 const EditBlog = () => {
   return (
@@ -7,6 +8,8 @@ const EditBlog = () => {
       <header className="App-header">
         <TinyMCEEditor />
       </header>
+
+      <div>{/* <WysiwygEditor></WysiwygEditor> */}</div>
     </div>
   );
 };

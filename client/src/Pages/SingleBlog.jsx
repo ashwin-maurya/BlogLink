@@ -6,13 +6,18 @@ import RightSection from "../Section/SingleBlogSection/RightSection";
 import { useContext } from "react";
 import blogContext from "../Helper/Context/blogContext";
 import { useEffect } from "react";
+import { useMemo } from "react";
 
 const SingleBlog = () => {
   const context = useContext(blogContext);
   const { blog, getblogs } = context;
 
   useEffect(() => {
-    getblogs();
+    const fetchdata = async () => {
+      await getblogs();
+    };
+    fetchdata();
+    console.log(blog);
   }, []);
 
   const { handle } = useParams();
@@ -40,8 +45,8 @@ const SingleBlog = () => {
         <div className="w-[30%]">
           <LeftSection blog={blog1[0]}></LeftSection>
         </div>
-        <div className="w-[60%] ">
-          <MiddleSection blog={blog[blog.length - 1]}></MiddleSection>
+        <div className="w-[70%] ">
+          <MiddleSection blog={blog[11]}></MiddleSection>
         </div>
         <div className="w-[30%]">
           <RightSection blog={blog1[0]}></RightSection>

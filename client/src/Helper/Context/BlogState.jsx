@@ -21,11 +21,10 @@ const BlogState = (props) => {
     });
 
     const json = await response.json();
-    console.log("I am running");
-    console.log(response + "resp");
-    console.log(json[0].description + "this are the notes");
+
     setblogs(json);
     console.log(blog);
+    console.log("form getblogs");
   };
 
   //Add a note

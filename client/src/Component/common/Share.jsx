@@ -1,6 +1,6 @@
 export default function Share(props) {
   // const share = props;
-  console.log(props);
+  // console.log(props);
   return (
     <>
       <div className="group">
