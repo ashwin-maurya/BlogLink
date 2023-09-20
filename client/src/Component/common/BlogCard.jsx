@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router";
 import { Tags } from "../../Component/common";
 import { Link } from "react-router-dom";
 
@@ -14,6 +13,7 @@ export default function BlogCard(props) {
             <div className="flex items-center ">
               <img
                 src={card?.author_imgURL}
+
                 className="rounded-full object-contain"
                 width={28}
                 height={32}

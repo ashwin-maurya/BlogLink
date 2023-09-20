@@ -64,7 +64,7 @@ const MainNav = () => {
       <section
         id="navbar"
         ref={navbarRef}
-        className="sticky top-0 select-none z-10 transition-all ease-in-out duration-300 delay-75"
+        className="sticky top-0 select-none z-10 transition-all ease-in-out duration-300"
       >
         <header className="flex items-center  border-b-[1px] border-gray-200 dark:border-darkBorderAll  dark:bg-darkBgMain  sm:px-2 py-2 h-[67px] w-full bg-white ">
           <nav className="flex justify-between items-center w-full">
@@ -79,7 +79,7 @@ const MainNav = () => {
               {location.pathname === "/blog" ? (
                 <Search />
               ) : (
-                <ul className="flex-1 flex items-center gap-8 max-lg:hidden ml-5 ">
+                <ul className="flex-1 flex items-center gap-8 max-md:hidden ml-5 ">
                   {navLinks.map((item) => (
                     <li key={item.label}>
                       <Link
@@ -102,7 +102,7 @@ const MainNav = () => {
                   Sign In
                 </button>
               </div>
-              <div className="flex gap-2 px-4 text-lg leading-normal font-medium ">
+              <div className="flex gap-2 px-5">
                 <button
                   onClick={() => {
                     toggleDarkMode();
@@ -116,15 +116,22 @@ const MainNav = () => {
                   )}
                 </button>
               </div>
-            </div>
-            <div className="hidden max-md:block" onClick={NavStatus}>
-              <img
-                src={hamburger}
-                className="m-0 w-[50px] h-[29px]"
-                alt="hamburger icon"
-                width={25}
-                height={25}
-              />
+              <div className="hidden max-md:block" onClick={NavStatus}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke={`${darkMode ? "white" : "black"}`}
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  className="m-0 w-[55px] h-[35px]"
+                >
+                  <line x1="3" y1="12" x2="21" y2="12"></line>
+                  <line x1="3" y1="6" x2="21" y2="6"></line>
+                  <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+              </div>
             </div>
           </nav>
         </header>

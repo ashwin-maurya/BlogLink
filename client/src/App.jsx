@@ -1,4 +1,4 @@
-import { MainNav } from "./Component/common";
+import { MainNav, Footer } from "./Component/common";
 import BlogLayout from "./Layouts/BlogLayout";
 import LandingLayout from "./Layouts/LandingLayout";
 
@@ -35,6 +35,7 @@ const App = () => {
             </Route>
             {/* <Route path="/*" element={<NotFound />} /> */}
           </Routes>
+          <Footer />
         </Router>
       </section>
     </BlogState>
