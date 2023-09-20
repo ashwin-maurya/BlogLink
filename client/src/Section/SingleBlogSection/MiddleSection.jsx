@@ -1,5 +1,5 @@
 import { useContext, useEffect, useMemo } from "react";
-
+import { Comments } from "../../Component/common";
 import DOMPurify from "dompurify";
 import blogContext from "../../Helper/Context/blogContext";
 const MiddleSection = () => {
@@ -17,11 +17,13 @@ const MiddleSection = () => {
         {
           <div
             dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(blog[16]?.description),
+              __html: DOMPurify.sanitize(blog[20]?.description),
             }}
           />
         }
-        <div></div>
+        <div className=" mt-40">
+          <Comments />
+        </div>
       </section>
     </>
   );
