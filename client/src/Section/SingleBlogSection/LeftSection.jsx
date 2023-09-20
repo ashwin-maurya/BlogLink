@@ -1,11 +1,11 @@
 const LeftSection = ({ blog }) => {
   return (
-    <section className="flex mt-48 flex-col justify-center items-center ">
+    <section className="flex mt-48 max-2xl:w-full max-xl:mt-20  flex-col justify-center items-center ">
       <div className="  w-28 ">
         <img src={blog.author_imgURL} alt="" className="rounded-full w-full" />
       </div>
       <div className="flex gap-5 flex-col mt-4 justify-center items-center">
-        <p className=" w-[70%] leading-9 text-center font-montserrat  font-semibold text-3xl">
+        <p className="dark:hover:text-secondary  w-[70%] leading-9 text-center font-montserrat  font-semibold text-3xl">
           {blog.author}
         </p>
         <p className="font-serif opacity-50 text-[23px]">
