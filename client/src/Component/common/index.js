@@ -9,6 +9,12 @@ import Footer from "./Footer";
 import ScrollProgress from "./ScrollProgress ";
 import LandingCards from "./LandingCards";
 import Comments from "./Comments";
+import Login from "./Login";
+import Logout from "./Logout";
+import Profile from "./Profile";
+import ProfileModal from "./ProfileModal";
+import Scroll from "./Scroll";
+import ViewProfile from "./ViewProfile";
 
 export {
   MainNav,
@@ -19,7 +25,13 @@ export {
   SideNav,
   Authentication,
   Footer,
+  Profile,
+  ProfileModal,
   Comments,
   ScrollProgress,
   LandingCards,
+  Logout,
+  Login,
+  Scroll,
+  ViewProfile,
 };

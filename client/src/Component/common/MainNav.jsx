@@ -1,25 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
-import { headerLogo, hamburger, light, dark } from "../../Assets/icons";
+import { headerLogo, light, dark } from "../../Assets/icons";
 import { navLinks } from "../constants";
 import { Link, useLocation } from "react-router-dom";
-import { Search, Authentication, SideNav, ScrollProgress } from "./";
+import { Search, SideNav, ScrollProgress, Login, Profile } from "./";
 
 const MainNav = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [scrollDirection, setScrollDirection] = useState("up");
   const [prevScrollPos, setPrevScrollPos] = useState(0);
-  const [showModal, setModalOpen] = useState(false);
   const [showNav, setNav] = useState(false);
   const location = useLocation();
   const navbarRef = useRef(null);
 
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-
-  const openModal = () => {
-    setModalOpen(true);
-  };
   const NavStatus = () => {
     setNav((showNav) => !showNav);
   };
@@ -57,10 +49,7 @@ const MainNav = () => {
 
   return (
     <>
-      {showModal && <Authentication closeModal={closeModal}></Authentication>}
-      {showNav && (
-        <SideNav openModal={openModal} NavStatus={NavStatus}></SideNav>
-      )}
+      {showNav && <SideNav NavStatus={NavStatus}></SideNav>}
       <section
         id="navbar"
         ref={navbarRef}
@@ -94,14 +83,6 @@ const MainNav = () => {
               )}
             </div>
             <div className="flex items-center w-auto">
-              <div className="flex gap-2 text-lg leading-normal font-medium max-md:hidden px-4  ">
-                <button
-                  className="dark:text-darkTextMain hover:text-primaryMain dark:hover:text-secondary"
-                  onClick={openModal}
-                >
-                  Sign In
-                </button>
-              </div>
               <div className="flex gap-2 px-5">
                 <button
                   onClick={() => {
@@ -116,15 +97,21 @@ const MainNav = () => {
                   )}
                 </button>
               </div>
+              <div className="max-md:hidden ">
+                <div className="group">
+                  <Profile />
+                </div>
+                <Login />
+              </div>
               <div className="hidden max-md:block" onClick={NavStatus}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke={`${darkMode ? "white" : "black"}`}
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   className="m-0 w-[55px] h-[35px]"
                 >
                   <line x1="3" y1="12" x2="21" y2="12"></line>

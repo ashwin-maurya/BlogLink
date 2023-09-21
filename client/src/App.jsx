@@ -1,7 +1,6 @@
-import { MainNav, Footer } from "./Component/common";
+import { MainNav, Footer, Scroll } from "./Component/common";
 import BlogLayout from "./Layouts/BlogLayout";
 import LandingLayout from "./Layouts/LandingLayout";
-
 import {
   BrowserRouter as Router,
   Route,
@@ -17,11 +16,11 @@ import WriteBlogLayout from "./Layouts/WriteBlogLayout";
 
 const App = () => {
   const { handle } = useParams();
-  console.log(handle);
   return (
     <BlogState>
       <section className="max-container dark:bg-darkBgMain">
         <Router>
+          <Scroll />
           <MainNav />
 
           <Routes>
