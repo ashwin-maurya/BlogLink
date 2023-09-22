@@ -1,5 +1,5 @@
 import { createContext } from "react";
 
-const blogContext = createContext()
+const blogContext = createContext();
 
 export default blogContext;

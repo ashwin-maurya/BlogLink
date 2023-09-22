@@ -1,15 +1,15 @@
 import { useContext, useEffect, useMemo } from "react";
-
+// import { Comments } from "../../Component/common";
 import DOMPurify from "dompurify";
 import blogContext from "../../Helper/Context/blogContext";
-const MiddleSection = () => {
-  // console.log(blog);
+const MiddleSection = ({ blog }) => {
+  console.log(blog.Description);
   // let data = blog.description;
-  const context = useContext(blogContext);
-  const { blog, getblogs } = context;
+  // const context = useContext(blogContext);
+  // const { blog, getblogs } = context;
 
   useEffect(() => {
-    getblogs();
+    // getblogs();
   }, []);
   return (
     <>
@@ -17,11 +17,11 @@ const MiddleSection = () => {
         {
           <div
             dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(blog[11]?.description),
+              __html: DOMPurify.sanitize(blog?.Description),
             }}
           />
         }
-        <div></div>
+        <div className=" mt-40">{/* <Comments /> */}</div>
       </section>
     </>
   );

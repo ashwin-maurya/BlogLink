@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { headerLogo, hamburger, light, dark } from "../../Assets/icons";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { headerLogo, hamburger, light, dark, edit } from "../../Assets/icons";
 import { navLinks } from "../constants";
 import { Link, useLocation } from "react-router-dom";
 import { Search, Authentication, SideNav, ScrollProgress } from "./";
