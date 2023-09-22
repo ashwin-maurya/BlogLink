@@ -1,25 +1,22 @@
+<<<<<<< HEAD
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { headerLogo, hamburger, light, dark, edit } from "../../Assets/icons";
+=======
+import React, { useState, useEffect, useRef } from "react";
+import { headerLogo, light, dark } from "../../Assets/icons";
+>>>>>>> cf9b0387da88fba18a08f6f37f8d495f73007fe2
 import { navLinks } from "../constants";
 import { Link, useLocation } from "react-router-dom";
-import { Search, Authentication, SideNav, ScrollProgress } from "./";
+import { Search, SideNav, ScrollProgress, Login, Profile } from "./";
 
 const MainNav = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [scrollDirection, setScrollDirection] = useState("up");
   const [prevScrollPos, setPrevScrollPos] = useState(0);
-  const [showModal, setModalOpen] = useState(false);
   const [showNav, setNav] = useState(false);
   const location = useLocation();
   const navbarRef = useRef(null);
 
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-
-  const openModal = () => {
-    setModalOpen(true);
-  };
   const NavStatus = () => {
     setNav((showNav) => !showNav);
   };
@@ -57,14 +54,11 @@ const MainNav = () => {
 
   return (
     <>
-      {showModal && <Authentication closeModal={closeModal}></Authentication>}
-      {showNav && (
-        <SideNav openModal={openModal} NavStatus={NavStatus}></SideNav>
-      )}
+      {showNav && <SideNav NavStatus={NavStatus}></SideNav>}
       <section
         id="navbar"
         ref={navbarRef}
-        className="sticky top-0 select-none z-10 transition-all ease-in-out duration-300 delay-75"
+        className="sticky top-0 select-none z-10 transition-all ease-in-out duration-300"
       >
         <header className="flex items-center  border-b-[1px] border-gray-200 dark:border-darkBorderAll  dark:bg-darkBgMain  sm:px-2 py-2 h-[67px] w-full bg-white ">
           <nav className="flex justify-between items-center w-full">
@@ -79,7 +73,7 @@ const MainNav = () => {
               {location.pathname === "/blog" ? (
                 <Search />
               ) : (
-                <ul className="flex-1 flex items-center gap-8 max-lg:hidden ml-5 ">
+                <ul className="flex-1 flex items-center gap-8 max-md:hidden ml-5 ">
                   {navLinks.map((item) => (
                     <li key={item.label}>
                       <Link
@@ -94,15 +88,7 @@ const MainNav = () => {
               )}
             </div>
             <div className="flex items-center w-auto">
-              <div className="flex gap-2 text-lg leading-normal font-medium max-md:hidden px-4  ">
-                <button
-                  className="dark:text-darkTextMain hover:text-primaryMain dark:hover:text-secondary"
-                  onClick={openModal}
-                >
-                  Sign In
-                </button>
-              </div>
-              <div className="flex gap-2 px-4 text-lg leading-normal font-medium ">
+              <div className="flex gap-2 px-5">
                 <button
                   onClick={() => {
                     toggleDarkMode();
@@ -116,15 +102,28 @@ const MainNav = () => {
                   )}
                 </button>
               </div>
-            </div>
-            <div className="hidden max-md:block" onClick={NavStatus}>
-              <img
-                src={hamburger}
-                className="m-0 w-[50px] h-[29px]"
-                alt="hamburger icon"
-                width={25}
-                height={25}
-              />
+              <div className="max-md:hidden ">
+                <div className="group">
+                  <Profile />
+                </div>
+                <Login />
+              </div>
+              <div className="hidden max-md:block" onClick={NavStatus}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke={`${darkMode ? "white" : "black"}`}
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="m-0 w-[55px] h-[35px]"
+                >
+                  <line x1="3" y1="12" x2="21" y2="12"></line>
+                  <line x1="3" y1="6" x2="21" y2="6"></line>
+                  <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+              </div>
             </div>
           </nav>
         </header>
