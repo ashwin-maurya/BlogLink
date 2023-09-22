@@ -1,5 +1,6 @@
 import { useContext, useEffect, useMemo } from "react";
 // import { Comments } from "../../Component/common";
+
 import DOMPurify from "dompurify";
 import blogContext from "../../Helper/Context/blogContext";
 const MiddleSection = ({ blog }) => {
@@ -22,6 +23,7 @@ const MiddleSection = ({ blog }) => {
           />
         }
         <div className=" mt-40">{/* <Comments /> */}</div>
+
       </section>
     </>
   );

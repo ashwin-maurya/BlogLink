@@ -1,7 +1,6 @@
-import { MainNav } from "./Component/common";
+import { MainNav, Footer, Scroll } from "./Component/common";
 import BlogLayout from "./Layouts/BlogLayout";
 import LandingLayout from "./Layouts/LandingLayout";
-
 import {
   BrowserRouter as Router,
   Route,
@@ -18,7 +17,6 @@ import clientState from "./Helper/Context/clientState";
 
 const App = () => {
   const { handle } = useParams();
-  console.log(handle);
   return (
     <BlogState>
       <clientState>
@@ -43,6 +41,7 @@ const App = () => {
           </Router>
         </section>
       </clientState>
+
     </BlogState>
   );
 };
