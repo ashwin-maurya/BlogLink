@@ -6,15 +6,16 @@ const BlogCardSchema = new mongoose.Schema({
     Author_name: String,
     Author_url: String,
     Description: String,
-    tags: String,
+    tags: [],
+    Category: String,
     Blog_url: String,
-    Date: {
-        default: Date.now,
-        type: Date
-    }
+    // Date: {
+    //     default: Date.now,
+    //     type: Date
+    // }
 
 
 
 });
 
-module.exports = mongoose.model('blog', BlogCardSchema)
+module.exports = mongoose.model('blogCard', BlogCardSchema)
