@@ -6,6 +6,7 @@ const BlogState = (props) => {
   const bloginitial = [];
 
   const [blog, setblogs] = useState(bloginitial);
+  const [filterData, setfilterData] = useState({ bloginitial });
 
   //Get all notes
   const getblogs = async () => {
@@ -27,10 +28,41 @@ const BlogState = (props) => {
     console.log("form getblogs");
   };
 
+  const filterblogs = async (data) => {
+    //API call
+
+    const { value } = data;
+    console.log("hello");
+    const response = await fetch(`${host}/api/blogs/fetchallblogs`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token":
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwODVlZjE5YWIyMmRjZDg3NTQ4ODRlIn0sImlhdCI6MTY5NTA0NzQwOX0.Fk4_lQbt1yaZrdTe4iLEN_E82vXEdY410VGlzsps_WE ",
+      },
+      body: JSON.stringify(value),
+    });
+
+    const json = await response.json();
+
+    setfilterData(json);
+    console.log(blog);
+    console.log("form filtertblogs");
+  };
+
   //Add a note
-  const addblogs = async (description) => {
+  const addblogs = async (data) => {
     // todo api call
     //API call
+    const {
+      Title,
+      Author_name,
+      Author_url,
+      Description,
+      tags,
+      Category,
+      Blog_url,
+    } = data;
     const response = await fetch(`${host}/api/blogs/addblog`, {
       method: "POST",
       headers: {
@@ -38,8 +70,17 @@ const BlogState = (props) => {
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwODVlZjE5YWIyMmRjZDg3NTQ4ODRlIn0sImlhdCI6MTY5NTA0NzQwOX0.Fk4_lQbt1yaZrdTe4iLEN_E82vXEdY410VGlzsps_WE ",
         // localStorage.getItem("token"),
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
-      body: JSON.stringify({ description }),
+      body: JSON.stringify({
+        Title,
+        Author_name,
+        Author_url,
+        Description,
+        tags,
+        Category,
+        Blog_url,
+      }),
     });
     const blog2 = await response.json();
 
@@ -99,6 +140,7 @@ const BlogState = (props) => {
         blog,
         addblogs,
         getblogs,
+        filterblogs,
         // , deletenote, getnotes, editnote
       }}
     >
