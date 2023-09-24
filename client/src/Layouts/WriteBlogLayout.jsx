@@ -6,7 +6,7 @@ const WriteBlogLayout = () => {
   const location = useLocation();
   const blog1 = location.state?.blog1;
   return (
-    <div className="">
+    <div>
       <WriteBlogPage blog2={blog1}></WriteBlogPage>
     </div>
   );

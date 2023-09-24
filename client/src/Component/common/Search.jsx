@@ -14,7 +14,7 @@ export default function Search() {
           <input
             type="text"
             id="search"
-            className="group block w-full p-3 pl-10 text-lg rounded-lg dark:text-darkTextMain text-gray-900 border-2 dark:bg-darkBgPrimary border-gray-300 hover:border-primaryMain focus:border-primaryMain outline-none transition-colors duration-300 ease-in-out"
+            className="group block w-full p-3 pl-10 text-lg rounded-lg dark:text-darkTextMain text-gray-900 border-2 dark:bg-darkBgPrimary border-gray-300 hover:border-primaryMain hover:dark:border-secondary focus:border-primaryMain focus:dark:border-secondary outline-none transition-colors duration-300 ease-in-out"
             placeholder="Search...."
             required
           />

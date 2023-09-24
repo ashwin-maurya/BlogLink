@@ -4,11 +4,9 @@ export const navLinks = [
   { href: "/home", label: "Home" },
   { href: "/blog", label: "Blogs" },
   { href: "/write", label: "Write" },
-  { href: "/Edit", label: "Edit" },
 ];
 
 export const CardData = [
-
   {
     author_imgURL: code1,
     label: "Introduction to React Hooks",
@@ -320,10 +318,6 @@ export const CardData = [
   },
 ];
 
-
-
-
-
 export const TagData = [
   {
     label: "Kubernetes",
@@ -396,11 +390,4 @@ export const shareData = [
   },
 ];
 
-export const cardData = [
-  {
-
-  }
-
-
-
-]
+export const cardData = [{}];

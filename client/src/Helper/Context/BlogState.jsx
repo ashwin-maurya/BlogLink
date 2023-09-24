@@ -36,12 +36,14 @@ const BlogState = (props) => {
     console.log("hello");
     const response = await fetch(`${host}/api/blogs/filterblog`, {
       method: "POST",
+
       headers: {
         "Content-Type": "application/json",
         "auth-token":
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwODVlZjE5YWIyMmRjZDg3NTQ4ODRlIn0sImlhdCI6MTY5NTA0NzQwOX0.Fk4_lQbt1yaZrdTe4iLEN_E82vXEdY410VGlzsps_WE ",
       },
       body: JSON.stringify({ state, value }),
+
     });
 
     const json = await response.json();
@@ -49,6 +51,7 @@ const BlogState = (props) => {
     console.log(json);
     setfilterData(json);
     console.log(filterData);
+
     console.log("form filtertblogs");
   };
 
@@ -167,6 +170,7 @@ const BlogState = (props) => {
         filterblogs,
         filterData,
         updateblog,
+
         // , deletenote, getnotes, editnote
       }}
     >

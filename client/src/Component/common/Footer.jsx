@@ -4,7 +4,7 @@ import { headerLogo } from "../../Assets/icons";
 export default function Footer() {
   return (
     <>
-      <footer className="bg-white dark:bg-darkBgPrimary border border-gray-200">
+      <footer className="bg-white dark:bg-darkBgPrimary border-t border-gray-200 dark:border-darkBorderAll">
         <div className=" w-full p-4 py-6 max-md:px-10 px-20">
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">

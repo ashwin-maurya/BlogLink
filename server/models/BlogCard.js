@@ -9,12 +9,12 @@ const BlogCardSchema = new mongoose.Schema({
 
     tags: [],
 
-
     Category: String,
     Blog_url: String,
     // Date: {
     //     default: Date.now,
     //     type: Dateqs
+
     // }
 
 

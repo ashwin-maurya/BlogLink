@@ -17,6 +17,7 @@ import WriteBlogLayout from "./Layouts/WriteBlogLayout";
 import clientState from "./Helper/Context/clientState";
 import FilterByAuthor from "./Pages/FilterByPages/FilterByAuthor";
 
+
 const App = () => {
   const { handle } = useParams();
   return (
@@ -41,7 +42,7 @@ const App = () => {
         </Routes>
         <Footer />
       </Router>
-      +
+    
     </BlogState>
   );
 };

@@ -8,6 +8,10 @@ function TinyMCEEditor({ blogs, description, blog2 }) {
     console.log(content);
     description(content);
   };
+  function postInitWork() {
+    var editor = Editor.getInstanceById("myEditorid");
+    editor.getBody().style.backgroundColor = "#FFFF66";
+  }
 
   return (
     <>

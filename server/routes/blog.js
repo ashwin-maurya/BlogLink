@@ -9,6 +9,7 @@ const BlogCard = require("../models/BlogCard");
 
 
 
+
 //ROUTE 1: Get all the blogs using : GET "/api/blogs/fetchallblogs". Login required
 router.get("/fetchallblogs", async (req, res) => {
     try {
@@ -28,6 +29,7 @@ router.post("/filterblog", fetchuser, async (req, res) => {
     try {
         const { state, value } = req.body
         const blogs = await blogCard.find({ [state]: value });
+
         //   console.log(req.user.id)
 
         res.json(blogs);
