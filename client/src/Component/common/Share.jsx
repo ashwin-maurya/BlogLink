@@ -5,7 +5,7 @@ export default function Share(props) {
     <>
       <div className="group ">
         <li
-          className={`list-none w-[4.5rem] border-b-2 border-t-2 dark:border-darkBorderAll dark:group-hover:border-secondary group-hover:border-primaryMain rounded-xl bg-bgBlue ${
+          className={`list-none w-[4.5rem] border-b-2 border-t-2 border-transparent dark:border-darkBorderAll dark:group-hover:border-secondary group-hover:border-primaryMain rounded-xl bg-bgBlue dark:bg-darkBgPrimary ${
             props.check == false ? "px-1" : "px-3"
           } `}
         >

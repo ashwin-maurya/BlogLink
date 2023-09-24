@@ -19,9 +19,9 @@ export default function RightSection() {
           Recommended topics
         </h1>
         <div className="relative flex flex-wrap w-full">
-          {/* {TagData.map((tags, index) => (
-            <Tags tags={tags} size={10} key={index}></Tags>
-          ))} */}
+          {/* {card?.tags.map((tag, index) => (
+          <Tags key={index} tags={tag} />
+        ))}{" "} */}
         </div>
       </section>
     </section>

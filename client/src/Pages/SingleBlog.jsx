@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from "react-router";
-import { CardData } from "../Component/constants";
 import LeftSection from "../Section/SingleBlogSection/LeftSection";
 import MiddleSection from "../Section/SingleBlogSection/MiddleSection";
 import RightSection from "../Section/SingleBlogSection/RightSection";
@@ -46,7 +45,7 @@ const SingleBlog = ({ blog1 }) => {
             });
           }}
         >
-          <img src={edit} alt="" />
+          <i className="fa fa-edit text-4xl hover:text-primaryMain"></i>
         </div>
         <p className="tracking-[2px] font-semibold dark:text-secondary text-primaryMain m-1">
           {blog1?.Category}

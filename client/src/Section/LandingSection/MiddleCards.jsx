@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from "react";
 import { LandingCards } from "../../Component/common";
-import { CardData } from "../../Component/constants";
 import blogContext from "../../Helper/Context/blogContext";
 
 const ThreeCarketeers = () => {

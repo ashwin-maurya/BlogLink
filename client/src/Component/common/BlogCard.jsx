@@ -1,6 +1,5 @@
 import { Tags } from "../../Component/common";
-import { Link, useNavigate } from "react-router-dom";
-import DOMPurify from "dompurify";
+import { useNavigate } from "react-router-dom";
 
 export default function BlogCard({ card }) {
   //  Title,
@@ -78,7 +77,6 @@ export default function BlogCard({ card }) {
           <img
             src={card?.Blog_url}
             className="max-md:w-[90px] object-contain"
-
             width={180}
             alt="codeimg"
           />
@@ -87,9 +85,8 @@ export default function BlogCard({ card }) {
 
       <div className="relative flex flex-wrap w-full mt-2">
         {card?.tags.map((tag, index) => (
-
           <Tags key={index} tags={tag} />
-        ))} */}
+        ))}{" "}
       </div>
     </div>
   );
