@@ -15,11 +15,11 @@ export default function BlogCard({ card }) {
 
   // const navigate = useNavigate();
   return (
-    <div className="flex dark:hover:bg-darkBorderAll hover:bg-[#f0f8ff] flex-col p-6 w-[80%] max-lg:w-[100%] group">
-      <div className="max-lg:gap-1  gap-10 flex  justify-center ">
+    <div className="flex dark:bg-darkBgPrimary my-2 rounded-xl bg-bgBlue flex-col p-6 w-[80%] max-lg:w-[95%] group">
+      <div className="max-lg:gap-2  gap-10 flex  justify-center ">
         <div className="w-[70%]">
           <div className="mb-2 flex items-center max-lg:items-start max-lg:flex-col">
-            <div className="flex items-center ">
+            <div className="flex items-center">
               <img
                 src={card?.Author_url}
                 className="rounded-full object-contain"
@@ -56,17 +56,17 @@ export default function BlogCard({ card }) {
 
           {/* <p className="dark:text-darkTextMain">{card.category}</p> */}
         </div>
-        <div className="w-240 flex items-center justify-center w-[30%]">
+        <div className="flex items-center justify-center w-[30%]">
           <img
             src={card?.Blog_url}
-            className="max-md:w-[90px] object-contain"
+            className="w-[100%] object-contain rounded-xl"
             width={180}
             alt="codeimg"
           />
         </div>
       </div>
 
-      <div className="relative flex flex-wrap w-full mt-2">
+      <div className="relative flex flex-wrap w-full ">
         {card.tags}
         {/* {card.tags.map((tag, index) => (
           <Tags key={index} tags={tag} />

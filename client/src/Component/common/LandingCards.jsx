@@ -4,7 +4,7 @@ export default function LandingCards(props) {
   const { card } = props;
   return (
     <>
-      <article className="break-inside-avoid w-100% p-6 rounded-xl bg-white  dark:bg-darkBgPrimary flex flex-col bg-clip-border shadow-md my-5 group">
+      <article className="break-inside-avoid mx-auto w-[100%] max-md:w-[95%] p-6 bg-bgBlue rounded-xl  dark:bg-darkBgPrimary flex flex-col bg-clip-border  my-5 group">
         <div className="flex pb-4 items-center justify-between">
           <div className="flex">
             <a className="inline-block mr-4" href="#">

@@ -22,6 +22,7 @@ const App = () => {
       <clientState>
         <section className="max-container dark:bg-darkBgMain">
           <Router>
+            <Scroll />
             <MainNav />
 
             <Routes>
@@ -29,7 +30,6 @@ const App = () => {
               <Route path="/home" element={<LandingLayout />} />
               <Route path="/blog" element={<BlogLayout />} />
               <Route path="/:handle" element={<SingleBlogLayout />} />
-              <Route path="/Edit" element={<EditBlog></EditBlog>} />
               <Route
                 path="/write"
                 element={<WriteBlogLayout></WriteBlogLayout>}
@@ -38,10 +38,10 @@ const App = () => {
               </Route>
               {/* <Route path="/*" element={<NotFound />} /> */}
             </Routes>
+            <Footer />
           </Router>
         </section>
       </clientState>
-
     </BlogState>
   );
 };

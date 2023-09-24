@@ -5,11 +5,8 @@ export default function Logout() {
   return (
     <>
       {isAuthenticated && (
-        <div className="flex gap-2 text-lg leading-normal font-medium px-4 items-center">
-          <button
-            className="dark:text-darkTextMain hover:text-primaryMain dark:hover:text-secondary"
-            onClick={() => logout()}
-          >
+        <div className="flex  hover:bg-bgBlue  rounded-md gap-2 text-lg leading-normal font-medium px-4 items-center dark:hover:bg-darkBgMain dark:text-darkTextMain hover:text-primaryMain dark:hover:text-secondary">
+          <button className="" onClick={() => logout()}>
             Sign Out
           </button>
         </div>
