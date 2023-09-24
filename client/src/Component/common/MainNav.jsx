@@ -1,10 +1,7 @@
-<<<<<<< HEAD
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { headerLogo, hamburger, light, dark, edit } from "../../Assets/icons";
-=======
-import React, { useState, useEffect, useRef } from "react";
-import { headerLogo, light, dark } from "../../Assets/icons";
->>>>>>> cf9b0387da88fba18a08f6f37f8d495f73007fe2
+
+// cf9b0387da88fba18a08f6f37f8d495f73007fe2
 import { navLinks } from "../constants";
 import { Link, useLocation } from "react-router-dom";
 import { Search, SideNav, ScrollProgress, Login, Profile } from "./";

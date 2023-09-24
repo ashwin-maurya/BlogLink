@@ -4,9 +4,10 @@ import blogContext from "./blogContext";
 const BlogState = (props) => {
   const host = "http://localhost:5001";
   const bloginitial = [];
+  const bloginitial1 = [];
 
   const [blog, setblogs] = useState(bloginitial);
-  const [filterData, setfilterData] = useState({ bloginitial });
+  const [filterData, setfilterData] = useState(bloginitial1);
 
   //Get all notes
   const getblogs = async () => {
@@ -31,22 +32,23 @@ const BlogState = (props) => {
   const filterblogs = async (data) => {
     //API call
 
-    const { value } = data;
+    const { state, value } = data;
     console.log("hello");
-    const response = await fetch(`${host}/api/blogs/fetchallblogs`, {
-      method: "GET",
+    const response = await fetch(`${host}/api/blogs/filterblog`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         "auth-token":
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwODVlZjE5YWIyMmRjZDg3NTQ4ODRlIn0sImlhdCI6MTY5NTA0NzQwOX0.Fk4_lQbt1yaZrdTe4iLEN_E82vXEdY410VGlzsps_WE ",
       },
-      body: JSON.stringify(value),
+      body: JSON.stringify({ state, value }),
     });
 
     const json = await response.json();
 
+    console.log(json);
     setfilterData(json);
-    console.log(blog);
+    console.log(filterData);
     console.log("form filtertblogs");
   };
 
@@ -109,27 +111,49 @@ const BlogState = (props) => {
   };
 
   //Edit a note
-  const editnote = async (id, title, description, tag) => {
+  const updateblog = async (data, id) => {
     //API call
-    const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
+    const {
+      Title,
+      Author_name,
+      Author_url,
+      Description,
+      tags,
+      Category,
+      Blog_url,
+    } = data;
+
+    const response = await fetch(`${host}/api/blogs/updateblog`, {
       method: "PUT",
       headers: {
-        "auth-token": localStorage.getItem("token"),
+        "auth-token":
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwODVlZjE5YWIyMmRjZDg3NTQ4ODRlIn0sImlhdCI6MTY5NTA0NzQwOX0.Fk4_lQbt1yaZrdTe4iLEN_E82vXEdY410VGlzsps_WE ",
+
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ title, description, tag }),
+      body: JSON.stringify({
+        Title,
+        Author_name,
+        Author_url,
+        Description,
+        tags,
+        Category,
+        Blog_url,
+        id,
+      }),
     });
-    const json = response.json();
-
+    const json = await response.json();
+    console.log(json);
+    console.log("from updateblog");
     // logic to edit in client
-    for (let index = 0; index < blog.length; index++) {
-      const element = blog[index];
-      if (element._id === id) {
-        element.title = title;
-        element.description = description;
-        element.tag = tag;
-      }
-    }
+    // for (let index = 0; index < blog.length; index++) {
+    //   const element = blog[index];
+    //   if (element._id === id) {
+    //     element.title = title;
+    //     element.description = description;
+    //     element.tag = tag;
+    //   }
+    // }
 
     getblogs();
   };
@@ -141,6 +165,8 @@ const BlogState = (props) => {
         addblogs,
         getblogs,
         filterblogs,
+        filterData,
+        updateblog,
         // , deletenote, getnotes, editnote
       }}
     >

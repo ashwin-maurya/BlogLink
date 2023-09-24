@@ -8,10 +8,6 @@ function TinyMCEEditor({ blogs, description, blog2 }) {
     console.log(content);
     description(content);
   };
-  function postInitWork() {
-    var editor = Editor.getInstanceById("myEditorid");
-    editor.getBody().style.backgroundColor = "#FFFF66";
-  }
 
   return (
     <>
@@ -20,9 +16,7 @@ function TinyMCEEditor({ blogs, description, blog2 }) {
           apiKey="01yappq7mx9884k0ggoceocm8uz7ko4za08cfy5m9t039jmq" // Replace with your TinyMCE API key or use the cloud API
           init={{
             selector: "textarea", // change this value according to your HTML
-            mode: "textareas",
-            theme: "simple",
-            oninit: postInitWork,
+
             height: 650,
             menubar: false,
 
