@@ -6,12 +6,15 @@ const BlogCardSchema = new mongoose.Schema({
     Author_name: String,
     Author_url: String,
     Description: String,
+
     tags: [],
+
     Category: String,
     Blog_url: String,
     // Date: {
     //     default: Date.now,
-    //     type: Date
+    //     type: Dateqs
+
     // }
 
 
