@@ -1,7 +1,9 @@
 import { Tags } from "../../Component/common";
 import { useNavigate } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function BlogCard({ card }) {
+  const { user } = useAuth0();
   //  Title,
   //  Author_name,
   //  Author_url,
@@ -15,7 +17,7 @@ export default function BlogCard({ card }) {
   // const navigate = useNavigate();
   return (
     <div className="flex dark:bg-darkBgPrimary my-2 rounded-xl bg-bgBlue flex-col p-6 w-[80%] max-lg:w-[95%] group">
-      <div className="max-lg:gap-2  gap-10 flex  justify-center ">
+      <div className="max-lg:gap-2  gap-8 flex  justify-center ">
         <div className="w-[70%]">
           <div className="mb-2 flex  items-center justify-between max-lg:items-start max-lg:flex-col">
             <div className="max-lg:items-start max-lg:flex-col flex items-center">
@@ -49,11 +51,6 @@ export default function BlogCard({ card }) {
                 28 August 2023
               </p>
             </div>
-            <div>
-              <p className="text-[13px] bg-slate-300 rounded-md p-1">
-                {card?.Category}
-              </p>
-            </div>
           </div>
           {/* <Link to={`/${card?.Title?.replace(/\s+/g, "-")}`}> */}
           <div
@@ -64,7 +61,7 @@ export default function BlogCard({ card }) {
               });
             }}
           >
-            <h3 className="theme-font-minor text-xl my-1 font-bold font-serif group-hover:text-primaryMain  dark:group-hover:text-secondary dark:text-darkTextMain">
+            <h3 className="theme-font-minor text-xl my-1 font-bold font-serif hover:text-primaryMain  dark:hover:text-secondary dark:text-darkTextMain">
               {card?.Title}
             </h3>
           </div>
@@ -73,13 +70,20 @@ export default function BlogCard({ card }) {
 
           {/* <p className="dark:text-darkTextMain">{card.category}</p> */}
         </div>
-        <div className="flex items-center justify-center w-[30%]">
-          <img
-            src={card?.Blog_url}
-            className="max-md:w-[90px] object-contain"
-            width={180}
-            alt="codeimg"
-          />
+        <div className="relative flex items-center justify-center w-[30%]">
+          <div className="absolute -top-1 -left-4 z-30">
+            <p className="text-[10px] uppercase bg-primaryMain text-darkTextMain dark:bg-secondary dark:text-darkTextMain  font-semibold tracking-widest px-4 rounded-md p-1">
+              {card?.Category}
+            </p>
+          </div>
+          <div className="overflow-hidden rounded-lg z-20">
+            <img
+              src={card?.Blog_url}
+              className="content-evenly transition-all ease-in-out duration-200 group-hover:scale-[1.2] "
+              width={180}
+              alt="codeimg"
+            />
+          </div>
         </div>
       </div>
 

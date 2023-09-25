@@ -16,7 +16,7 @@ import BlogState from "./Helper/Context/BlogState";
 import WriteBlogLayout from "./Layouts/WriteBlogLayout";
 import clientState from "./Helper/Context/clientState";
 import FilterByAuthor from "./Pages/FilterByPages/FilterByAuthor";
-
+import ProfilePage from "./Component/common/ProfilePage";
 
 const App = () => {
   const { handle } = useParams();
@@ -33,6 +33,10 @@ const App = () => {
           <Route path="/:handle" element={<SingleBlogLayout />} />
           <Route path="/write" element={<WriteBlogLayout></WriteBlogLayout>} />
           <Route
+            path="/profile/:profile"
+            element={<ProfilePage></ProfilePage>}
+          />
+          <Route
             path="/author/:handle"
             element={<FilterByAuthor></FilterByAuthor>}
           >
@@ -42,7 +46,6 @@ const App = () => {
         </Routes>
         <Footer />
       </Router>
-    
     </BlogState>
   );
 };

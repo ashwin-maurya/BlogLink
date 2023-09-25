@@ -6,7 +6,7 @@ export default function Home() {
       <div className="w-[65%] max-lg:w-[100%] max-lg:border-0 border-r-[1px]  border-bgBlue dark:border-darkBorderAll">
         <LeftSection></LeftSection>{" "}
       </div>
-      <div className="w-[35%] border-l-[1px] dark:border-darkBorderAll  max-lg:w-[100%]">
+      <div className="relative w-[35%] border-l-[1px] dark:border-darkBorderAll overflow-hidden  max-lg:w-[100%]">
         <RightSection></RightSection>
       </div>
     </section>

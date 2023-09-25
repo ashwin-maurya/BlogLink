@@ -10,7 +10,6 @@ export default function LeftSection() {
     // await
     getblogs();
     // };
-    console.log(blog);
   }, []);
 
   return (

@@ -20,7 +20,7 @@ export default function SideNav(props) {
         id="mySidenav"
         ref={navRef}
         onClick={handleOutsideClick}
-        className="backdrop-blur-sm fixed w-screen sidenav h-[100%]  z-40"
+        className="backdrop-blur-sm fixed w-screen sidenav h-[100%]  z-[51]"
       >
         <div className="w-[70%] max-w-[400px] flex justify-evenly h-[100%] bg-white dark:bg-darkBgPrimary shadow-lg overflow-hidden flex-col p-2">
           {isAuthenticated && (

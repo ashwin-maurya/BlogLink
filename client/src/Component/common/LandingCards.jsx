@@ -17,7 +17,7 @@ export default function LandingCards(props) {
             </a>
             <div className="flex flex-col justify-center">
               <div
-                className="flex items-center"
+                className="flex items-center dark:text-darkTextMain"
                 onClick={() => {
                   navigate(
                     `/author/${card?.Author_name?.replace(/\s+/g, "-")}`,
@@ -37,7 +37,7 @@ export default function LandingCards(props) {
           </div>
         </div>
         <h2
-          className="text-3xl leading-7 font-bold font-serif   max-md:text-2xl  dark:text-darkTextMain group-hover:text-primaryMain  dark:group-hover:text-secondary"
+          className="text-xl leading-7 font-bold font-serif   max-md:text-2xl  dark:text-darkTextMain group-hover:text-primaryMain  dark:group-hover:text-secondary"
           onClick={() => {
             navigate(`/${card?.Title?.replace(/\s+/g, "-")}`, {
               state: { card },

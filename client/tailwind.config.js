@@ -4,6 +4,7 @@ export default {
   //   preflight: false,
   // },
   darkMode: "class",
+  lightMode: "class",
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     fontSize: {
@@ -36,7 +37,10 @@ export default {
         darkBorderAll: "#2D3332",
       },
       boxShadow: {},
-      backgroundImage: {},
+      backgroundImage: {
+        "profile-bg":
+          "url('https://wallpapers.com/images/hd/profile-picture-background-10tprnkqwqif4lyv.jpg')",
+      },
       screens: {},
     },
   },
