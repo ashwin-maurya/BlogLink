@@ -5,13 +5,31 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar {
+  width: 5px;
+  position: absolute;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #a6ddff;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #3b82f6;
+}
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
-body{
+body {
   overflow-x: hidden;
 }
 @layer components {
@@ -23,6 +41,4 @@ body{
     max-width: 1600px;
     margin: 0 auto;
   }
-
-
 }

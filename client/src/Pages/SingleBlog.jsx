@@ -1,5 +1,4 @@
 import { useNavigate, useParams } from "react-router";
-import { CardData } from "../Component/constants";
 import LeftSection from "../Section/SingleBlogSection/LeftSection";
 import MiddleSection from "../Section/SingleBlogSection/MiddleSection";
 import RightSection from "../Section/SingleBlogSection/RightSection";
@@ -46,19 +45,19 @@ const SingleBlog = ({ blog1 }) => {
             });
           }}
         >
-          <img src={edit} alt="" />
+          <i className="fa fa-edit text-4xl hover:text-primaryMain"></i>
         </div>
         <p className="tracking-[2px] font-semibold dark:text-secondary text-primaryMain m-1">
           {blog1?.Category}
         </p>
-        <h1 className="dark:hover:text-secondary  hover:text-primaryMain font-bold leading-[75px] text-[65px] font-serif">
+        <h1 className=" font-bold leading-[75px] text-[65px] font-serif">
           {blog1?.Title}{" "}
         </h1>
       </div>
       <div className=" h-[800px] overflow-hidden w-[100%] max-lg:h-auto">
         <img
           className="overflow-hidden w-[100%]"
-          src={blog1.Blog_url}
+          src={blog1?.Blog_url}
           alt="Blog_url"
         />
       </div>

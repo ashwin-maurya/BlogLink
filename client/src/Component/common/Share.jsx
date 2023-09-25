@@ -5,13 +5,13 @@ export default function Share(props) {
     <>
       <div className="group ">
         <li
-          className={`list-none  border-b-2 border-t-2 dark:border-darkBorderAll dark:group-hover:border-secondary group-hover:border-primaryMain ${
+          className={`list-none w-[4rem] border-2  border-transparent dark:border-darkBorderAll dark:group-hover:border-secondary group-hover:border-primaryMain rounded-xl bg-bgBlue dark:bg-darkBgPrimary ${
             props.check == false ? "px-1" : "px-3"
           } `}
         >
           <a
             className={`block ${
-              props.check == false ? "mx-0 my-1 text-3xl" : "mx-3 my-2 text-3xl"
+              props.check == false ? "mx-0 my-1 text-2xl" : "mx-1 my-3 text-2xl"
             } relative   text-gray-600 text-center no-underline dark:text-darkTextMain group-hover:text-primaryMain dark:group-hover:text-secondary`}
             href="#"
           >

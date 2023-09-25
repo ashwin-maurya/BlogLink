@@ -1,5 +1,7 @@
 import { useContext, useEffect, useMemo } from "react";
-// import { Comments } from "../../Component/common";
+
+import { Comments } from "../../Component/common";
+
 
 import DOMPurify from "dompurify";
 import blogContext from "../../Helper/Context/blogContext";

@@ -4,6 +4,7 @@ export default {
   //   preflight: false,
   // },
   darkMode: "class",
+  lightMode: "class",
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     fontSize: {
@@ -24,19 +25,7 @@ export default {
         // NoeDisplay: ["sans-serif"]
       },
       colors: {
-        primary: {
-          50: "#eff6ff",
-          100: "#dbeafe",
-          200: "#bfdbfe",
-          300: "#93c5fd",
-          400: "#60a5fa",
-          500: "#3b82f6",
-          600: "#2563eb",
-          700: "#1d4ed8",
-          800: "#1e40af",
-          900: "#1e3a8a",
-          950: "#172554",
-        },
+        bgBlue: "#edf8ff",
         primaryMain: "#3b82f6",
         secondary: "#FF7324",
         lightTextMain: "#000",
@@ -48,7 +37,10 @@ export default {
         darkBorderAll: "#2D3332",
       },
       boxShadow: {},
-      backgroundImage: {},
+      backgroundImage: {
+        "profile-bg":
+          "url('https://wallpapers.com/images/hd/profile-picture-background-10tprnkqwqif4lyv.jpg')",
+      },
       screens: {},
     },
   },

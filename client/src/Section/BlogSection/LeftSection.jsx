@@ -1,4 +1,3 @@
-import { CardData } from "../../Component/constants";
 import { BlogCard } from "../../Component/common";
 import { useContext, useEffect, useMemo } from "react";
 import blogContext from "../../Helper/Context/blogContext";
@@ -11,7 +10,6 @@ export default function LeftSection() {
     // await
     getblogs();
     // };
-    console.log(blog);
   }, []);
 
   return (

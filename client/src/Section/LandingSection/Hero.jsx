@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <>
       <section className="w-full relative flex items-center flex-col">
-        <div className=" max-h-[500px] overflow-hidden">
+        <div className=" max-h-[400px] overflow-hidden">
           <img src={hero} alt="hero-image" className="w-full" />
         </div>
         <div className="relative w-[60%] bg-white max-lg:bottom-[30px] bottom-[100px] max-lg:w-[90%] shadow-[0_18px_10px_-15px_rgba(0,0,0,0.1)] group  dark:bg-darkBgPrimary">
@@ -13,7 +13,7 @@ export default function Hero() {
             <span className="text-primaryMain dark:text-secondary text-[18px] font-medium max-lg:text-[12px] tracking-widest hover:text-white">
               EXPLAINERS
             </span>
-            <h1 className="text-[50px] font-bold py-5 text-center max-lg:py-2 max-lg:text-[20px] font-serif group-hover:text-primaryMain dark:text-darkTextMain dark:group-hover:text-secondary">
+            <h1 className="text-[40px] font-bold py-5 text-center max-lg:py-2 max-lg:text-[20px] font-serif hover:text-primaryMain dark:text-darkTextMain dark:hover:text-secondary">
               How Scientists Are Tackling the Tricky Task of Solar Cycle
               Prediction
             </h1>

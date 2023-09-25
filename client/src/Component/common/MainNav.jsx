@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
 import { headerLogo, hamburger, light, dark, edit } from "../../Assets/icons";
-
+import Cookies from "js-cookie";
+// cf9b0387da88fba18a08f6f37f8d495f73007fe2
 import { navLinks } from "../constants";
 import { Link, useLocation } from "react-router-dom";
 import { Search, SideNav, ScrollProgress, Login, Profile } from "./";
@@ -45,8 +46,23 @@ const MainNav = () => {
   }, [scrollDirection]);
 
   const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
+    const newDarkMode = !darkMode;
+    setDarkMode(newDarkMode);
+
+    Cookies.set("darkMode", newDarkMode ? "true" : "false", { expires: 1 });
+    document.body.classList.toggle("dark", newDarkMode);
   };
+
+  useEffect(() => {
+    const darkModeCookie = Cookies.get("darkMode");
+    if (darkModeCookie === "true") {
+      setDarkMode(true);
+      document.body.classList.add("dark");
+    } else {
+      setDarkMode(false);
+      document.body.classList.remove("dark");
+    }
+  }, []);
 
   return (
     <>
@@ -54,9 +70,9 @@ const MainNav = () => {
       <section
         id="navbar"
         ref={navbarRef}
-        className="sticky top-0 select-none z-10 transition-all ease-in-out duration-300"
+        className="sticky top-0 select-none z-50 transition-all ease-in-out duration-300"
       >
-        <header className="flex items-center  border-b-[1px] border-gray-200 dark:border-darkBorderAll  dark:bg-darkBgMain  sm:px-2 py-2 h-[67px] w-full bg-white ">
+        <header className="flex items-center  border-b-[1px] border-gray-200 dark:border-darkBorderAll  dark:bg-darkBgMain  sm:px-2 py-1 h-[55px] w-full bg-white ">
           <nav className="flex justify-between items-center w-full">
             <div className="flex  items-center w-[70%]">
               <Link to="/">
@@ -88,7 +104,6 @@ const MainNav = () => {
                 <button
                   onClick={() => {
                     toggleDarkMode();
-                    document.body.classList.toggle("dark");
                   }}
                 >
                   {darkMode ? (
