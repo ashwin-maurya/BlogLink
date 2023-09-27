@@ -15,6 +15,7 @@ import Profile from "./Profile";
 import ProfileModal from "./ProfileModal";
 import Scroll from "./Scroll";
 import ViewProfile from "./ViewProfile";
+import NewsletterCard from "./NewsletterCard";
 
 export {
   MainNav,
@@ -34,4 +35,5 @@ export {
   Login,
   Scroll,
   ViewProfile,
+  NewsletterCard,
 };

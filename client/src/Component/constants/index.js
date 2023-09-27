@@ -79,3 +79,35 @@ export const shareData = [
 ];
 
 export const cardData = [{}];
+export const reviews = [
+  {
+    review:
+      "I recently had the pleasure of trying out this amazing product, and I must say, it exceeded all my expectations. It's a game-changer!",
+    author: "John Smith",
+    jobTitle: "Marketing Manager",
+  },
+  {
+    review:
+      "I can't believe how easy it was to use this service. It saved me so much time and effort. I highly recommend it to everyone!",
+    author: "Sarah Johnson",
+    jobTitle: "Freelance Writer",
+  },
+  {
+    review:
+      "This company's customer service is top-notch. They went above and beyond to resolve my issue promptly. I'm a satisfied customer!",
+    author: "David Lee",
+    jobTitle: "IT Consultant",
+  },
+  {
+    review:
+      "I've been using this app for a while now, and it has completely transformed my daily routine. I don't know how I ever lived without it!",
+    author: "Emily Davis",
+    jobTitle: "Graphic Designer",
+  },
+  {
+    review:
+      "The quality of their products is outstanding. I've purchased several items from them, and I'm always impressed by the craftsmanship.",
+    author: "Michael Clark",
+    jobTitle: "Engineer",
+  },
+];
