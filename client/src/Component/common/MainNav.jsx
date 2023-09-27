@@ -114,9 +114,9 @@ const MainNav = () => {
                 </button>
               </div>
               <div className="max-md:hidden ">
-                <div className="group">
+                {/* <div className="group">
                   <Profile />
-                </div>
+                </div> */}
                 <Login />
               </div>
               <div className="hidden max-md:block" onClick={NavStatus}>

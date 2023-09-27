@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { auth } from "../../Assets/images";
 
 export default function Authentication(props) {
-  const { closeModal } = props;
+  const { ModalStatus } = props;
   const modalRef = useRef(null);
   const [sign, setSign] = useState(true);
   const singUp = () => {
@@ -13,7 +13,7 @@ export default function Authentication(props) {
   };
   const handleOutsideClick = (event) => {
     if (modalRef.current === event.target) {
-      closeModal();
+      ModalStatus();
     }
   };
 
