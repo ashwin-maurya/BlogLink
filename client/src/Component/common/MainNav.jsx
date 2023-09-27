@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import { navLinks } from "../constants";
 import { Link, useLocation } from "react-router-dom";
 import { Search, SideNav, ScrollProgress, Login, Profile } from "./";
+import { toast } from "react-toastify";
 
 const MainNav = () => {
   const [darkMode, setDarkMode] = useState(false);
