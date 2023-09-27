@@ -1,6 +1,9 @@
 import React, { useRef, useState } from "react";
 import { auth } from "../../Assets/images";
+import { GoogleSignInAPI } from "../../api/AuthAPI";
 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function Authentication(props) {
   const { ModalStatus } = props;
   const modalRef = useRef(null);
@@ -8,6 +11,7 @@ export default function Authentication(props) {
   const singUp = () => {
     setSign(false);
   };
+
   const signIn = () => {
     setSign(true);
   };
@@ -17,6 +21,21 @@ export default function Authentication(props) {
     }
   };
 
+  const goolesignin = async () => {
+    let res = await GoogleSignInAPI();
+    console.log(res);
+    const Input = {
+      userEmail: res.user.email,
+      useName: res.user.displayName,
+      photoURL: res.user.photoURL,
+      accessToken: res.user.accessToken,
+    };
+
+    localStorage.setItem("GoogleAuthData", JSON.stringify(Input));
+
+    ModalStatus();
+    toast.success("Your are loggedin");
+  };
   return (
     <>
       <div
@@ -36,7 +55,10 @@ export default function Authentication(props) {
                 Sign In
               </p>
 
-              <button className="button flex items-center border-2  border-gray-300 rounded-full dark:text-darkTextMain p-4 my-4  w-full">
+              <button
+                className="button flex items-center border-2  border-gray-300 rounded-full dark:text-darkTextMain p-4 my-4  w-full"
+                onClick={goolesignin}
+              >
                 <img
                   src="https://img.icons8.com/color/48/undefined/google-logo.png"
                   alt="google logo"
@@ -92,7 +114,10 @@ export default function Authentication(props) {
                 Sign Up
               </p>
 
-              <button className="button flex items-center border-2  border-gray-300 rounded-full dark:text-darkTextMain p-4 my-4  w-full">
+              <button
+                className="button flex items-center border-2  border-gray-300 rounded-full dark:text-darkTextMain p-4 my-4  w-full"
+                onClick={GoogleSignInAPI}
+              >
                 <img
                   src="https://img.icons8.com/color/48/undefined/google-logo.png"
                   alt="google logo"

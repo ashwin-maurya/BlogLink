@@ -1,7 +1,8 @@
 import { Tags } from "../../Component/common";
 import { useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function BlogCard({ card }) {
   const { user } = useAuth0();
   //  Title,
@@ -56,6 +57,7 @@ export default function BlogCard({ card }) {
           <div
             className="flex flex-col "
             onClick={() => {
+              toast.success("Welcome to Blog");
               navigate(`/${card?.Title?.replace(/\s+/g, "-")}`, {
                 state: { card },
               });

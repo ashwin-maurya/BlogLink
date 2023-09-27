@@ -1,16 +1,27 @@
 import React from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+
+import { onLogout } from "../../api/AuthAPI";
+import { useState } from "react";
+
 export default function Logout() {
-  const { logout, isAuthenticated } = useAuth0();
   return (
     <>
-      {isAuthenticated && (
+      {
         <div className="flex  hover:bg-bgBlue  rounded-md gap-2 text-lg leading-normal font-medium px-4 items-center dark:hover:bg-darkBgMain dark:text-darkTextMain hover:text-primaryMain dark:hover:text-secondary">
-          <button className="" onClick={() => logout()}>
+          <button
+            className=""
+            onClick={() => {
+              onLogout();
+              // setloggedStatus(false);
+
+              console.log("hogaya kam");
+              localStorage.removeItem("GoogleAuthData");
+            }}
+          >
             Sign Out
           </button>
         </div>
-      )}
+      }
     </>
   );
 }
