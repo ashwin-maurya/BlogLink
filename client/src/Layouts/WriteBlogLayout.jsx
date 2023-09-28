@@ -6,7 +6,9 @@ import { toast } from "react-toastify";
 // toast.configure();
 const WriteBlogLayout = () => {
   const location = useLocation();
-  const blog1 = location.state?.blog1;
+  const blog1 = location.state?.card;
+  console.log(blog1);
+  console.log("blog1 from writeLayout");
   const navigate = useNavigate();
   const [check, setcheck] = useState(true);
   useEffect(() => {

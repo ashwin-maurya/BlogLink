@@ -30,7 +30,7 @@ const App = () => {
           <Route path="/" element={<LandingLayout />} />
           <Route path="/home" element={<LandingLayout />} />
           <Route path="/blog" element={<BlogLayout />} />
-          <Route path="/:handle" element={<SingleBlogLayout />} />
+          <Route path="/blogs/:handle" element={<SingleBlogLayout />} />
           <Route path="/write" element={<WriteBlogLayout></WriteBlogLayout>} />
           <Route
             path="/profile/:profile"

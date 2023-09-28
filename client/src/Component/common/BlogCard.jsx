@@ -58,7 +58,7 @@ export default function BlogCard({ card }) {
             className="flex flex-col "
             onClick={() => {
               toast.success("Welcome to Blog");
-              navigate(`/${card?.Title?.replace(/\s+/g, "-")}`, {
+              navigate(`/blogs/${card?.Title?.replace(/\s+/g, "-")}`, {
                 state: { card },
               });
             }}

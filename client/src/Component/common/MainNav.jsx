@@ -6,7 +6,8 @@ import { navLinks } from "../constants";
 import { Link, useLocation } from "react-router-dom";
 import { Search, SideNav, ScrollProgress, Login, Profile } from "./";
 import { toast } from "react-toastify";
-
+import TopicBar from "../SingleBlogComponents/TopicBar";
+TopicBar;
 const MainNav = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [scrollDirection, setScrollDirection] = useState("up");
@@ -140,6 +141,7 @@ const MainNav = () => {
           </nav>
         </header>
         <ScrollProgress />
+        {/* {location.pathname.includes("blogs") && <TopicBar></TopicBar>} */}
       </section>
     </>
   );
