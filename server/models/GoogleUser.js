@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const express = require("express");
 const { Schema } = mongoose
 const router = express.Router();
-const UserSchema = new Schema({
+const GoogleUserSchema = new Schema({
     name: {
         type: String,
         required: true
@@ -13,21 +13,10 @@ const UserSchema = new Schema({
         required: true,
         unique: true
     },
-    password: {
-        type: String,
-        required: true
 
-    },
-    Date: {
-        default: Date.now,
-        type: Date
-
-    }
 
 
 })
-const User = mongoose.model('user', UserSchema)
-// User.createIndexes();
 
-module.exports = User
-// module.exports = router;
+
+module.exports = mongoose.model('GoogleUser', GoogleUserSchema)

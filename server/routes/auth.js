@@ -49,7 +49,7 @@ router.post(
       //   console.log(jwtData)
       success = true;
 
-      res.json({ success: success, authtoken: authtoken });
+      res.json({ success: success, authtoken: authtoken, UserID: user.id });
       // console.log(res.json)
     } catch (error) {
       console.error(error.message);
@@ -99,7 +99,7 @@ router.post(
       }
       const authtoken = jwt.sign(payload, JWT_SECRET)
       //   console.log(jwtData)
-      res.json({ success: true, authtoken: authtoken });
+      res.json({ success: true, authtoken: authtoken, UserID: user.id });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Sever error,Something in the way");
@@ -108,17 +108,42 @@ router.post(
 
 
 // ROUTE:3 Get loggedin user details susing : POST "/api/auth/getuser".  login required
-router.post(
-  "/getuser", fetchuser, async (req, res) => {
+router.get(
+  "/getCurrentuser", fetchuser, async (req, res) => {
     try {
-      userID = req.user.id
-      const user = await User.findById(userID).select("-password")
 
-      res.send(user)
+      const userID = req.user.id
+      const user = await User.findById(userID)
+
+      console.log(user)
+
+      res.json(user)
+
     } catch (error) {
       console.error(error.message)
       res.status(500).send("Internl server error ,SOmething in the way")
     }
   })
 
+
+// ROUTE:4 Logout user using : POST "/api/auth/logout". login required
+// router.post("/logout", fetchuser, async (req, res) => {
+//   try {
+//     const user = req.user;
+
+//     // You should add the user's token to the blacklist here.
+//     // For simplicity, I'll use an array as a blacklist in this example.
+//     // In a production environment, use a more secure storage option.
+//     blacklist.push(user.token);
+
+//     res.json({ success: true, message: "Logged out successfully" });
+//   } catch (error) {
+//     console.error(error.message);
+//     res.status(500).send("Internal Server error, Something went wrong");
+//   }
+// });
+
+
+
 module.exports = router;
+

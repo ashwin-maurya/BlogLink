@@ -13,20 +13,20 @@ const BlogState = (props) => {
   const getblogs = async () => {
     //API call
     console.log("hello");
-    const response = await fetch(`${host}/api/blogs/fetchallblogs`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwODVlZjE5YWIyMmRjZDg3NTQ4ODRlIn0sImlhdCI6MTY5NTA0NzQwOX0.Fk4_lQbt1yaZrdTe4iLEN_E82vXEdY410VGlzsps_WE ",
-      },
-    });
+    // const response = await fetch(`${host}/api/blogs/fetchallblogs`, {
+    //   method: "GET",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "auth-token":
+    //       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwODVlZjE5YWIyMmRjZDg3NTQ4ODRlIn0sImlhdCI6MTY5NTA0NzQwOX0.Fk4_lQbt1yaZrdTe4iLEN_E82vXEdY410VGlzsps_WE ",
+    //   },
+    // });
 
-    const json = await response.json();
+    // const json = await response.json();
 
-    setblogs(json);
-    console.log(blog);
-    console.log("form getblogs");
+    // setblogs(json);
+    // console.log(blog);
+    // console.log("form getblogs");
   };
 
   const filterblogs = async (data) => {
@@ -43,7 +43,6 @@ const BlogState = (props) => {
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwODVlZjE5YWIyMmRjZDg3NTQ4ODRlIn0sImlhdCI6MTY5NTA0NzQwOX0.Fk4_lQbt1yaZrdTe4iLEN_E82vXEdY410VGlzsps_WE ",
       },
       body: JSON.stringify({ state, value }),
-
     });
 
     const json = await response.json();

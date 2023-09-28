@@ -14,6 +14,7 @@ const WriteBlog = ({ blog2 }) => {
     let input = {
       Description: content,
     };
+
     setblog({ ...blogs, ...input });
   };
   const getTags = (e) => {

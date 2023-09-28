@@ -4,12 +4,44 @@ const router = express.Router();
 const fetchuser = require("../middleware/fetchuser");
 const { body, validationResult } = require("express-validator");
 const blogCard = require("../models/BlogCard");
-const BlogCard = require("../models/BlogCard");
+const blog = require("../models/BlogContent");
+
+// -----------------------------------------------------------------------------------------------------------------
+// BLOGCONTENT APIS
+
+// ROUTE 1. post Blog Content using : POST "api/blogs/postblogcontent"
+router.post("/postblogcontent", async (req, res) => {
+    try {
+        const {
+            userid,
+            contentID,
+            description
+        } = req.body
+
+        // If there are errors , return Bad request and the errors
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const blog = new blog({
+            userid,
+            contentID,
+            description
+
+        });
+        const savedblog = await blog.save();
+        res.json(savedblog);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Sever error,Something in the way");
+    }
+}
+);
 
 
-
-
-
+//------------------------------------------------------------------------------------------------------------------
+//BLOGCARDS APIS
 //ROUTE 1: Get all the blogs using : GET "/api/blogs/fetchallblogs". Login required
 router.get("/fetchallblogs", async (req, res) => {
     try {
@@ -44,14 +76,13 @@ router.post("/filterblog", fetchuser, async (req, res) => {
 
 // ROUTE 3: Put all a blog in the database : POST "/api/blogs/addblog"
 router.post(
-    "/addblog", fetchuser,
+    "/addblogCard", fetchuser,
 
     async (req, res) => {
         try {
             const { Title,
-                Author_name,
-                Author_url,
-                Description,
+                id,
+                userid,
                 Category,
                 tags,
                 Blog_url } = req.body;
@@ -65,9 +96,8 @@ router.post(
             const blog = new blogCard({
 
                 Title,
-                Author_name,
-                Author_url,
-                Description,
+                id,
+                userid,
                 Category,
                 tags,
                 Blog_url
@@ -88,9 +118,7 @@ router.post(
 router.put("/updateblog", fetchuser, async (req, res) => {
     try {
         const { Title,
-            Author_name,
-            Author_url,
-            Description,
+
             tags,
             Category,
             Blog_url,
@@ -99,18 +127,11 @@ router.put("/updateblog", fetchuser, async (req, res) => {
         if (Title) {
             newblog.Title = Title;
         }
-        if (Description) {
-            newblog.Descriptionescription = Description;
-        }
+
         if (tags) {
             newblog.tags = tags;
         }
-        if (Author_name) {
-            newblog.Author_name = Author_name;
-        }
-        if (Author_url) {
-            newblog.Author_url = Author_url;
-        }
+
         if (Category) {
             newblog.Category = Category;
         }
@@ -118,7 +139,7 @@ router.put("/updateblog", fetchuser, async (req, res) => {
             newblog.Blog_url = Blog_url;
         }
         // Find the note to be updated and update it
-        let Blog = await BlogCard.findById(req.body.id);
+        let Blog = await blogCard.findById(req.body.id);
         if (!Blog) {
             return res.status(404).send("not found");
         }
@@ -127,7 +148,7 @@ router.put("/updateblog", fetchuser, async (req, res) => {
         //     return res.status(401).send("Not Alowed");
         //   }
 
-        Blog = await BlogCard.findByIdAndUpdate(
+        Blog = await blogCard.findByIdAndUpdate(
             req.body.id,
             { $set: newblog },
             { new: true }

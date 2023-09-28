@@ -15,7 +15,7 @@ export default function Logout() {
               // setloggedStatus(false);
 
               console.log("hogaya kam");
-              localStorage.removeItem("GoogleAuthData");
+              localStorage.removeItem("UserData");
             }}
           >
             Sign Out
