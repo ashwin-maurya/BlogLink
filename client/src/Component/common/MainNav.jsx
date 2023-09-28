@@ -139,6 +139,7 @@ const MainNav = () => {
             </div>
           </nav>
         </header>
+
         <ScrollProgress />
       </section>
     </>
