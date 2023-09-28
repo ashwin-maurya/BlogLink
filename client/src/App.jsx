@@ -11,6 +11,7 @@ import WriteBlogLayout from "./Layouts/WriteBlogLayout";
 import FilterByAuthor from "./Pages/FilterByPages/FilterByAuthor";
 import ProfilePage from "./Component/common/ProfilePage";
 import AuthState from "./Helper/Context/AuthState";
+import CheckLogin from "./Helper/CheckLogin";
 
 const App = () => {
   return (
@@ -18,6 +19,8 @@ const App = () => {
       <AuthState>
         <Router>
           <Scroll />
+          <CheckLogin />
+
           <MainNav />
 
           <Routes>

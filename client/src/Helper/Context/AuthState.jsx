@@ -4,6 +4,7 @@ import AuthContext from "./AuthContext";
 const AuthState = (props) => {
   const host = "http://localhost:5001";
   const [User, setUser] = useState();
+  const [UserDetails, setUserDetails] = useState();
 
   //Get all notes
   const getCurrentUser = async (id) => {
@@ -19,12 +20,15 @@ const AuthState = (props) => {
     });
 
     const json = await response.json();
+    setUserDetails(json);
     console.log(json);
     console.log("form getcurrentUser");
   };
 
   return (
-    <AuthContext.Provider value={{ setUser, User, getCurrentUser }}>
+    <AuthContext.Provider
+      value={{ UserDetails, setUser, User, getCurrentUser }}
+    >
       {props.children}
     </AuthContext.Provider>
   );

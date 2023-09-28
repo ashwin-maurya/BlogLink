@@ -2,7 +2,7 @@ import { useRef, useState, useContext, useEffect } from "react";
 import { auth } from "../../Assets/images";
 import { GoogleSignInAPI } from "../../api/AuthAPI";
 
-// import AuthContext from "../../Helper/Context/AuthContext";
+import AuthContext from "../../Helper/Context/AuthContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export default function Authentication(props) {
@@ -15,6 +15,7 @@ export default function Authentication(props) {
   //   };
   //   func();
   // }, []);
+
   const host = "http://localhost:5001";
   const [Registercreds, setRegistercreds] = useState({
     email: "",

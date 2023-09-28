@@ -6,13 +6,13 @@ import Profile from "./Profile";
 import AuthContext from "../../Helper/Context/AuthContext";
 export default function Login() {
   const context = useContext(AuthContext);
-  const { getCurrentUser } = context;
+  const { User, UserDetails, getCurrentUser } = context;
   const func = async () => {
     await getCurrentUser(JSON.parse(localStorage.getItem("UserData")).UserID);
   };
 
   useEffect(() => {
-    JSON.parse(localStorage.getItem("UserData")) && func();
+    User && func();
   }, []);
 
   const [showModal, setModal] = useState(false);
@@ -25,9 +25,9 @@ export default function Login() {
     <>
       {showModal && <Authentication ModalStatus={ModalStatus}></Authentication>}
 
-      {JSON.parse(localStorage.getItem("UserData")) != null ? (
+      {User != null ? (
         <div className="group ">
-          <Profile img="" name={"xyz"}></Profile>
+          <Profile img="" name={UserDetails?.name}></Profile>
         </div>
       ) : (
         <div
