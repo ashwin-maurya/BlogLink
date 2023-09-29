@@ -2,26 +2,22 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 const BlogSchema = new mongoose.Schema({
-    description: {
-        type: String,
-        required: true
-    },
     postID: {
         type: String,
         // required: true
-    },
-
-
-    Title: {
-        type: String,
-        required: true
     },
     userID: {
         type: String,
         // required: true
     },
-
-
+    Title: {
+        type: String,
+        // required: true
+    },
+    description: {
+        type: String,
+        // required: true
+    },
 
 
 
@@ -29,11 +25,11 @@ const BlogSchema = new mongoose.Schema({
 
     Category: {
         type: String,
-        required: true
+        // required: true
     },
     Blog_url: {
         type: String,
-        required: true
+        // required: true
     },
     Date: {
         default: Date.now,
