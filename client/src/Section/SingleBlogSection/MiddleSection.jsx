@@ -19,7 +19,7 @@ const MiddleSection = ({ blog }) => {
         {
           <div
             dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(blog?.Description),
+              __html: DOMPurify.sanitize(blog?.description),
             }}
           />
         }

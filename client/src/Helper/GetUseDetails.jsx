@@ -8,11 +8,11 @@ const GetUseDetails = () => {
   useEffect(() => {
     User && func();
   }, []);
-  console.log(UserDetails);
-  console.log("Auth");
   const func = async () => {
     console.log("I ran");
     await getCurrentUser(JSON.parse(localStorage.getItem("UserData")).UserID);
+    console.log(UserDetails);
+    console.log("Auth");
   };
   return <></>;
 };

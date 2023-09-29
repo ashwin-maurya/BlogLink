@@ -7,18 +7,6 @@ import blogContext from "../Helper/Context/blogContext";
 
 // toast.configure();
 const WriteBlogLayout = () => {
-  const context = useContext(blogContext);
-  const { SingleBlogContent, getsingleblogContent } = context;
-
-  const location = useLocation();
-  const id = location.state?.id;
-  console.log(id);
-
-  useEffect(() => {
-    getsingleblogContent(id);
-  });
-  console.log(SingleBlogContent);
-  console.log("blog1 from writeLayout");
 
   return (
     <div>

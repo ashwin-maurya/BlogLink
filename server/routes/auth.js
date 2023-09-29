@@ -112,19 +112,24 @@ router.post(
 );
 
 // ROUTE:3 Get loggedin user details susing : POST "/api/auth/getuser".  login required
-router.get("/getCurrentuser", fetchuser, async (req, res) => {
-  try {
-    const userID = req.user.id;
-    const user = await User.findById(userID);
+router.get(
+  "/getCurrentuser", fetchuser, async (req, res) => {
+    try {
 
-    console.log(user);
+      const userID = req.user.id
+      const user = await User.findById(userID)
 
-    res.json(user);
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).send("Internl server error ,SOmething in the way");
-  }
-});
+      console.log(user)
+
+      res.json(user)
+
+    } catch (error) {
+      console.error(error.message)
+      res.status(500).send("Internl server error ,SOmething in the way")
+    }
+  })
+
+
 
 // ROUTE:4 Logout user using : POST "/api/auth/logout". login required
 // router.post("/logout", fetchuser, async (req, res) => {
@@ -143,4 +148,7 @@ router.get("/getCurrentuser", fetchuser, async (req, res) => {
 //   }
 // });
 
+
+
 module.exports = router;
+

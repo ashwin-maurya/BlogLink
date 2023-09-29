@@ -7,16 +7,22 @@ const BlogState = (props) => {
   const bloginitial1 = [];
 
   const [blog, setblogs] = useState(bloginitial);
-  const [SingleBlogContent, setSingleBlogContent] = useState(bloginitial);
+  const [SingleBlogContent, setSingleBlogContent] = useState({});
+
   const [filterData, setfilterData] = useState(bloginitial1);
 
   //Get all notes
   const getblogs = async () => {
     //API call
+    console.log("hello");
+    const obj = JSON.parse(localStorage.getItem("UserData"));
+    console.log(obj.authtoken);
+
     const response = await fetch(`${host}/api/blogs/fetchallblogCards`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        "auth-token": obj.authtoken,
       },
     });
 
@@ -51,10 +57,11 @@ const BlogState = (props) => {
     console.log("form filtertblogs");
   };
   const getsingleblogContent = async (id) => {
+    console.log("hello from getsingleblogContent");
     //API call
     const obj = JSON.parse(localStorage.getItem("UserData"));
     console.log(obj.authtoken);
-    console.log("hello");
+
     const response = await fetch(`${host}/api/blogs/getsingleblogcontent`, {
       method: "POST",
 
@@ -62,7 +69,8 @@ const BlogState = (props) => {
         "Content-Type": "application/json",
         "auth-token": obj.authtoken,
       },
-      body: JSON.stringify({ id }),
+      body: JSON.stringify({ id: id }),
+
     });
 
     const json = await response.json();
@@ -89,9 +97,10 @@ const BlogState = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        userID,
         Title,
         postID,
-        userID,
+
         tags,
         Category,
         Blog_url,
@@ -108,6 +117,8 @@ const BlogState = (props) => {
     // todo api call
     //API call
     const {
+      userID,
+      postID,
       Title,
 
       Category,
@@ -115,7 +126,7 @@ const BlogState = (props) => {
       Blog_url,
       tags,
       description,
-      userID,
+
     } = data;
 
     const obj = JSON.parse(localStorage.getItem("UserData"));
@@ -127,10 +138,11 @@ const BlogState = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        Title,
-        description,
         userID,
         postID,
+        Title,
+        description,
+
         tags,
         Category,
         Blog_url,
@@ -138,7 +150,9 @@ const BlogState = (props) => {
     });
     const blog2 = await response.json();
 
-    setblogs(blog2);
+    // setblogs(blog2);
+    console.log(blog2);
+
     console.log("form addblogcontent");
   };
 

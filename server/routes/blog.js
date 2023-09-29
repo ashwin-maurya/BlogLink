@@ -16,10 +16,11 @@ router.post("/postblogcontent", fetchuser, async (req, res) => {
             userID,
 
             postID,
-            description,
             Title,
-            Category,
+            description,
             tags,
+            Category,
+
             Blog_url
         } = req.body
         // If there are errors , return Bad request and the errors
@@ -30,13 +31,12 @@ router.post("/postblogcontent", fetchuser, async (req, res) => {
 
         const blog2 = new blog({
             userID,
-
-
             postID,
-            description,
             Title,
-            Category,
+            description,
             tags,
+            Category,
+
             Blog_url
 
         });
@@ -52,10 +52,11 @@ router.post("/postblogcontent", fetchuser, async (req, res) => {
 
 // ROUTE 2: Get Single blog content in the database : POST "/api/blogs/singleblogcontent"
 
-router.post("/singleblogcontent", fetchuser, async (req, res) => {
+router.post("/getsingleblogcontent", fetchuser, async (req, res) => {
     try {
         const { id } = req.body
-        const blogs = await blogCard.find({ "postID": id });
+        const blogs = await blog.find({ "postID": id });
+
 
         //   console.log(req.user.id)
 

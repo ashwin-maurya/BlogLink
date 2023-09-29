@@ -1,13 +1,16 @@
 import { useRef, useState, useContext, useEffect } from "react";
 import { auth } from "../../Assets/images";
 import { GoogleSignInAPI } from "../../api/AuthAPI";
+
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AuthContext from "../../Helper/Context/AuthContext";
 
 export default function Authentication(props) {
+
   const context = useContext(AuthContext);
   const { setAuthStatus } = context;
+
 
   const host = "http://localhost:5001";
   const [Registercreds, setRegistercreds] = useState({
@@ -53,14 +56,17 @@ export default function Authentication(props) {
     console.log(json);
     if (json.success) {
       localStorage.setItem("UserData", JSON.stringify(json));
+
       ModalStatus();
       setAuthStatus(true);
+
       toast.success("Account Loggedin Succesfully");
     } else {
       toast.error("Invalid Credentials");
     }
 
     console.log("form Register");
+
   };
   // GOOGLE LOGIN HERE----------------------------------------------------------------------------------------------
 
@@ -69,11 +75,14 @@ export default function Authentication(props) {
     console.log(res);
     const Input = {
       userEmail: res.user.email,
+
       useName: res.user.displayName,
+
       accessToken: res.user.accessToken,
     };
 
     localStorage.setItem("UserData", JSON.stringify(Input));
+
     setAuthStatus(true);
     ModalStatus();
     toast.success("Your are loggedin");
@@ -103,6 +112,7 @@ export default function Authentication(props) {
     } else {
       toast.error("Can't Register");
     }
+
   };
 
   // ONCHANGE

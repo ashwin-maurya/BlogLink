@@ -10,7 +10,7 @@ export default function BlogCard({ card }) {
   //  Description,
   //  tags,
   //  Blog_url
-  console.log(card.tags);
+  console.log(card.postID);
   // const { card } = props;
   const navigate = useNavigate();
 
@@ -59,7 +59,8 @@ export default function BlogCard({ card }) {
               toast.success("Welcome to Blog");
 
               navigate(`/blogs/${card?.Title?.replace(/\s+/g, "-")}`, {
-                state: card.postID,
+                state: { id: card.postID },
+
               });
             }}
           >

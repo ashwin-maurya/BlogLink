@@ -4,8 +4,10 @@ import { onLogout } from "../../api/AuthAPI";
 import Profile from "./Profile";
 import AuthContext from "../../Helper/Context/AuthContext";
 
+import AuthContext from "../../Helper/Context/AuthContext";
 export default function Login() {
   const context = useContext(AuthContext);
+
   const [showModal, setModal] = useState(false);
 
   const { UserDetails, getCurrentUser, AuthStatus, setAuthStatus } = context;

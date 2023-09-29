@@ -12,6 +12,7 @@ export default function Logout() {
           <button
             className=""
             onClick={() => {
+
               setAuthStatus(false);
               localStorage.removeItem("UserData");
             }}

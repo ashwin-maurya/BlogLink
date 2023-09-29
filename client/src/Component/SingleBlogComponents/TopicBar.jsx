@@ -28,3 +28,4 @@ const TopicBar = ({ navbarRef, card }) => {
 };
 
 export default TopicBar;
+
