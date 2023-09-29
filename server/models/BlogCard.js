@@ -2,20 +2,39 @@ const mongoose = require('mongoose')
 const { Schema } = mongoose
 const BlogCardSchema = new mongoose.Schema({
 
-    Title: String,
-    Author_name: String,
-    Author_url: String,
-    Description: String,
+    postID: {
+        type: String,
+        // required: true
+    },
+
+    Title: {
+        type: String,
+        required: true
+    },
+    userID: {
+        type: String,
+        // required: true
+    },
+
+
+
+
 
     tags: [],
 
-    Category: String,
-    Blog_url: String,
-    // Date: {
-    //     default: Date.now,
-    //     type: Dateqs
+    Category: {
+        type: String,
+        required: true
+    },
+    Blog_url: {
+        type: String,
+        required: true
+    },
+    Date: {
+        default: Date.now,
+        type: Date
 
-    // }
+    }
 
 
 

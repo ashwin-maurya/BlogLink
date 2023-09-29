@@ -4,6 +4,7 @@ import blogContext from "../../Helper/Context/blogContext";
 
 export default function LeftSection() {
   const context = useContext(blogContext);
+
   const { blog, getblogs } = context;
   useEffect(() => {
     // async () => {
@@ -11,7 +12,7 @@ export default function LeftSection() {
     getblogs();
     // };
   }, []);
-
+  console.log(blog);
   return (
     <section className=" flex justify-center max-lg:justify-start rounded-md">
       <div className=" grid grid-cols-1  w-full place-items-center">

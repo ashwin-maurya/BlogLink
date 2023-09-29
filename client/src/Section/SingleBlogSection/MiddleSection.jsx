@@ -5,7 +5,7 @@ import { Comments } from "../../Component/common";
 import DOMPurify from "dompurify";
 import blogContext from "../../Helper/Context/blogContext";
 const MiddleSection = ({ blog }) => {
-  console.log(blog.Description);
+  // console.log(blog.Description);
   // let data = blog.description;
   // const context = useContext(blogContext);
   // const { blog, getblogs } = context;

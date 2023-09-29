@@ -1,17 +1,9 @@
 import { Editor } from "@tinymce/tinymce-react";
 
-function TinyMCEEditor({ blogs, description, blog2 }) {
-  console.log(blogs);
-  const handleEditorChange = (content, editor) => {
-    // console.log("Content was updated:", content);
-    // blog2 != null ? description(blog2.Description) :
-    console.log(content);
+function TinyMCEEditor({ blogs, description }) {
+  const handleEditorChange = (content) => {
     description(content);
   };
-  function postInitWork() {
-    var editor = Editor.getInstanceById("myEditorid");
-    editor.getBody().style.backgroundColor = "#FFFF66";
-  }
 
   return (
     <>
@@ -60,32 +52,3 @@ function TinyMCEEditor({ blogs, description, blog2 }) {
 }
 
 export default TinyMCEEditor;
-// import { Editor } from "react-draft-wysiwyg";
-// import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-// <Editor
-//   editorState={editorState}
-//   toolbarClassName="toolbarClassName"
-//   wrapperClassName="wrapperClassName"
-//   editorClassName="editorClassName"
-//   onEditorStateChange={this.onEditorStateChange}
-// />;
-
-// tinymce.init({
-//   selector: 'textarea#codesample',
-//   height: 500,
-//   plugins: 'codesample code',
-//   codesample_languages: [
-//     {text: 'HTML/XML', value: 'markup'},
-//     {text: 'JavaScript', value: 'javascript'},
-//     {text: 'CSS', value: 'css'},
-//     {text: 'PHP', value: 'php'},
-//     {text: 'Ruby', value: 'ruby'},
-//     {text: 'Python', value: 'python'},
-//     {text: 'Java', value: 'java'},
-//     {text: 'C', value: 'c'},
-//     {text: 'C#', value: 'csharp'},
-//     {text: 'C++', value: 'cpp'}
-//   ],
-//   toolbar: 'codesample code',
-//   content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
-// });

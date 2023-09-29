@@ -1,9 +1,10 @@
 import React from "react";
-
-import { onLogout } from "../../api/AuthAPI";
-import { useState } from "react";
+import { useContext } from "react";
+import AuthContext from "../../Helper/Context/AuthContext";
 
 export default function Logout() {
+  const context = useContext(AuthContext);
+  const { setAuthStatus } = context;
   return (
     <>
       {
@@ -11,11 +12,8 @@ export default function Logout() {
           <button
             className=""
             onClick={() => {
-              onLogout();
-              // setloggedStatus(false);
-
-              console.log("hogaya kam");
-              localStorage.removeItem("GoogleAuthData");
+              setAuthStatus(false);
+              localStorage.removeItem("UserData");
             }}
           >
             Sign Out

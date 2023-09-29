@@ -3,10 +3,13 @@ import { headerLogo, hamburger, light, dark, edit } from "../../Assets/icons";
 import Cookies from "js-cookie";
 // cf9b0387da88fba18a08f6f37f8d495f73007fe2
 import { navLinks } from "../constants";
+
 import { Link, useLocation } from "react-router-dom";
 import { Search, SideNav, ScrollProgress, Login, Profile } from "./";
 import { toast } from "react-toastify";
-
+import TopicBar from "../SingleBlogComponents/TopicBar";
+import AuthContext from "../../Helper/Context/AuthContext";
+TopicBar;
 const MainNav = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [scrollDirection, setScrollDirection] = useState("up");
@@ -14,7 +17,15 @@ const MainNav = () => {
   const [showNav, setNav] = useState(false);
   const location = useLocation();
   const navbarRef = useRef(null);
+  const context = useContext(AuthContext);
+  const { User, UserDetails, getCurrentUser } = context;
+  const func = async () => {
+    await getCurrentUser(JSON.parse(localStorage.getItem("UserData")).UserID);
+  };
 
+  useEffect(() => {
+    User && func();
+  }, []);
   const NavStatus = () => {
     setNav((showNav) => !showNav);
   };
@@ -141,6 +152,7 @@ const MainNav = () => {
         </header>
 
         <ScrollProgress />
+        {/* {location.pathname.includes("blogs") && <TopicBar></TopicBar>} */}
       </section>
     </>
   );

@@ -1,22 +1,39 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Authentication from "./Authentication";
 import { onLogout } from "../../api/AuthAPI";
 import Profile from "./Profile";
+import AuthContext from "../../Helper/Context/AuthContext";
 
 export default function Login() {
+  const context = useContext(AuthContext);
   const [showModal, setModal] = useState(false);
-  const localData = JSON.parse(localStorage.getItem("GoogleAuthData"));
+
+  const { UserDetails, getCurrentUser, AuthStatus, setAuthStatus } = context;
+  const func = async () => {
+    await getCurrentUser(JSON.parse(localStorage.getItem("UserData")).UserID);
+  };
+
+  useEffect(() => {
+    if (AuthStatus) {
+      func();
+    }
+  }, [AuthStatus]);
 
   const ModalStatus = () => {
     setModal((showModal) => !showModal);
   };
   return (
     <>
-      {showModal && <Authentication ModalStatus={ModalStatus}></Authentication>}
+      {showModal && (
+        <Authentication
+          ModalStatus={ModalStatus}
+          setAuthStatus={setAuthStatus}
+        ></Authentication>
+      )}
 
-      {JSON.parse(localStorage.getItem("GoogleAuthData")) != null ? (
+      {AuthStatus ? (
         <div className="group ">
-          <Profile img={localData.photoURL} name={localData.useName}></Profile>
+          <Profile img="" name={UserDetails?.name}></Profile>
         </div>
       ) : (
         <div

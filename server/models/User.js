@@ -3,16 +3,9 @@ const express = require("express");
 const { Schema } = mongoose;
 const router = express.Router();
 const UserSchema = new Schema({
-  user_id: {
-    type: String,
-    required: true,
-  },
   name: {
     type: String,
     required: true,
-  },
-  username: {
-    type: String,
   },
   email: {
     type: String,
@@ -21,10 +14,11 @@ const UserSchema = new Schema({
   },
   password: {
     type: String,
+    required: true,
   },
-  date: {
-    type: Date,
+  Date: {
     default: Date.now,
+    type: Date,
   },
 });
 const User = mongoose.model("user", UserSchema);

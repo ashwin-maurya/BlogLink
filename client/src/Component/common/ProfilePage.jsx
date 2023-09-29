@@ -1,9 +1,19 @@
-import React from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import React, { useContext, useEffect } from "react";
+import AuthContext from "../../Helper/Context/AuthContext";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function ProfilePage() {
-  const { user } = useAuth0();
+  const navigate = useNavigate();
+  const context = useContext(AuthContext);
 
+  const { UserDetails, AuthStatus } = context;
+  useEffect(() => {
+    if (!AuthStatus) {
+      navigate("/home");
+    }
+  }, [AuthStatus]);
   return (
     <>
       <section class="relative block h-[400px] ">
@@ -15,7 +25,7 @@ export default function ProfilePage() {
             <div class="flex flex-wrap justify-center relative">
               <img
                 alt="..."
-                src={user?.picture}
+                src=""
                 class="shadow-xl rounded-full w-56 h-auto align-middle border-none -mt-32"
               />
               <div className="absolute right-0 top-0">
@@ -26,7 +36,7 @@ export default function ProfilePage() {
             </div>
             <div class="text-center my-4">
               <h3 class="text-4xl font-semibold leading-normals text-blueGray-700 mb-2 dark:text-darkTextMain">
-                {user?.name}
+                Ashwin Maurya
               </h3>
               <div class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-light uppercase dark:text-darkTextMain">
                 Trying to make good, a better.
