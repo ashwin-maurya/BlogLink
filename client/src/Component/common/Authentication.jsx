@@ -7,10 +7,8 @@ import "react-toastify/dist/ReactToastify.css";
 import AuthContext from "../../Helper/Context/AuthContext";
 
 export default function Authentication(props) {
-
   const context = useContext(AuthContext);
   const { setAuthStatus } = context;
-
 
   const host = "http://localhost:5001";
   const [Registercreds, setRegistercreds] = useState({
@@ -66,7 +64,6 @@ export default function Authentication(props) {
     }
 
     console.log("form Register");
-
   };
   // GOOGLE LOGIN HERE----------------------------------------------------------------------------------------------
 
@@ -94,13 +91,15 @@ export default function Authentication(props) {
     e.preventDefault();
     console.log("Register");
     const { name, password, email } = Registercreds;
+    const parts = email.split("@");
+    const username = parts[0];
     const response = await fetch(`${host}/api/auth/createuser`, {
       method: "POST",
       headers: {
         //   'auth-token':localStorage.getItem("accessToken") ,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ username, name, email, password }),
     });
     const json = await response.json();
     if (json.success) {
@@ -112,7 +111,6 @@ export default function Authentication(props) {
     } else {
       toast.error("Can't Register");
     }
-
   };
 
   // ONCHANGE
@@ -232,7 +230,7 @@ export default function Authentication(props) {
               <form className="form flex flex-col  w-full">
                 <input
                   type="text"
-                  placeholder="UserName"
+                  placeholder="Name"
                   value={Registercreds.name}
                   onChange={RegisterOnchange}
                   name="name"

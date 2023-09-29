@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import AuthContext from "./AuthContext";
 
@@ -6,11 +5,11 @@ const AuthState = (props) => {
   const host = "http://localhost:5001";
   const [UserDetails, setUserDetails] = useState();
   const [AuthStatus, setAuthStatus] = useState(false);
+  const [UserProfile, setUserProfile] = useState();
 
   //Get all notes
   const getCurrentUser = async (id) => {
     //API call
-    console.log("hello");
     const response = await fetch(`${host}/api/auth/getCurrentuser`, {
       method: "GET",
       headers: {
@@ -22,13 +21,34 @@ const AuthState = (props) => {
 
     const json = await response.json();
     setUserDetails(json);
+  };
+
+  const getUser = async (username) => {
+    //API call
+    const response = await fetch(
+      `${host}/api/auth/getuser?username=${username}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const json = await response.json();
     console.log(json);
-    console.log("form getcurrentUser");
+    setUserProfile(json);
   };
 
   return (
     <AuthContext.Provider
-      value={{ UserDetails, getCurrentUser, AuthStatus, setAuthStatus }}
+      value={{
+        UserDetails,
+        getCurrentUser,
+        AuthStatus,
+        setAuthStatus,
+        getUser,
+        UserProfile,
+      }}
     >
       {props.children}
     </AuthContext.Provider>

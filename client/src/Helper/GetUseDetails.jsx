@@ -14,7 +14,6 @@ const GetUseDetails = () => {
     console.log(UserDetails);
     console.log("Auth");
   };
-  return <></>;
 };
 
 export default GetUseDetails;

@@ -4,12 +4,10 @@ import LandingLayout from "./Layouts/LandingLayout";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import SingleBlogLayout from "./Layouts/SingleBlogLayout";
-// import Editor from "./Helper/Editor";
-
 import BlogState from "./Helper/Context/BlogState";
 import WriteBlogLayout from "./Layouts/WriteBlogLayout";
 import FilterByAuthor from "./Pages/FilterByPages/FilterByAuthor";
-import ProfilePage from "./Component/common/ProfilePage";
+import ProfilePage from "./Pages/ProfilePage";
 import AuthState from "./Helper/Context/AuthState";
 import CheckLogin from "./Helper/CheckLogin";
 
@@ -20,7 +18,6 @@ const App = () => {
         <Router>
           <Scroll />
           <CheckLogin />
-
           <MainNav />
 
           <Routes>

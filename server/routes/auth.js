@@ -37,6 +37,7 @@ router.post(
 
       //create a new user
       user = await User.create({
+        username: req.body.username,
         name: req.body.name,
         password: secPass,
         email: req.body.email,
@@ -112,43 +113,34 @@ router.post(
 );
 
 // ROUTE:3 Get loggedin user details susing : POST "/api/auth/getuser".  login required
-router.get(
-  "/getCurrentuser", fetchuser, async (req, res) => {
-    try {
+router.get("/getCurrentuser", fetchuser, async (req, res) => {
+  try {
+    const userID = req.user.id;
+    // console.log(userID);
+    const user = await User.findById(userID);
+    res.json(user);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internl server error ,SOmething in the way");
+  }
+});
+// ROUTE: Get user details using GET "/api/auth/getuser". Login required
+router.get("/getuser", async (req, res) => {
+  try {
+    const username = req.query.username;
+    console.log(username);
+    // Use findOne to find a user by their username
+    const user = await User.findOne({ username });
 
-      const userID = req.user.id
-      const user = await User.findById(userID)
-
-      console.log(user)
-
-      res.json(user)
-
-    } catch (error) {
-      console.error(error.message)
-      res.status(500).send("Internl server error ,SOmething in the way")
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
-  })
 
-
-
-// ROUTE:4 Logout user using : POST "/api/auth/logout". login required
-// router.post("/logout", fetchuser, async (req, res) => {
-//   try {
-//     const user = req.user;
-
-//     // You should add the user's token to the blacklist here.
-//     // For simplicity, I'll use an array as a blacklist in this example.
-//     // In a production environment, use a more secure storage option.
-//     blacklist.push(user.token);
-
-//     res.json({ success: true, message: "Logged out successfully" });
-//   } catch (error) {
-//     console.error(error.message);
-//     res.status(500).send("Internal Server error, Something went wrong");
-//   }
-// });
-
-
+    res.json(user);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal server error, something went wrong");
+  }
+});
 
 module.exports = router;
-

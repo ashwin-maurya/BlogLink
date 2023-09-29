@@ -6,10 +6,8 @@ import Profile from "./Profile";
 import AuthContext from "../../Helper/Context/AuthContext";
 export default function Login() {
   const context = useContext(AuthContext);
-
-  const [showModal, setModal] = useState(false);
-
   const { UserDetails, getCurrentUser, AuthStatus, setAuthStatus } = context;
+  const [showModal, setModal] = useState(false);
   const func = async () => {
     await getCurrentUser(JSON.parse(localStorage.getItem("UserData")).UserID);
   };
@@ -33,7 +31,7 @@ export default function Login() {
       )}
 
       {AuthStatus ? (
-        <div className="group ">
+        <div className="group">
           <Profile img="" name={UserDetails?.name}></Profile>
         </div>
       ) : (
