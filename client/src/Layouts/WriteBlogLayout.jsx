@@ -7,6 +7,7 @@ import blogContext from "../Helper/Context/blogContext";
 
 // toast.configure();
 const WriteBlogLayout = () => {
+
   return (
     <div>
       <WriteBlogPage

@@ -150,6 +150,7 @@ const MainNav = () => {
             </div>
           </nav>
         </header>
+
         <ScrollProgress />
         {/* {location.pathname.includes("blogs") && <TopicBar></TopicBar>} */}
       </section>

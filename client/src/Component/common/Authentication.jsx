@@ -2,19 +2,15 @@ import { useRef, useState, useContext, useEffect } from "react";
 import { auth } from "../../Assets/images";
 import { GoogleSignInAPI } from "../../api/AuthAPI";
 
-import AuthContext from "../../Helper/Context/AuthContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-export default function Authentication(props) {
-  // const context = useContext(AuthContext);
-  // const { getCurrentUser } = context;
+import AuthContext from "../../Helper/Context/AuthContext";
 
-  // useEffect(() => {
-  //   const func = async () => {
-  //     await getCurrentUser(JSON.parse(localStorage.getItem("UserData")).UserID);
-  //   };
-  //   func();
-  // }, []);
+export default function Authentication(props) {
+
+  const context = useContext(AuthContext);
+  const { setAuthStatus } = context;
+
 
   const host = "http://localhost:5001";
   const [Registercreds, setRegistercreds] = useState({
@@ -61,13 +57,16 @@ export default function Authentication(props) {
     if (json.success) {
       localStorage.setItem("UserData", JSON.stringify(json));
 
+      ModalStatus();
+      setAuthStatus(true);
+
       toast.success("Account Loggedin Succesfully");
     } else {
       toast.error("Invalid Credentials");
     }
 
     console.log("form Register");
-    singUp();
+
   };
   // GOOGLE LOGIN HERE----------------------------------------------------------------------------------------------
 
@@ -84,6 +83,7 @@ export default function Authentication(props) {
 
     localStorage.setItem("UserData", JSON.stringify(Input));
 
+    setAuthStatus(true);
     ModalStatus();
     toast.success("Your are loggedin");
   };
@@ -105,16 +105,14 @@ export default function Authentication(props) {
     const json = await response.json();
     if (json.success) {
       localStorage.setItem("UserData", JSON.stringify(json));
+      setAuthStatus(true);
 
+      ModalStatus();
       toast.success("Registered Successfully");
     } else {
       toast.error("Can't Register");
     }
 
-    console.log(json);
-    console.log("form Register");
-
-    signIn();
   };
 
   // ONCHANGE

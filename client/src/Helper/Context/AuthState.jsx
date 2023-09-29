@@ -1,10 +1,11 @@
+
 import React, { useState } from "react";
 import AuthContext from "./AuthContext";
 
 const AuthState = (props) => {
   const host = "http://localhost:5001";
-  const [User, setUser] = useState();
   const [UserDetails, setUserDetails] = useState();
+  const [AuthStatus, setAuthStatus] = useState(false);
 
   //Get all notes
   const getCurrentUser = async (id) => {
@@ -27,7 +28,7 @@ const AuthState = (props) => {
 
   return (
     <AuthContext.Provider
-      value={{ UserDetails, setUser, User, getCurrentUser }}
+      value={{ UserDetails, getCurrentUser, AuthStatus, setAuthStatus }}
     >
       {props.children}
     </AuthContext.Provider>

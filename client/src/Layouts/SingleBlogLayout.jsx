@@ -21,11 +21,3 @@ const SingleBlogLayout = () => {
   console.log(SingleBlogContent);
   console.log("blog1 from writeLayout");
 
-  return (
-    <section>
-      <SingleBlog blog1={SingleBlogContent[0]}></SingleBlog>
-    </section>
-  );
-};
-
-export default SingleBlogLayout;

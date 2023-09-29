@@ -60,6 +60,7 @@ export default function BlogCard({ card }) {
 
               navigate(`/blogs/${card?.Title?.replace(/\s+/g, "-")}`, {
                 state: { id: card.postID },
+
               });
             }}
           >

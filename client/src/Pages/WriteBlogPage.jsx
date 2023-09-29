@@ -21,6 +21,7 @@ const WriteBlog = () =>
     const { UserDetails } = context2;
     console.log(UserDetails);
     console.log("UserDetails");
+
     const [blogs, setblog] = useState(
       // blog2 != null ? blog2 :
       {}

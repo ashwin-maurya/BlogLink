@@ -20,3 +20,4 @@ const GoogleUserSchema = new Schema({
 
 
 module.exports = mongoose.model('GoogleUser', GoogleUserSchema)
+

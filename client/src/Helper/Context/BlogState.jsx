@@ -8,6 +8,7 @@ const BlogState = (props) => {
 
   const [blog, setblogs] = useState(bloginitial);
   const [SingleBlogContent, setSingleBlogContent] = useState({});
+
   const [filterData, setfilterData] = useState(bloginitial1);
 
   //Get all notes
@@ -16,6 +17,7 @@ const BlogState = (props) => {
     console.log("hello");
     const obj = JSON.parse(localStorage.getItem("UserData"));
     console.log(obj.authtoken);
+
     const response = await fetch(`${host}/api/blogs/fetchallblogCards`, {
       method: "GET",
       headers: {
@@ -59,6 +61,7 @@ const BlogState = (props) => {
     //API call
     const obj = JSON.parse(localStorage.getItem("UserData"));
     console.log(obj.authtoken);
+
     const response = await fetch(`${host}/api/blogs/getsingleblogcontent`, {
       method: "POST",
 
@@ -67,6 +70,7 @@ const BlogState = (props) => {
         "auth-token": obj.authtoken,
       },
       body: JSON.stringify({ id: id }),
+
     });
 
     const json = await response.json();
@@ -96,6 +100,7 @@ const BlogState = (props) => {
         userID,
         Title,
         postID,
+
         tags,
         Category,
         Blog_url,
@@ -117,9 +122,11 @@ const BlogState = (props) => {
       Title,
 
       Category,
+      postID,
       Blog_url,
       tags,
       description,
+
     } = data;
 
     const obj = JSON.parse(localStorage.getItem("UserData"));
@@ -135,6 +142,7 @@ const BlogState = (props) => {
         postID,
         Title,
         description,
+
         tags,
         Category,
         Blog_url,
@@ -144,6 +152,7 @@ const BlogState = (props) => {
 
     // setblogs(blog2);
     console.log(blog2);
+
     console.log("form addblogcontent");
   };
 

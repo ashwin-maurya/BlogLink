@@ -2,30 +2,38 @@ import React, { useContext, useEffect, useState } from "react";
 import Authentication from "./Authentication";
 import { onLogout } from "../../api/AuthAPI";
 import Profile from "./Profile";
+import AuthContext from "../../Helper/Context/AuthContext";
 
 import AuthContext from "../../Helper/Context/AuthContext";
 export default function Login() {
   const context = useContext(AuthContext);
-  const { User, UserDetails, getCurrentUser } = context;
+
+  const [showModal, setModal] = useState(false);
+
+  const { UserDetails, getCurrentUser, AuthStatus, setAuthStatus } = context;
   const func = async () => {
     await getCurrentUser(JSON.parse(localStorage.getItem("UserData")).UserID);
   };
 
   useEffect(() => {
-    User && func();
-  }, []);
-
-  const [showModal, setModal] = useState(false);
-  // const localData = JSON.parse(localStorage.getItem("UserData"));
+    if (AuthStatus) {
+      func();
+    }
+  }, [AuthStatus]);
 
   const ModalStatus = () => {
     setModal((showModal) => !showModal);
   };
   return (
     <>
-      {showModal && <Authentication ModalStatus={ModalStatus}></Authentication>}
+      {showModal && (
+        <Authentication
+          ModalStatus={ModalStatus}
+          setAuthStatus={setAuthStatus}
+        ></Authentication>
+      )}
 
-      {User != null ? (
+      {AuthStatus ? (
         <div className="group ">
           <Profile img="" name={UserDetails?.name}></Profile>
         </div>
