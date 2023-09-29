@@ -7,26 +7,28 @@ const BlogState = (props) => {
   const bloginitial1 = [];
 
   const [blog, setblogs] = useState(bloginitial);
+  const [SingleBlogContent, setSingleBlogContent] = useState(bloginitial);
   const [filterData, setfilterData] = useState(bloginitial1);
 
   //Get all notes
   const getblogs = async () => {
     //API call
     console.log("hello");
-    // const response = await fetch(`${host}/api/blogs/fetchallblogs`, {
-    //   method: "GET",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "auth-token":
-    //       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwODVlZjE5YWIyMmRjZDg3NTQ4ODRlIn0sImlhdCI6MTY5NTA0NzQwOX0.Fk4_lQbt1yaZrdTe4iLEN_E82vXEdY410VGlzsps_WE ",
-    //   },
-    // });
+    const obj = JSON.parse(localStorage.getItem("UserData"));
+    console.log(obj.authtoken);
+    const response = await fetch(`${host}/api/blogs/fetchallblogCards`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": obj.authtoken,
+      },
+    });
 
-    // const json = await response.json();
+    const json = await response.json();
 
-    // setblogs(json);
-    // console.log(blog);
-    // console.log("form getblogs");
+    setblogs(json);
+    console.log(blog);
+    console.log("form getblogs");
   };
 
   const filterblogs = async (data) => {
@@ -39,8 +41,7 @@ const BlogState = (props) => {
 
       headers: {
         "Content-Type": "application/json",
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwODVlZjE5YWIyMmRjZDg3NTQ4ODRlIn0sImlhdCI6MTY5NTA0NzQwOX0.Fk4_lQbt1yaZrdTe4iLEN_E82vXEdY410VGlzsps_WE ",
+        "auth-token": JSON.parse(localStorage.getItem("UserData")).authToken,
       },
       body: JSON.stringify({ state, value }),
     });
@@ -53,34 +54,48 @@ const BlogState = (props) => {
 
     console.log("form filtertblogs");
   };
+  const getsingleblogContent = async (id) => {
+    //API call
+    const obj = JSON.parse(localStorage.getItem("UserData"));
+    console.log(obj.authtoken);
+    console.log("hello");
+    const response = await fetch(`${host}/api/blogs/getsingleblogcontent`, {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": obj.authtoken,
+      },
+      body: JSON.stringify({ id }),
+    });
+
+    const json = await response.json();
+
+    console.log(json);
+    setSingleBlogContent(json);
+    console.log(SingleBlogContent);
+
+    console.log("form SingleBlogContent");
+  };
 
   //Add a note
-  const addblogs = async (data) => {
+  const addblogCard = async (data) => {
     // todo api call
     //API call
-    const {
-      Title,
-      Author_name,
-      Author_url,
-      Description,
-      tags,
-      Category,
-      Blog_url,
-    } = data;
-    const response = await fetch(`${host}/api/blogs/addblog`, {
+    console.log(data);
+    const obj = JSON.parse(localStorage.getItem("UserData"));
+    console.log(obj.authtoken);
+    const { Title, postID, userID, tags, Category, Blog_url } = data;
+    const response = await fetch(`${host}/api/blogs/addblogCard`, {
       method: "POST",
       headers: {
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwODVlZjE5YWIyMmRjZDg3NTQ4ODRlIn0sImlhdCI6MTY5NTA0NzQwOX0.Fk4_lQbt1yaZrdTe4iLEN_E82vXEdY410VGlzsps_WE ",
-        // localStorage.getItem("token"),
+        "auth-token": obj.authtoken,
         "Content-Type": "application/json",
-        Accept: "application/json",
       },
       body: JSON.stringify({
         Title,
-        Author_name,
-        Author_url,
-        Description,
+        postID,
+        userID,
         tags,
         Category,
         Blog_url,
@@ -88,7 +103,47 @@ const BlogState = (props) => {
     });
     const blog2 = await response.json();
 
-    setblogs(blog.concat(blog2));
+    console.log(blog2);
+    // setblogs(blog.concat(blog2));
+    console.log("form addblogCard");
+  };
+
+  const addblogcontent = async (data) => {
+    // todo api call
+    //API call
+    const {
+      Title,
+
+      Category,
+      postID,
+      Blog_url,
+      tags,
+      description,
+      userID,
+    } = data;
+
+    const obj = JSON.parse(localStorage.getItem("UserData"));
+    console.log(obj.authtoken);
+    const response = await fetch(`${host}/api/blogs/postblogcontent`, {
+      method: "POST",
+      headers: {
+        "auth-token": obj.authtoken,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        Title,
+        description,
+        userID,
+        postID,
+        tags,
+        Category,
+        Blog_url,
+      }),
+    });
+    const blog2 = await response.json();
+
+    setblogs(blog2);
+    console.log("form addblogcontent");
   };
 
   //Delete a note
@@ -164,12 +219,14 @@ const BlogState = (props) => {
     <blogContext.Provider
       value={{
         blog,
-        addblogs,
+        addblogCard,
         getblogs,
         filterblogs,
         filterData,
         updateblog,
-
+        addblogcontent,
+        SingleBlogContent,
+        getsingleblogContent,
         // , deletenote, getnotes, editnote
       }}
     >

@@ -1,10 +1,9 @@
 import { Tags } from "../../Component/common";
 import { useNavigate } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
+
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export default function BlogCard({ card }) {
-  const { user } = useAuth0();
   //  Title,
   //  Author_name,
   //  Author_url,
@@ -24,7 +23,7 @@ export default function BlogCard({ card }) {
             <div className="max-lg:items-start max-lg:flex-col flex items-center">
               <div className="flex items-center ">
                 <img
-                  src={card?.Author_url}
+                  src="https://d2r55xnwy6nx47.cloudfront.net/uploads/2023/01/rebeccaboyle2-1720x1720.jpg"
                   className="rounded-full object-contain"
                   width={28}
                   height={32}
@@ -33,15 +32,15 @@ export default function BlogCard({ card }) {
                 <p
                   className="text-[14.5px] ml-2 font-semibold font-palanquin text-gray-700 dark:text-darkTextMain"
                   onClick={() => {
-                    navigate(
-                      `/author/${card?.Author_name?.replace(/\s+/g, "-")}`,
-                      {
-                        state: { card },
-                      }
-                    );
+                    // navigate(
+                    //   `/author/${card?.Author_name?.replace(/\s+/g, "-")}`,
+                    //   {
+                    //     state: { card },
+                    //   }
+                    // );
                   }}
                 >
-                  {card?.Author_name}
+                  {/* {card?.Author_name} */} Author Name
                 </p>
               </div>
               <span className="text-sm ml-2 font-semibold font-palanquin text-gray-400 max-lg:hidden dark:text-darkTextPrimary">
@@ -58,8 +57,9 @@ export default function BlogCard({ card }) {
             className="flex flex-col "
             onClick={() => {
               toast.success("Welcome to Blog");
+
               navigate(`/blogs/${card?.Title?.replace(/\s+/g, "-")}`, {
-                state: { card },
+                state: card.postID,
               });
             }}
           >

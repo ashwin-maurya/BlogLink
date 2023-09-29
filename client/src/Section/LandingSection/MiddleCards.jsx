@@ -24,9 +24,9 @@ const ThreeCarketeers = () => {
           </h1>
         </div>
         <div className="box-border px-2 max-md:mx-1 gap-6 sm:columns-1 mx-10 mb-10 md:columns-2 lg:columns-3 xl:columns-3">
-          {blog.slice(0, 6).map((card, index) => (
+          {/* {blog.slice(0, 6).map((card, index) => (
             <LandingCards key={index} card={card}></LandingCards>
-          ))}
+          ))} */}
         </div>
       </div>
     </>

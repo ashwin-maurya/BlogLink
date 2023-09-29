@@ -7,6 +7,7 @@ const SingleBlogLayout = () => {
   const location = useLocation();
   const card = location.state?.card;
 
+  useEffect(() => {}, []);
   return (
     <section>
       <SingleBlog blog1={card}></SingleBlog>
