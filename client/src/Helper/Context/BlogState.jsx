@@ -14,15 +14,11 @@ const BlogState = (props) => {
   //Get all notes
   const getblogs = async () => {
     //API call
-    console.log("hello");
-    const obj = JSON.parse(localStorage.getItem("UserData"));
-    console.log(obj.authtoken);
 
     const response = await fetch(`${host}/api/blogs/fetchallblogCards`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": obj.authtoken,
       },
     });
 
@@ -57,20 +53,13 @@ const BlogState = (props) => {
     console.log("form filtertblogs");
   };
   const getsingleblogContent = async (id) => {
-    console.log("hello from getsingleblogContent");
-    //API call
-    const obj = JSON.parse(localStorage.getItem("UserData"));
-    console.log(obj.authtoken);
-
     const response = await fetch(`${host}/api/blogs/getsingleblogcontent`, {
       method: "POST",
 
       headers: {
         "Content-Type": "application/json",
-        "auth-token": obj.authtoken,
       },
       body: JSON.stringify({ id: id }),
-
     });
 
     const json = await response.json();
@@ -122,11 +111,9 @@ const BlogState = (props) => {
       Title,
 
       Category,
-      postID,
       Blog_url,
       tags,
       description,
-
     } = data;
 
     const obj = JSON.parse(localStorage.getItem("UserData"));

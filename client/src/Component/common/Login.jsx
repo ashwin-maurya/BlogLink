@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import Authentication from "./Authentication";
 import { onLogout } from "../../api/AuthAPI";
 import Profile from "./Profile";
-import AuthContext from "../../Helper/Context/AuthContext";
 
 import AuthContext from "../../Helper/Context/AuthContext";
 export default function Login() {

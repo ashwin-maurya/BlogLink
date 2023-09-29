@@ -65,7 +65,7 @@ const SingleBlog = ({ blog1 }) => {
 
   return (
     <>
-      <section className="flex bg-slate-50 dark:text-white flex-col gap-20 py-20 justify-center items-center">
+      <section className="flex bg-slate-50 dark:text-white dark:bg-darkBgMain flex-col gap-20 py-20 justify-center items-center">
         <div className=" relative flex max-w-[70%] flex-col   justify-center  gap-2">
           <p className="tracking-[2px] font-semibold dark:text-secondary text-primaryMain m-1">
             {blog1?.Category}
