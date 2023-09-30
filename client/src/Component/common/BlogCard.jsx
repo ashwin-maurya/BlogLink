@@ -3,7 +3,16 @@ import { useNavigate } from "react-router-dom";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import blogContext from "../../Helper/Context/blogContext";
+import { useContext } from "react";
 export default function BlogCard({ card }) {
+  const context = useContext(blogContext);
+  const { deletenote } = context;
+
+  const onDelete = async () => {
+    await deletenote(card?.postID);
+  };
+
   //  Title,
   //  Author_name,
   //  Author_url,
@@ -89,10 +98,24 @@ export default function BlogCard({ card }) {
         </div>
       </div>
 
-      <div className="relative flex flex-wrap w-full mt-2">
-        {card?.tags.map((tag, index) => (
-          <Tags key={index} tags={tag} />
-        ))}{" "}
+      <div className="relative  flex justify-between items-center  flex-wrap w-full mt-2">
+        <div className="flex">
+          {card?.tags.map((tag, index) => (
+            <Tags key={index} tags={tag} />
+          ))}{" "}
+        </div>
+        <div className="hidden px-4 py-1 rounded-full group/buttons  group-hover:block hover:bg-blue-100">
+          <div
+            className="hidden   space-x-3 pr-2
+           absolute group-hover/buttons:block right-8"
+          >
+            <span className="bg-blue-200 p-1 rounded-md">Update</span>
+            <span className="bg-blue-200 p-1 rounded-md" onClick={onDelete}>
+              Delete
+            </span>
+          </div>
+          <i className=" fa fa-ellipsis-v"> </i>
+        </div>
       </div>
     </div>
   );
