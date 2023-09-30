@@ -8,7 +8,7 @@ const WriteBlogLayout = () => {
   const postid = getUniqueID();
   const context2 = useContext(AuthContext);
   const { UserDetails } = context2;
-  console.log(UserDetails.username);
+  console.log(UserDetails?.username);
   return (
     <div>
       <WriteBlogPage

@@ -7,8 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 const WriteBlog = ({ postid, UserDetails }) =>
   // { blog2 }
   {
-    console.log(UserDetails.username + "writepage");
-    const name = UserDetails.username;
+    const name = UserDetails?.username;
     const context = useContext(blogContext);
     const {
       addblogCard,
