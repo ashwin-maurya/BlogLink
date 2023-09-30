@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import TinyMCEEditor from "../Helper/Editor";
 import blogContext from "../Helper/Context/blogContext";
 import { toast } from "react-toastify";
@@ -7,8 +7,6 @@ import "react-toastify/dist/ReactToastify.css";
 const WriteBlog = ({ postid, UserDetails }) =>
   // { blog2 }
   {
-    console.log(UserDetails.username + "writepage");
-    const name = UserDetails.username;
     const context = useContext(blogContext);
     const {
       addblogCard,
@@ -21,9 +19,13 @@ const WriteBlog = ({ postid, UserDetails }) =>
       {
         postID: postid,
         userID: JSON.parse(localStorage.getItem("UserData")).UserID,
-        UserName: name,
+        UserName: "",
       }
     );
+    useEffect(() => {
+      setblog({ ...blogs, UserName: UserDetails?.username });
+    }, [UserDetails]);
+
     const [blogContent, setblogContent] = useState(
       // blog2 != null ? blog2 :
       {
@@ -51,7 +53,7 @@ const WriteBlog = ({ postid, UserDetails }) =>
 
       settags(strarr);
 
-      setblog({ ...blogs, tags: strarr });
+      setblog({ ...blogs, tags: strarr, UserName: UserDetails?.username });
       console.log(blogs);
     };
     const getInput = (event) => {
@@ -59,7 +61,7 @@ const WriteBlog = ({ postid, UserDetails }) =>
       let input = {
         [name]: value,
       };
-      setblog({ ...blogs, ...input });
+      setblog({ ...blogs, ...input, UserName: UserDetails?.username });
       console.log(blogs);
     };
 
