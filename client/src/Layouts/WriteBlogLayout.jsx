@@ -1,17 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
-
+import { useContext } from "react";
+import getUniqueID from "../Helper/getUniqueID";
 import WriteBlogPage from "../Pages/WriteBlogPage";
-import { useLocation, useNavigate } from "react-router";
-import { toast } from "react-toastify";
-import blogContext from "../Helper/Context/blogContext";
+import AuthContext from "../Helper/Context/AuthContext";
 
 // toast.configure();
 const WriteBlogLayout = () => {
-
+  const postid = getUniqueID();
+  const context2 = useContext(AuthContext);
+  const { UserDetails } = context2;
+  console.log(UserDetails.username);
   return (
     <div>
       <WriteBlogPage
-      // blog2={blog1}
+        postid={postid}
+        UserDetails={UserDetails}
+        // blog2={blog1}
       ></WriteBlogPage>
     </div>
   );
