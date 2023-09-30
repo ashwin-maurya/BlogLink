@@ -3,7 +3,6 @@ import Search from "./Search";
 import Tags from "./Tags";
 import Share from "./Share";
 import MainNav from "./MainNav";
-import Authentication from "./Authentication";
 import SideNav from "./SideNav";
 import Footer from "./Footer";
 import ScrollProgress from "./ScrollProgress ";
@@ -24,7 +23,6 @@ export {
   Tags,
   Share,
   SideNav,
-  Authentication,
   Footer,
   Profile,
   ProfileModal,

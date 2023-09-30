@@ -35,7 +35,6 @@ const AuthState = (props) => {
       }
     );
     const json = await response.json();
-    console.log(json);
     setUserProfile(json);
   };
 

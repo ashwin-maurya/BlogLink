@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import Authentication from "./Authentication";
+import Authentication from "./Auth/Authentication";
 import { onLogout } from "../../api/AuthAPI";
 import Profile from "./Profile";
 
@@ -32,7 +32,7 @@ export default function Login() {
 
       {AuthStatus ? (
         <div className="group">
-          <Profile img="" name={UserDetails?.name}></Profile>
+          <Profile img="" name={UserDetails?.username}></Profile>
         </div>
       ) : (
         <div

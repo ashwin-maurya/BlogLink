@@ -7,7 +7,6 @@ export default function ProfileMain({ username }) {
   const context = useContext(AuthContext);
   const { UserProfile, getUser } = context;
   const [showProfileModal, setProfileModal] = useState(false);
-
   useEffect(() => {
     if (username) {
       getUser(username);
@@ -25,17 +24,17 @@ export default function ProfileMain({ username }) {
         ></EditProfileModal>
       )}
 
-      <section class="relative block h-[400px] ">
-        <div class=" w-full h-full bg-center bg-cover bg-[url('https://wallpapers.com/images/hd/profile-picture-background-10tprnkqwqif4lyv.jpg')]"></div>
+      <section className="relative block h-[400px] ">
+        <div className=" w-full h-full bg-center bg-cover bg-[url('https://wallpapers.com/images/hd/profile-picture-background-10tprnkqwqif4lyv.jpg')]"></div>
       </section>
-      <section class="relative pt-16 ">
-        <div class="container mx-auto px-4">
-          <div class="relative flex flex-col min-w-0 bg-white  dark:bg-darkBgPrimary w-full mb-6 shadow-xl rounded-lg -mt-64 p-10">
-            <div class="flex flex-wrap justify-center relative">
+      <section className="relative pt-16 ">
+        <div className="container mx-auto px-4">
+          <div className="relative flex flex-col min-w-0 bg-white  dark:bg-darkBgPrimary w-full mb-6 shadow-xl rounded-lg -mt-64 p-10">
+            <div className="flex flex-wrap justify-center relative">
               <img
                 alt="..."
                 src="https://static.vecteezy.com/system/resources/previews/020/765/399/non_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg"
-                class="shadow-xl rounded-full w-56 h-auto align-middle border-none -mt-32"
+                className="shadow-xl rounded-full w-56 h-auto align-middle border-none -mt-32"
               />
               <div className="absolute right-0 top-0">
                 <button
@@ -46,11 +45,12 @@ export default function ProfileMain({ username }) {
                 </button>
               </div>
             </div>
-            <div class="text-center my-4">
-              <h3 class="text-4xl font-semibold leading-normals text-blueGray-700 mb-2 dark:text-darkTextMain">
+            <div className="text-center my-4">
+              <h3 className="text-4xl font-semibold leading-normals text-blueGray-700 mb-2 dark:text-darkTextMain">
                 {UserProfile?.name}
               </h3>
-              <div class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-light uppercase dark:text-darkTextMain">
+              <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-light uppercase dark:text-darkTextMain">
+                {UserProfile?.email}
                 {UserProfile?.email}
               </div>
             </div>
