@@ -128,7 +128,6 @@ router.get("/getCurrentuser", fetchuser, async (req, res) => {
 router.get("/getuser", async (req, res) => {
   try {
     const username = req.query.username;
-    console.log(username);
     // Use findOne to find a user by their username
     const user = await User.findOne({ username });
 

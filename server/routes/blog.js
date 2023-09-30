@@ -81,10 +81,11 @@ router.get("/fetchallblogCards", async (req, res) => {
 
 // ROUTE 2: Put all a blog in the database : POST "/api/blogs/addblog"
 
-router.post("/filterblog", fetchuser, async (req, res) => {
+router.post("/filterblog", async (req, res) => {
   try {
-    const { state, value } = req.body;
-    const blogs = await blogCard.find({ [state]: value });
+    const username = req.query.username;
+    console.log(username);
+    const blogs = await blogCard.find({ UserName: username });
 
     //   console.log(req.user.id)
 
@@ -102,7 +103,8 @@ router.post(
 
   async (req, res) => {
     try {
-      const { userID, postID, UserName, Title, Category, tags, Blog_url } = req.body;
+      const { userID, postID, Title, Category, UserName, tags, Blog_url } =
+        req.body;
 
       // If there are errors , return Bad request and the errors
       const errors = validationResult(req);

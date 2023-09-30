@@ -29,28 +29,26 @@ const BlogState = (props) => {
     console.log("form getblogs");
   };
 
-  const filterblogs = async (data) => {
+  const filterblogs = async (username) => {
     //API call
 
-    const { state, value } = data;
-    console.log("hello");
-    const response = await fetch(`${host}/api/blogs/filterblog`, {
-      method: "POST",
+    console.log(username);
+    console.log("OYye");
+    const response = await fetch(
+      `${host}/api/blogs/filterblog?username=${username}`,
+      {
+        method: "POST",
 
-      headers: {
-        "Content-Type": "application/json",
-        "auth-token": JSON.parse(localStorage.getItem("UserData")).authToken,
-      },
-      body: JSON.stringify({ state, value }),
-    });
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     const json = await response.json();
 
     console.log(json);
     setfilterData(json);
-    console.log(filterData);
-
-    console.log("form filtertblogs");
   };
   const getsingleblogContent = async (id) => {
     const response = await fetch(`${host}/api/blogs/getsingleblogcontent`, {
@@ -78,7 +76,7 @@ const BlogState = (props) => {
     console.log(data);
     const obj = JSON.parse(localStorage.getItem("UserData"));
     console.log(obj.authtoken);
-    const { Title, postID, userID, tags, UserName, Category, Blog_url } = data;
+    const { Title, postID, userID, UserName, tags, Category, Blog_url } = data;
     const response = await fetch(`${host}/api/blogs/addblogCard`, {
       method: "POST",
       headers: {
