@@ -40,7 +40,7 @@ export default function BlogCard({ card }) {
                     // );
                   }}
                 >
-                  {/* {card?.Author_name} */} Author Name
+                  {card?.UserName}
                 </p>
               </div>
               <span className="text-sm ml-2 font-semibold font-palanquin text-gray-400 max-lg:hidden dark:text-darkTextPrimary">
@@ -60,7 +60,6 @@ export default function BlogCard({ card }) {
 
               navigate(`/blogs/${card?.Title?.replace(/\s+/g, "-")}`, {
                 state: { id: card.postID },
-
               });
             }}
           >

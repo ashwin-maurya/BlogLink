@@ -102,7 +102,7 @@ router.post(
 
   async (req, res) => {
     try {
-      const { userID, postID, Title, Category, tags, Blog_url } = req.body;
+      const { userID, postID, UserName, Title, Category, tags, Blog_url } = req.body;
 
       // If there are errors , return Bad request and the errors
       const errors = validationResult(req);
@@ -113,7 +113,7 @@ router.post(
       }
       const blog = new blogCard({
         Title,
-
+        UserName,
         postID,
         userID,
         Category,

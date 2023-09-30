@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import blogContext from "./blogContext";
 
 const BlogState = (props) => {
@@ -78,7 +78,7 @@ const BlogState = (props) => {
     console.log(data);
     const obj = JSON.parse(localStorage.getItem("UserData"));
     console.log(obj.authtoken);
-    const { Title, postID, userID, tags, Category, Blog_url } = data;
+    const { Title, postID, userID, tags, UserName, Category, Blog_url } = data;
     const response = await fetch(`${host}/api/blogs/addblogCard`, {
       method: "POST",
       headers: {
@@ -89,7 +89,7 @@ const BlogState = (props) => {
         userID,
         Title,
         postID,
-
+        UserName,
         tags,
         Category,
         Blog_url,

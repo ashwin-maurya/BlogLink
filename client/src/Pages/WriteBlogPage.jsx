@@ -2,33 +2,34 @@ import { useState, useContext } from "react";
 import TinyMCEEditor from "../Helper/Editor";
 import blogContext from "../Helper/Context/blogContext";
 import { toast } from "react-toastify";
-
 import "react-toastify/dist/ReactToastify.css";
-import getUniqueID from "../Helper/getUniqueID";
-import AuthContext from "../Helper/Context/AuthContext";
 
-const WriteBlog = () =>
+const WriteBlog = ({ postid, UserDetails }) =>
   // { blog2 }
   {
-    const postid = getUniqueID();
-    const context2 = useContext(AuthContext);
+    console.log(UserDetails.username + "writepage");
+    const name = UserDetails.username;
     const context = useContext(blogContext);
     const {
       addblogCard,
       addblogcontent,
       // updateblog
     } = context;
-    const { UserDetails } = context2;
-    console.log(UserDetails);
-    console.log("UserDetails");
 
     const [blogs, setblog] = useState(
       // blog2 != null ? blog2 :
-      {}
+      {
+        postID: postid,
+        userID: JSON.parse(localStorage.getItem("UserData")).UserID,
+        UserName: name,
+      }
     );
     const [blogContent, setblogContent] = useState(
       // blog2 != null ? blog2 :
-      {}
+      {
+        postID: postid,
+        userID: JSON.parse(localStorage.getItem("UserData")).UserID,
+      }
     );
     const [tags, settags] = useState(
       // blog2 != null ? blog2.tags :
@@ -40,7 +41,9 @@ const WriteBlog = () =>
         description: content,
       };
 
-      setblogContent({ ...input });
+      setblogContent({ ...blogContent, ...input, ...blogs });
+
+      console.log(blogContent);
     };
     const getTags = (e) => {
       let str = e.target.value;
@@ -49,6 +52,7 @@ const WriteBlog = () =>
       settags(strarr);
 
       setblog({ ...blogs, tags: strarr });
+      console.log(blogs);
     };
     const getInput = (event) => {
       let { name, value } = event.target;
@@ -56,19 +60,18 @@ const WriteBlog = () =>
         [name]: value,
       };
       setblog({ ...blogs, ...input });
+      console.log(blogs);
     };
+
     const handleadd = async () => {
-      setblog({
-        ...blogs,
-        postID: postid,
-        userID: JSON.parse(localStorage.getItem("UserData")).UserID,
-      });
-      setblogContent({
-        ...blogs,
-        ...blogContent,
-      });
-      await addblogCard(blogs);
-      await addblogcontent(blogContent);
+      try {
+        await addblogCard(blogs);
+        await addblogcontent(blogContent);
+        toast.success("Your blog added Successfully!");
+      } catch (error) {
+        toast.error("Error occured while adding your blog");
+      }
+
       console.log("Saved to Database");
     };
     const handleupdate = async () => {

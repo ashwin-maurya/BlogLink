@@ -10,7 +10,9 @@ const BlogCardSchema = new mongoose.Schema({
         type: String,
         // required: true
     },
-
+    UserName: {
+        type: String
+    },
     Title: {
         type: String,
         // required: true

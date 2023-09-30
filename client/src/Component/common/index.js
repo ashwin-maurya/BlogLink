@@ -1,6 +1,6 @@
 import BlogCard from "./BlogCard";
 import Search from "./Search";
-import Tags from "./Tags";
+import Tags from "../BlogsComponents/Tags";
 import Share from "./Share";
 import MainNav from "./MainNav";
 import Authentication from "./Authentication";
@@ -8,7 +8,7 @@ import SideNav from "./SideNav";
 import Footer from "./Footer";
 import ScrollProgress from "./ScrollProgress ";
 import LandingCards from "./LandingCards";
-import Comments from "./Comments";
+import Comments from "../SingleBlogComponents/Comments";
 import Login from "./Login";
 import Logout from "./Logout";
 import Profile from "./Profile";

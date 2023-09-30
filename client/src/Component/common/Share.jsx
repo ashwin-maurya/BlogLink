@@ -6,7 +6,7 @@ export default function Share(props) {
       <div className="group ">
         <li
           className={`list-none w-[4rem] border-2  border-transparent dark:border-darkBorderAll dark:group-hover:border-secondary group-hover:border-primaryMain rounded-xl bg-bgBlue dark:bg-darkBgPrimary ${
-            props.check == false ? "px-1" : "px-3"
+            props.check == false ? "px-1" : "px-2"
           } `}
         >
           <a
