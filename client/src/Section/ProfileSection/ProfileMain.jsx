@@ -7,7 +7,6 @@ export default function ProfileMain({ username }) {
   const context = useContext(AuthContext);
   const { UserProfile, getUser } = context;
   const [showProfileModal, setProfileModal] = useState(false);
-
   useEffect(() => {
     if (username) {
       getUser(username);
@@ -46,11 +45,12 @@ export default function ProfileMain({ username }) {
                 </button>
               </div>
             </div>
-            <div class="text-center my-4">
-              <h3 class="text-4xl font-semibold leading-normals text-blueGray-700 mb-2 dark:text-darkTextMain">
+            <div className="text-center my-4">
+              <h3 className="text-4xl font-semibold leading-normals text-blueGray-700 mb-2 dark:text-darkTextMain">
                 {UserProfile?.name}
               </h3>
-              <div class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-light uppercase dark:text-darkTextMain">
+              <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-light uppercase dark:text-darkTextMain">
+                {UserProfile?.email}
                 {UserProfile?.email}
               </div>
             </div>
