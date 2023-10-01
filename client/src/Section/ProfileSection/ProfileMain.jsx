@@ -5,7 +5,7 @@ import EditProfileModal from "./EditProfileModal";
 
 export default function ProfileMain({ username }) {
   const context = useContext(AuthContext);
-  const { UserProfile, getUser } = context;
+  const { UserProfile, getUser, UserDetails } = context;
   const [showProfileModal, setProfileModal] = useState(false);
   useEffect(() => {
     if (username) {
@@ -50,8 +50,13 @@ export default function ProfileMain({ username }) {
                 {UserProfile?.name}
               </h3>
               <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-light uppercase dark:text-darkTextMain">
-                {UserProfile?.email}
-                {UserProfile?.email}
+                <div className="flex flex-col">
+                  <p>{UserProfile?.email}</p>
+                  <p>{UserProfile?.username}</p>
+                  <p>{UserProfile?._id}</p>
+                  <p>{UserProfile?.password}</p>
+                  <p>{UserProfile?.Date}</p>
+                </div>
               </div>
             </div>
             <div className="flex min-w-0 break-words w-full max-lg:flex-col">

@@ -178,4 +178,39 @@ router.put("/updateblog", fetchuser, async (req, res) => {
     res.status(500).send("Internal Sever error,Something in the way");
   }
 });
+
+
+// ROUTE 4:Delete an existing note using : DELETE "/api/notes/deletenote" .login required
+
+router.delete('/deleteblog/:id', async (req, res) => {
+
+
+
+  try {
+
+
+    // Find the note to be deleted and delete it
+    let blog1 = await blogCard.find({ postID: req.params.id })
+    let blog2 = await blog.find({ postID: req.params.id })
+    if (!blog1 || !blog2) {
+      return res.status(404).send("not found")
+    }
+
+    //Allow deletion only if user owns it 
+    // if (blog1.user.toString() !== req.user.id) {
+    //   return res.status(401).send("Not Alowed")
+    // }
+
+    blog1 = await blogCard.findOneAndDelete({ postID: req.params.id })
+    blog2 = await blog.findOneAndDelete({ postID: req.params.id })
+
+    return res.json({ "success": "note has been deleted", blog1: blog1, blog2: blog2 });
+  } catch (error) {
+
+    console.error(error.message);
+    res.status(500).send("Internal Sever error,Something in the way");
+  }
+})
+
+
 module.exports = router;

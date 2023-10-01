@@ -5,7 +5,7 @@ const CheckLogin = () => {
   const context = useContext(AuthContext);
 
   const { setAuthStatus, getCurrentUser } = context;
-  const {} = context;
+
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("UserData")) != null) {
       setAuthStatus(true);

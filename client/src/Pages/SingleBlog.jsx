@@ -1,18 +1,14 @@
-import { useNavigate, useParams } from "react-router";
 import LeftSection from "../Section/SingleBlogSection/LeftSection";
 import MiddleSection from "../Section/SingleBlogSection/MiddleSection";
 import RightSection from "../Section/SingleBlogSection/RightSection";
 import { useContext, useRef, useState } from "react";
 import blogContext from "../Helper/Context/blogContext";
 import { useEffect } from "react";
-import { useMemo } from "react";
-import { edit } from "../Assets/icons";
 import TopicBar from "../Component/SingleBlogComponents/TopicBar";
-import { ScrollProgress } from "../Component/common";
+import { Comments } from "../Component/common";
 
 const SingleBlog = ({ blog1 }) => {
   const context = useContext(blogContext);
-  const navigate = useNavigate();
   const { blog, getblogs } = context;
 
   useEffect(() => {
@@ -22,14 +18,6 @@ const SingleBlog = ({ blog1 }) => {
     fetchdata();
     console.log(blog);
   }, []);
-
-  //  Title,
-  //  Author_name,
-  //  Author_url,
-  //  Description,
-  //  tags,
-  //  Blog_url
-  // const { handle } = useParams();
 
   const [scrollDirection, setScrollDirection] = useState("up");
   const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -82,18 +70,18 @@ const SingleBlog = ({ blog1 }) => {
           />
         </div>
         <div className="flex max-xl:w-full  max-xl:flex max-xl:flex-col max-xl:justify-center max-xl:items-center justify-center">
-          <div className="w-[30%] max-2xl:hidden ">
+          <div className="w-[26%] max-2xl:hidden ">
             <LeftSection blog={blog1}></LeftSection>
           </div>
           <div className="xl:w-[70%] max-xl:w-[70%] max-md:w-[90%]  ">
             <MiddleSection blog={blog1}></MiddleSection>
           </div>
-          <div className="w-[30%] max-2xl:hidden">
+          <div className="w-[26%] max-2xl:hidden">
             <RightSection blog={blog1}></RightSection>
           </div>
         </div>
-        <div className="max-md:flex max-md:flex-col 2xl:hidden border-t-2 flex w-full  justify-center">
-          <div className="w-[30%] max-2xl:w-full flex border-r-2 ">
+        <div className="max-md:flex max-md:flex-col 2xl:hidden border-t-[2px] dark:border-gray-500   flex w-full  justify-center">
+          <div className="w-[30%] max-2xl:w-full flex border-r-[2px] dark:border-gray-500 ">
             <LeftSection blog={blog1}></LeftSection>
           </div>
           <div className="w-[30%] max-2xl:w-full flex justify-center items-center">
@@ -101,7 +89,9 @@ const SingleBlog = ({ blog1 }) => {
           </div>
         </div>
       </section>
-
+      <div className=" mt-40">
+        <Comments />
+      </div>
       <TopicBar navbarRef={navbarRef} card={blog1}></TopicBar>
     </>
   );

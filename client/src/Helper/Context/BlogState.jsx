@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import blogContext from "./blogContext";
 
 const BlogState = (props) => {
@@ -144,18 +144,23 @@ const BlogState = (props) => {
   //Delete a note
   const deletenote = async (id) => {
     //API call
-    const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
+    console.log("DelteBlog");
+    const obj = JSON.parse(localStorage.getItem("UserData"));
+    const response = await fetch(`${host}/api/blogs/deleteblog/${id}`, {
       method: "DELETE",
       headers: {
-        "auth-token": localStorage.getItem("token"),
+        "auth-token": obj.authtoken,
         "Content-Type": "application/json",
       },
     });
 
     const json = response.json();
+    console.log(json);
+    console.log(" from DelteBlog");
 
+    console.log(json);
     const output = blog.filter((blog) => {
-      return blog._id != id;
+      return blog.postID != id;
     });
     console.log(id);
     setblogs(output);
@@ -222,7 +227,8 @@ const BlogState = (props) => {
         addblogcontent,
         SingleBlogContent,
         getsingleblogContent,
-        // , deletenote, getnotes, editnote
+        deletenote,
+        // , getnotes, editnote
       }}
     >
       {props.children}
