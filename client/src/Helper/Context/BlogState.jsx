@@ -11,7 +11,7 @@ const BlogState = (props) => {
 
   const [filterData, setfilterData] = useState(bloginitial1);
 
-  //Get all notes
+  //Get all blogs------------------------------------------------------------------------------------------------
   const getblogs = async () => {
     //API call
 
@@ -29,9 +29,8 @@ const BlogState = (props) => {
     console.log("form getblogs");
   };
 
+  //Filter blogs by Username ----------------------------------------------------------------------------------------
   const filterblogs = async (username) => {
-    //API call
-
     console.log(username);
     console.log("OYye");
     const response = await fetch(
@@ -170,33 +169,36 @@ const BlogState = (props) => {
   //Edit a note
   const updateblog = async (data, id) => {
     //API call
+    console.log({ id });
+
     const {
       Title,
-      Author_name,
-      Author_url,
-      Description,
-      tags,
+      UserName,
+      postID,
+      userID,
       Category,
+      tags,
       Blog_url,
+      description,
     } = data;
+    const obj = JSON.parse(localStorage.getItem("UserData"));
 
-    const response = await fetch(`${host}/api/blogs/updateblog`, {
+    const response = await fetch(`${host}/api/blogs/updateblog/${id}`, {
       method: "PUT",
       headers: {
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwODVlZjE5YWIyMmRjZDg3NTQ4ODRlIn0sImlhdCI6MTY5NTA0NzQwOX0.Fk4_lQbt1yaZrdTe4iLEN_E82vXEdY410VGlzsps_WE ",
+        "auth-token": obj.authtoken,
 
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         Title,
-        Author_name,
-        Author_url,
-        Description,
-        tags,
+        UserName,
+        postID,
+        userID,
         Category,
+        tags,
         Blog_url,
-        id,
+        description,
       }),
     });
     const json = await response.json();

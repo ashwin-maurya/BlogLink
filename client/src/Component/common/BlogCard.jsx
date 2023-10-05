@@ -4,23 +4,20 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import blogContext from "../../Helper/Context/blogContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import HelperContext from "../../Helper/Context/HelperContext";
 export default function BlogCard({ card }) {
   const context = useContext(blogContext);
   const { deletenote } = context;
-
+  const context2 = useContext(HelperContext);
+  const { formatUTCDate, date } = context2;
   const onDelete = async () => {
     await deletenote(card?.postID);
   };
+  useEffect(() => {
+    formatUTCDate(card?.Date);
+  }, []);
 
-  //  Title,
-  //  Author_name,
-  //  Author_url,
-  //  Description,
-  //  tags,
-  //  Blog_url
-  console.log(card.postID);
-  // const { card } = props;
   const navigate = useNavigate();
 
   // const navigate = useNavigate();
@@ -56,8 +53,8 @@ export default function BlogCard({ card }) {
                 -
               </span>
               <p className="text-sm ml-1 font-semibold font-palanquin text-gray-400 dark:text-darkTextPrimary">
-                {/* {card.date} */}
-                28 August 2023
+                {date}
+                {/* 28 August 2023 */}
               </p>
             </div>
           </div>
@@ -76,10 +73,6 @@ export default function BlogCard({ card }) {
               {card?.Title}
             </h3>
           </div>
-
-          {/* </Link> */}
-
-          {/* <p className="dark:text-darkTextMain">{card.category}</p> */}
         </div>
         <div className="relative flex items-center justify-center w-[30%]">
           <div className="absolute -top-1 -left-4 z-30">
@@ -109,7 +102,16 @@ export default function BlogCard({ card }) {
             className="hidden   space-x-3 pr-2
            absolute group-hover/buttons:block right-8"
           >
-            <span className="bg-blue-200 p-1 rounded-md">Update</span>
+            <span
+              className="bg-blue-200 p-1 rounded-md"
+              onClick={() => {
+                navigate("/write", {
+                  state: { id: card.postID },
+                });
+              }}
+            >
+              Update
+            </span>
             <span className="bg-blue-200 p-1 rounded-md" onClick={onDelete}>
               Delete
             </span>

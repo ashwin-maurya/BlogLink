@@ -131,18 +131,24 @@ router.post(
   }
 );
 
+
 // ROUTE 3:Update an existing note using : POST "/api/notes/updatenote" .login required
 
-router.put("/updateblog", fetchuser, async (req, res) => {
+router.put("/updateblog/:id", fetchuser, async (req, res) => {
   try {
     const {
       Title,
-
+      description,
       tags,
       Category,
       Blog_url,
+
     } = req.body;
+
+    // let blog1 = await blogCard.find({ postID: req.params.id })
     const newblog = {};
+    // const newblog = {};
+    console.log({ postID: req.params.id })
     if (Title) {
       newblog.Title = Title;
     }
@@ -158,8 +164,9 @@ router.put("/updateblog", fetchuser, async (req, res) => {
       newblog.Blog_url = Blog_url;
     }
     // Find the note to be updated and update it
-    let Blog = await blogCard.findById(req.body.id);
-    if (!Blog) {
+    let Blog = await blogCard.find({ postID: req.params.id });
+    let Blog2 = await blog.find({ postID: req.params.id });
+    if (!Blog || !Blog2) {
       return res.status(404).send("not found");
     }
 
@@ -167,9 +174,14 @@ router.put("/updateblog", fetchuser, async (req, res) => {
     //     return res.status(401).send("Not Alowed");
     //   }
 
-    Blog = await blogCard.findByIdAndUpdate(
-      req.body.id,
+    Blog = await blogCard.findOneAndUpdate(
+      { postID: req.params.id },
       { $set: newblog },
+      { new: true }
+    );
+    Blog2 = await blog.findOneAndUpdate(
+      { postID: req.params.id },
+      { $set: { ...newblog, description: description } },
       { new: true }
     );
     res.json({ Blog });
