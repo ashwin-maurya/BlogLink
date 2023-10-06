@@ -6,7 +6,7 @@
 @tailwind utilities;
 
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 7px;
   position: absolute;
 }
 ::-webkit-scrollbar-track {
@@ -15,8 +15,7 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #a6ddff;
-  border-radius: 5px;
+  background: #58bfff;
 }
 
 /* Handle on hover */

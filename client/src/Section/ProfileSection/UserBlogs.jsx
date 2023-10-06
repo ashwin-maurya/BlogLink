@@ -1,15 +1,22 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import MapFilteredData from "../../Component/FilterDataComponents/MapFilteredData";
 import blogContext from "../../Helper/Context/blogContext";
+import { useLocation } from "react-router-dom";
 
-export default function UserBlogs(props) {
-  const username = props.username;
-  console.log(username);
+export default function UserBlogs() {
+  const [username, setUsername] = useState("");
+  let location = useLocation();
+
+  useEffect(() => {
+    const currentUrl = window.location.href;
+    const urlParts = currentUrl.split("/");
+    const extractedUsername = urlParts[urlParts.length - 1];
+    setUsername(extractedUsername);
+  }, [location]);
   const context = useContext(blogContext);
   const { filterblogs, filterData } = context;
   useEffect(() => {
     filterblogs(username);
-    console.log(filterData);
   }, [username]);
   return (
     <>

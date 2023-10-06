@@ -6,7 +6,7 @@ const AuthState = (props) => {
   const [UserDetails, setUserDetails] = useState();
   const [AuthStatus, setAuthStatus] = useState(false);
   const [UserProfile, setUserProfile] = useState();
-  const [UserExistStatus, setUserExistStatus] = useState(false);
+  const [UserExistStatus, setUserExistStatus] = useState();
   const [loggedin, setLoggedin] = useState({});
   const [loggedinStatus, setLoggedinStatus] = useState(false);
 
@@ -20,6 +20,26 @@ const AuthState = (props) => {
       },
       body: JSON.stringify({
         email: GoogleCreds.email,
+      }),
+    });
+
+    const json = await response.json();
+    setLoggedin(json);
+    setLoggedinStatus(json.success);
+  };
+
+  //Get all notes
+  const googlesignup = async (GoogleCreds) => {
+    //API call
+    const response = await fetch(`${host}/api/auth/googlesignup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: GoogleCreds.name,
+        email: GoogleCreds.email,
+        username: GoogleCreds.username,
       }),
     });
 
@@ -68,8 +88,6 @@ const AuthState = (props) => {
       },
     });
     const json = await response.json();
-    console.log(json.status);
-
     setUserExistStatus(json.status);
   };
 
@@ -89,6 +107,8 @@ const AuthState = (props) => {
         googlelogin,
         loggedinStatus,
         setLoggedinStatus,
+        setUserExistStatus,
+        googlesignup,
       }}
     >
       {props.children}

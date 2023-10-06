@@ -4,11 +4,21 @@ import "react-toastify/dist/ReactToastify.css";
 import AuthContext from "../../../Helper/Context/AuthContext";
 import Login from "./Login";
 import Register from "./Register";
-import GoogleSignIn from "./GoogleSignIn";
+import { GoogleSignInAPI } from "../../../api/AuthAPI";
+import { toast } from "react-toastify";
 
 export default function Authentication(props) {
   const context = useContext(AuthContext);
-  const { setAuthStatus, UserExistStatus, userexist } = context;
+  const {
+    setAuthStatus,
+    UserExistStatus,
+    userexist,
+    loggedin,
+    googlelogin,
+    loggedinStatus,
+    googlesignup,
+  } = context;
+  const [GooogleCreds, setGooogleCreds] = useState({});
 
   const { ModalStatus } = props;
   const modalRef = useRef(null);
@@ -19,6 +29,42 @@ export default function Authentication(props) {
       ModalStatus();
     }
   };
+
+  useEffect(() => {
+    if (loggedinStatus) {
+      if (loggedin.success) {
+        localStorage.setItem("UserData", JSON.stringify(loggedin));
+        ModalStatus();
+        setAuthStatus(true);
+        toast.success("Account Loggedin Succesfully");
+      } else {
+        toast.error("Invalid Credentials");
+      }
+    }
+  }, [loggedinStatus]);
+
+  const goolesignin = async () => {
+    let res = await GoogleSignInAPI();
+    console.log(res);
+    if (res) {
+      const parts = res.user.email.split("@");
+      const username = parts[0];
+      const input = {
+        name: res.user.displayName,
+        email: res.user.email,
+        username: username,
+      };
+      setGooogleCreds(input);
+      userexist(input.email);
+    }
+  };
+  useEffect(() => {
+    if (UserExistStatus) {
+      googlelogin(GooogleCreds);
+    } else if (UserExistStatus == false) {
+      googlesignup(GooogleCreds);
+    }
+  }, [UserExistStatus]);
 
   return (
     <>
@@ -34,12 +80,17 @@ export default function Authentication(props) {
           </div>
 
           {sign ? (
-            <Login ModalStatus={ModalStatus} setSign={setSign} />
+            <Login
+              ModalStatus={ModalStatus}
+              setSign={setSign}
+              goolesignin={goolesignin}
+            />
           ) : (
             <Register
               ModalStatus={ModalStatus}
               setAuthStatus={setAuthStatus}
               setSign={setSign}
+              goolesignin={goolesignin}
             />
           )}
         </div>

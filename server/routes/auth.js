@@ -64,6 +64,54 @@ router.post(
   }
 );
 
+//ROUTE:1 Create a user using : POST "/api/auth/createuser". No login required
+
+router.post(
+  "/googlesignup",
+  [body("email", "Enter a valid Email").isEmail()],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    try {
+      let success = false;
+      let user = await User.findOne({ email: req.body.email });
+      if (user) {
+        return res.status(400).json({
+          success,
+          error: "Sorry a user with this email already exists",
+        });
+      }
+      //create a new user
+      user = await User.create({
+        username: req.body.username,
+        name: req.body.name,
+        password: "",
+        email: req.body.email,
+      });
+      const data = {
+        user: {
+          id: user.id,
+        },
+      };
+      const authtoken = jwt.sign(data, JWT_SECRET);
+      //   console.log(jwtData)
+      success = true;
+
+      res.json({ success: success, authtoken: authtoken, UserID: user.id });
+      // console.log(res.json)
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send("Internal Sever error,Something  in the way");
+    }
+    // .then(user=>res.json(user)).catch(err=>{
+    //     console.log(err)
+    //     res.json({error:'please enter a unique value for email',message:err.message})
+    // })
+  }
+);
+
 //ROUTE:2 Authenticate a user using : POST "/api/auth/login". No login required
 
 router.post(

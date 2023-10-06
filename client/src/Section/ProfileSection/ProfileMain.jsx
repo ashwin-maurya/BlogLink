@@ -2,8 +2,19 @@ import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "../../Helper/Context/AuthContext";
 import "react-toastify/dist/ReactToastify.css";
 import EditProfileModal from "./EditProfileModal";
+import { useLocation } from "react-router-dom";
 
-export default function ProfileMain({ username }) {
+export default function ProfileMain() {
+  const [username, setUsername] = useState("");
+  let location = useLocation();
+
+  useEffect(() => {
+    const currentUrl = window.location.href;
+    const urlParts = currentUrl.split("/");
+    const extractedUsername = urlParts[urlParts.length - 1];
+    setUsername(extractedUsername);
+  }, [location]);
+
   const context = useContext(AuthContext);
   const { UserProfile, getUser, UserDetails } = context;
   const [showProfileModal, setProfileModal] = useState(false);
@@ -51,11 +62,7 @@ export default function ProfileMain({ username }) {
               </h3>
               <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-light uppercase dark:text-darkTextMain">
                 <div className="flex flex-col">
-                  <p>{UserProfile?.email}</p>
                   <p>{UserProfile?.username}</p>
-                  <p>{UserProfile?._id}</p>
-                  <p>{UserProfile?.password}</p>
-                  <p>{UserProfile?.Date}</p>
                 </div>
               </div>
             </div>

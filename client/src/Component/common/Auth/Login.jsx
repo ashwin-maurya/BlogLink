@@ -2,23 +2,19 @@ import { useState, useContext, useEffect } from "react";
 import AuthContext from "../../../Helper/Context/AuthContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { GoogleSignInAPI } from "../../../api/AuthAPI";
 
-export default function Login({ setSign, ModalStatus }) {
+export default function Login({ setSign, ModalStatus, goolesignin }) {
   const host = "http://localhost:5001";
 
   const [Logincreds, setLogincreds] = useState({ email: "", password: "" });
-  const [GooogleCreds, setGooogleCreds] = useState({});
   const context = useContext(AuthContext);
-  const {
-    setAuthStatus,
-    UserExistStatus,
-    userexist,
-    loggedin,
-    googlelogin,
-    loggedinStatus,
-  } = context;
-
+  const { setAuthStatus } = context;
+  const LoginOnchange = (e) => {
+    setLogincreds({
+      ...Logincreds,
+      [e.target.name]: e.target.value,
+    });
+  };
   const login = async (e) => {
     e.preventDefault();
     const response = await fetch(`${host}/api/auth/login`, {
@@ -44,44 +40,6 @@ export default function Login({ setSign, ModalStatus }) {
       toast.error("Invalid Credentials");
     }
   };
-
-  useEffect(() => {
-    if (loggedinStatus) {
-      if (loggedin.success) {
-        localStorage.setItem("UserData", JSON.stringify(loggedin));
-        ModalStatus();
-        setAuthStatus(true);
-        toast.success("Account Loggedin Succesfully");
-      } else {
-        toast.error("Invalid Credentials");
-      }
-    }
-  }, [loggedinStatus]);
-
-  const LoginOnchange = (e) => {
-    setLogincreds({
-      ...Logincreds,
-      [e.target.name]: e.target.value,
-    });
-  };
-  const goolesignin = async () => {
-    let res = await GoogleSignInAPI();
-    console.log(res);
-    if (res) {
-      const input = {
-        email: res.user.email,
-      };
-      setGooogleCreds(input);
-      userexist(input.email);
-    }
-  };
-  useEffect(() => {
-    if (UserExistStatus) {
-      googlelogin(GooogleCreds);
-    } else {
-      console.log("no use found");
-    }
-  }, [UserExistStatus]);
 
   return (
     <>
