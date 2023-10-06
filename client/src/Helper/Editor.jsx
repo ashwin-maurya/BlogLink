@@ -42,7 +42,7 @@ function TinyMCEEditor({ blogs, description }) {
               { text: "C++", value: "cpp" },
             ],
           }}
-          value={blogs.Description}
+          value={blogs?.description}
           onEditorChange={handleEditorChange}
         />
       </div>
