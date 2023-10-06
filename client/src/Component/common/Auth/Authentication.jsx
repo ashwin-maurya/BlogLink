@@ -4,10 +4,11 @@ import "react-toastify/dist/ReactToastify.css";
 import AuthContext from "../../../Helper/Context/AuthContext";
 import Login from "./Login";
 import Register from "./Register";
+import GoogleSignIn from "./GoogleSignIn";
 
 export default function Authentication(props) {
   const context = useContext(AuthContext);
-  const { setAuthStatus } = context;
+  const { setAuthStatus, UserExistStatus, userexist } = context;
 
   const { ModalStatus } = props;
   const modalRef = useRef(null);
@@ -18,8 +19,6 @@ export default function Authentication(props) {
       ModalStatus();
     }
   };
-
-  // GOOGLE LOGIN HERE----------------------------------------------------------------------------------------------
 
   return (
     <>
@@ -35,11 +34,7 @@ export default function Authentication(props) {
           </div>
 
           {sign ? (
-            <Login
-              ModalStatus={ModalStatus}
-              setAuthStatus={setAuthStatus}
-              setSign={setSign}
-            />
+            <Login ModalStatus={ModalStatus} setSign={setSign} />
           ) : (
             <Register
               ModalStatus={ModalStatus}

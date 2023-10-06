@@ -112,6 +112,42 @@ router.post(
   }
 );
 
+router.post(
+  "/googlelogin",
+  [body("email", "Enter a valid Email").isEmail()],
+  async (req, res) => {
+    // If there are errors , return Bad request and the errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const { email } = req.body;
+    try {
+      let success = false;
+      // console.log(user)
+      let user = await User.findOne({ email });
+      if (!user) {
+        return res
+          .status(400)
+          .json({ error: "Please try to login with correct credentials" });
+      }
+
+      success = true;
+      const payload = {
+        user: {
+          id: user.id,
+        },
+      };
+      const authtoken = jwt.sign(payload, JWT_SECRET);
+      //   console.log(jwtData)
+      res.json({ success: true, authtoken: authtoken, UserID: user.id });
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send("Internal Sever error,Something in the way");
+    }
+  }
+);
+
 // ROUTE:3 Get loggedin user details susing : POST "/api/auth/getuser".  login required
 router.get("/getCurrentuser", fetchuser, async (req, res) => {
   try {
@@ -136,6 +172,23 @@ router.get("/getuser", async (req, res) => {
     }
 
     res.json(user);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal server error, something went wrong");
+  }
+});
+
+router.get("/userexist", async (req, res) => {
+  try {
+    const email = req.query.email;
+    // Use findOne to find a user by their username
+    const user = await User.findOne({ email: email });
+
+    if (user) {
+      res.json({ status: true });
+    } else {
+      res.json({ status: false });
+    }
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal server error, something went wrong");
