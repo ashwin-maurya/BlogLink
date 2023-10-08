@@ -70,7 +70,7 @@ export default function Authentication(props) {
     <>
       <div
         id="myModal"
-        className="fixed z-50 inset-0 flex items-center transition-all ease-in-out duration-300 justify-center backdrop-blur-sm"
+        className="fixed z-50 inset-0 flex items-center transition-all ease-in-out duration-300 justify-center backdrop-blur-sm bg-Opacityblack"
         ref={modalRef}
         onClick={handleOutsideClick}
       >

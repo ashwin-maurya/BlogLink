@@ -109,6 +109,7 @@ const AuthState = (props) => {
         setLoggedinStatus,
         setUserExistStatus,
         googlesignup,
+        setUserDetails,
       }}
     >
       {props.children}

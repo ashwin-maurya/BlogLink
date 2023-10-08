@@ -53,7 +53,7 @@ const MainNav = () => {
     if (scrollDirection === "up") {
       navbarRef.current.style.top = "0";
     } else {
-      navbarRef.current.style.top = `-${navbarHeight}px`;
+      navbarRef.current.style.top = `-${navbarHeight + 1}px`;
     }
   }, [scrollDirection]);
 

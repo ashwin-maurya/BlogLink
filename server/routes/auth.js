@@ -1,5 +1,6 @@
 const express = require("express");
 const User = require("../models/User");
+const Userdetail = require("../models/Userdetails");
 const router = express.Router();
 const { body, validator, validationResult } = require("express-validator");
 const bycrypt = require("bcryptjs");
@@ -16,12 +17,10 @@ router.post(
     body("password", "Enter a valid password").isLength({ min: 5 }),
   ],
   async (req, res) => {
-    // If there are errors , return Bad request and the errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    // Check wether the user with this email exists already
     try {
       let success = false;
       console.log(req.body.email);
@@ -242,5 +241,35 @@ router.get("/userexist", async (req, res) => {
     res.status(500).send("Internal server error, something went wrong");
   }
 });
+
+// ROUTE 3: Put all a blog in the database : POST "/api/blogs/addblog"
+router.post(
+  "/adduserdetail",
+  fetchuser,
+
+  async (req, res) => {
+    try {
+      const { userID, description, work, education, location } = req.body;
+
+      // If there are errors , return Bad request and the errors
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+      const Userdetails = new Userdetail({
+        userID,
+        description,
+        work,
+        education,
+        location,
+      });
+      const ProfileUpdated = await Userdetails.save();
+      res.json(ProfileUpdated);
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send("Internal Sever error,Something in the way");
+    }
+  }
+);
 
 module.exports = router;

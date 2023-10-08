@@ -1,31 +1,23 @@
-import React, { useContext, useEffect, useState } from "react";
-import AuthContext from "../../Helper/Context/AuthContext";
+import React, { useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import EditProfileModal from "./EditProfileModal";
-import { useLocation } from "react-router-dom";
-
-export default function ProfileMain() {
-  const [username, setUsername] = useState("");
-  let location = useLocation();
-
-  useEffect(() => {
-    const currentUrl = window.location.href;
-    const urlParts = currentUrl.split("/");
-    const extractedUsername = urlParts[urlParts.length - 1];
-    setUsername(extractedUsername);
-  }, [location]);
-
-  const context = useContext(AuthContext);
-  const { UserProfile, getUser, UserDetails } = context;
+import EditBanner from "./EditBanner";
+import { profileDefault } from "../../Assets/icons";
+import EditProfileImg from "./EditProfileImg";
+export default function ProfileMain({ UserProfile, UserMatch }) {
   const [showProfileModal, setProfileModal] = useState(false);
-  useEffect(() => {
-    if (username) {
-      getUser(username);
-    }
-  }, [username]);
+  const [showBannerModal, setBannerModal] = useState(false);
+  const [showProfileImg, setProfileImg] = useState(false);
 
   const ProfileModalStatus = () => {
     setProfileModal((showProfileModal) => !showProfileModal);
+  };
+
+  const BannerModal = () => {
+    setBannerModal((showBannerModal) => !showBannerModal);
+  };
+  const ProfileImg = () => {
+    setProfileImg((showProfileImg) => !showProfileImg);
   };
   return (
     <>
@@ -34,27 +26,38 @@ export default function ProfileMain() {
           ProfileModalStatus={ProfileModalStatus}
         ></EditProfileModal>
       )}
+      {showBannerModal && <EditBanner BannerModal={BannerModal}></EditBanner>}
+      {showProfileImg && (
+        <EditProfileImg ProfileImg={ProfileImg}></EditProfileImg>
+      )}
 
       <section className="relative block h-[400px] ">
-        <div className=" w-full h-full bg-center bg-cover bg-[url('https://wallpapers.com/images/hd/profile-picture-background-10tprnkqwqif4lyv.jpg')]"></div>
+        <div
+          className=" w-full h-full bg-center bg-cover bg-[url('https://wallpapers.com/images/hd/profile-picture-background-10tprnkqwqif4lyv.jpg')]"
+          onClick={BannerModal}
+        ></div>
       </section>
+
       <section className="relative pt-16 ">
         <div className="container mx-auto px-4">
           <div className="relative flex flex-col min-w-0 bg-white  dark:bg-darkBgPrimary w-full mb-6 shadow-xl rounded-lg -mt-64 p-10">
             <div className="flex flex-wrap justify-center relative">
               <img
                 alt="..."
-                src="https://static.vecteezy.com/system/resources/previews/020/765/399/non_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg"
-                className="shadow-xl rounded-full w-56 h-auto align-middle border-none -mt-32"
+                src={profileDefault}
+                className="shadow-xl rounded-full w-56 h-auto align-middle border-none -mt-32 bg-white"
+                onClick={ProfileImg}
               />
-              <div className="absolute right-0 top-0">
-                <button
-                  className="border-2 border-slate-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-orange-300 rounded-md bg-primaryMain dark:bg-secondary px-4 py-1 font-semibold text-white  "
-                  onClick={ProfileModalStatus}
-                >
-                  Edit
-                </button>
-              </div>
+              {UserMatch && (
+                <div className="absolute right-0 top-0">
+                  <button
+                    className="border-2 border-slate-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-orange-300 rounded-md bg-primaryMain dark:bg-secondary px-4 py-1 font-semibold text-white"
+                    onClick={ProfileModalStatus}
+                  >
+                    Edit
+                  </button>
+                </div>
+              )}
             </div>
             <div className="text-center my-4">
               <h3 className="text-4xl font-semibold leading-normals text-blueGray-700 mb-2 dark:text-darkTextMain">
