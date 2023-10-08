@@ -6,6 +6,47 @@ const AuthState = (props) => {
   const [UserDetails, setUserDetails] = useState();
   const [AuthStatus, setAuthStatus] = useState(false);
   const [UserProfile, setUserProfile] = useState();
+  const [UserExistStatus, setUserExistStatus] = useState();
+  const [loggedin, setLoggedin] = useState({});
+  const [loggedinStatus, setLoggedinStatus] = useState(false);
+
+  //Get all notes
+  const googlelogin = async (GoogleCreds) => {
+    //API call
+    const response = await fetch(`${host}/api/auth/googlelogin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: GoogleCreds.email,
+      }),
+    });
+
+    const json = await response.json();
+    setLoggedin(json);
+    setLoggedinStatus(json.success);
+  };
+
+  //Get all notes
+  const googlesignup = async (GoogleCreds) => {
+    //API call
+    const response = await fetch(`${host}/api/auth/googlesignup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: GoogleCreds.name,
+        email: GoogleCreds.email,
+        username: GoogleCreds.username,
+      }),
+    });
+
+    const json = await response.json();
+    setLoggedin(json);
+    setLoggedinStatus(json.success);
+  };
 
   //Get all notes
   const getCurrentUser = async (id) => {
@@ -38,6 +79,18 @@ const AuthState = (props) => {
     setUserProfile(json);
   };
 
+  const userexist = async (email) => {
+    //API call
+    const response = await fetch(`${host}/api/auth/userexist?email=${email}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const json = await response.json();
+    setUserExistStatus(json.status);
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -47,6 +100,16 @@ const AuthState = (props) => {
         setAuthStatus,
         getUser,
         UserProfile,
+        UserExistStatus,
+        userexist,
+        loggedin,
+        setLoggedin,
+        googlelogin,
+        loggedinStatus,
+        setLoggedinStatus,
+        setUserExistStatus,
+        googlesignup,
+        setUserDetails,
       }}
     >
       {props.children}

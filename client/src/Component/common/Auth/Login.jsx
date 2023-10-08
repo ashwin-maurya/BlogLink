@@ -1,16 +1,22 @@
-import { useState } from "react";
-
+import { useState, useContext, useEffect } from "react";
+import AuthContext from "../../../Helper/Context/AuthContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import GoogleSignIn from "./GoogleSignIn";
 
-export default function Login({ setSign, ModalStatus, setAuthStatus }) {
-  const [Logincreds, setLogincreds] = useState({ email: "", password: "" });
+export default function Login({ setSign, ModalStatus, goolesignin }) {
   const host = "http://localhost:5001";
 
+  const [Logincreds, setLogincreds] = useState({ email: "", password: "" });
+  const context = useContext(AuthContext);
+  const { setAuthStatus } = context;
+  const LoginOnchange = (e) => {
+    setLogincreds({
+      ...Logincreds,
+      [e.target.name]: e.target.value,
+    });
+  };
   const login = async (e) => {
     e.preventDefault();
-    console.log("Login");
     const response = await fetch(`${host}/api/auth/login`, {
       method: "POST",
       headers: {
@@ -23,7 +29,6 @@ export default function Login({ setSign, ModalStatus, setAuthStatus }) {
     });
 
     const json = await response.json();
-    console.log(json);
     if (json.success) {
       localStorage.setItem("UserData", JSON.stringify(json));
 
@@ -34,24 +39,16 @@ export default function Login({ setSign, ModalStatus, setAuthStatus }) {
     } else {
       toast.error("Invalid Credentials");
     }
+  };
 
-    console.log("form Register");
-  };
-  const LoginOnchange = (e) => {
-    setLogincreds({
-      ...Logincreds,
-      [e.target.name]: e.target.value,
-    });
-  };
   return (
     <>
-      {/* {<GoogleSignIn goolesignin={goolesignin} />} */}
       <div className="container flex flex-col justify-center items-center max-sm:p-5 p-10 max-lg:py-20 max-lg:px-20 w-[50%] max-lg:w-[90%]">
         <p className="font-bold text-black dark:text-darkTextMain">Sign In</p>
 
         <button
           className="button flex items-center border-2  border-gray-300 rounded-full dark:text-darkTextMain p-4 my-4  w-full"
-          // onClick={() => goolesignin()}
+          onClick={() => goolesignin()}
         >
           <img
             src="https://img.icons8.com/color/48/undefined/google-logo.png"
