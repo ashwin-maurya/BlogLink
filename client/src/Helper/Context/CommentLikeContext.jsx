@@ -1,5 +1,5 @@
 import { createContext } from "react";
 
-const CommentLikeState = createContext();
+const CommentLikeContext = createContext();
 
-export default CommentLikeState;
+export default CommentLikeContext;

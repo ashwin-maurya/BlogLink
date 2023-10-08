@@ -10,7 +10,7 @@ const CommentSchema = new mongoose.Schema({
         type: String,
         // required: true
     },
-    Comment: {
+    comment: {
         type: String,
         // required: true
     },
@@ -18,6 +18,7 @@ const CommentSchema = new mongoose.Schema({
         type: String,
         // required: true
     },
+    reply: [],
 
 
 

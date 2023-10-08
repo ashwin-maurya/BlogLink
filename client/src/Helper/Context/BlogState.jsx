@@ -154,6 +154,9 @@ const BlogState = (props) => {
       Blog_url,
       description,
     } = data;
+
+    console.log(data);
+    console.log("data from blog state");
     const obj = JSON.parse(localStorage.getItem("UserData"));
 
     const response = await fetch(`${host}/api/blogs/updateblog/${id}`, {
