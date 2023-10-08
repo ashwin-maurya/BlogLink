@@ -28,7 +28,7 @@ export default {
         Opacityblack: "rgba(0, 0, 0, 0.15)",
         bgBlue: "#edf8ff",
         primaryMain: "#3b82f6",
-        secondary: "#FF7324",
+        secondary: "#3b82f6",
         lightTextMain: "#000",
         darkTextMain: "#fff",
         darkTextPrimary: "#BDBDBD",
