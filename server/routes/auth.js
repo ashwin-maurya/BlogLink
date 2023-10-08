@@ -1,6 +1,6 @@
 const express = require("express");
 const User = require("../models/User");
-const Userdetail = require("../models/Userdetails");
+const Userdetail = require("../models/UserDetails");
 const router = express.Router();
 const { body, validator, validationResult } = require("express-validator");
 const bycrypt = require("bcryptjs");
@@ -23,7 +23,6 @@ router.post(
     }
     try {
       let success = false;
-      console.log(req.body.email);
       let user = await User.findOne({ email: req.body.email });
       if (user) {
         return res.status(400).json({
@@ -47,11 +46,9 @@ router.post(
         },
       };
       const authtoken = jwt.sign(data, JWT_SECRET);
-      //   console.log(jwtData)
       success = true;
 
       res.json({ success: success, authtoken: authtoken, UserID: user.id });
-      // console.log(res.json)
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Sever error,Something  in the way");
@@ -95,19 +92,13 @@ router.post(
         },
       };
       const authtoken = jwt.sign(data, JWT_SECRET);
-      //   console.log(jwtData)
       success = true;
 
       res.json({ success: success, authtoken: authtoken, UserID: user.id });
-      // console.log(res.json)
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Sever error,Something  in the way");
     }
-    // .then(user=>res.json(user)).catch(err=>{
-    //     console.log(err)
-    //     res.json({error:'please enter a unique value for email',message:err.message})
-    // })
   }
 );
 
@@ -128,7 +119,6 @@ router.post(
     const { email, password } = req.body;
     try {
       let success = false;
-      // console.log(user)
       let user = await User.findOne({ email });
       if (!user) {
         return res
@@ -150,7 +140,6 @@ router.post(
         },
       };
       const authtoken = jwt.sign(payload, JWT_SECRET);
-      //   console.log(jwtData)
       res.json({ success: true, authtoken: authtoken, UserID: user.id });
     } catch (error) {
       console.error(error.message);
@@ -171,7 +160,6 @@ router.post(
     const { email } = req.body;
     try {
       let success = false;
-      // console.log(user)
       let user = await User.findOne({ email });
       if (!user) {
         return res
@@ -186,7 +174,6 @@ router.post(
         },
       };
       const authtoken = jwt.sign(payload, JWT_SECRET);
-      //   console.log(jwtData)
       res.json({ success: true, authtoken: authtoken, UserID: user.id });
     } catch (error) {
       console.error(error.message);
@@ -199,7 +186,6 @@ router.post(
 router.get("/getCurrentuser", fetchuser, async (req, res) => {
   try {
     const userID = req.user.id;
-    // console.log(userID);
     const user = await User.findById(userID);
     res.json(user);
   } catch (error) {
@@ -207,11 +193,22 @@ router.get("/getCurrentuser", fetchuser, async (req, res) => {
     res.status(500).send("Internl server error ,SOmething in the way");
   }
 });
-// ROUTE: Get user details using GET "/api/auth/getuser". Login required
+
+// ROUTE:3 Get loggedin user details susing : POST "/api/auth/getuser".  login required
+router.get("/getCurrentuserDetails", fetchuser, async (req, res) => {
+  try {
+    const username = req.query.username; // Access username from query parameter
+    const userDetail = await Userdetail.findOne({ username: username });
+    res.json(userDetail);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal server error, Something in the way");
+  }
+});
+
 router.get("/getuser", async (req, res) => {
   try {
     const username = req.query.username;
-    // Use findOne to find a user by their username
     const user = await User.findOne({ username });
 
     if (!user) {
@@ -221,6 +218,7 @@ router.get("/getuser", async (req, res) => {
     res.json(user);
   } catch (error) {
     console.error(error.message);
+
     res.status(500).send("Internal server error, something went wrong");
   }
 });
@@ -241,35 +239,90 @@ router.get("/userexist", async (req, res) => {
     res.status(500).send("Internal server error, something went wrong");
   }
 });
+router.get("/userdetailexist", async (req, res) => {
+  try {
+    const username = req.query.username;
+    const user = await Userdetail.findOne({ username: username });
 
-// ROUTE 3: Put all a blog in the database : POST "/api/blogs/addblog"
-router.post(
-  "/adduserdetail",
-  fetchuser,
-
-  async (req, res) => {
-    try {
-      const { userID, description, work, education, location } = req.body;
-
-      // If there are errors , return Bad request and the errors
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-      }
-      const Userdetails = new Userdetail({
-        userID,
-        description,
-        work,
-        education,
-        location,
-      });
-      const ProfileUpdated = await Userdetails.save();
-      res.json(ProfileUpdated);
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).send("Internal Sever error,Something in the way");
+    if (user) {
+      res.json({ status: true });
+    } else {
+      res.json({ status: false });
     }
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal server error, something went wrong");
   }
-);
+});
+
+router.post("/adduserdetail", fetchuser, async (req, res) => {
+  try {
+    const { username, description, work, education, location } = req.body;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    let existingUserDetails = await Userdetail.findOne({ username });
+
+    if (existingUserDetails) {
+      return res.status(409).json({ message: "User details already exist." });
+    }
+
+    const newUserDetails = new Userdetail({
+      username,
+      description,
+      work,
+      education,
+      location,
+    });
+
+    const createdUserDetails = await newUserDetails.save();
+    res.json(createdUserDetails);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server error, Something went wrong");
+  }
+});
+
+router.put("/updateuserdetail/:username", fetchuser, async (req, res) => {
+  let success = false;
+  try {
+    const { description, work, education, location } = req.body;
+    const { username } = req.params;
+
+    const updatedUserDetails = {};
+    if (description) {
+      updatedUserDetails.description = description;
+    }
+    if (work) {
+      updatedUserDetails.work = work;
+    }
+    if (education) {
+      updatedUserDetails.education = education;
+    }
+    if (location) {
+      updatedUserDetails.location = location;
+    }
+
+    let existingUserDetails = await Userdetail.findOne({ username });
+
+    if (!existingUserDetails) {
+      return res.status(404).json({ msg: "User details not found" });
+    }
+
+    existingUserDetails = await Userdetail.findOneAndUpdate(
+      { username },
+      { $set: updatedUserDetails },
+      { new: true }
+    );
+
+    success = true;
+    res.json({ success, updatedUserDetails });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server error, Something went wrong");
+  }
+});
 
 module.exports = router;

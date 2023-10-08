@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import EditProfileModal from "./EditProfileModal";
 import EditBanner from "./EditBanner";
 import { profileDefault } from "../../Assets/icons";
 import EditProfileImg from "./EditProfileImg";
+
 export default function ProfileMain({ UserProfile, UserMatch }) {
   const [showProfileModal, setProfileModal] = useState(false);
   const [showBannerModal, setBannerModal] = useState(false);
@@ -51,7 +52,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
               {UserMatch && (
                 <div className="absolute right-0 top-0">
                   <button
-                    className="border-2 border-slate-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-orange-300 rounded-md bg-primaryMain dark:bg-secondary px-4 py-1 font-semibold text-white"
+                    className="border-2 border-slate-200 dark:border-gray-700 hover:border-[#e0d1ff] dark:hover:border-[#7eafff] rounded-md bg-primaryMain dark:bg-secondary px-4 py-1 font-semibold text-white"
                     onClick={ProfileModalStatus}
                   >
                     Edit
@@ -66,6 +67,11 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
               <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-light uppercase dark:text-darkTextMain">
                 <div className="flex flex-col">
                   <p>{UserProfile?.username}</p>
+                </div>
+              </div>
+              <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-light uppercase dark:text-darkTextMain">
+                <div className="flex flex-col">
+                  <p>{UserProfile?.description}</p>
                 </div>
               </div>
             </div>
@@ -94,7 +100,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
                     </div>
                   </div>
                   <div className="text-lightTextMain dark:text-darkTextMain font-semibold  w-[90%]  ">
-                    <p>Web Developer Intern</p>
+                    <p>{UserProfile?.work}</p>
                   </div>
                 </div>
                 <div className="flex items-center w-full">
@@ -104,10 +110,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
                     </div>
                   </div>
                   <div className="text-lightTextMain dark:text-darkTextMain font-semibold w-[90%]">
-                    <p>
-                      BTech in Computer Engineering, AISSMS Institute of
-                      Information Technology, Pune
-                    </p>
+                    <p>{UserProfile?.education}</p>
                   </div>
                 </div>
                 <div className="flex items-center w-full">
@@ -117,7 +120,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
                     </div>
                   </div>
                   <div className="text-lightTextMain dark:text-darkTextMain font-semibold w-[90%]">
-                    <p>Pune, India</p>
+                    <p>{UserProfile?.location}</p>
                   </div>
                 </div>
                 <div className="flex items-center w-full">
@@ -127,7 +130,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
                     </div>
                   </div>
                   <div className="text-lightTextMain dark:text-darkTextMain font-semibold w-[90%]">
-                    <p>10 September, 2023</p>
+                    <p>{UserProfile?.Date}</p>
                   </div>
                 </div>
               </div>

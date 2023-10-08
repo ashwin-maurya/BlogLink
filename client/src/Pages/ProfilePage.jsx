@@ -32,6 +32,7 @@ export default function ProfilePage() {
     const extractedUsername = urlParts[urlParts.length - 1];
     setUsername(extractedUsername);
   }, [location]);
+
   useEffect(() => {
     filterblogs(username);
   }, [username]);
@@ -45,6 +46,7 @@ export default function ProfilePage() {
 
   useEffect(() => {
     if (username) {
+      //hi
       getUser(username);
     }
   }, [username]);

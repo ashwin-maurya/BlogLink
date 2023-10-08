@@ -4,7 +4,7 @@ import AuthContext from "./Context/AuthContext";
 const CheckLogin = () => {
   const context = useContext(AuthContext);
 
-  const { setAuthStatus, getCurrentUser } = context;
+  const { setAuthStatus, getCurrentUser, getCurrentUserDetails } = context;
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("UserData")) != null) {

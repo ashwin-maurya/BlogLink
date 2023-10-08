@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext } from "react";
+import React, { useRef, useState, useContext, useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AuthContext from "../../Helper/Context/AuthContext";
@@ -6,8 +6,15 @@ import AuthContext from "../../Helper/Context/AuthContext";
 export default function EditProfileModal(props) {
   const { ProfileModalStatus } = props;
   const context = useContext(AuthContext);
-  const { UserDetails, setUserDetails } = context;
+  const {
+    adduserdetail,
+    userDetailExist,
+    userdetailexist,
+    updateuserdetail,
+    UserDetails,
+  } = context;
   const ProfilemodalRef = useRef(null);
+
   const [userDetail, setUserDetail] = useState({
     description: "",
     work: "",
@@ -28,37 +35,19 @@ export default function EditProfileModal(props) {
       [name]: value,
     }));
   };
-  const host = "http://localhost:5001";
 
   const handleSubmit = async (event) => {
-    const userID = UserDetails._id;
     event.preventDefault();
-    const { description, work, education, location } = userDetail;
-    const obj = JSON.parse(localStorage.getItem("UserData"));
 
-    const response = await fetch(`${host}/api/auth/adduserdetail`, {
-      method: "POST",
-      headers: {
-        "auth-token": obj.authtoken,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userID,
-        description,
-        work,
-        education,
-        location,
-      }),
-    });
-    const ProfileUpdated = await response.json();
-    if (ProfileUpdated) {
-      toast.success("Profile Updated");
-      setUserDetails({ ...UserDetails, ...ProfileUpdated });
-    } else {
-      toast.error("ailed!!");
-    }
+    userdetailexist();
   };
-
+  useEffect(() => {
+    if (userDetailExist) {
+      updateuserdetail(userDetail);
+    } else if (userDetailExist == false) {
+      adduserdetail(userDetail);
+    }
+  }, [userDetailExist]);
   return (
     <>
       <div

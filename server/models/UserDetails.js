@@ -3,7 +3,7 @@ const express = require("express");
 const { Schema } = mongoose;
 const router = express.Router();
 const UserSchema = new Schema({
-  userID: {
+  username: {
     type: String,
     required: true,
     unique: true,
