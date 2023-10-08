@@ -18,7 +18,7 @@ app.use('/api/auth', require('./routes/auth'))
 app.use('/api/Gauth', require('./routes/GoogleUser'))
 app.use('/api/notes', require('./routes/notes'))
 app.use('/api/blogs', require('./routes/blog'))
-// app.use('/api/blogs', require('./routes/comments'))
+app.use('/api/comments', require('./routes/comments'))
 // app.use('/api/blogs', require('./routes/reviews'))
 
 

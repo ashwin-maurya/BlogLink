@@ -7,9 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 const WriteBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
   console.log(blog2);
   useEffect(() => {
-    if (id == undefined) {
-      setcheck(!check);
-    }
+    if (id == undefined) setcheck(!check);
   }, []);
   console.log("blog2 from write page ");
   const context = useContext(blogContext);
@@ -85,8 +83,7 @@ const WriteBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
     console.log("Saved to Database");
   };
   const handleupdate = async () => {
-    console.log(blog2[0].postID + "from update call");
-    await updateblog(blogContent, blog2[0].postID);
+    await updateblog(blogs, blog2._id);
     console.log("Saved to Database");
   };
 

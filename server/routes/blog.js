@@ -163,6 +163,7 @@ router.put("/updateblog/:id", fetchuser, async (req, res) => {
     if (Blog_url) {
       newblog.Blog_url = Blog_url;
     }
+    console.log(newblog)
     // Find the note to be updated and update it
     let Blog = await blogCard.find({ postID: req.params.id });
     let Blog2 = await blog.find({ postID: req.params.id });

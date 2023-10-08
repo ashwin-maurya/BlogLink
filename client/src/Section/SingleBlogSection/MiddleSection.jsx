@@ -4,9 +4,6 @@ import { Comments } from "../../Component/common";
 
 import DOMPurify from "dompurify";
 const MiddleSection = ({ blog }) => {
-  useEffect(() => {
-    // getblogs();
-  }, []);
   return (
     <section className="max-container text-[27px]">
       {

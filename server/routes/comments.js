@@ -13,7 +13,9 @@ router.post(
 
     async (req, res) => {
         try {
-            const { userID, postID, comment, UserName } =
+            const { userID, postID, comment,
+                UserName
+            } =
                 req.body;
 
             // If there are errors , return Bad request and the errors
@@ -34,6 +36,64 @@ router.post(
             const savedcomment = await commentdata.save();
             res.json(savedcomment);
         } catch (error) {
+            console.error(error.message);
+            res.status(500).send("Internal Sever error,Something in the way");
+        }
+    }
+);
+
+
+
+// adding reply
+router.post(
+    "/addreply/:id",
+    fetchuser,
+
+    async (req, res) => {
+        try {
+            console.log(req.params.id)
+            const { reply,
+                username,
+                userImg,
+                timeStamp
+
+            } =
+                req.body;
+            console.log(req.body)
+            const newcomment = {};
+            if (reply) {
+                newcomment.reply = reply;
+            }
+            if (username) {
+                newcomment.username = username;
+            }
+            if (userImg) {
+                newcomment.userImg = userImg;
+            }
+            if (timeStamp) {
+                newcomment.timeStamp = timeStamp;
+            }
+
+
+            let comments = await Comment.findById({ _id: req.params.id });
+            console.log(comments)
+            if (!comments) {
+                return res.status(404).send("not found");
+            }
+
+            //   if (blog.user.toString() !== req.user.id) {
+            //     return res.status(401).send("Not Alowed");
+            //   }
+
+            comments = await Comment.findByIdAndUpdate(
+                { _id: req.params.id },
+                { $set: { "reply": { newcomment } } },
+                { new: true }
+            );
+            console.log(comments)
+            res.json({ comments });
+        } catch (error) {
+            console.log("errro dfkvjdfkv")
             console.error(error.message);
             res.status(500).send("Internal Sever error,Something in the way");
         }
@@ -110,6 +170,21 @@ router.delete('/deletecomment/:id', async (req, res) => {
         res.status(500).send("Internal Sever error,Something in the way");
     }
 })
+
+
+router.get("/getallcommentsbypostID/:id", async (req, res) => {
+    try {
+        const comments = await Comment.find({ postID: req.params.id });
+        //   console.log(req.user.id)
+
+        res.json(comments);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Sever error,Something in the way");
+    }
+});
+
+
 
 
 module.exports = router;
