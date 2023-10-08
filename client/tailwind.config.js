@@ -27,6 +27,7 @@ export default {
       colors: {
         bgBlue: "#edf8ff",
         primaryMain: "#3b82f6",
+        // primaryMain: "#8957E5",
         secondary: "#FF7324",
         lightTextMain: "#000",
         darkTextMain: "#fff",
