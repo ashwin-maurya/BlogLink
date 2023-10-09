@@ -11,6 +11,7 @@ export default function Comments({ blog }) {
   const context2 = useContext(AuthContext);
   const { UserDetails } = context2;
   const { addcomment, getsingleblogComment, SingleBlogComment } = context;
+
   // console.log(blog);
   useEffect(() => {
     // setcomment({ ...comment,  });

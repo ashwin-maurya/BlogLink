@@ -1,9 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { code1 } from "../../Assets/images";
 import Reply from "./Reply";
 import UserReplies from "./UserReplies";
+import HelperContext from "../../Helper/Context/HelperContext";
+import CommentLikeContext from "../../Helper/Context/CommentLikeContext";
 
 const CommentBox = ({ comment }) => {
+  const constext = useContext(HelperContext);
+  const { formatUTCDate, date } = constext;
+
+  const context = useContext(CommentLikeContext);
+  const { reply, setreply } = context;
+
+  useEffect(() => {
+    setreply(comment.reply);
+    console.log(reply);
+    console.log(comment.reply);
+    formatUTCDate(comment.Date);
+  }, [comment]);
   const [replyBox, setreplyBox] = useState(false);
   // console.log(comment?.reply);
   //   console.log(comment);
@@ -19,10 +33,10 @@ const CommentBox = ({ comment }) => {
                 src={code1}
                 alt="Ram Ghanshyam"
               />
-              Ram Ghanshyam
+              {comment?.UserName}
             </p>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              <time title="February 8th, 2022">Feb. 8, 2022</time>
+              <time title="February 8th, 2022">{date}</time>
             </p>
           </div>
           <button
@@ -86,7 +100,7 @@ const CommentBox = ({ comment }) => {
         {comment?.reply.length != 0 &&
           comment?.reply?.map((reply) => {
             return (
-              <UserReplies key={reply?.username} reply={reply}></UserReplies>
+              <UserReplies key={reply?.username} reply2={reply}></UserReplies>
             );
           })}
       </article>

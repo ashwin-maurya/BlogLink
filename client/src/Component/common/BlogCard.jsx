@@ -4,19 +4,36 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import blogContext from "../../Helper/Context/blogContext";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import HelperContext from "../../Helper/Context/HelperContext";
+import AuthContext from "../../Helper/Context/AuthContext";
+
 export default function BlogCard({ card }) {
   const context = useContext(blogContext);
   const { deletenote } = context;
   const context2 = useContext(HelperContext);
+  const context3 = useContext(AuthContext);
+  const { UserDetails, AuthStatus } = context3;
   const { formatUTCDate, date } = context2;
+  const [ShowEdit, setShowEdit] = useState(false);
+
   const onDelete = async () => {
     await deletenote(card?.postID);
   };
   useEffect(() => {
     formatUTCDate(card?.Date);
   }, []);
+  useEffect(() => {
+    if (AuthStatus) {
+      if (card?.userID === UserDetails?._id) {
+        setShowEdit(true);
+      } else {
+        setShowEdit(false);
+      }
+    } else {
+      setShowEdit(false);
+    }
+  }, [UserDetails, card]);
 
   const navigate = useNavigate();
 
@@ -97,27 +114,29 @@ export default function BlogCard({ card }) {
             <Tags key={index} tags={tag} />
           ))}{" "}
         </div>
-        <div className="hidden px-4 py-1 rounded-full group/buttons  group-hover:block hover:bg-blue-100">
-          <div
-            className="hidden   space-x-3 pr-2
+        {ShowEdit && (
+          <div className="hidden px-4 py-1 rounded-full group/buttons  group-hover:block hover:bg-blue-100">
+            <div
+              className="hidden   space-x-3 pr-2
            absolute group-hover/buttons:block right-8"
-          >
-            <span
-              className="bg-blue-200 p-1 rounded-md"
-              onClick={() => {
-                navigate("/write", {
-                  state: { id: card.postID },
-                });
-              }}
             >
-              Update
-            </span>
-            <span className="bg-blue-200 p-1 rounded-md" onClick={onDelete}>
-              Delete
-            </span>
+              <span
+                className="bg-blue-200 p-1 rounded-md"
+                onClick={() => {
+                  navigate("/blogs/updateblog/:id", {
+                    state: { id: card.postID },
+                  });
+                }}
+              >
+                Update
+              </span>
+              <span className="bg-blue-200 p-1 rounded-md" onClick={onDelete}>
+                Delete
+              </span>
+            </div>
+            <i className=" fa fa-ellipsis-v"> </i>
           </div>
-          <i className=" fa fa-ellipsis-v"> </i>
-        </div>
+        )}
       </div>
     </div>
   );

@@ -1,24 +1,41 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { code1 } from "../../Assets/images";
+import HelperContext from "../../Helper/Context/HelperContext";
+import CommentLikeContext from "../../Helper/Context/CommentLikeContext";
 
-const UserReplies = ({ reply }) => {
+const UserReplies = ({ reply2 }) => {
   //   console.log(reply);
   //   console.log("reply");
+
+  const constext = useContext(HelperContext);
+  const { formatUTCDate, date } = constext;
+  const context = useContext(CommentLikeContext);
+  const { reply, setreply } = context;
+
+  useEffect(() => {
+    console.log(reply);
+
+    console.log(reply2);
+
+    // setreply([...reply,reply2?])
+    // formatUTCDate(reply2?.newcomment?.timeStamp);
+  }, [reply2]);
   return (
     <section>
-      <article className="p-6 text-base bg-white rounded-lg dark:bg-darkBgPrimary">
+      {/* <article className="p-6 text-base bg-white rounded-lg dark:bg-darkBgPrimary">
         <footer className="flex justify-between items-center mb-2">
           <div className="flex items-center">
             <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
               <img
                 className="mr-2 w-6 h-6 rounded-full"
                 src={code1}
+                // {reply.newcomment.userImg}
                 alt="Ram Ghanshyam"
               />
-              Ram Ghanshyam
+              {reply2?.newcomment?.username}
             </p>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              <time title="February 8th, 2022">Feb. 8, 2022</time>
+              <time title="February 8th, 2022">{date}</time>
             </p>
           </div>
           <button
@@ -39,8 +56,8 @@ const UserReplies = ({ reply }) => {
             <span className="sr-only">Comment settings</span>
           </button>
         </footer>
-        <p>{reply.newcomment.reply}</p>
-      </article>
+        <p>{reply2?.newcomment?.reply}</p>
+      </article> */}
     </section>
   );
 };

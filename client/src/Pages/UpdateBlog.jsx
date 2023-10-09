@@ -4,8 +4,8 @@ import blogContext from "../Helper/Context/blogContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const WriteBlog = ({ postid, UserDetails, id, check, setcheck }) => {
-  // console.log(blog2);
+const UpdateBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
+  console.log(blog2);
   useEffect(() => {
     if (id == undefined) setcheck(!check);
   }, []);
@@ -13,17 +13,17 @@ const WriteBlog = ({ postid, UserDetails, id, check, setcheck }) => {
   const context = useContext(blogContext);
   const { addblogCard, addblogcontent, updateblog } = context;
 
-  const [blogs, setblog] = useState({
-    postID: postid,
-    userID: JSON.parse(localStorage.getItem("UserData")).UserID,
-    UserName: "",
-  });
-
+  const [blogs, setblog] = useState({ ...blog2[0] });
   const [blogContent, setblogContent] = useState({
-    postID: postid,
-    userID: JSON.parse(localStorage.getItem("UserData")).UserID,
+    ...blog2[0],
   });
-  const [tags, settags] = useState("");
+  const [tags, settags] = useState(blog2[0]?.tags);
+  useEffect(() => {
+    setblog({ ...blog2[0] });
+    setblogContent({ ...blog2[0] });
+    settags(blog2[0]?.tags);
+  }, [blog2[0]]);
+
   useEffect(() => {
     setblog({ ...blogs, UserName: UserDetails?.username });
   }, [UserDetails]);
@@ -55,20 +55,11 @@ const WriteBlog = ({ postid, UserDetails, id, check, setcheck }) => {
     console.log(blogs);
   };
 
-  const handleadd = async () => {
-    try {
-      await addblogCard(blogs);
-      await addblogcontent(blogContent);
-      toast.success("Your blog added Successfully!");
-    } catch (error) {
-      toast.error("Error occured while adding your blog");
-    }
-
+  const handleupdate = () => {
+    console.log(blogs);
+    console.log(blog2[0].postID);
+    updateblog(blogs, blog2[0].postID);
     console.log("Saved to Database");
-  };
-  const handleupdate = async () => {
-    // await updateblog(blogs, blog2._id);
-    // console.log("Saved to Database");
   };
 
   return (
@@ -148,18 +139,9 @@ const WriteBlog = ({ postid, UserDetails, id, check, setcheck }) => {
             Update
           </button>
         </div>
-
-        <div className="flex justify-center items-center ">
-          <button
-            className=" rounded-md border-2 dark:bg-white dark:text-black dark:hover:bg-secondary dark:hover:text-white dark:hover:border-0 border-gray-700 hover:border-blue-800 hover:text-white  mt-3 bg-slate-300 pr-10 pl-10 pt-2 pb-2  hover:bg-primaryMain"
-            onClick={handleadd}
-          >
-            Submit
-          </button>
-        </div>
       </div>
     </section>
   );
 };
 
-export default WriteBlog;
+export default UpdateBlog;

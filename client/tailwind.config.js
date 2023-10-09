@@ -25,10 +25,10 @@ export default {
         // NoeDisplay: ["sans-serif"]
       },
       colors: {
+        Opacityblack: "rgba(0, 0, 0, 0.15)",
         bgBlue: "#edf8ff",
         primaryMain: "#3b82f6",
-        // primaryMain: "#8957E5",
-        secondary: "#FF7324",
+        secondary: "#3b82f6",
         lightTextMain: "#000",
         darkTextMain: "#fff",
         darkTextPrimary: "#BDBDBD",
