@@ -3,15 +3,38 @@ import { useNavigate } from "react-router-dom";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import blogContext from "../../Helper/Context/blogContext";
+import { useContext, useEffect, useState } from "react";
+import HelperContext from "../../Helper/Context/HelperContext";
+import AuthContext from "../../Helper/Context/AuthContext";
+
 export default function BlogCard({ card }) {
-  //  Title,
-  //  Author_name,
-  //  Author_url,
-  //  Description,
-  //  tags,
-  //  Blog_url
-  console.log(card.postID);
-  // const { card } = props;
+  const context = useContext(blogContext);
+  const { deletenote } = context;
+  const context2 = useContext(HelperContext);
+  const context3 = useContext(AuthContext);
+  const { UserDetails, AuthStatus } = context3;
+  const { formatUTCDate, date } = context2;
+  const [ShowEdit, setShowEdit] = useState(false);
+  console.log(card);
+  const onDelete = async () => {
+    await deletenote(card?.postID);
+  };
+  useEffect(() => {
+    formatUTCDate(card?.Date);
+  }, []);
+  useEffect(() => {
+    if (AuthStatus) {
+      if (card?.userID === UserDetails?._id) {
+        setShowEdit(true);
+      } else {
+        setShowEdit(false);
+      }
+    } else {
+      setShowEdit(false);
+    }
+  }, [UserDetails, card]);
+
   const navigate = useNavigate();
 
   // const navigate = useNavigate();
@@ -47,8 +70,8 @@ export default function BlogCard({ card }) {
                 -
               </span>
               <p className="text-sm ml-1 font-semibold font-palanquin text-gray-400 dark:text-darkTextPrimary">
-                {/* {card.date} */}
-                28 August 2023
+                {date}
+                {/* 28 August 2023 */}
               </p>
             </div>
           </div>
@@ -67,10 +90,6 @@ export default function BlogCard({ card }) {
               {card?.Title}
             </h3>
           </div>
-
-          {/* </Link> */}
-
-          {/* <p className="dark:text-darkTextMain">{card.category}</p> */}
         </div>
         <div className="relative flex items-center justify-center w-[30%]">
           <div className="absolute -top-1 -left-4 z-30">
@@ -89,10 +108,35 @@ export default function BlogCard({ card }) {
         </div>
       </div>
 
-      <div className="relative flex flex-wrap w-full mt-2">
-        {card?.tags.map((tag, index) => (
-          <Tags key={index} tags={tag} />
-        ))}{" "}
+      <div className="relative  flex justify-between items-center  flex-wrap w-full mt-2">
+        <div className="flex">
+          {card?.tags.map((tag, index) => (
+            <Tags key={index} tags={tag} />
+          ))}{" "}
+        </div>
+        {ShowEdit && (
+          <div className="hidden px-4 py-1 rounded-full group/buttons  group-hover:block hover:bg-blue-100">
+            <div
+              className="hidden   space-x-3 pr-2
+           absolute group-hover/buttons:block right-8"
+            >
+              <span
+                className="bg-blue-200 p-1 rounded-md"
+                onClick={() => {
+                  navigate("/write", {
+                    state: { id: card.postID },
+                  });
+                }}
+              >
+                Update
+              </span>
+              <span className="bg-blue-200 p-1 rounded-md" onClick={onDelete}>
+                Delete
+              </span>
+            </div>
+            <i className=" fa fa-ellipsis-v"> </i>
+          </div>
+        )}
       </div>
     </div>
   );

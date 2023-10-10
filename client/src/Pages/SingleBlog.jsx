@@ -88,10 +88,10 @@ const SingleBlog = ({ blog1 }) => {
             <RightSection blog={blog1}></RightSection>
           </div>
         </div>
+        <div className="w-[58%] mt-10">
+          <Comments blog={blog1} />
+        </div>
       </section>
-      <div className=" mt-40">
-        <Comments />
-      </div>
       <TopicBar navbarRef={navbarRef} card={blog1}></TopicBar>
     </>
   );

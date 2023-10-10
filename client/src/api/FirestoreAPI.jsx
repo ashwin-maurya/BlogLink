@@ -1,4 +1,5 @@
-import { firestore } from "../firebaseConfig";
+// import { firestore } from "../firebaseConfig";
+// firestore
 import {
   addDoc,
   collection,
@@ -13,6 +14,8 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
+import { firestore } from "../../firebaseConfig";
+// firestore
 
 let postsRef = collection(firestore, "posts");
 let userRef = collection(firestore, "users");

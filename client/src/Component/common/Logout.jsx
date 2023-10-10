@@ -4,7 +4,13 @@ import AuthContext from "../../Helper/Context/AuthContext";
 
 export default function Logout() {
   const context = useContext(AuthContext);
-  const { setAuthStatus } = context;
+  const {
+    setAuthStatus,
+    setLoggedinStatus,
+    setUserExistStatus,
+    setUserDetails,
+    setLoggedin,
+  } = context;
   return (
     <>
       {
@@ -12,8 +18,12 @@ export default function Logout() {
           <button
             className=""
             onClick={() => {
-
               setAuthStatus(false);
+              setLoggedinStatus(false);
+              setUserExistStatus();
+              setUserExistStatus();
+              setUserDetails();
+              setLoggedin({});
               localStorage.removeItem("UserData");
             }}
           >

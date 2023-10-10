@@ -10,41 +10,50 @@ import FilterByAuthor from "./Pages/FilterByPages/FilterByAuthor";
 import ProfilePage from "./Pages/ProfilePage";
 import AuthState from "./Helper/Context/AuthState";
 import CheckLogin from "./Helper/CheckLogin";
+import HelperState from "./Helper/Context/HelperState";
+import CommentLikeState from "./Helper/Context/CommentLikeState";
+import ReplyState from "./Helper/Context/ReplyState";
 
 const App = () => {
   return (
-    <BlogState>
-      <AuthState>
-        <Router>
-          <Scroll />
-          <CheckLogin />
-          <MainNav />
+    <CommentLikeState>
+      <HelperState>
+        <ReplyState>
+          <BlogState>
+            <AuthState>
+              <Router>
+                <Scroll />
+                <CheckLogin />
+                <MainNav />
 
-          <Routes>
-            <Route path="/" element={<LandingLayout />} />
-            <Route path="/home" element={<LandingLayout />} />
-            <Route path="/blog" element={<BlogLayout />} />
-            <Route path="/blogs/:handle" element={<SingleBlogLayout />} />
-            <Route
-              path="/write"
-              element={<WriteBlogLayout></WriteBlogLayout>}
-            />
-            <Route
-              path="/profile/:profile"
-              element={<ProfilePage></ProfilePage>}
-            />
-            <Route
-              path="/author/:handle"
-              element={<FilterByAuthor></FilterByAuthor>}
-            >
-              {" "}
-            </Route>
-            {/* <Route path="/*" element={<NotFound />} /> */}
-          </Routes>
-          <Footer />
-        </Router>
-      </AuthState>
-    </BlogState>
+                <Routes>
+                  <Route path="/" element={<LandingLayout />} />
+                  <Route path="/home" element={<LandingLayout />} />
+                  <Route path="/blog" element={<BlogLayout />} />
+                  <Route path="/blogs/:handle" element={<SingleBlogLayout />} />
+                  <Route
+                    path="/write"
+                    element={<WriteBlogLayout></WriteBlogLayout>}
+                  />
+                  <Route
+                    path="/profile/:profile"
+                    element={<ProfilePage></ProfilePage>}
+                  />
+                  <Route
+                    path="/author/:handle"
+                    element={<FilterByAuthor></FilterByAuthor>}
+                  >
+                    {" "}
+                  </Route>
+                  {/* <Route path="/*" element={<NotFound />} /> */}
+                </Routes>
+                <Footer />
+              </Router>
+            </AuthState>
+          </BlogState>
+        </ReplyState>
+      </HelperState>
+    </CommentLikeState>
   );
 };
 

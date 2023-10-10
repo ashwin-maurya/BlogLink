@@ -11,7 +11,7 @@ const BlogState = (props) => {
 
   const [filterData, setfilterData] = useState(bloginitial1);
 
-  //Get all notes
+  //Get all blogs------------------------------------------------------------------------------------------------
   const getblogs = async () => {
     //API call
 
@@ -25,15 +25,10 @@ const BlogState = (props) => {
     const json = await response.json();
 
     setblogs(json);
-    console.log(blog);
-    console.log("form getblogs");
   };
 
+  //Filter blogs by Username ----------------------------------------------------------------------------------------
   const filterblogs = async (username) => {
-    //API call
-
-    console.log(username);
-    console.log("OYye");
     const response = await fetch(
       `${host}/api/blogs/filterblog?username=${username}`,
       {
@@ -47,7 +42,6 @@ const BlogState = (props) => {
 
     const json = await response.json();
 
-    console.log(json);
     setfilterData(json);
   };
   const getsingleblogContent = async (id) => {
@@ -62,20 +56,14 @@ const BlogState = (props) => {
 
     const json = await response.json();
 
-    console.log(json);
     setSingleBlogContent(json);
-    console.log(SingleBlogContent);
-
-    console.log("form SingleBlogContent");
   };
 
   //Add a note
   const addblogCard = async (data) => {
     // todo api call
     //API call
-    console.log(data);
     const obj = JSON.parse(localStorage.getItem("UserData"));
-    console.log(obj.authtoken);
     const { Title, postID, userID, UserName, tags, Category, Blog_url } = data;
     const response = await fetch(`${host}/api/blogs/addblogCard`, {
       method: "POST",
@@ -95,9 +83,7 @@ const BlogState = (props) => {
     });
     const blog2 = await response.json();
 
-    console.log(blog2);
     // setblogs(blog.concat(blog2));
-    console.log("form addblogCard");
   };
 
   const addblogcontent = async (data) => {
@@ -115,7 +101,6 @@ const BlogState = (props) => {
     } = data;
 
     const obj = JSON.parse(localStorage.getItem("UserData"));
-    console.log(obj.authtoken);
     const response = await fetch(`${host}/api/blogs/postblogcontent`, {
       method: "POST",
       headers: {
@@ -134,69 +119,65 @@ const BlogState = (props) => {
       }),
     });
     const blog2 = await response.json();
-
-    // setblogs(blog2);
-    console.log(blog2);
-
-    console.log("form addblogcontent");
   };
 
   //Delete a note
   const deletenote = async (id) => {
     //API call
-    const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
+    const obj = JSON.parse(localStorage.getItem("UserData"));
+    const response = await fetch(`${host}/api/blogs/deleteblog/${id}`, {
       method: "DELETE",
       headers: {
-        "auth-token": localStorage.getItem("token"),
+        "auth-token": obj.authtoken,
         "Content-Type": "application/json",
       },
     });
 
     const json = response.json();
-
     const output = blog.filter((blog) => {
-      return blog._id != id;
+      return blog.postID != id;
     });
-    console.log(id);
     setblogs(output);
-    console.log(blog);
   };
 
   //Edit a note
   const updateblog = async (data, id) => {
     //API call
+
     const {
       Title,
-      Author_name,
-      Author_url,
-      Description,
-      tags,
+      UserName,
+      postID,
+      userID,
       Category,
+      tags,
       Blog_url,
+      description,
     } = data;
 
-    const response = await fetch(`${host}/api/blogs/updateblog`, {
+    console.log(data);
+    console.log("data from blog state");
+    const obj = JSON.parse(localStorage.getItem("UserData"));
+
+    const response = await fetch(`${host}/api/blogs/updateblog/${id}`, {
       method: "PUT",
       headers: {
-        "auth-token":
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUwODVlZjE5YWIyMmRjZDg3NTQ4ODRlIn0sImlhdCI6MTY5NTA0NzQwOX0.Fk4_lQbt1yaZrdTe4iLEN_E82vXEdY410VGlzsps_WE ",
+        "auth-token": obj.authtoken,
 
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         Title,
-        Author_name,
-        Author_url,
-        Description,
-        tags,
+        UserName,
+        postID,
+        userID,
         Category,
+        tags,
         Blog_url,
-        id,
+        description,
       }),
     });
     const json = await response.json();
-    console.log(json);
-    console.log("from updateblog");
     // logic to edit in client
     // for (let index = 0; index < blog.length; index++) {
     //   const element = blog[index];
@@ -222,7 +203,8 @@ const BlogState = (props) => {
         addblogcontent,
         SingleBlogContent,
         getsingleblogContent,
-        // , deletenote, getnotes, editnote
+        deletenote,
+        // , getnotes, editnote
       }}
     >
       {props.children}

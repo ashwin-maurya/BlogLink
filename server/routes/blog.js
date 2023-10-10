@@ -131,18 +131,24 @@ router.post(
   }
 );
 
+
 // ROUTE 3:Update an existing note using : POST "/api/notes/updatenote" .login required
 
-router.put("/updateblog", fetchuser, async (req, res) => {
+router.put("/updateblog/:id", fetchuser, async (req, res) => {
   try {
     const {
       Title,
-
+      description,
       tags,
       Category,
       Blog_url,
+
     } = req.body;
+
+    // let blog1 = await blogCard.find({ postID: req.params.id })
     const newblog = {};
+    // const newblog = {};
+    console.log({ postID: req.params.id })
     if (Title) {
       newblog.Title = Title;
     }
@@ -157,9 +163,11 @@ router.put("/updateblog", fetchuser, async (req, res) => {
     if (Blog_url) {
       newblog.Blog_url = Blog_url;
     }
+    console.log(newblog)
     // Find the note to be updated and update it
-    let Blog = await blogCard.findById(req.body.id);
-    if (!Blog) {
+    let Blog = await blogCard.find({ postID: req.params.id });
+    let Blog2 = await blog.find({ postID: req.params.id });
+    if (!Blog || !Blog2) {
       return res.status(404).send("not found");
     }
 
@@ -167,9 +175,14 @@ router.put("/updateblog", fetchuser, async (req, res) => {
     //     return res.status(401).send("Not Alowed");
     //   }
 
-    Blog = await blogCard.findByIdAndUpdate(
-      req.body.id,
+    Blog = await blogCard.findOneAndUpdate(
+      { postID: req.params.id },
       { $set: newblog },
+      { new: true }
+    );
+    Blog2 = await blog.findOneAndUpdate(
+      { postID: req.params.id },
+      { $set: { ...newblog, description: description } },
       { new: true }
     );
     res.json({ Blog });
@@ -178,4 +191,39 @@ router.put("/updateblog", fetchuser, async (req, res) => {
     res.status(500).send("Internal Sever error,Something in the way");
   }
 });
+
+
+// ROUTE 4:Delete an existing note using : DELETE "/api/notes/deletenote" .login required
+
+router.delete('/deleteblog/:id', async (req, res) => {
+
+
+
+  try {
+
+
+    // Find the note to be deleted and delete it
+    let blog1 = await blogCard.find({ postID: req.params.id })
+    let blog2 = await blog.find({ postID: req.params.id })
+    if (!blog1 || !blog2) {
+      return res.status(404).send("not found")
+    }
+
+    //Allow deletion only if user owns it 
+    // if (blog1.user.toString() !== req.user.id) {
+    //   return res.status(401).send("Not Alowed")
+    // }
+
+    blog1 = await blogCard.findOneAndDelete({ postID: req.params.id })
+    blog2 = await blog.findOneAndDelete({ postID: req.params.id })
+
+    return res.json({ "success": "note has been deleted", blog1: blog1, blog2: blog2 });
+  } catch (error) {
+
+    console.error(error.message);
+    res.status(500).send("Internal Sever error,Something in the way");
+  }
+})
+
+
 module.exports = router;

@@ -1,22 +1,14 @@
-import React, { useContext, useEffect } from "react";
-import MapFilteredData from "../../Component/FilterDataComponents/MapFilteredData";
-import blogContext from "../../Helper/Context/blogContext";
-
-export default function UserBlogs(props) {
-  const username = props.username;
-  console.log(username);
-  const context = useContext(blogContext);
-  const { filterblogs, filterData } = context;
-  useEffect(() => {
-    filterblogs(username);
-    console.log(filterData);
-  }, [username]);
+import React from "react";
+import { BlogCard } from "../../Component/common";
+export default function UserBlogs({ filterData }) {
   return (
     <>
       <section className="relative py-4 ">
         <div className="container mx-auto px-4">
           <div className="relative flex flex-col min-w-0 bg-white  dark:bg-secondary w-full mb-6 shadow-xl rounded-lg p-10">
-            <MapFilteredData filterData={filterData}></MapFilteredData>
+            {filterData?.map((card, index) => {
+              return <BlogCard key={index} card={card}></BlogCard>;
+            })}
           </div>
         </div>
       </section>

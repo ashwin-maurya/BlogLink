@@ -46,14 +46,12 @@ export default function Register({ setSign, ModalStatus, setAuthStatus }) {
   };
   return (
     <>
-      {/* {<GoogleSignIn goolesignin={goolesignin} />} */}
-
       <div className="container flex flex-col justify-center items-center max-sm:p-5 p-10 max-lg:py-20 max-lg:px-20 w-[50%] max-lg:w-[90%]">
         <p className="font-bold text-black dark:text-darkTextMain">Sign Up</p>
 
         <button
           className="button flex items-center border-2  border-gray-300 rounded-full dark:text-darkTextMain p-4 my-4  w-full"
-          //   onClick={() => goolesignin()}
+          onClick={() => goolesignin()}
         >
           <img
             src="https://img.icons8.com/color/48/undefined/google-logo.png"

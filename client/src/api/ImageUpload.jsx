@@ -1,12 +1,13 @@
-import { storage } from "../firebaseConfig";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import { editProfile } from "./FirestoreAPI";
+// import { editProfile } from "./FirestoreAPI";
+import { storage } from "../../firebaseConfig";
 
 export const uploadImage = (
   file,
 
   id,
   setModalOpen,
+  setimgLink,
   setProgress,
   setCurrentImage
 ) => {
@@ -20,6 +21,7 @@ export const uploadImage = (
         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
       );
 
+      console.log("I ran!!!");
       setProgress(progress);
     },
     (error) => {
@@ -27,7 +29,10 @@ export const uploadImage = (
     },
     () => {
       getDownloadURL(uploadTask.snapshot.ref).then((response) => {
-        editProfile(id, { imageLink: response });
+        // editProfile(id, { imageLink: response });
+        console.log(response);
+        console.log("response");
+        setimgLink(response);
         setModalOpen(false);
         setCurrentImage({});
         setProgress(0);
@@ -50,7 +55,7 @@ export const uploadPostImage = (file, setPostImage, setProgress) => {
       setProgress(progress);
     },
     (error) => {
-      console.error(err);
+      console.error(error);
     },
     () => {
       getDownloadURL(uploadTask.snapshot.ref).then((response) => {
