@@ -29,10 +29,11 @@ const BlogState = (props) => {
 
   //Filter blogs by Username ----------------------------------------------------------------------------------------
   const filterblogs = async (username) => {
+    console.log(username);
     const response = await fetch(
       `${host}/api/blogs/filterblog?username=${username}`,
       {
-        method: "POST",
+        method: "GET",
 
         headers: {
           "Content-Type": "application/json",

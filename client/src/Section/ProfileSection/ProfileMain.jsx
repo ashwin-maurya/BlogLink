@@ -5,10 +5,12 @@ import EditBanner from "./EditBanner";
 import { profileDefault } from "../../Assets/icons";
 import EditProfileImg from "./EditProfileImg";
 import { uploadBannerImage, uploadImage } from "../../api/ImageUpload";
-
 import { useEffect } from "react";
 import AuthContext from "../../Helper/Context/AuthContext";
 import { BannerImg } from "../../Assets/images";
+
+import ProfileMainSkeleton from "../../Component/SkeletonLoaders/ProfileMainSkeleton";
+
 
 export default function ProfileMain({ UserProfile, UserMatch }) {
   const context = useContext(AuthContext);
@@ -35,6 +37,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
   const ProfileImg = () => {
     setProfileImg((showProfileImg) => !showProfileImg);
   };
+
   const [currentImage, setCurrentImage] = useState({});
   const [currentBannerImage, setCurrentBannerImage] = useState({});
 
@@ -104,11 +107,17 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
     console.log(UserProfile?.profileImg);
     console.log(currentImage);
   };
+
+  if (!UserProfile) {
+    return <ProfileMainSkeleton />;
+  }
+
   return (
     <>
       {showProfileModal && (
         <EditProfileModal
           ProfileModalStatus={ProfileModalStatus}
+          UserProfile={UserProfile}
         ></EditProfileModal>
       )}
       {showBannerModal && (
@@ -132,7 +141,6 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
           progress={progress}
         ></EditProfileImg>
       )}
-
       <section className="relative block h-[400px] ">
         <div className=" w-full h-full  " onClick={BannerModal}>
           <div className="relative group/buttons h-[500px]">

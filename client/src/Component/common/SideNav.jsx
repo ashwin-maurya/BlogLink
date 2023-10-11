@@ -1,13 +1,14 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import { navLinks } from "../constants";
-import { Profile, Login, Logout } from "../common";
+import { Login, Logout } from "../common";
 import { Link } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
-
+import AuthContext from "../../Helper/Context/AuthContext";
+import { Profile } from "../common";
 export default function SideNav(props) {
   const { NavStatus } = props;
   const navRef = useRef(null);
-  const { user, isAuthenticated } = useAuth0();
+  const context = useContext(AuthContext);
+  const { AuthStatus, UserDetails } = context;
 
   const handleOutsideClick = (event) => {
     if (navRef.current === event.target) {
@@ -23,11 +24,9 @@ export default function SideNav(props) {
         className="backdrop-blur-sm fixed w-screen sidenav h-[100%]  z-[51]"
       >
         <div className="w-[70%] max-w-[400px] flex justify-evenly h-[100%] bg-white dark:bg-darkBgPrimary shadow-lg overflow-hidden flex-col p-2">
-          {isAuthenticated && (
-            <div className="flex justify-center items-center  pt-2 pb-4">
-              <Profile />
-            </div>
-          )}
+          <div className="flex justify-center items-center  pt-2 pb-4">
+            {!AuthStatus && <Profile name={UserDetails?.username}></Profile>}
+          </div>
           <ul className="flex-1 flex items-center flex-col">
             {navLinks.map((item) => (
               <li
@@ -44,8 +43,7 @@ export default function SideNav(props) {
             ))}
           </ul>
           <div className="flex gap-2 text-lg leading-normal py-4 text-gray-400 justify-center font-medium  bg-bgBlue dark:bg-darkBgMain rounded-lg">
-            <Login />
-            <Logout />
+            {!AuthStatus ? <Logout /> : <Login />}
           </div>
         </div>
       </div>
