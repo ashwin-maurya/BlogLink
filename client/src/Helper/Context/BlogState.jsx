@@ -178,16 +178,7 @@ const BlogState = (props) => {
       }),
     });
     const json = await response.json();
-    // logic to edit in client
-    // for (let index = 0; index < blog.length; index++) {
-    //   const element = blog[index];
-    //   if (element._id === id) {
-    //     element.title = title;
-    //     element.description = description;
-    //     element.tag = tag;
-    //   }
-    // }
-
+    console.log(json);
     getblogs();
   };
 

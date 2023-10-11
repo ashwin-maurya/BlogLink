@@ -1,12 +1,14 @@
 import { useContext, useEffect, useState } from "react";
 import getUniqueID from "../Helper/getUniqueID";
+
 import WriteBlogPage from "../Pages/WriteBlogPage";
 import AuthContext from "../Helper/Context/AuthContext";
 import { useLocation } from "react-router";
 import blogContext from "../Helper/Context/blogContext";
+import UpdateBlog from "../Pages/updateBlog";
 
 // toast.configure();
-const WriteBlogLayout = () => {
+const UpdateBlogLayout = () => {
   const postid = getUniqueID();
   const [check, setcheck] = useState(false);
   const context2 = useContext(AuthContext);
@@ -39,16 +41,16 @@ const WriteBlogLayout = () => {
 
   return (
     <div>
-      <WriteBlogPage
+      <UpdateBlog
         postid={postid}
         UserDetails={UserDetails}
         id={id}
-        // blog2={data}
+        blog2={data}
         setcheck={setcheck}
         check={check}
-      ></WriteBlogPage>
+      ></UpdateBlog>
     </div>
   );
 };
 
-export default WriteBlogLayout;
+export default UpdateBlogLayout;

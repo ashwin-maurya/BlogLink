@@ -163,7 +163,7 @@ router.put("/updateblog/:id", fetchuser, async (req, res) => {
     if (Blog_url) {
       newblog.Blog_url = Blog_url;
     }
-    console.log(newblog)
+    // console.log(newblog)
     // Find the note to be updated and update it
     let Blog = await blogCard.find({ postID: req.params.id });
     let Blog2 = await blog.find({ postID: req.params.id });
@@ -180,12 +180,14 @@ router.put("/updateblog/:id", fetchuser, async (req, res) => {
       { $set: newblog },
       { new: true }
     );
+    console.log(Blog)
     Blog2 = await blog.findOneAndUpdate(
       { postID: req.params.id },
       { $set: { ...newblog, description: description } },
       { new: true }
     );
-    res.json({ Blog });
+    console.log(Blog2)
+    res.json({ Blog, Blog2 });
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Sever error,Something in the way");

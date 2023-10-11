@@ -3,18 +3,22 @@ import { code1 } from "../../Assets/images";
 import Reply from "./Reply";
 import UserReplies from "./UserReplies";
 import HelperContext from "../../Helper/Context/HelperContext";
+import CommentLikeContext from "../../Helper/Context/CommentLikeContext";
 
 const CommentBox = ({ comment }) => {
-  const [replyBox, setreplyBox] = useState(false);
+  const constext = useContext(HelperContext);
+  const { formatUTCDate, date } = constext;
 
-  const context = useContext(HelperContext);
-  const { formatUTCDate, date } = context;
+  const context = useContext(CommentLikeContext);
+  const { reply, setreply } = context;
 
   useEffect(() => {
-    formatUTCDate(comment?.Date);
+    setreply(comment.reply);
+    console.log(reply);
+    console.log(comment.reply);
+    formatUTCDate(comment.Date);
   }, [comment]);
-  // console.log(comment?.reply);
-  //   console.log(comment);
+  const [replyBox, setreplyBox] = useState(false);
 
   return (
     <section>
@@ -94,7 +98,7 @@ const CommentBox = ({ comment }) => {
         {comment?.reply.length != 0 &&
           comment?.reply?.map((reply) => {
             return (
-              <UserReplies key={reply?.username} reply={reply}></UserReplies>
+              <UserReplies key={reply?.username} reply2={reply}></UserReplies>
             );
           })}
       </article>

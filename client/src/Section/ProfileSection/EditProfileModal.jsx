@@ -14,7 +14,6 @@ export default function EditProfileModal(props) {
     UserDetails,
   } = context;
   const ProfilemodalRef = useRef(null);
-
   const [userDetail, setUserDetail] = useState({
     description: "",
     work: "",

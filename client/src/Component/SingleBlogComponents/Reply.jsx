@@ -5,16 +5,13 @@ import { profileDefault } from "../../Assets/icons";
 import CommentLikeContext from "../../Helper/Context/CommentLikeContext";
 
 const Reply = ({ reply1, commentID, show, setshow }) => {
-  console.log(reply1);
-
+  // console.log(reply1);
   const context2 = useContext(AuthContext);
   const context3 = useContext(CommentLikeContext);
-  const { addreply } = context3;
+  const { addreply, setreply, reply } = context3;
+  const [allreply, setallreply] = useState(reply);
   const { UserDetails } = context2;
   // console.log(UserDetails);
-  const context = useContext(ReplyContext);
-  ("");
-  const { reply, setreply } = context;
 
   const [Reply, setReply] = useState({
     reply: "",
@@ -33,10 +30,15 @@ const Reply = ({ reply1, commentID, show, setshow }) => {
 
     console.log(Reply);
   };
+
   const submit = () => {
-    // setReply(reply);
-    console.log(Reply);
-    addreply(Reply, commentID);
+    console.log(allreply);
+    setallreply({ allreply, Reply });
+    console.log(allreply);
+
+    setreply(allreply);
+    console.log(reply);
+    addreply(allreply, commentID);
     console.log("Saved to reply");
   };
   return (

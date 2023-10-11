@@ -52,27 +52,25 @@ router.post(
     async (req, res) => {
         try {
             console.log(req.params.id)
-            const { reply,
-                username,
-                userImg,
-                timeStamp
+            const { reply
 
             } =
                 req.body;
+            console.log("req.body")
             console.log(req.body)
-            const newcomment = {};
-            if (reply) {
-                newcomment.reply = reply;
-            }
-            if (username) {
-                newcomment.username = username;
-            }
-            if (userImg) {
-                newcomment.userImg = userImg;
-            }
-            if (timeStamp) {
-                newcomment.timeStamp = timeStamp;
-            }
+            // const newcomment = {};
+            // if (reply) {
+            //     newcomment.reply = reply;
+            // }
+            // if (username) {
+            //     newcomment.username = username;
+            // }
+            // if (userImg) {
+            //     newcomment.userImg = userImg;
+            // }
+            // if (timeStamp) {
+            //     newcomment.timeStamp = timeStamp;
+            // }
 
 
             let comments = await Comment.findById({ _id: req.params.id });
@@ -87,7 +85,7 @@ router.post(
 
             comments = await Comment.findByIdAndUpdate(
                 { _id: req.params.id },
-                { $set: { "reply": { newcomment } } },
+                { $set: { "reply": { ...reply } } },
                 { new: true }
             );
             console.log(comments)
