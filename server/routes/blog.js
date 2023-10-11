@@ -81,10 +81,9 @@ router.get("/fetchallblogCards", async (req, res) => {
 
 // ROUTE 2: Put all a blog in the database : POST "/api/blogs/addblog"
 
-router.post("/filterblog", async (req, res) => {
+router.get("/filterblog", async (req, res) => {
   try {
     const username = req.query.username;
-    console.log(username);
     const blogs = await blogCard.find({ UserName: username });
 
     //   console.log(req.user.id)
@@ -131,24 +130,16 @@ router.post(
   }
 );
 
-
 // ROUTE 3:Update an existing note using : POST "/api/notes/updatenote" .login required
 
 router.put("/updateblog/:id", fetchuser, async (req, res) => {
   try {
-    const {
-      Title,
-      description,
-      tags,
-      Category,
-      Blog_url,
-
-    } = req.body;
+    const { Title, description, tags, Category, Blog_url } = req.body;
 
     // let blog1 = await blogCard.find({ postID: req.params.id })
     const newblog = {};
     // const newblog = {};
-    console.log({ postID: req.params.id })
+    console.log({ postID: req.params.id });
     if (Title) {
       newblog.Title = Title;
     }
@@ -163,7 +154,7 @@ router.put("/updateblog/:id", fetchuser, async (req, res) => {
     if (Blog_url) {
       newblog.Blog_url = Blog_url;
     }
-    console.log(newblog)
+    console.log(newblog);
     // Find the note to be updated and update it
     let Blog = await blogCard.find({ postID: req.params.id });
     let Blog2 = await blog.find({ postID: req.params.id });
@@ -192,38 +183,34 @@ router.put("/updateblog/:id", fetchuser, async (req, res) => {
   }
 });
 
-
 // ROUTE 4:Delete an existing note using : DELETE "/api/notes/deletenote" .login required
 
-router.delete('/deleteblog/:id', async (req, res) => {
-
-
-
+router.delete("/deleteblog/:id", async (req, res) => {
   try {
-
-
     // Find the note to be deleted and delete it
-    let blog1 = await blogCard.find({ postID: req.params.id })
-    let blog2 = await blog.find({ postID: req.params.id })
+    let blog1 = await blogCard.find({ postID: req.params.id });
+    let blog2 = await blog.find({ postID: req.params.id });
     if (!blog1 || !blog2) {
-      return res.status(404).send("not found")
+      return res.status(404).send("not found");
     }
 
-    //Allow deletion only if user owns it 
+    //Allow deletion only if user owns it
     // if (blog1.user.toString() !== req.user.id) {
     //   return res.status(401).send("Not Alowed")
     // }
 
-    blog1 = await blogCard.findOneAndDelete({ postID: req.params.id })
-    blog2 = await blog.findOneAndDelete({ postID: req.params.id })
+    blog1 = await blogCard.findOneAndDelete({ postID: req.params.id });
+    blog2 = await blog.findOneAndDelete({ postID: req.params.id });
 
-    return res.json({ "success": "note has been deleted", blog1: blog1, blog2: blog2 });
+    return res.json({
+      success: "note has been deleted",
+      blog1: blog1,
+      blog2: blog2,
+    });
   } catch (error) {
-
     console.error(error.message);
     res.status(500).send("Internal Sever error,Something in the way");
   }
-})
-
+});
 
 module.exports = router;

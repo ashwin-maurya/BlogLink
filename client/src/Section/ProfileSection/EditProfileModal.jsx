@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import AuthContext from "../../Helper/Context/AuthContext";
 
 export default function EditProfileModal(props) {
-  const { ProfileModalStatus } = props;
+  const { ProfileModalStatus, UserProfile } = props;
   const context = useContext(AuthContext);
   const {
     adduserdetail,
@@ -14,12 +14,11 @@ export default function EditProfileModal(props) {
     UserDetails,
   } = context;
   const ProfilemodalRef = useRef(null);
-
   const [userDetail, setUserDetail] = useState({
-    description: "",
-    work: "",
-    education: "",
-    location: "",
+    description: UserProfile?.description || "",
+    work: UserProfile?.work || "",
+    education: UserProfile?.education || "",
+    location: UserProfile?.location || "",
   });
 
   const handleOutsideClick = (event) => {

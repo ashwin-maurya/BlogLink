@@ -195,7 +195,7 @@ router.get("/getCurrentuser", fetchuser, async (req, res) => {
 });
 
 // ROUTE:3 Get loggedin user details susing : POST "/api/auth/getuser".  login required
-router.get("/getCurrentuserDetails", fetchuser, async (req, res) => {
+router.get("/getCurrentuserDetails", async (req, res) => {
   try {
     const username = req.query.username; // Access username from query parameter
     const userDetail = await Userdetail.findOne({ username: username });

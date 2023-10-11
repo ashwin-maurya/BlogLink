@@ -108,7 +108,6 @@ const AuthState = (props) => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "auth-token": JSON.parse(localStorage.getItem("UserData")).authtoken,
         },
       }
     );
@@ -225,6 +224,7 @@ const AuthState = (props) => {
       location: UpdatedProfile.location,
     };
     setUserDetails(updatedUserDetails);
+    setUserDetailExist();
     toast.success("Profile Updated");
 
     setUserDetailExist();

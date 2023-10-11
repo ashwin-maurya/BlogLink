@@ -17,6 +17,7 @@ export default function ProfilePage() {
   useEffect(() => {
     if (AuthStatus) {
       if (UserDetails?._id === UserProfile?._id) {
+        console.log("heloo");
         setUserMatch(true);
       } else {
         setUserMatch(false);
@@ -49,7 +50,7 @@ export default function ProfilePage() {
       //hi
       getUser(username);
     }
-  }, [username]);
+  }, [username, UserDetails]);
   return (
     <>
       <ProfileMain UserProfile={UserProfile} UserMatch={UserMatch} />

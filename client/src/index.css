@@ -10,12 +10,12 @@
   position: absolute;
 }
 ::-webkit-scrollbar-track {
-  background: #e4f5ff;
+  background: #eadeff;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #58bfff;
+  background: #8957e5;
 }
 
 /* Handle on hover */
