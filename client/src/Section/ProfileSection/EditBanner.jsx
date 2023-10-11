@@ -1,7 +1,16 @@
 import { useRef } from "react";
+import { Button, Modal, Progress } from "antd";
 
 export default function EditBanner(props) {
-  const { BannerModal } = props;
+  const {
+    BannerModal,
+    getBannerImage,
+    uploadbannerimg,
+    showProfileModal,
+    setProfileModal,
+    currentBannerImage,
+    progress,
+  } = props;
 
   const BannerModalRef = useRef(null);
 
@@ -22,7 +31,12 @@ export default function EditBanner(props) {
           <h1 className="text-xl pb-4   font-bold text-gray-500 tracking-wide">
             Choose Banner Image
           </h1>
-          <form className="form flex flex-col w-full px-2">
+          <form
+            onChange={(e) => {
+              getBannerImage(e);
+            }}
+            className="form flex flex-col w-full px-2"
+          >
             <div className="flex items-center justify-center w-full">
               <label className="flex flex-col rounded-lg border-4 border-dashed w-full p-10 group text-center">
                 <div className=" w-full text-center flex  items-center justify-center  flex-row">
@@ -31,6 +45,7 @@ export default function EditBanner(props) {
                     src="https://img.freepik.com/free-vector/creative-office-workers-illustration_33099-2336.jpg?w=900&t=st=1696679862~exp=1696680462~hmac=fa08f13c8840ebc7e52b713274d97286fc0f471a8139ec8af0d09d6875bf2ae8"
                     alt="freepik image"
                   />
+                  <p>{currentBannerImage?.name}</p>
                   <p className="pointer-none text-gray-500 ">
                     <span className="text-sm">Drag and drop</span> files here{" "}
                     <br /> or{" "}
@@ -40,16 +55,32 @@ export default function EditBanner(props) {
                     from your computer
                   </p>
                 </div>
-                <input type="file" className="hidden" />
+                {progress === 0 ? (
+                  <></>
+                ) : (
+                  <div className="progress-bar">
+                    <Progress type="circle" percent={progress} />
+                  </div>
+                )}
+                <input
+                  onChange={(e) => {
+                    getBannerImage(e);
+                  }}
+                  type="file"
+                  className="hidden"
+                />
               </label>
             </div>
 
-            <input
-              id="next"
-              type="submit"
-              value="Upload"
-              className="button-submit my-2 text-white rounded-full p-2 font-bold bg-primaryMain dark:bg-secondary cursor-pointer"
-            />
+            <Button
+              disabled={currentBannerImage?.name ? false : true}
+              key="submit"
+              type="primary"
+              color="purple"
+              onClick={uploadbannerimg}
+            >
+              Upload Profile Picture
+            </Button>
           </form>
         </div>
       </div>

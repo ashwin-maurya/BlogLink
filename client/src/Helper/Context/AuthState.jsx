@@ -82,6 +82,8 @@ const AuthState = (props) => {
           work: UserDetail.work,
           location: UserDetail.location,
           profileImg: UserDetail.profileImg,
+
+          bannerImg: UserDetail.bannerImg,
         };
         setUserDetails(updatedUserDetails);
       } else {
@@ -115,7 +117,8 @@ const AuthState = (props) => {
     );
 
     const UserDetail = await response1.json();
-
+    console.log(UserDetail);
+    console.log("getuser");
     if (UserDetail) {
       const updatedUserDetails = {
         ...json,
@@ -124,6 +127,7 @@ const AuthState = (props) => {
         work: UserDetail.work,
         location: UserDetail.location,
         profileImg: UserDetail.profileImg,
+        bannerImg: UserDetail.bannerImg,
       };
       setUserProfile(updatedUserDetails);
     } else {
@@ -257,6 +261,9 @@ const AuthState = (props) => {
     console.log(comments2);
 
     // console.log(SingleBlogComment);
+
+    getUser(username);
+
     console.log("form addimg");
   };
 

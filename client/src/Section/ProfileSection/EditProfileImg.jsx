@@ -46,7 +46,7 @@ export default function EditProfileImg(props) {
                     src="https://img.freepik.com/free-vector/customer-support-flat-illustration_23-2148892786.jpg?w=900&t=st=1696679801~exp=1696680401~hmac=8155e27b46a2e39d8a3e40fcf43a2227156c5e3fc42e1d34f4a35ac9c9fafc87"
                     alt="freepik image"
                   />
-                  <p>{currentImage.name}</p>
+                  <p>{currentImage?.name}</p>
                   <p className="pointer-none text-gray-500 ">
                     <span className="text-sm">Drag and drop</span> files here{" "}
                     <br /> or{" "}
@@ -81,7 +81,7 @@ export default function EditProfileImg(props) {
               className="button-submit my-2 text-white rounded-full p-2 font-bold bg-primaryMain dark:bg-secondary cursor-pointer"
             /> */}
             <Button
-              disabled={currentImage.name ? false : true}
+              disabled={currentImage?.name ? false : true}
               key="submit"
               type="primary"
               color="purple"

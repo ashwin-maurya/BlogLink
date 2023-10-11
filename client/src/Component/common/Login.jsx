@@ -32,7 +32,10 @@ export default function Login() {
 
       {AuthStatus ? (
         <div className="group">
-          <Profile img="" name={UserDetails?.username}></Profile>
+          <Profile
+            profileImg={UserDetails?.profileImg}
+            name={UserDetails?.username}
+          ></Profile>
         </div>
       ) : (
         <div
