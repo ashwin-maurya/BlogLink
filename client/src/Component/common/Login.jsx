@@ -31,6 +31,7 @@ export default function Login() {
 
       {AuthStatus ? (
         <div className="group">
+
           {UserDetails ? (
             <Profile name={UserDetails?.username}></Profile>
           ) : (
@@ -39,6 +40,7 @@ export default function Login() {
               <div class="w-40 h-8 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
             </div>
           )}
+
         </div>
       ) : (
         <div

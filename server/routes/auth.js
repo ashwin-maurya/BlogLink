@@ -182,6 +182,75 @@ router.post(
   }
 );
 
+router.post(
+  "/googlelogin",
+  [body("email", "Enter a valid Email").isEmail()],
+  async (req, res) => {
+    // If there are errors , return Bad request and the errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const { email } = req.body;
+    try {
+      let success = false;
+      // console.log(user)
+      let user = await User.findOne({ email });
+      if (!user) {
+        return res
+          .status(400)
+          .json({ error: "Please try to login with correct credentials" });
+      }
+
+      success = true;
+      const payload = {
+        user: {
+          id: user.id,
+        },
+      };
+      const authtoken = jwt.sign(payload, JWT_SECRET);
+      res.json({ success: true, authtoken: authtoken, UserID: user.id });
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send("Internal Sever error,Something in the way");
+    }
+  }
+);
+
+router.post(
+  "/googlelogin",
+  [body("email", "Enter a valid Email").isEmail()],
+  async (req, res) => {
+    // If there are errors , return Bad request and the errors
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const { email } = req.body;
+    try {
+      let success = false;
+      let user = await User.findOne({ email });
+      if (!user) {
+        return res
+          .status(400)
+          .json({ error: "Please try to login with correct credentials" });
+      }
+
+      success = true;
+      const payload = {
+        user: {
+          id: user.id,
+        },
+      };
+      const authtoken = jwt.sign(payload, JWT_SECRET);
+      res.json({ success: true, authtoken: authtoken, UserID: user.id });
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send("Internal Sever error,Something in the way");
+    }
+  }
+);
+
 // ROUTE:3 Get loggedin user details susing : POST "/api/auth/getuser".  login required
 router.get("/getCurrentuser", fetchuser, async (req, res) => {
   try {
@@ -324,5 +393,52 @@ router.put("/updateuserdetail/:username", fetchuser, async (req, res) => {
     res.status(500).send("Internal Server error, Something went wrong");
   }
 });
+
+
+// adding profile/bannerimg
+router.post(
+  "/addimg",
+  fetchuser,
+
+
+  async (req, res) => {
+    try {
+
+
+      const {
+        key,
+        imgUrl,
+        username
+      } =
+        req.body;
+      console.log(req.body)
+
+
+
+      let details = await Userdetail.findOne({ username: username });
+      console.log(details)
+      if (!details) {
+        return res.status(404).send("not found");
+      }
+
+      //   if (blog.user.toString() !== req.user.id) {
+      //     return res.status(401).send("Not Alowed");
+      //   }
+
+      details = await Userdetail.findOneAndUpdate(
+        { username: username },
+        { $set: { [key]: imgUrl } },
+        { new: true }
+      );
+
+      console.log(details)
+      res.json({ details });
+    } catch (error) {
+      console.log("errro dfkvjdfkv")
+      console.error(error.message);
+      res.status(500).send("Internal Sever error,Something in the way");
+    }
+  }
+);
 
 module.exports = router;

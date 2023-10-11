@@ -16,7 +16,7 @@ export default function BlogCard({ card }) {
   const { UserDetails, AuthStatus } = context3;
   const { formatUTCDate, date } = context2;
   const [ShowEdit, setShowEdit] = useState(false);
-
+  console.log(card);
   const onDelete = async () => {
     await deletenote(card?.postID);
   };

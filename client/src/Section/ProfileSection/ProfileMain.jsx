@@ -4,9 +4,20 @@ import EditProfileModal from "./EditProfileModal";
 import EditBanner from "./EditBanner";
 import { profileDefault } from "../../Assets/icons";
 import EditProfileImg from "./EditProfileImg";
+import { uploadBannerImage, uploadImage } from "../../api/ImageUpload";
+import { useEffect } from "react";
+import AuthContext from "../../Helper/Context/AuthContext";
+import { BannerImg } from "../../Assets/images";
+
 import ProfileMainSkeleton from "../../Component/SkeletonLoaders/ProfileMainSkeleton";
 
+
 export default function ProfileMain({ UserProfile, UserMatch }) {
+  const context = useContext(AuthContext);
+  const [imgLink, setimgLink] = useState("");
+  const { addImg } = context;
+
+  console.log(UserProfile);
   const [showProfileModal, setProfileModal] = useState(false);
   const [showBannerModal, setBannerModal] = useState(false);
   const [showProfileImg, setProfileImg] = useState(false);
@@ -18,12 +29,89 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
   const BannerModal = () => {
     setBannerModal((showBannerModal) => !showBannerModal);
   };
+
+  useEffect(() => {
+    setimgLink(imgLink);
+  }, [imgLink]);
+
   const ProfileImg = () => {
     setProfileImg((showProfileImg) => !showProfileImg);
   };
+
+  const [currentImage, setCurrentImage] = useState({});
+  const [currentBannerImage, setCurrentBannerImage] = useState({});
+
+  const [progress, setProgress] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
+  const getImage = (event) => {
+    console.log("I am getimg");
+    setCurrentImage(event.target.files[0]);
+    console.log(currentImage);
+  };
+  const getBannerImage = (event) => {
+    console.log("I am getimg");
+    setCurrentBannerImage(event.target.files[0]);
+    console.log(currentImage);
+  };
+
+  const [profileImg, setprofileImg] = useState(profileDefault);
+  const [bannerImg, setbannerImg] = useState(BannerImg);
+  useEffect(() => {
+    console.log(UserProfile?.profileImg);
+    if (UserProfile?.profileImg) {
+      setprofileImg(UserProfile?.profileImg);
+    } else {
+      setprofileImg(profileDefault);
+    }
+    if (UserProfile?.bannerImg) {
+      setbannerImg(UserProfile?.bannerImg);
+    } else {
+      setbannerImg(BannerImg);
+    }
+  }, [UserProfile]);
+
+  const deleteimg = () => {
+    addImg({ key: "profileImg", imgUrl: "", username: UserProfile?.username });
+    setProfileImg(profileDefault);
+  };
+  const deletebannerimg = () => {
+    addImg({ key: "bannerImg", imgUrl: "", username: UserProfile?.username });
+    setbannerImg(BannerImg);
+  };
+  const uploadbannerimg = async () => {
+    console.log(currentBannerImage);
+    await uploadBannerImage(
+      currentBannerImage,
+      UserProfile?.username,
+      BannerModal,
+
+      setProgress,
+      setCurrentBannerImage,
+      addImg
+    );
+  };
+  const uploadImage2 = async () => {
+    await uploadImage(
+      currentImage,
+      UserProfile?.username,
+      ProfileImg,
+      setModalOpen,
+
+      setProgress,
+      setCurrentImage,
+      addImg
+    );
+
+    // setProfileImg(UserProfile?.profileImg);
+
+    console.log(UserProfile?.profileImg);
+    console.log(currentImage);
+  };
+
   if (!UserProfile) {
     return <ProfileMainSkeleton />;
   }
+
   return (
     <>
       {showProfileModal && (
@@ -32,27 +120,88 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
           UserProfile={UserProfile}
         ></EditProfileModal>
       )}
-      {showBannerModal && <EditBanner BannerModal={BannerModal}></EditBanner>}
+      {showBannerModal && (
+        <EditBanner
+          BannerModal={BannerModal}
+          uploadbannerimg={uploadbannerimg}
+          getBannerImage={getBannerImage}
+          currentBannerImage={currentBannerImage}
+          setProfileModal={setProfileModal}
+          progress={progress}
+        ></EditBanner>
+      )}
       {showProfileImg && (
-        <EditProfileImg ProfileImg={ProfileImg}></EditProfileImg>
+        <EditProfileImg
+          ProfileImg={ProfileImg}
+          getImage={getImage}
+          uploadImage2={uploadImage2}
+          showProfileModal={showProfileModal}
+          setProfileModal={setProfileModal}
+          currentImage={currentImage}
+          progress={progress}
+        ></EditProfileImg>
       )}
       <section className="relative block h-[400px] ">
-        <div
-          className=" w-full h-full bg-center bg-cover bg-[url('https://wallpapers.com/images/hd/profile-picture-background-10tprnkqwqif4lyv.jpg')]"
-          onClick={BannerModal}
-        ></div>
+        <div className=" w-full h-full  " onClick={BannerModal}>
+          <div className="relative group/buttons h-[500px]">
+            <img
+              className=" w-full h-full bg-center bg-cover "
+              height={10}
+              src={bannerImg}
+              alt=""
+            />
+
+            {UserMatch && (
+              <div
+                className="z-50   hidden
+              
+                    group-hover/buttons:block "
+              >
+                <i
+                  onClick={deletebannerimg}
+                  className="text-white fa fa-trash  absolute   top-0   "
+                >
+                  {" "}
+                </i>
+                <i className="text-white fa fa-pencil  absolute  top-0 left-5  ">
+                  {" "}
+                </i>
+              </div>
+            )}
+          </div>
+        </div>
       </section>
 
       <section className="relative pt-16 ">
         <div className="container mx-auto px-4">
           <div className="relative flex flex-col min-w-0 bg-white  dark:bg-darkBgPrimary w-full mb-6 shadow-xl rounded-lg -mt-64 p-10">
-            <div className="flex flex-wrap justify-center relative">
-              <img
-                alt="..."
-                src={profileDefault}
-                className="shadow-xl rounded-full w-56 h-auto align-middle border-none -mt-32 bg-white"
-                onClick={ProfileImg}
-              />
+            <div className=" flex flex-wrap justify-center relative ">
+              <div className="group/buttons   relative">
+                <img
+                  height={20}
+                  alt="img"
+                  src={profileImg}
+                  className=" shadow-xl rounded-full w-56 h-56  align-middle border-none -mt-32 bg-white"
+                  onClick={ProfileImg}
+                />
+                {UserMatch && (
+                  <div
+                    className="  hidden
+                    group-hover/buttons:block "
+                  >
+                    <i
+                      onClick={deleteimg}
+                      className="text-white fa fa-trash  absolute  right-2/3 bottom-8  "
+                    >
+                      {" "}
+                    </i>
+                    <i className="text-white fa fa-pencil  absolute  right-1/4 bottom-8  ">
+                      {" "}
+                    </i>
+                  </div>
+                )}
+              </div>
+
               {UserMatch && (
                 <div className="absolute right-0 top-0">
                   <button

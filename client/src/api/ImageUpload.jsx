@@ -1,15 +1,24 @@
-import { storage } from "../firebaseConfig";
-import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import { editProfile } from "./FirestoreAPI";
+import {
+  ref,
+  getDownloadURL,
+  uploadBytesResumable,
+  deleteObject,
+} from "firebase/storage";
+// import { editProfile } from "./FirestoreAPI";
+import { storage } from "../../firebaseConfig";
 
-export const uploadImage = (
+export const uploadImage = async (
   file,
-
-  id,
+  username,
+  ProfileImg,
   setModalOpen,
+
   setProgress,
-  setCurrentImage
+  setCurrentImage,
+  addImg
 ) => {
+  // deleteObject(profilePicsRef);
+
   const profilePicsRef = ref(storage, `profileImages/${file.name}`);
   const uploadTask = uploadBytesResumable(profilePicsRef, file);
 
@@ -20,24 +29,37 @@ export const uploadImage = (
         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
       );
 
+      console.log("I ran!!!");
       setProgress(progress);
     },
     (error) => {
       console.error(error);
     },
-    () => {
-      getDownloadURL(uploadTask.snapshot.ref).then((response) => {
-        editProfile(id, { imageLink: response });
-        setModalOpen(false);
-        setCurrentImage({});
-        setProgress(0);
-      });
+    async () => {
+      const response = await getDownloadURL(uploadTask.snapshot.ref);
+      // editProfile(id, { imageLink: response });
+
+      setModalOpen(false);
+      setCurrentImage({});
+
+      addImg({ key: "profileImg", imgUrl: response, username: username });
+      setProgress(0);
+      ProfileImg();
     }
   );
 };
 
-export const uploadPostImage = (file, setPostImage, setProgress) => {
-  const postPicsRef = ref(storage, `postImages/${file.name}`);
+export const uploadBannerImage = async (
+  file,
+
+  username,
+  BannerModal,
+
+  setProgress,
+  setCurrentBannerImage,
+  addImg
+) => {
+  const postPicsRef = ref(storage, `bannerImages/${file.name}`);
   const uploadTask = uploadBytesResumable(postPicsRef, file);
 
   uploadTask.on(
@@ -52,10 +74,17 @@ export const uploadPostImage = (file, setPostImage, setProgress) => {
     (error) => {
       console.error(error);
     },
-    () => {
-      getDownloadURL(uploadTask.snapshot.ref).then((response) => {
-        setPostImage(response);
-      });
+    async () => {
+      const response = await getDownloadURL(uploadTask.snapshot.ref);
+      // editProfile(id, { imageLink: response });
+
+      console.log(response);
+      console.log("response");
+
+      setCurrentBannerImage({});
+      addImg({ key: "bannerImg", imgUrl: response, username: username });
+      setProgress(0);
+      BannerModal();
     }
   );
 };

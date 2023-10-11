@@ -9,6 +9,7 @@ const UserSchema = new Schema({
     unique: true,
   },
 
+
   description: {
     type: String,
   },
@@ -21,6 +22,12 @@ const UserSchema = new Schema({
   location: {
     type: String,
   },
+  profileImg: {
+    type: String,
+  },
+  bannerImg: {
+    type: String,
+  }
 });
 const UserDetail = mongoose.model("UserDetail", UserSchema);
 // User.createIndexes();

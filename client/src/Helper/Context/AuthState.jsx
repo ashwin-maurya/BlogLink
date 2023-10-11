@@ -81,6 +81,9 @@ const AuthState = (props) => {
           education: UserDetail.education,
           work: UserDetail.work,
           location: UserDetail.location,
+          profileImg: UserDetail.profileImg,
+
+          bannerImg: UserDetail.bannerImg,
         };
         setUserDetails(updatedUserDetails);
       } else {
@@ -113,7 +116,8 @@ const AuthState = (props) => {
     );
 
     const UserDetail = await response1.json();
-
+    console.log(UserDetail);
+    console.log("getuser");
     if (UserDetail) {
       const updatedUserDetails = {
         ...json,
@@ -121,6 +125,8 @@ const AuthState = (props) => {
         education: UserDetail.education,
         work: UserDetail.work,
         location: UserDetail.location,
+        profileImg: UserDetail.profileImg,
+        bannerImg: UserDetail.bannerImg,
       };
       setUserProfile(updatedUserDetails);
     } else {
@@ -229,6 +235,38 @@ const AuthState = (props) => {
 
     setUserDetailExist();
   };
+
+  const addImg = async (data) => {
+    // todo api call
+    //API call
+
+    console.log(data);
+    const obj = JSON.parse(localStorage.getItem("UserData"));
+    console.log(obj.authtoken);
+    const { key, imgUrl, username } = data;
+    const response = await fetch(`${host}/api/auth/addimg`, {
+      method: "POST",
+      headers: {
+        "auth-token": obj.authtoken,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        key,
+        imgUrl,
+        username,
+      }),
+    });
+    const comments2 = await response.json();
+
+    console.log(comments2);
+
+    // console.log(SingleBlogComment);
+
+    getUser(username);
+
+    console.log("form addimg");
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -253,6 +291,7 @@ const AuthState = (props) => {
         setUserDetailExist,
         userdetailexist,
         updateuserdetail,
+        addImg,
       }}
     >
       {props.children}
