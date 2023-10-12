@@ -64,25 +64,30 @@ const AuthState = (props) => {
     const json = await response.json();
     if (json) {
       const username = json.username;
-      const response1 = await fetch(`${host}/api/auth/getCurrentUserDetails`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": JSON.parse(localStorage.getItem("UserData")).authtoken,
-        },
-        user: username,
-      });
-      const UserDetail = await response1.json();
+      console.log(username);
+      const response1 = await fetch(
+        `${host}/api/auth/getCurrentUserDetails/${username}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": JSON.parse(localStorage.getItem("UserData"))
+              .authtoken,
+          },
+        }
+      );
 
+      const UserDetail = await response1.json();
+      console.log(UserDetail);
       if (UserDetail) {
         const updatedUserDetails = {
+          // ...UserDetail,
           ...json,
           description: UserDetail.description,
           education: UserDetail.education,
           work: UserDetail.work,
           location: UserDetail.location,
           profileImg: UserDetail.profileImg,
-
           bannerImg: UserDetail.bannerImg,
         };
         setUserDetails(updatedUserDetails);
@@ -106,7 +111,7 @@ const AuthState = (props) => {
     const json = await response.json();
 
     const response1 = await fetch(
-      `${host}/api/auth/getCurrentUserDetails?username=${username}`,
+      `${host}/api/auth/getCurrentUserDetails/${username}`,
       {
         method: "GET",
         headers: {
@@ -132,6 +137,7 @@ const AuthState = (props) => {
     } else {
       setUserProfile(json);
     }
+    // console.log(UserDetail);
   };
 
   const userexist = async (email) => {
@@ -263,7 +269,7 @@ const AuthState = (props) => {
     // console.log(SingleBlogComment);
 
     getUser(username);
-
+    getCurrentUser(JSON.parse(localStorage.getItem("UserData")).UserID);
     console.log("form addimg");
   };
 

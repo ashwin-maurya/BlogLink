@@ -264,9 +264,10 @@ router.get("/getCurrentuser", fetchuser, async (req, res) => {
 });
 
 // ROUTE:3 Get loggedin user details susing : POST "/api/auth/getuser".  login required
-router.get("/getCurrentuserDetails", async (req, res) => {
+router.get("/getCurrentuserDetails/:username", async (req, res) => {
   try {
-    const username = req.query.username; // Access username from query parameter
+    const username = req.params.username; // Access username from query parameter
+    console.log(req.params.username)
     const userDetail = await Userdetail.findOne({ username: username });
     res.json(userDetail);
   } catch (error) {
@@ -411,19 +412,14 @@ router.post(
         username
       } =
         req.body;
-      console.log(req.body)
 
 
 
       let details = await Userdetail.findOne({ username: username });
-      console.log(details)
       if (!details) {
         return res.status(404).send("not found");
       }
 
-      //   if (blog.user.toString() !== req.user.id) {
-      //     return res.status(401).send("Not Alowed");
-      //   }
 
       details = await Userdetail.findOneAndUpdate(
         { username: username },
@@ -431,7 +427,6 @@ router.post(
         { new: true }
       );
 
-      console.log(details)
       res.json({ details });
     } catch (error) {
       console.log("errro dfkvjdfkv")
