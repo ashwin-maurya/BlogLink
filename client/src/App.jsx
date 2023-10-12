@@ -12,9 +12,7 @@ import AuthState from "./Helper/Context/AuthState";
 import CheckLogin from "./Helper/CheckLogin";
 import HelperState from "./Helper/Context/HelperState";
 import CommentLikeState from "./Helper/Context/CommentLikeState";
-import UpdateBlog from "./Pages/updateBlog";
 import UpdateBlogLayout from "./Layouts/UpdateBlogLayout";
-// import ReplyState from "./Helper/Context/ReplyState";
 
 const App = () => {
   return (
@@ -48,7 +46,7 @@ const App = () => {
                   {" "}
                 </Route>
                 <Route
-                  path="/blogs/updateblog/:handle"
+                  path="/updateblog/:handle"
                   element={<UpdateBlogLayout></UpdateBlogLayout>}
                 ></Route>
                 {/* <Route path="/*" element={<NotFound />} /> */}

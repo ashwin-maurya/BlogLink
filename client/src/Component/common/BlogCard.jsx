@@ -13,7 +13,7 @@ export default function BlogCard({ card }) {
   const { deletenote } = context;
   const context2 = useContext(HelperContext);
   const context3 = useContext(AuthContext);
-  const { UserDetails, AuthStatus } = context3;
+  const { UserDetails, AuthStatus, getUser, UserProfile } = context3;
   const { formatUTCDate, date } = context2;
   const [ShowEdit, setShowEdit] = useState(false);
   console.log(card);
@@ -35,6 +35,12 @@ export default function BlogCard({ card }) {
     }
   }, [UserDetails, card]);
 
+  useEffect(() => {
+    console.log(card?.UserName);
+    getUser(card?.UserName);
+  }, []);
+
+  console.log(UserProfile);
   const navigate = useNavigate();
 
   // const navigate = useNavigate();
@@ -46,23 +52,13 @@ export default function BlogCard({ card }) {
             <div className="max-lg:items-start max-lg:flex-col flex items-center">
               <div className="flex items-center ">
                 <img
-                  src="https://d2r55xnwy6nx47.cloudfront.net/uploads/2023/01/rebeccaboyle2-1720x1720.jpg"
+                  src={UserProfile?.profileImg}
                   className="rounded-full object-contain"
                   width={28}
                   height={32}
                   alt="img"
                 />
-                <p
-                  className="text-[14.5px] ml-2 font-semibold font-palanquin text-gray-700 dark:text-darkTextMain"
-                  onClick={() => {
-                    // navigate(
-                    //   `/author/${card?.Author_name?.replace(/\s+/g, "-")}`,
-                    //   {
-                    //     state: { card },
-                    //   }
-                    // );
-                  }}
-                >
+                <p className="text-[14.5px] ml-2 font-semibold font-palanquin text-gray-700 dark:text-darkTextMain">
                   {card?.UserName}
                 </p>
               </div>
@@ -71,11 +67,10 @@ export default function BlogCard({ card }) {
               </span>
               <p className="text-sm ml-1 font-semibold font-palanquin text-gray-400 dark:text-darkTextPrimary">
                 {date}
-                {/* 28 August 2023 */}
               </p>
             </div>
           </div>
-          {/* <Link to={`/${card?.Title?.replace(/\s+/g, "-")}`}> */}
+
           <div
             className="flex flex-col "
             onClick={() => {
@@ -123,7 +118,7 @@ export default function BlogCard({ card }) {
               <span
                 className="bg-blue-200 p-1 rounded-md"
                 onClick={() => {
-                  navigate("/write", {
+                  navigate("/updateblog", {
                     state: { id: card.postID },
                   });
                 }}
