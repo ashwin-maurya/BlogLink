@@ -11,7 +11,6 @@ import { BannerImg } from "../../Assets/images";
 
 import ProfileMainSkeleton from "../../Component/SkeletonLoaders/ProfileMainSkeleton";
 
-
 export default function ProfileMain({ UserProfile, UserMatch }) {
   const context = useContext(AuthContext);
   const [imgLink, setimgLink] = useState("");
@@ -143,7 +142,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
       )}
       <section className="relative block h-[400px] ">
         <div className=" w-full h-full  " onClick={BannerModal}>
-          <div className="relative group/buttons h-[500px]">
+          <div className="relative group/buttons h-[300px]">
             <img
               className=" w-full h-full bg-center bg-cover "
               height={10}
@@ -172,16 +171,15 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
         </div>
       </section>
 
-      <section className="relative pt-16 ">
+      <section className="relative pt-8 ">
         <div className="container mx-auto px-4">
-          <div className="relative flex flex-col min-w-0 bg-white  dark:bg-darkBgPrimary w-full mb-6 shadow-xl rounded-lg -mt-64 p-10">
+          <div className="relative flex flex-col min-w-0 bg-white  dark:bg-darkBgPrimary w-[60%] mx-auto mb-6 shadow-xl rounded-lg -mt-60 p-10">
             <div className=" flex flex-wrap justify-center relative ">
               <div className="group/buttons   relative">
                 <img
-                  height={20}
                   alt="img"
                   src={profileImg}
-                  className=" shadow-xl rounded-full w-56 h-56  align-middle border-none -mt-32 bg-white"
+                  className=" shadow-xl rounded-full w-32 h-32  align-middle border-none -mt-24 bg-white"
                   onClick={ProfileImg}
                 />
                 {UserMatch && (
@@ -214,7 +212,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
               )}
             </div>
             <div className="text-center my-4">
-              <h3 className="text-4xl font-semibold leading-normals text-blueGray-700 mb-2 dark:text-darkTextMain">
+              <h3 className="text-3xl font-semibold leading-normals text-blueGray-700 mb-2 dark:text-darkTextMain">
                 {UserProfile?.name}
               </h3>
               <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-light uppercase dark:text-darkTextMain">
@@ -222,8 +220,8 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
                   <p>{UserProfile?.username}</p>
                 </div>
               </div>
-              <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-light uppercase dark:text-darkTextMain">
-                <div className="flex flex-col">
+              <div className=" leading-normal mt-0 mb-2 text-blueGray-400 font-light uppercase dark:text-darkTextMain">
+                <div className="flex text-xs flex-col">
                   <p>{UserProfile?.description}</p>
                 </div>
               </div>
@@ -247,7 +245,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
               </div>
               <div className="w-[50%] max-lg:w-[100%] rounded-lg p-5 m-2 bg-bgBlue dark:bg-darkBgMain">
                 <div className="flex items-center">
-                  <div className="w-[10%] max-sm:w-[15%]">
+                  <div className="w-[20%] max-sm:w-[15%]">
                     <div className="w-7 h-7 bg-primaryMain dark:bg-secondary rounded-full m-2 flex justify-center items-center ">
                       <i className="fa fa-briefcase  text-bgBlue text-base"></i>
                     </div>
@@ -257,7 +255,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
                   </div>
                 </div>
                 <div className="flex items-center w-full">
-                  <div className="w-[10%] max-sm:w-[15%]">
+                  <div className="w-[20%] max-sm:w-[15%]">
                     <div className="w-7 h-7 bg-primaryMain dark:bg-secondary rounded-full m-2 flex justify-center items-center ">
                       <i className="fa fa-graduation-cap text-bgBlue text-base"></i>
                     </div>
@@ -267,7 +265,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
                   </div>
                 </div>
                 <div className="flex items-center w-full">
-                  <div className="w-[10%] max-sm:w-[15%]">
+                  <div className="w-[20%] max-sm:w-[15%]">
                     <div className="w-7 h-7 bg-primaryMain dark:bg-secondary rounded-full m-2 flex justify-center items-center ">
                       <i className="fa fa-map-marker text-bgBlue text-base"></i>
                     </div>
@@ -277,7 +275,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
                   </div>
                 </div>
                 <div className="flex items-center w-full">
-                  <div className="w-[10%] max-sm:w-[15%]">
+                  <div className="w-[20%] max-sm:w-[15%]">
                     <div className="w-7 h-7 bg-primaryMain dark:bg-secondary rounded-full m-2 flex justify-center items-center ">
                       <i className="fa fa-calendar-o text-bgBlue text-base"></i>
                     </div>
