@@ -49,7 +49,7 @@ const App = () => {
                   {" "}
                 </Route>
                 <Route
-                  path="/updateblog/:handle"
+                  path="/updateblog"
                   element={<UpdateBlogLayout></UpdateBlogLayout>}
                 ></Route>
                 {/* <Route path="/*" element={<NotFound />} /> */}

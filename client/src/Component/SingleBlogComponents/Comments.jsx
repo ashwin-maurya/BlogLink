@@ -23,7 +23,7 @@ export default function Comments({ blog }) {
       userID: blog?.userID,
       UserName: UserDetails?.username,
     });
-  }, [blog]);
+  }, [blog, UserDetails]);
   const [comment, setcomment] = useState({});
   const getInput = (event) => {
     let { name, value } = event.target;
@@ -75,7 +75,7 @@ export default function Comments({ blog }) {
                 onChange={(e) => {
                   getInput(e);
                 }}
-                className="px-0 w-full text-sm text-gray-900 bg-transparent border-0 focus:ring-0 focus:outline-none  dark:placeholder-gray-400 "
+                className="dark:text-white px-0 w-full text-sm text-gray-900 bg-transparent border-0 focus:ring-0 focus:outline-none  dark:placeholder-gray-400 "
                 placeholder="Write a comment..."
                 required
               ></textarea>

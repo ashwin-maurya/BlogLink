@@ -41,7 +41,7 @@ export const uploadImage = async (
 
       setModalOpen(false);
       setCurrentImage({});
-
+      console.log(username);
       addImg({ key: "profileImg", imgUrl: response, username: username });
       setProgress(0);
       ProfileImg();

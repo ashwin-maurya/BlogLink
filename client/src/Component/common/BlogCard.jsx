@@ -7,22 +7,23 @@ import blogContext from "../../Helper/Context/blogContext";
 import { useContext, useEffect, useState } from "react";
 import HelperContext from "../../Helper/Context/HelperContext";
 import AuthContext from "../../Helper/Context/AuthContext";
+import { code1 } from "../../Assets/images";
+import { profileDefault } from "../../Assets/icons";
 
 export default function BlogCard({ card }) {
   const context = useContext(blogContext);
-  const { deletenote } = context;
+  const { deletenote, host } = context;
   const context2 = useContext(HelperContext);
   const context3 = useContext(AuthContext);
   const { UserDetails, AuthStatus, getUser, UserProfile } = context3;
   const { formatUTCDate, date } = context2;
   const [ShowEdit, setShowEdit] = useState(false);
-  console.log(card);
+  const [user, setuser] = useState(profileDefault);
+  // console.log(card);
   const onDelete = async () => {
     await deletenote(card?.postID);
   };
-  useEffect(() => {
-    formatUTCDate(card?.Date);
-  }, []);
+
   useEffect(() => {
     if (AuthStatus) {
       if (card?.userID === UserDetails?._id) {
@@ -33,14 +34,37 @@ export default function BlogCard({ card }) {
     } else {
       setShowEdit(false);
     }
+    // getUser(card?.UserName);
   }, [UserDetails, card]);
 
   useEffect(() => {
+    formatUTCDate(card?.Date);
     console.log(card?.UserName);
-    getUser(card?.UserName);
+    const func = async () => {
+      const response1 = await fetch(
+        `${host}/api/blogs/userImg/${card?.UserName}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const Userimage = await response1.json();
+      setuser(
+        // Userimage[0].profileImg != "" || Userimage[0].profileImg
+        //   ?
+        Userimage[0]?.profileImg ? Userimage[0]?.profileImg : profileDefault
+        // : profileDefault
+      );
+      console.log("from getimg");
+    };
+    func();
+
+    // console.log(UserProfile);
   }, []);
 
-  console.log(UserProfile);
   const navigate = useNavigate();
 
   // const navigate = useNavigate();
@@ -52,12 +76,16 @@ export default function BlogCard({ card }) {
             <div className="max-lg:items-start max-lg:flex-col flex items-center">
               <div className="flex items-center ">
                 <img
-                  src={UserProfile?.profileImg}
-                  className="rounded-full object-contain w-8 h-8"
+                  src={user}
+                  className="bg-white h-6 w-6  rounded-full object-contain"
+                  width={28}
+                  height={32}
+
                   alt="img"
                 />
                 <p className="text-[14.5px] ml-2 font-semibold font-palanquin text-gray-700 dark:text-darkTextMain">
                   {card?.UserName}
+                  {/* {UserProfile?.username} */}
                 </p>
               </div>
               <span className="text-sm ml-2 font-semibold font-palanquin text-gray-400 max-lg:hidden dark:text-darkTextPrimary">
@@ -108,7 +136,7 @@ export default function BlogCard({ card }) {
           ))}{" "}
         </div>
         {ShowEdit && (
-          <div className="hidden px-4 py-1 rounded-full group/buttons  group-hover:block hover:bg-blue-100">
+          <div className="hidden px-4 py-1 rounded-full group/buttons  group-hover:block dark:hover:bg-slate-700 hover:bg-blue-100">
             <div
               className="hidden   space-x-3 pr-2
            absolute group-hover/buttons:block right-8"
@@ -117,7 +145,7 @@ export default function BlogCard({ card }) {
                 className="bg-blue-200 p-1 rounded-md"
                 onClick={() => {
                   navigate("/updateblog", {
-                    state: { id: card.postID },
+                    state: { id: card?.postID },
                   });
                 }}
               >
@@ -127,7 +155,7 @@ export default function BlogCard({ card }) {
                 Delete
               </span>
             </div>
-            <i className=" fa fa-ellipsis-v"> </i>
+            <i className="dark:text-white fa fa-ellipsis-v"> </i>
           </div>
         )}
       </div>

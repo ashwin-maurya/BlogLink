@@ -98,6 +98,7 @@ const AuthState = (props) => {
 
   const getUser = async (username) => {
     //API call
+    console.log(username);
     const response = await fetch(
       `${host}/api/auth/getuser?username=${username}`,
       {

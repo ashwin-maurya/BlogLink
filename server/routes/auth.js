@@ -199,6 +199,7 @@ router.get("/getCurrentuserDetails/:userID", async (req, res) => {
   try {
     const userID = req.params.userID; // Access username from query parameter
     const userDetail = await Userdetail.findOne({ userID: userID });
+
     res.json(userDetail);
   } catch (error) {
     console.error(error.message);
@@ -208,7 +209,11 @@ router.get("/getCurrentuserDetails/:userID", async (req, res) => {
 
 router.get("/getuser", async (req, res) => {
   try {
+
+
     const username = req.query.username;
+
+
     const user = await User.findOne({ username });
 
     if (!user) {

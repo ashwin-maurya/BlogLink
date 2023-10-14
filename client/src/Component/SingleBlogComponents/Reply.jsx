@@ -4,11 +4,11 @@ import AuthContext from "../../Helper/Context/AuthContext";
 import { profileDefault } from "../../Assets/icons";
 import CommentLikeContext from "../../Helper/Context/CommentLikeContext";
 
-const Reply = ({ reply1, commentID, show, setshow }) => {
+const Reply = ({ reply, setreply, commentID, show, setshow }) => {
   // console.log(reply1);
   const context2 = useContext(AuthContext);
   const context3 = useContext(CommentLikeContext);
-  const { addreply, setreply, reply } = context3;
+  const { addreply } = context3;
   const [allreply, setallreply] = useState(reply);
   const { UserDetails } = context2;
   // console.log(UserDetails);
@@ -29,22 +29,25 @@ const Reply = ({ reply1, commentID, show, setshow }) => {
     setReply({ ...Reply, ...input });
 
     console.log(Reply);
+    // setreply(Reply, ...reply);
   };
 
   const submit = () => {
-    console.log(allreply);
-    setallreply({ allreply, Reply });
-    console.log(allreply);
-
-    setreply(allreply);
     console.log(reply);
-    addreply(allreply, commentID);
+    let arr = reply;
+    arr.push(Reply);
+    // console.log(reply,Reply);
+    console.log(arr);
+
+    setreply(arr);
+    console.log(reply);
+    addreply(reply, commentID);
     console.log("Saved to reply");
   };
   return (
     <>
       {show && (
-        <div className="pt-2 ml-6 ">
+        <div className="pt-2 ml-6 dark:text-white ">
           <textarea
             id="comment"
             rows="1"

@@ -8,17 +8,20 @@ import CommentLikeContext from "../../Helper/Context/CommentLikeContext";
 const CommentBox = ({ comment }) => {
   const constext = useContext(HelperContext);
   const { formatUTCDate, date } = constext;
-
-  const context = useContext(CommentLikeContext);
-  const { reply, setreply } = context;
-
+  // console.log(comment);
+  const [reply, setreply] = useState(comment.reply);
   useEffect(() => {
     setreply(comment.reply);
+  }, []);
+  useEffect(() => {
+    // console.log(reply);
+    setreply(comment.reply);
     console.log(reply);
-    console.log(comment.reply);
+    console.log(comment);
     formatUTCDate(comment.Date);
   }, [comment]);
   const [replyBox, setreplyBox] = useState(false);
+  // console.log(reply);
 
   return (
     <section>
@@ -90,13 +93,14 @@ const CommentBox = ({ comment }) => {
           </div>
         </div>
         <Reply
-          reply1={comment?.reply}
+          reply={reply}
+          setreply={setreply}
           commentID={comment?._id}
           setshow={setreplyBox}
           show={replyBox}
         ></Reply>
         {comment?.reply.length != 0 &&
-          comment?.reply?.map((reply) => {
+          Object.values(comment?.reply[0]).map((reply) => {
             return (
               <UserReplies key={reply?.username} reply2={reply}></UserReplies>
             );

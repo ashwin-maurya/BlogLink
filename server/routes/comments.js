@@ -58,19 +58,6 @@ router.post(
                 req.body;
             console.log("req.body")
             console.log(req.body)
-            // const newcomment = {};
-            // if (reply) {
-            //     newcomment.reply = reply;
-            // }
-            // if (username) {
-            //     newcomment.username = username;
-            // }
-            // if (userImg) {
-            //     newcomment.userImg = userImg;
-            // }
-            // if (timeStamp) {
-            //     newcomment.timeStamp = timeStamp;
-            // }
 
 
             let comments = await Comment.findById({ _id: req.params.id });
@@ -85,7 +72,7 @@ router.post(
 
             comments = await Comment.findByIdAndUpdate(
                 { _id: req.params.id },
-                { $set: { "reply": { ...reply } } },
+                { $set: { "reply": req.body } },
                 { new: true }
             );
             console.log(comments)
