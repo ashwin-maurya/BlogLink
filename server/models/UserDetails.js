@@ -24,9 +24,11 @@ const UserSchema = new Schema({
   },
   profileImg: {
     type: String,
+
   },
   bannerImg: {
     type: String,
+
   }
 });
 const UserDetail = mongoose.model("UserDetail", UserSchema);

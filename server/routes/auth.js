@@ -267,7 +267,7 @@ router.get("/getCurrentuser", fetchuser, async (req, res) => {
 router.get("/getCurrentuserDetails/:username", async (req, res) => {
   try {
     const username = req.params.username; // Access username from query parameter
-    console.log(req.params.username)
+    // console.log(req.params.username)
     const userDetail = await Userdetail.findOne({ username: username });
     res.json(userDetail);
   } catch (error) {
@@ -278,7 +278,11 @@ router.get("/getCurrentuserDetails/:username", async (req, res) => {
 
 router.get("/getuser", async (req, res) => {
   try {
+
+
     const username = req.query.username;
+
+
     const user = await User.findOne({ username });
 
     if (!user) {

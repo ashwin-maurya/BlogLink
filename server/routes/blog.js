@@ -5,6 +5,7 @@ const fetchuser = require("../middleware/fetchuser");
 const { body, validationResult } = require("express-validator");
 const blogCard = require("../models/BlogCard");
 const blog = require("../models/BlogContent");
+const UserDetail = require("../models/UserDetails");
 
 // -----------------------------------------------------------------------------------------------------------------
 // BLOGCONTENT APIS
@@ -135,7 +136,7 @@ router.post(
 router.put("/updateblog/:id", fetchuser, async (req, res) => {
   try {
     const { Title, description, tags, Category, Blog_url } = req.body;
-
+    console.log(req.body)
     // let blog1 = await blogCard.find({ postID: req.params.id })
     const newblog = {};
     // const newblog = {};
@@ -153,6 +154,9 @@ router.put("/updateblog/:id", fetchuser, async (req, res) => {
     }
     if (Blog_url) {
       newblog.Blog_url = Blog_url;
+    }
+    if (description) {
+      newblog.description = description
     }
 
     // Find the note to be updated and update it
@@ -216,3 +220,19 @@ router.delete("/deleteblog/:id", async (req, res) => {
 });
 
 module.exports = router;
+//getuserimg
+router.get("/userImg/:username", async (req, res) => {
+  try {
+    const username = req.params.username;
+    const blogs = await UserDetail.find({ username: username });
+
+
+
+    //   console.log(req.user.id)
+    console.log(blogs[0]?.profileImg)
+    res.json(blogs);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Sever error,Something in the way");
+  }
+});

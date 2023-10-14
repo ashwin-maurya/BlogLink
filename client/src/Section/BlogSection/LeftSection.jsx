@@ -19,7 +19,7 @@ export default function LeftSection() {
         setLoading(false);
       });
   }, []);
-
+  console.log(blog);
   return (
     <section className="flex justify-center max-lg:justify-start rounded-md">
       <div className="grid grid-cols-1 w-full place-items-center">

@@ -6,25 +6,11 @@ const CommentLikeState = (props) => {
   const host = "http://localhost:5001";
   const [SingleBlogComment, setSingleBlogComment] = useState([]);
   const addreply = async (data, id) => {
-    // todo api call
-    //API call
     console.log(data);
-    // const {reply}=data
-    console.log(reply);
-    // let d = reply;
-    // d = d.push({ ...data });
-    // setreply(d);
-    console.log(reply);
 
     const obj = JSON.parse(localStorage.getItem("UserData"));
     console.log(obj.authtoken);
-    // const {
-    //   reply,
-    //   username,
-    //   userImg,
-    //   timeStamp,
 
-    // } = data;
     const response = await fetch(`${host}/api/comments/addreply/${id}`, {
       method: "POST",
       headers: {
@@ -32,34 +18,20 @@ const CommentLikeState = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        data,
-        // reply,
-        // username,
-        // userImg,
-        // timeStamp,
-        // // UserName,
+        ...data,
       }),
     });
     const comments2 = await response.json();
 
     let { comments } = comments2;
-    console.log(comments);
+    console.log(comments2);
 
-    // for (let i = 0; i < SingleBlogComment.length; i++) {
-    //   if (SingleBlogComment[i]._id == id) {
-    //     SingleBlogComment[i] = replies;
-    //   }
-    // }
-
-    let datas =
-      //  setSingleBlogComment(
-      SingleBlogComment.filter((comment) => {
-        return comment._id != id;
-      });
+    let datas = SingleBlogComment.filter((comment) => {
+      return comment._id != id;
+    });
     // );
     datas.push(comments);
     setSingleBlogComment(datas);
-    // setSingleBlogComment(SingleBlogComment.concat(comments));
     console.log(SingleBlogComment);
     console.log("form addreply");
   };

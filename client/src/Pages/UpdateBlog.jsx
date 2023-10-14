@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const UpdateBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
-  console.log(blog2);
+  // console.log(blog2);
   useEffect(() => {
     if (id == undefined) setcheck(!check);
   }, []);
@@ -32,8 +32,8 @@ const UpdateBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
     let input = {
       description: content,
     };
-
-    setblogContent({ ...blogContent, ...blogs, ...input });
+    console.log(input);
+    setblogContent({ ...input });
 
     console.log(blogContent);
   };
@@ -58,7 +58,8 @@ const UpdateBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
   const handleupdate = () => {
     console.log(blogs);
     console.log(blog2[0].postID);
-    updateblog(blogs, blog2[0].postID);
+    console.log({ ...blogs, ...blogContent });
+    updateblog({ ...blogs, ...blogContent }, blog2[0].postID);
     console.log("Saved to Database");
   };
 

@@ -1,20 +1,20 @@
 import React, { useContext, useEffect } from "react";
 import { code1 } from "../../Assets/images";
 import HelperContext from "../../Helper/Context/HelperContext";
+import CommentLikeContext from "../../Helper/Context/CommentLikeContext";
 
-const UserReplies = ({ reply }) => {
+const UserReplies = ({ reply2 }) => {
   const context = useContext(HelperContext);
   const { formatUTCDate, date } = context;
 
+  const context3 = useContext(CommentLikeContext);
   useEffect(() => {
-    formatUTCDate(reply?.newcomment?.timeStamp);
-  }, [reply]);
-  console.log(reply);
-  console.log("reply");
+    formatUTCDate(reply2?.timeStamp);
+  }, [reply2]);
 
   return (
     <section>
-      {/* <article className="p-6 text-base bg-white rounded-lg dark:bg-darkBgPrimary">
+      <article className="p-6 text-base bg-white rounded-lg dark:bg-darkBgPrimary">
         <footer className="flex justify-between items-center mb-2">
           <div className="flex items-center">
             <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
@@ -24,7 +24,7 @@ const UserReplies = ({ reply }) => {
                 // {reply.newcomment.userImg}
                 alt="Ram Ghanshyam"
               />
-              {reply?.newcomment?.username}
+              {reply2?.username}
             </p>
             <p className="text-sm text-gray-600 dark:text-gray-400">
               <time title="February 8th, 2022">{date}</time>
@@ -48,8 +48,8 @@ const UserReplies = ({ reply }) => {
             <span className="sr-only">Comment settings</span>
           </button>
         </footer>
-        <p>{reply2?.newcomment?.reply}</p>
-      </article> */}
+        <p>{reply2?.reply}</p>
+      </article>
     </section>
   );
 };

@@ -10,7 +10,7 @@ const BlogState = (props) => {
   const [SingleBlogContent, setSingleBlogContent] = useState({});
 
   const [filterData, setfilterData] = useState(bloginitial1);
-
+  const [UserImage, setUserImage] = useState({});
   //Get all blogs------------------------------------------------------------------------------------------------
   const getblogs = async () => {
     //API call
@@ -144,7 +144,7 @@ const BlogState = (props) => {
   //Edit a note
   const updateblog = async (data, id) => {
     //API call
-
+    console.log(data);
     const {
       Title,
       UserName,
@@ -196,6 +196,9 @@ const BlogState = (props) => {
         SingleBlogContent,
         getsingleblogContent,
         deletenote,
+        // getimg,
+        UserImage,
+        host,
         // , getnotes, editnote
       }}
     >
