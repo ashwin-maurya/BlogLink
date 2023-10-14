@@ -63,10 +63,9 @@ const AuthState = (props) => {
     });
     const json = await response.json();
     if (json) {
-      const username = json.username;
-      console.log(username);
+      const UserID = json._id;
       const response1 = await fetch(
-        `${host}/api/auth/getCurrentUserDetails/${username}`,
+        `${host}/api/auth/getCurrentUserDetails/${UserID}`,
         {
           method: "GET",
           headers: {
@@ -78,11 +77,11 @@ const AuthState = (props) => {
       );
 
       const UserDetail = await response1.json();
-      console.log(UserDetail);
       if (UserDetail) {
         const updatedUserDetails = {
           // ...UserDetail,
           ...json,
+          userID: UserDetail.userID,
           description: UserDetail.description,
           education: UserDetail.education,
           work: UserDetail.work,
@@ -111,32 +110,36 @@ const AuthState = (props) => {
     );
     const json = await response.json();
 
-    const response1 = await fetch(
-      `${host}/api/auth/getCurrentUserDetails/${username}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    if (json) {
+      const userID = json._id;
+      const response1 = await fetch(
+        `${host}/api/auth/getCurrentUserDetails/${userID}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    const UserDetail = await response1.json();
-    console.log(UserDetail);
-    console.log("getuser");
-    if (UserDetail) {
-      const updatedUserDetails = {
-        ...json,
-        description: UserDetail.description,
-        education: UserDetail.education,
-        work: UserDetail.work,
-        location: UserDetail.location,
-        profileImg: UserDetail.profileImg,
-        bannerImg: UserDetail.bannerImg,
-      };
-      setUserProfile(updatedUserDetails);
-    } else {
-      setUserProfile(json);
+      const UserDetail = await response1.json();
+      if (UserDetail) {
+        const updatedUserDetails = {
+          ...json,
+          userID: UserDetail.userID,
+          description: UserDetail.description,
+          education: UserDetail.education,
+          work: UserDetail.work,
+          location: UserDetail.location,
+          profileImg: UserDetail.profileImg,
+          bannerImg: UserDetail.bannerImg,
+        };
+        console.log(updatedUserDetails);
+
+        setUserProfile(updatedUserDetails);
+      } else {
+        setUserProfile(json);
+      }
     }
     // console.log(UserDetail);
   };
@@ -155,9 +158,9 @@ const AuthState = (props) => {
 
   const userdetailexist = async () => {
     //API call
-    const username = UserDetails.username;
+    const userID = UserDetails._id;
     const response = await fetch(
-      `${host}/api/auth/userdetailexist?username=${username}`,
+      `${host}/api/auth/userdetailexist?userID=${userID}`,
       {
         method: "GET",
         headers: {
@@ -171,10 +174,11 @@ const AuthState = (props) => {
 
   const adduserdetail = async (userDetail) => {
     //API call
-    const username = UserDetails.username;
-    const { description, work, education, location } = userDetail;
+    // const userID = UserDetails._id;
+    const { description, work, education, location, profileImg, bannerImg } =
+      userDetail;
     const obj = JSON.parse(localStorage.getItem("UserData"));
-
+    const userID = obj.UserID;
     const response = await fetch(`${host}/api/auth/adduserdetail`, {
       method: "POST",
       headers: {
@@ -182,11 +186,13 @@ const AuthState = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username,
+        userID,
         description,
         work,
         education,
         location,
+        profileImg,
+        bannerImg,
       }),
     });
     const ProfileUpdated = await response.json();
@@ -194,6 +200,7 @@ const AuthState = (props) => {
       toast.success("Profile Saved");
       const updatedUserDetails = {
         ...UserDetails,
+        userID: ProfileUpdated.userID,
         description: ProfileUpdated.description,
         education: ProfileUpdated.education,
         work: ProfileUpdated.work,
@@ -206,12 +213,12 @@ const AuthState = (props) => {
     }
   };
   const updateuserdetail = async (userDetail) => {
-    const username = UserDetails.username;
+    const userID = UserDetails._id;
     const { description, work, education, location } = userDetail;
     const obj = JSON.parse(localStorage.getItem("UserData"));
 
     const response = await fetch(
-      `${host}/api/auth/updateuserdetail/${username}`,
+      `${host}/api/auth/updateuserdetail/${userID}`,
       {
         method: "PUT",
         headers: {
@@ -231,6 +238,7 @@ const AuthState = (props) => {
     const UpdatedProfile = UpdatedProfileJson.updatedUserDetails;
     const updatedUserDetails = {
       ...UserDetails,
+      userID: UpdatedProfile.userID,
       description: UpdatedProfile.description,
       education: UpdatedProfile.education,
       work: UpdatedProfile.work,
@@ -250,7 +258,7 @@ const AuthState = (props) => {
     console.log(data);
     const obj = JSON.parse(localStorage.getItem("UserData"));
     console.log(obj.authtoken);
-    const { key, imgUrl, username } = data;
+    const { key, imgUrl, UserID } = data;
     const response = await fetch(`${host}/api/auth/addimg`, {
       method: "POST",
       headers: {
@@ -260,7 +268,7 @@ const AuthState = (props) => {
       body: JSON.stringify({
         key,
         imgUrl,
-        username,
+        UserID,
       }),
     });
     const comments2 = await response.json();
@@ -269,7 +277,7 @@ const AuthState = (props) => {
 
     // console.log(SingleBlogComment);
 
-    getUser(username);
+    getUser(UserID);
     getCurrentUser(JSON.parse(localStorage.getItem("UserData")).UserID);
     console.log("form addimg");
   };

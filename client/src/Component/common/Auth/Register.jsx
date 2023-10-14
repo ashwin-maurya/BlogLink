@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { GoogleSignInAPI } from "../../../api/AuthAPI";
-import GoogleSignIn from "./GoogleSignIn";
-
+import { useState, useContext } from "react";
+import AuthContext from "../../../Helper/Context/AuthContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export default function Register({ setSign, ModalStatus, setAuthStatus }) {
+  const context = useContext(AuthContext);
+  const { adduserdetail } = context;
+
   const [Registercreds, setRegistercreds] = useState({
     email: "",
     password: "",
@@ -37,7 +38,14 @@ export default function Register({ setSign, ModalStatus, setAuthStatus }) {
     if (json.success) {
       localStorage.setItem("UserData", JSON.stringify(json));
       setAuthStatus(true);
-
+      adduserdetail({
+        description: "",
+        work: "",
+        education: "",
+        location: "",
+        profileImg: "",
+        bannerImg: "",
+      });
       ModalStatus();
       toast.success("Registered Successfully");
     } else {

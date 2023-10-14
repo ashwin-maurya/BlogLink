@@ -13,6 +13,7 @@ import CheckLogin from "./Helper/CheckLogin";
 import HelperState from "./Helper/Context/HelperState";
 import CommentLikeState from "./Helper/Context/CommentLikeState";
 import UpdateBlogLayout from "./Layouts/UpdateBlogLayout";
+import SettingsLayout from "./Layouts/SettingsLayout";
 
 const App = () => {
   return (
@@ -30,6 +31,8 @@ const App = () => {
                 <Route path="/" element={<LandingLayout />} />
                 <Route path="/home" element={<LandingLayout />} />
                 <Route path="/blog" element={<BlogLayout />} />
+                <Route path="/settings/*" element={<SettingsLayout />} />
+
                 <Route path="/blogs/:handle" element={<SingleBlogLayout />} />
                 <Route
                   path="/write"

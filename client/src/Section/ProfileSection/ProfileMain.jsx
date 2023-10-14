@@ -8,20 +8,19 @@ import { uploadBannerImage, uploadImage } from "../../api/ImageUpload";
 import { useEffect } from "react";
 import AuthContext from "../../Helper/Context/AuthContext";
 import { BannerImg } from "../../Assets/images";
-
+import { editPen, trash } from "../../Assets/icons";
 import ProfileMainSkeleton from "../../Component/SkeletonLoaders/ProfileMainSkeleton";
-
+import { useNavigate } from "react-router";
 
 export default function ProfileMain({ UserProfile, UserMatch }) {
   const context = useContext(AuthContext);
+  const navigate = useNavigate();
   const [imgLink, setimgLink] = useState("");
-  const { addImg } = context;
-
-  console.log(UserProfile);
+  const { addImg, updateuserdetail, UserDetails } = context;
   const [showProfileModal, setProfileModal] = useState(false);
   const [showBannerModal, setBannerModal] = useState(false);
   const [showProfileImg, setProfileImg] = useState(false);
-
+  console.log(UserDetails?._id);
   const ProfileModalStatus = () => {
     setProfileModal((showProfileModal) => !showProfileModal);
   };
@@ -44,20 +43,15 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
   const [progress, setProgress] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const getImage = (event) => {
-    console.log("I am getimg");
     setCurrentImage(event.target.files[0]);
-    console.log(currentImage);
   };
   const getBannerImage = (event) => {
-    console.log("I am getimg");
     setCurrentBannerImage(event.target.files[0]);
-    console.log(currentImage);
   };
 
   const [profileImg, setprofileImg] = useState(profileDefault);
   const [bannerImg, setbannerImg] = useState(BannerImg);
   useEffect(() => {
-    console.log(UserProfile?.profileImg);
     if (UserProfile?.profileImg) {
       setprofileImg(UserProfile?.profileImg);
     } else {
@@ -71,18 +65,17 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
   }, [UserProfile]);
 
   const deleteimg = () => {
-    addImg({ key: "profileImg", imgUrl: "", username: UserProfile?.username });
+    addImg({ key: "profileImg", imgUrl: "", userID: UserDetails?._id });
     setProfileImg(profileDefault);
   };
   const deletebannerimg = () => {
-    addImg({ key: "bannerImg", imgUrl: "", username: UserProfile?.username });
+    addImg({ key: "bannerImg", imgUrl: "", userID: UserDetails?._id });
     setbannerImg(BannerImg);
   };
   const uploadbannerimg = async () => {
-    console.log(currentBannerImage);
     await uploadBannerImage(
       currentBannerImage,
-      UserProfile?.username,
+      UserDetails?._id,
       BannerModal,
 
       setProgress,
@@ -93,19 +86,13 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
   const uploadImage2 = async () => {
     await uploadImage(
       currentImage,
-      UserProfile?.username,
+      UserDetails?._id,
       ProfileImg,
       setModalOpen,
-
       setProgress,
       setCurrentImage,
       addImg
     );
-
-    // setProfileImg(UserProfile?.profileImg);
-
-    console.log(UserProfile?.profileImg);
-    console.log(currentImage);
   };
 
   if (!UserProfile) {
@@ -142,8 +129,8 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
         ></EditProfileImg>
       )}
       <section className="relative block h-[400px] ">
-        <div className=" w-full h-full  " onClick={BannerModal}>
-          <div className="relative group/buttons h-[500px]">
+        <div className=" w-full h-full  ">
+          <div className="relative group/buttons h-[300px]">
             <img
               className=" w-full h-full bg-center bg-cover "
               height={10}
@@ -152,52 +139,44 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
             />
 
             {UserMatch && (
-              <div
-                className="z-50   hidden
-              
-                    group-hover/buttons:block "
-              >
-                <i
-                  onClick={deletebannerimg}
-                  className="text-white fa fa-trash  absolute   top-0   "
-                >
-                  {" "}
-                </i>
-                <i className="text-white fa fa-pencil  absolute  top-0 left-5  ">
-                  {" "}
-                </i>
+              <div className=" absolute bg-white dark:bg-secondary  top-0 right-0  rounded-full m-2 ">
+                <div className="hover:bg-[#e0d1ff] rounded-t-full">
+                  <img src={editPen} className="p-2" onClick={BannerModal} />
+                </div>
+                <div className="hover:bg-[#e0d1ff] rounded-b-full">
+                  <img
+                    src={trash}
+                    alt="trash"
+                    className="p-2"
+                    onClick={deletebannerimg}
+                  />
+                </div>
               </div>
             )}
           </div>
         </div>
       </section>
 
-      <section className="relative pt-16 ">
+      <section className="relative pt-8 ">
         <div className="container mx-auto px-4">
-          <div className="relative flex flex-col min-w-0 bg-white  dark:bg-darkBgPrimary w-full mb-6 shadow-xl rounded-lg -mt-64 p-10">
+          <div className="relative flex flex-col min-w-0 bg-white  dark:bg-darkBgPrimary w-[60%] mx-auto mb-6 shadow-xl rounded-lg -mt-60 p-10">
             <div className=" flex flex-wrap justify-center relative ">
               <div className="group/buttons   relative">
                 <img
-                  height={20}
                   alt="img"
                   src={profileImg}
-                  className=" shadow-xl rounded-full w-56 h-56  align-middle border-none -mt-32 bg-white"
-                  onClick={ProfileImg}
+                  className="shadow-xl rounded-full  w-40 h-40  align-middle -mt-24 bg-white dark:bg-darkBgMain border-4 border-white"
                 />
                 {UserMatch && (
-                  <div
-                    className="  hidden
-                    group-hover/buttons:block "
-                  >
-                    <i
+                  <div className=" absolute bg-white dark:bg-secondary flex -bottom-4 right-9  rounded-full m-2 ">
+                    <div className="hover:bg-[#e0d1ff] rounded-l-full">
+                      <img src={editPen} className="p-2" onClick={ProfileImg} />
+                    </div>
+                    <img
+                      src={trash}
+                      className="p-2 hover:bg-[#e0d1ff] rounded-r-full"
                       onClick={deleteimg}
-                      className="text-white fa fa-trash  absolute  right-2/3 bottom-8  "
-                    >
-                      {" "}
-                    </i>
-                    <i className="text-white fa fa-pencil  absolute  right-1/4 bottom-8  ">
-                      {" "}
-                    </i>
+                    />
                   </div>
                 )}
               </div>
@@ -205,16 +184,22 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
               {UserMatch && (
                 <div className="absolute right-0 top-0">
                   <button
-                    className="border-2 border-slate-200 dark:border-gray-700 hover:border-[#e0d1ff] dark:hover:border-[#7eafff] rounded-md bg-primaryMain dark:bg-secondary px-4 py-1 font-semibold text-white"
-                    onClick={ProfileModalStatus}
+                    className=" hover:bg-[#e0d1ff] rounded-full  font-semibold text-white"
+                    onClick={() => {
+                      navigate(`/settings`, {});
+                    }}
+                    // onClick={ProfileModalStatus}
                   >
-                    Edit
+                    <img
+                      src={editPen}
+                      className="p-3 text-base font-semibold text-white"
+                    />
                   </button>
                 </div>
               )}
             </div>
             <div className="text-center my-4">
-              <h3 className="text-4xl font-semibold leading-normals text-blueGray-700 mb-2 dark:text-darkTextMain">
+              <h3 className="text-3xl font-semibold leading-normals text-blueGray-700 mb-2 dark:text-darkTextMain">
                 {UserProfile?.name}
               </h3>
               <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-light uppercase dark:text-darkTextMain">
@@ -222,8 +207,8 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
                   <p>{UserProfile?.username}</p>
                 </div>
               </div>
-              <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-light uppercase dark:text-darkTextMain">
-                <div className="flex flex-col">
+              <div className=" leading-normal mt-0 mb-2 text-blueGray-400 font-light uppercase dark:text-darkTextMain">
+                <div className="flex text-xs flex-col">
                   <p>{UserProfile?.description}</p>
                 </div>
               </div>
@@ -247,7 +232,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
               </div>
               <div className="w-[50%] max-lg:w-[100%] rounded-lg p-5 m-2 bg-bgBlue dark:bg-darkBgMain">
                 <div className="flex items-center">
-                  <div className="w-[10%] max-sm:w-[15%]">
+                  <div className="w-[20%] max-sm:w-[15%]">
                     <div className="w-7 h-7 bg-primaryMain dark:bg-secondary rounded-full m-2 flex justify-center items-center ">
                       <i className="fa fa-briefcase  text-bgBlue text-base"></i>
                     </div>
@@ -257,7 +242,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
                   </div>
                 </div>
                 <div className="flex items-center w-full">
-                  <div className="w-[10%] max-sm:w-[15%]">
+                  <div className="w-[20%] max-sm:w-[15%]">
                     <div className="w-7 h-7 bg-primaryMain dark:bg-secondary rounded-full m-2 flex justify-center items-center ">
                       <i className="fa fa-graduation-cap text-bgBlue text-base"></i>
                     </div>
@@ -267,7 +252,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
                   </div>
                 </div>
                 <div className="flex items-center w-full">
-                  <div className="w-[10%] max-sm:w-[15%]">
+                  <div className="w-[20%] max-sm:w-[15%]">
                     <div className="w-7 h-7 bg-primaryMain dark:bg-secondary rounded-full m-2 flex justify-center items-center ">
                       <i className="fa fa-map-marker text-bgBlue text-base"></i>
                     </div>
@@ -277,7 +262,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
                   </div>
                 </div>
                 <div className="flex items-center w-full">
-                  <div className="w-[10%] max-sm:w-[15%]">
+                  <div className="w-[20%] max-sm:w-[15%]">
                     <div className="w-7 h-7 bg-primaryMain dark:bg-secondary rounded-full m-2 flex justify-center items-center ">
                       <i className="fa fa-calendar-o text-bgBlue text-base"></i>
                     </div>

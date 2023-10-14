@@ -3,35 +3,37 @@ import React from "react";
 export default function ProfileMainSkeleton() {
   return (
     <>
-      <section className="relative block h-[400px]  ">
-        <div className=" w-full h-full bg-center bg-cover bg-gray-700"></div>
+      <section className="relative block h-[400px] ">
+        <div className=" w-full h-full  ">
+          <div className="relative group/buttons h-[300px] bg-darkBgMain"></div>
+        </div>
       </section>
 
-      <section className="relative pt-16 ">
+      <section className="relative pt-8 ">
         <div className="container mx-auto px-4">
-          <div className="relative flex flex-col min-w-0 bg-white  dark:bg-darkBgPrimary w-full mb-6 shadow-xl rounded-lg -mt-64 p-10">
+          <div className="relative flex flex-col min-w-0 bg-white  dark:bg-darkBgPrimary w-[60%] mx-auto mb-6 shadow-xl rounded-lg -mt-60 p-10">
             <div className="flex flex-wrap justify-center relative animate-pulse">
               <img
                 alt="..."
-                className="shadow-xl rounded-full w-56 h-56 dark:bg-gray-700 align-middle border-none -mt-32 bg-white"
+                className="shadow-xl rounded-full w-32 h-32  dark:bg-gray-700 align-middle border-none -mt-24 bg-white"
               />
             </div>
             <div className="text-center my-4 flex flex-col justify-center items-center   animate-pulse">
-              <h3 className="text-4xl font-semibold leading-normals text-blueGray-700 mb-2 dark:text-darkTextMain">
-                <div class="w-40 h-6 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+              <h3 className="text-3xl font-semibold leading-normals text-blueGray-700 mb-2 dark:text-darkTextMain">
+                <div className="w-40 h-6 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
               </h3>
               <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-light uppercase dark:text-darkTextMain">
                 <div className="flex flex-col">
-                  <p>
-                    <div class="w-64 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                  </p>
+                  <div>
+                    <div className="w-64 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                  </div>
                 </div>
               </div>
-              <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-light uppercase dark:text-darkTextMain">
+              <div className="text-xs leading-normal mt-0 mb-2 text-blueGray-400 font-light uppercase dark:text-darkTextMain">
                 <div className="flex flex-col">
-                  <p>
-                    <div class="w-32 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                  </p>
+                  <div>
+                    <div className="w-32 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -48,51 +50,51 @@ export default function ProfileMainSkeleton() {
               </div>
               <div className="w-[50%] max-lg:w-[100%] rounded-lg p-5 m-2 bg-bgBlue dark:bg-darkBgMain">
                 <div className="flex items-center">
-                  <div className="w-[10%] max-sm:w-[15%]">
+                  <div className="w-[20%] max-sm:w-[15%]">
                     <div className="w-7 h-7 bg-primaryMain dark:bg-secondary rounded-full m-2 flex justify-center items-center ">
                       <i className="fa fa-briefcase  text-bgBlue text-base"></i>
                     </div>
                   </div>
                   <div className="text-lightTextMain dark:text-darkTextMain font-semibold  w-[90%]  ">
-                    <p>
-                      <div class="w-32 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                    </p>
+                    <div>
+                      <div className="w-32 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-center w-full">
-                  <div className="w-[10%] max-sm:w-[15%]">
+                  <div className="w-[20%] max-sm:w-[15%]">
                     <div className="w-7 h-7 bg-primaryMain dark:bg-secondary rounded-full m-2 flex justify-center items-center ">
                       <i className="fa fa-graduation-cap text-bgBlue text-base"></i>
                     </div>
                   </div>
                   <div className="text-lightTextMain dark:text-darkTextMain font-semibold w-[90%]">
-                    <p>
-                      <div class="w-32 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                    </p>
+                    <div>
+                      <div className="w-32 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-center w-full">
-                  <div className="w-[10%] max-sm:w-[15%]">
+                  <div className="w-[20%] max-sm:w-[15%]">
                     <div className="w-7 h-7 bg-primaryMain dark:bg-secondary rounded-full m-2 flex justify-center items-center ">
                       <i className="fa fa-map-marker text-bgBlue text-base"></i>
                     </div>
                   </div>
                   <div className="text-lightTextMain dark:text-darkTextMain font-semibold w-[90%]">
-                    <p>
-                      <div class="w-32 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                    </p>
+                    <div>
+                      <div className="w-32 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-center w-full">
-                  <div className="w-[10%] max-sm:w-[15%]">
+                  <div className="w-[20%] max-sm:w-[15%]">
                     <div className="w-7 h-7 bg-primaryMain dark:bg-secondary rounded-full m-2 flex justify-center items-center ">
                       <i className="fa fa-calendar-o text-bgBlue text-base"></i>
                     </div>
                   </div>
                   <div className="text-lightTextMain dark:text-darkTextMain font-semibold w-[90%]">
-                    <p>
-                      <div class="w-32 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                    </p>
+                    <div>
+                      <div className="w-32 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
                   </div>
                 </div>
               </div>

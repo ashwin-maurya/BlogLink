@@ -80,6 +80,7 @@ export default function BlogCard({ card }) {
                   className="bg-white h-6 w-6  rounded-full object-contain"
                   width={28}
                   height={32}
+
                   alt="img"
                 />
                 <p className="text-[14.5px] ml-2 font-semibold font-palanquin text-gray-700 dark:text-darkTextMain">
