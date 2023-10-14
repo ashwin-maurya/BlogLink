@@ -53,9 +53,7 @@ export default function BlogCard({ card }) {
               <div className="flex items-center ">
                 <img
                   src={UserProfile?.profileImg}
-                  className="rounded-full object-contain"
-                  width={28}
-                  height={32}
+                  className="rounded-full object-contain w-8 h-8"
                   alt="img"
                 />
                 <p className="text-[14.5px] ml-2 font-semibold font-palanquin text-gray-700 dark:text-darkTextMain">

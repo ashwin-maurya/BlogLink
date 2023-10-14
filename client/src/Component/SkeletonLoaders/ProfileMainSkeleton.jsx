@@ -20,20 +20,20 @@ export default function ProfileMainSkeleton() {
             </div>
             <div className="text-center my-4 flex flex-col justify-center items-center   animate-pulse">
               <h3 className="text-3xl font-semibold leading-normals text-blueGray-700 mb-2 dark:text-darkTextMain">
-                <div class="w-40 h-6 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                <div className="w-40 h-6 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
               </h3>
               <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-light uppercase dark:text-darkTextMain">
                 <div className="flex flex-col">
-                  <p>
-                    <div class="w-64 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                  </p>
+                  <div>
+                    <div className="w-64 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                  </div>
                 </div>
               </div>
               <div className="text-xs leading-normal mt-0 mb-2 text-blueGray-400 font-light uppercase dark:text-darkTextMain">
                 <div className="flex flex-col">
-                  <p>
-                    <div class="w-32 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                  </p>
+                  <div>
+                    <div className="w-32 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -56,9 +56,9 @@ export default function ProfileMainSkeleton() {
                     </div>
                   </div>
                   <div className="text-lightTextMain dark:text-darkTextMain font-semibold  w-[90%]  ">
-                    <p>
-                      <div class="w-32 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                    </p>
+                    <div>
+                      <div className="w-32 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-center w-full">
@@ -68,9 +68,9 @@ export default function ProfileMainSkeleton() {
                     </div>
                   </div>
                   <div className="text-lightTextMain dark:text-darkTextMain font-semibold w-[90%]">
-                    <p>
-                      <div class="w-32 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                    </p>
+                    <div>
+                      <div className="w-32 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-center w-full">
@@ -80,9 +80,9 @@ export default function ProfileMainSkeleton() {
                     </div>
                   </div>
                   <div className="text-lightTextMain dark:text-darkTextMain font-semibold w-[90%]">
-                    <p>
-                      <div class="w-32 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                    </p>
+                    <div>
+                      <div className="w-32 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-center w-full">
@@ -92,9 +92,9 @@ export default function ProfileMainSkeleton() {
                     </div>
                   </div>
                   <div className="text-lightTextMain dark:text-darkTextMain font-semibold w-[90%]">
-                    <p>
-                      <div class="w-32 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-                    </p>
+                    <div>
+                      <div className="w-32 h-4 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
                   </div>
                 </div>
               </div>

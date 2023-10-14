@@ -8,19 +8,19 @@ import { uploadBannerImage, uploadImage } from "../../api/ImageUpload";
 import { useEffect } from "react";
 import AuthContext from "../../Helper/Context/AuthContext";
 import { BannerImg } from "../../Assets/images";
-
+import { editPen, trash } from "../../Assets/icons";
 import ProfileMainSkeleton from "../../Component/SkeletonLoaders/ProfileMainSkeleton";
+import { useNavigate } from "react-router";
 
 export default function ProfileMain({ UserProfile, UserMatch }) {
   const context = useContext(AuthContext);
+  const navigate = useNavigate();
   const [imgLink, setimgLink] = useState("");
-  const { addImg } = context;
-
-  console.log(UserProfile);
+  const { addImg, updateuserdetail, UserDetails } = context;
   const [showProfileModal, setProfileModal] = useState(false);
   const [showBannerModal, setBannerModal] = useState(false);
   const [showProfileImg, setProfileImg] = useState(false);
-
+  console.log(UserDetails?._id);
   const ProfileModalStatus = () => {
     setProfileModal((showProfileModal) => !showProfileModal);
   };
@@ -43,20 +43,15 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
   const [progress, setProgress] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const getImage = (event) => {
-    console.log("I am getimg");
     setCurrentImage(event.target.files[0]);
-    console.log(currentImage);
   };
   const getBannerImage = (event) => {
-    console.log("I am getimg");
     setCurrentBannerImage(event.target.files[0]);
-    console.log(currentImage);
   };
 
   const [profileImg, setprofileImg] = useState(profileDefault);
   const [bannerImg, setbannerImg] = useState(BannerImg);
   useEffect(() => {
-    console.log(UserProfile?.profileImg);
     if (UserProfile?.profileImg) {
       setprofileImg(UserProfile?.profileImg);
     } else {
@@ -70,18 +65,17 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
   }, [UserProfile]);
 
   const deleteimg = () => {
-    addImg({ key: "profileImg", imgUrl: "", username: UserProfile?.username });
+    addImg({ key: "profileImg", imgUrl: "", userID: UserDetails?._id });
     setProfileImg(profileDefault);
   };
   const deletebannerimg = () => {
-    addImg({ key: "bannerImg", imgUrl: "", username: UserProfile?.username });
+    addImg({ key: "bannerImg", imgUrl: "", userID: UserDetails?._id });
     setbannerImg(BannerImg);
   };
   const uploadbannerimg = async () => {
-    console.log(currentBannerImage);
     await uploadBannerImage(
       currentBannerImage,
-      UserProfile?.username,
+      UserDetails?._id,
       BannerModal,
 
       setProgress,
@@ -92,19 +86,13 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
   const uploadImage2 = async () => {
     await uploadImage(
       currentImage,
-      UserProfile?.username,
+      UserDetails?._id,
       ProfileImg,
       setModalOpen,
-
       setProgress,
       setCurrentImage,
       addImg
     );
-
-    // setProfileImg(UserProfile?.profileImg);
-
-    console.log(UserProfile?.profileImg);
-    console.log(currentImage);
   };
 
   if (!UserProfile) {
@@ -141,7 +129,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
         ></EditProfileImg>
       )}
       <section className="relative block h-[400px] ">
-        <div className=" w-full h-full  " onClick={BannerModal}>
+        <div className=" w-full h-full  ">
           <div className="relative group/buttons h-[300px]">
             <img
               className=" w-full h-full bg-center bg-cover "
@@ -151,20 +139,18 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
             />
 
             {UserMatch && (
-              <div
-                className="z-50   hidden
-              
-                    group-hover/buttons:block "
-              >
-                <i
-                  onClick={deletebannerimg}
-                  className="text-white fa fa-trash  absolute   top-0   "
-                >
-                  {" "}
-                </i>
-                <i className="text-white fa fa-pencil  absolute  top-0 left-5  ">
-                  {" "}
-                </i>
+              <div className=" absolute bg-white dark:bg-secondary  top-0 right-0  rounded-full m-2 ">
+                <div className="hover:bg-[#e0d1ff] rounded-t-full">
+                  <img src={editPen} className="p-2" onClick={BannerModal} />
+                </div>
+                <div className="hover:bg-[#e0d1ff] rounded-b-full">
+                  <img
+                    src={trash}
+                    alt="trash"
+                    className="p-2"
+                    onClick={deletebannerimg}
+                  />
+                </div>
               </div>
             )}
           </div>
@@ -179,23 +165,18 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
                 <img
                   alt="img"
                   src={profileImg}
-                  className=" shadow-xl rounded-full w-32 h-32  align-middle border-none -mt-24 bg-white"
-                  onClick={ProfileImg}
+                  className="shadow-xl rounded-full  w-40 h-40  align-middle -mt-24 bg-white dark:bg-darkBgMain border-4 border-white"
                 />
                 {UserMatch && (
-                  <div
-                    className="  hidden
-                    group-hover/buttons:block "
-                  >
-                    <i
+                  <div className=" absolute bg-white dark:bg-secondary flex -bottom-4 right-9  rounded-full m-2 ">
+                    <div className="hover:bg-[#e0d1ff] rounded-l-full">
+                      <img src={editPen} className="p-2" onClick={ProfileImg} />
+                    </div>
+                    <img
+                      src={trash}
+                      className="p-2 hover:bg-[#e0d1ff] rounded-r-full"
                       onClick={deleteimg}
-                      className="text-white fa fa-trash  absolute  right-2/3 bottom-8  "
-                    >
-                      {" "}
-                    </i>
-                    <i className="text-white fa fa-pencil  absolute  right-1/4 bottom-8  ">
-                      {" "}
-                    </i>
+                    />
                   </div>
                 )}
               </div>
@@ -203,10 +184,16 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
               {UserMatch && (
                 <div className="absolute right-0 top-0">
                   <button
-                    className="border-2 border-slate-200 dark:border-gray-700 hover:border-[#e0d1ff] dark:hover:border-[#7eafff] rounded-md bg-primaryMain dark:bg-secondary px-4 py-1 font-semibold text-white"
-                    onClick={ProfileModalStatus}
+                    className=" hover:bg-[#e0d1ff] rounded-full  font-semibold text-white"
+                    onClick={() => {
+                      navigate(`/settings`, {});
+                    }}
+                    // onClick={ProfileModalStatus}
                   >
-                    Edit
+                    <img
+                      src={editPen}
+                      className="p-3 text-base font-semibold text-white"
+                    />
                   </button>
                 </div>
               )}

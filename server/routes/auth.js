@@ -182,75 +182,6 @@ router.post(
   }
 );
 
-router.post(
-  "/googlelogin",
-  [body("email", "Enter a valid Email").isEmail()],
-  async (req, res) => {
-    // If there are errors , return Bad request and the errors
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    const { email } = req.body;
-    try {
-      let success = false;
-      // console.log(user)
-      let user = await User.findOne({ email });
-      if (!user) {
-        return res
-          .status(400)
-          .json({ error: "Please try to login with correct credentials" });
-      }
-
-      success = true;
-      const payload = {
-        user: {
-          id: user.id,
-        },
-      };
-      const authtoken = jwt.sign(payload, JWT_SECRET);
-      res.json({ success: true, authtoken: authtoken, UserID: user.id });
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).send("Internal Sever error,Something in the way");
-    }
-  }
-);
-
-router.post(
-  "/googlelogin",
-  [body("email", "Enter a valid Email").isEmail()],
-  async (req, res) => {
-    // If there are errors , return Bad request and the errors
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    const { email } = req.body;
-    try {
-      let success = false;
-      let user = await User.findOne({ email });
-      if (!user) {
-        return res
-          .status(400)
-          .json({ error: "Please try to login with correct credentials" });
-      }
-
-      success = true;
-      const payload = {
-        user: {
-          id: user.id,
-        },
-      };
-      const authtoken = jwt.sign(payload, JWT_SECRET);
-      res.json({ success: true, authtoken: authtoken, UserID: user.id });
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).send("Internal Sever error,Something in the way");
-    }
-  }
-);
-
 // ROUTE:3 Get loggedin user details susing : POST "/api/auth/getuser".  login required
 router.get("/getCurrentuser", fetchuser, async (req, res) => {
   try {
@@ -264,11 +195,10 @@ router.get("/getCurrentuser", fetchuser, async (req, res) => {
 });
 
 // ROUTE:3 Get loggedin user details susing : POST "/api/auth/getuser".  login required
-router.get("/getCurrentuserDetails/:username", async (req, res) => {
+router.get("/getCurrentuserDetails/:userID", async (req, res) => {
   try {
-    const username = req.params.username; // Access username from query parameter
-    console.log(req.params.username)
-    const userDetail = await Userdetail.findOne({ username: username });
+    const userID = req.params.userID; // Access username from query parameter
+    const userDetail = await Userdetail.findOne({ userID: userID });
     res.json(userDetail);
   } catch (error) {
     console.error(error.message);
@@ -311,8 +241,8 @@ router.get("/userexist", async (req, res) => {
 });
 router.get("/userdetailexist", async (req, res) => {
   try {
-    const username = req.query.username;
-    const user = await Userdetail.findOne({ username: username });
+    const userID = req.query.userID;
+    const user = await Userdetail.findOne({ userID: userID });
 
     if (user) {
       res.json({ status: true });
@@ -327,39 +257,50 @@ router.get("/userdetailexist", async (req, res) => {
 
 router.post("/adduserdetail", fetchuser, async (req, res) => {
   try {
-    const { username, description, work, education, location } = req.body;
+    const {
+      userID,
+      description,
+      work,
+      education,
+      location,
+      profileImg,
+      bannerImg,
+    } = req.body;
+    console.log(userID);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    let existingUserDetails = await Userdetail.findOne({ username });
+    let existingUserDetails = await Userdetail.findOne({ userID });
 
     if (existingUserDetails) {
       return res.status(409).json({ message: "User details already exist." });
     }
 
     const newUserDetails = new Userdetail({
-      username,
+      userID,
       description,
       work,
       education,
       location,
+      profileImg,
+      bannerImg,
     });
 
     const createdUserDetails = await newUserDetails.save();
     res.json(createdUserDetails);
   } catch (error) {
     console.error(error.message);
-    res.status(500).send("Internal Server error, Something went wrong");
+    res.status(500).send("Internal Server error, S1omething went wrong");
   }
 });
 
-router.put("/updateuserdetail/:username", fetchuser, async (req, res) => {
+router.put("/updateuserdetail/:userID", fetchuser, async (req, res) => {
   let success = false;
   try {
     const { description, work, education, location } = req.body;
-    const { username } = req.params;
+    const { userID } = req.params;
 
     const updatedUserDetails = {};
     if (description) {
@@ -375,14 +316,14 @@ router.put("/updateuserdetail/:username", fetchuser, async (req, res) => {
       updatedUserDetails.location = location;
     }
 
-    let existingUserDetails = await Userdetail.findOne({ username });
+    let existingUserDetails = await Userdetail.findOne({ userID });
 
     if (!existingUserDetails) {
       return res.status(404).json({ msg: "User details not found" });
     }
 
     existingUserDetails = await Userdetail.findOneAndUpdate(
-      { username },
+      { userID },
       { $set: updatedUserDetails },
       { new: true }
     );
@@ -395,41 +336,29 @@ router.put("/updateuserdetail/:username", fetchuser, async (req, res) => {
   }
 });
 
-
 // adding profile/bannerimg
 router.post(
   "/addimg",
   fetchuser,
 
-
   async (req, res) => {
     try {
+      const { key, imgUrl, UserID } = req.body;
 
-
-      const {
-        key,
-        imgUrl,
-        username
-      } =
-        req.body;
-
-
-
-      let details = await Userdetail.findOne({ username: username });
+      let details = await Userdetail.findOne({ UserID: UserID });
       if (!details) {
         return res.status(404).send("not found");
       }
 
-
       details = await Userdetail.findOneAndUpdate(
-        { username: username },
+        { UserID: UserID },
         { $set: { [key]: imgUrl } },
         { new: true }
       );
 
       res.json({ details });
     } catch (error) {
-      console.log("errro dfkvjdfkv")
+      console.log("errro dfkvjdfkv");
       console.error(error.message);
       res.status(500).send("Internal Sever error,Something in the way");
     }

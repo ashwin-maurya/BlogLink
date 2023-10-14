@@ -15,6 +15,7 @@ export default function SideNav(props) {
       NavStatus();
     }
   };
+
   return (
     <>
       <div
