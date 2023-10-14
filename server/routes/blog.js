@@ -221,10 +221,10 @@ router.delete("/deleteblog/:id", async (req, res) => {
 
 module.exports = router;
 //getuserimg
-router.get("/userImg/:username", async (req, res) => {
+router.get("/userImg/:userID", async (req, res) => {
   try {
-    const username = req.params.username;
-    const blogs = await UserDetail.find({ username: username });
+    const username = req.params.userID;
+    const blogs = await UserDetail.find({ userID: username });
 
 
 

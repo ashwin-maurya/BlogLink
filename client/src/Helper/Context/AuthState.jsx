@@ -258,7 +258,7 @@ const AuthState = (props) => {
     console.log(data);
     const obj = JSON.parse(localStorage.getItem("UserData"));
     console.log(obj.authtoken);
-    const { key, imgUrl, UserID } = data;
+    const { key, imgUrl, userID } = data;
     const response = await fetch(`${host}/api/auth/addimg`, {
       method: "POST",
       headers: {
@@ -268,7 +268,7 @@ const AuthState = (props) => {
       body: JSON.stringify({
         key,
         imgUrl,
-        UserID,
+        userID,
       }),
     });
     const comments2 = await response.json();
@@ -277,7 +277,7 @@ const AuthState = (props) => {
 
     // console.log(SingleBlogComment);
 
-    getUser(UserID);
+    getUser(userID);
     getCurrentUser(JSON.parse(localStorage.getItem("UserData")).UserID);
     console.log("form addimg");
   };
