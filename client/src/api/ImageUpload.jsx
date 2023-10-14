@@ -42,7 +42,7 @@ export const uploadImage = async (
       setModalOpen(false);
       setCurrentImage({});
       console.log(username);
-      addImg({ key: "profileImg", imgUrl: response, username: username });
+      addImg({ key: "profileImg", imgUrl: response, userID: username });
       setProgress(0);
       ProfileImg();
     }
@@ -82,7 +82,7 @@ export const uploadBannerImage = async (
       console.log("response");
 
       setCurrentBannerImage({});
-      addImg({ key: "bannerImg", imgUrl: response, username: username });
+      addImg({ key: "bannerImg", imgUrl: response, userID: username });
       setProgress(0);
       BannerModal();
     }

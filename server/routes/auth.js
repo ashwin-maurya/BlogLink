@@ -348,15 +348,15 @@ router.post(
 
   async (req, res) => {
     try {
-      const { key, imgUrl, UserID } = req.body;
+      const { key, imgUrl, userID } = req.body;
 
-      let details = await Userdetail.findOne({ UserID: UserID });
+      let details = await Userdetail.findOne({ userID: userID });
       if (!details) {
         return res.status(404).send("not found");
       }
 
       details = await Userdetail.findOneAndUpdate(
-        { UserID: UserID },
+        { userID: userID },
         { $set: { [key]: imgUrl } },
         { new: true }
       );

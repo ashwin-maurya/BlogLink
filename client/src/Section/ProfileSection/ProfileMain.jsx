@@ -51,22 +51,10 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
 
   const [profileImg, setprofileImg] = useState(profileDefault);
   const [bannerImg, setbannerImg] = useState(BannerImg);
-  useEffect(() => {
-    if (UserProfile?.profileImg) {
-      setprofileImg(UserProfile?.profileImg);
-    } else {
-      setprofileImg(profileDefault);
-    }
-    if (UserProfile?.bannerImg) {
-      setbannerImg(UserProfile?.bannerImg);
-    } else {
-      setbannerImg(BannerImg);
-    }
-  }, [UserProfile]);
 
   const deleteimg = () => {
     addImg({ key: "profileImg", imgUrl: "", userID: UserDetails?._id });
-    setProfileImg(profileDefault);
+    setprofileImg(profileDefault);
   };
   const deletebannerimg = () => {
     addImg({ key: "bannerImg", imgUrl: "", userID: UserDetails?._id });
@@ -134,7 +122,11 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
             <img
               className=" w-full h-full bg-center bg-cover "
               height={10}
-              src={bannerImg}
+              src={
+                UserProfile?.bannerImg != ""
+                  ? UserProfile?.bannerImg
+                  : BannerImg
+              }
               alt=""
             />
 
@@ -164,7 +156,11 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
               <div className="group/buttons   relative">
                 <img
                   alt="img"
-                  src={profileImg}
+                  src={
+                    UserProfile?.profileImg != ""
+                      ? UserProfile?.profileImg
+                      : profileImg
+                  }
                   className="shadow-xl rounded-full  w-40 h-40  align-middle -mt-24 bg-white dark:bg-darkBgMain border-4 border-white"
                 />
                 {UserMatch && (

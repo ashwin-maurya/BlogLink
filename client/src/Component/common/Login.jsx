@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Authentication from "./Auth/Authentication";
 import Profile from "./Profile";
 import AuthContext from "../../Helper/Context/AuthContext";
+import { profileDefault } from "../../Assets/icons";
 
 export default function Login() {
   const context = useContext(AuthContext);
@@ -19,7 +20,7 @@ export default function Login() {
     setModal((showModal) => !showModal);
   };
   // console.log(UserDetails);
-  console.log(UserDetails);
+  // console.log(UserDetails);
 
   return (
     <>
@@ -34,7 +35,11 @@ export default function Login() {
         <div className="group">
           {UserDetails ? (
             <Profile
-              profileImg={UserDetails?.profileImg}
+              profileImg={
+                UserDetails?.profileImg != ""
+                  ? UserDetails?.profileImg
+                  : profileDefault
+              }
               name={UserDetails?.username}
             ></Profile>
           ) : (

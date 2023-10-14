@@ -18,7 +18,7 @@ export default function BlogCard({ card }) {
   const { UserDetails, AuthStatus, getUser, UserProfile } = context3;
   const { formatUTCDate, date } = context2;
   const [ShowEdit, setShowEdit] = useState(false);
-  const [user, setuser] = useState(profileDefault);
+  const [user, setuser] = useState("");
   // console.log(card);
   const onDelete = async () => {
     await deletenote(card?.postID);
@@ -42,7 +42,7 @@ export default function BlogCard({ card }) {
     console.log(card?.UserName);
     const func = async () => {
       const response1 = await fetch(
-        `${host}/api/blogs/userImg/${card?.UserName}`,
+        `${host}/api/blogs/userImg/${card?.userID}`,
         {
           method: "GET",
           headers: {
@@ -53,11 +53,11 @@ export default function BlogCard({ card }) {
 
       const Userimage = await response1.json();
       setuser(
-        // Userimage[0].profileImg != "" || Userimage[0].profileImg
-        //   ?
-        Userimage[0]?.profileImg ? Userimage[0]?.profileImg : profileDefault
-        // : profileDefault
+        Userimage[0]?.profileImg != ""
+          ? Userimage[0]?.profileImg
+          : profileDefault
       );
+      console.log(Userimage);
       console.log("from getimg");
     };
     func();
@@ -80,7 +80,6 @@ export default function BlogCard({ card }) {
                   className="bg-white h-6 w-6  rounded-full object-contain"
                   width={28}
                   height={32}
-
                   alt="img"
                 />
                 <p className="text-[14.5px] ml-2 font-semibold font-palanquin text-gray-700 dark:text-darkTextMain">
