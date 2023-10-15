@@ -9,7 +9,7 @@ import { storage } from "../../firebaseConfig";
 
 export const uploadImage = async (
   file,
-  username,
+  userID,
   ProfileImg,
   setModalOpen,
 
@@ -41,8 +41,7 @@ export const uploadImage = async (
 
       setModalOpen(false);
       setCurrentImage({});
-      console.log(username);
-      addImg({ key: "profileImg", imgUrl: response, userID: username });
+      addImg({ key: "profileImg", imgUrl: response, userID: userID });
       setProgress(0);
       ProfileImg();
     }
@@ -52,7 +51,7 @@ export const uploadImage = async (
 export const uploadBannerImage = async (
   file,
 
-  username,
+  userID,
   BannerModal,
 
   setProgress,
@@ -82,7 +81,7 @@ export const uploadBannerImage = async (
       console.log("response");
 
       setCurrentBannerImage({});
-      addImg({ key: "bannerImg", imgUrl: response, userID: username });
+      addImg({ key: "bannerImg", imgUrl: response, userID: userID });
       setProgress(0);
       BannerModal();
     }

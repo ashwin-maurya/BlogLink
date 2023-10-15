@@ -25,7 +25,7 @@ export default function SideBar() {
           </li>
           <li className="w-[80%] hover:dark:bg-darkBgPrimary rounded-lg my-1">
             <Link
-              to="hello"
+              to="AccountUpdate"
               className="w-full inline-block text-center font-montserrat leading-normal py-2 text-lg font-semibold dark:hover:text-secondary text-gray-400 hover:text-primaryMain text-slate-gray dark:text-darkTextMain"
             >
               Account

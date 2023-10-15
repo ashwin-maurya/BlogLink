@@ -39,7 +39,7 @@ export default function BlogCard({ card }) {
 
   useEffect(() => {
     formatUTCDate(card?.Date);
-    console.log(card?.UserName);
+    console.log(card?.userID);
     const func = async () => {
       const response1 = await fetch(
         `${host}/api/blogs/userImg/${card?.userID}`,
@@ -77,7 +77,7 @@ export default function BlogCard({ card }) {
               <div className="flex items-center ">
                 <img
                   src={user}
-                  className="bg-white h-6 w-6  rounded-full object-contain"
+                  className="bg-white h-6 w-6 align-middle shadow-xl rounded-full dark:bg-darkBgMain"
                   width={28}
                   height={32}
                   alt="img"

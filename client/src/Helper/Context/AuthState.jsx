@@ -48,6 +48,14 @@ const AuthState = (props) => {
     const json = await response.json();
     setLoggedin(json);
     setLoggedinStatus(json.success);
+    adduserdetail({
+      description: "",
+      work: "",
+      education: "",
+      location: "",
+      profileImg: "",
+      bannerImg: "",
+    });
   };
 
   //Get all notes

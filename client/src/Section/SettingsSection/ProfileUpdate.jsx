@@ -42,7 +42,7 @@ export default function ProfileUpdate(props) {
   }, [userDetailExist]);
   return (
     <>
-      <div className="w-full max-lg:w-[90%] h-[95%]  py-5 px-10 flex rounded-lg bg-white dark:bg-darkBgPrimary shadow-xl flex-col">
+      <div className="w-full max-lg:w-[90%] h-[95%]  py-5 px-10 flex rounded-lg bg-gray-100 dark:bg-darkBgPrimary shadow-xl flex-col">
         <h1 className="text-xl pb-4   font-bold text-gray-500 tracking-wide">
           Fill Details
         </h1>
@@ -113,7 +113,7 @@ export default function ProfileUpdate(props) {
           <input
             id="next"
             type="submit"
-            value="Register"
+            value="Submit"
             className="button-submit my-2 text-white rounded-full p-2 font-bold bg-primaryMain dark:bg-secondary cursor-pointer"
           />
         </form>
