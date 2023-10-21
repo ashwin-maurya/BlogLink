@@ -84,8 +84,8 @@ router.get("/fetchallblogCards", async (req, res) => {
 
 router.get("/filterblog", async (req, res) => {
   try {
-    const username = req.query.username;
-    const blogs = await blogCard.find({ UserName: username });
+    const userID = req.query.userID;
+    const blogs = await blogCard.find({ userID: userID });
 
     //   console.log(req.user.id)
 
@@ -138,7 +138,7 @@ router.post(
 router.put("/updateblog/:id", fetchuser, async (req, res) => {
   try {
     const { Title, description, tags, Category, Blog_url } = req.body;
-    console.log(req.body)
+    console.log(req.body);
     // let blog1 = await blogCard.find({ postID: req.params.id })
     const newblog = {};
     // const newblog = {};
@@ -158,7 +158,7 @@ router.put("/updateblog/:id", fetchuser, async (req, res) => {
       newblog.Blog_url = Blog_url;
     }
     if (description) {
-      newblog.description = description
+      newblog.description = description;
     }
 
     // Find the note to be updated and update it
@@ -177,13 +177,13 @@ router.put("/updateblog/:id", fetchuser, async (req, res) => {
       { $set: newblog },
       { new: true }
     );
-    console.log(Blog)
+    console.log(Blog);
     Blog2 = await blog.findOneAndUpdate(
       { postID: req.params.id },
       { $set: { ...newblog, description: description } },
       { new: true }
     );
-    console.log(Blog2)
+    console.log(Blog2);
     res.json({ Blog, Blog2 });
   } catch (error) {
     console.error(error.message);
@@ -225,13 +225,11 @@ module.exports = router;
 //getuserimg
 router.get("/userImg/:userID", async (req, res) => {
   try {
-    const username = req.params.userID;
-    const blogs = await UserDetail.find({ userID: username });
-
-
+    const userID = req.params.userID;
+    const blogs = await UserDetail.find({ userID: userID });
 
     //   console.log(req.user.id)
-    console.log(blogs[0]?.profileImg)
+    console.log(blogs[0]?.profileImg);
     res.json(blogs);
   } catch (error) {
     console.error(error.message);

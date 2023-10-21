@@ -5,7 +5,7 @@ export default function ProfileMainSkeleton() {
     <>
       <section className="relative block h-[400px] ">
         <div className=" w-full h-full  ">
-          <div className="relative group/buttons h-[300px] bg-darkBgMain"></div>
+          <div className="relative group/buttons h-[300px] bg-bgBlue dark:bg-darkBgPrimary"></div>
         </div>
       </section>
 

@@ -16,11 +16,10 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
   const context = useContext(AuthContext);
   const navigate = useNavigate();
   const [imgLink, setimgLink] = useState("");
-  const { addImg, updateuserdetail, UserDetails } = context;
+  const { addImg, UserDetails } = context;
   const [showProfileModal, setProfileModal] = useState(false);
   const [showBannerModal, setBannerModal] = useState(false);
   const [showProfileImg, setProfileImg] = useState(false);
-  console.log(UserDetails?._id);
   const ProfileModalStatus = () => {
     setProfileModal((showProfileModal) => !showProfileModal);
   };
@@ -151,7 +150,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
 
       <section className="relative pt-8 ">
         <div className="container mx-auto px-4">
-          <div className="relative flex flex-col min-w-0 bg-white  dark:bg-darkBgPrimary w-[60%] mx-auto mb-6 shadow-xl rounded-lg -mt-60 p-10">
+          <div className="relative flex flex-col min-w-0 bg-white  dark:bg-darkBgPrimary w-[60%] max-lg:w-[95%] mx-auto mb-6 shadow-md rounded-lg -mt-60 p-10">
             <div className=" flex flex-wrap justify-center relative ">
               <div className="group/buttons   relative">
                 <img
@@ -161,10 +160,11 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
                       ? UserProfile?.profileImg
                       : profileImg
                   }
-                  className="shadow-xl rounded-full  w-40 h-40  align-middle -mt-24 bg-white dark:bg-darkBgMain border-4 border-white"
+                  className="shadow-xl rounded-full  w-40 h-40  align-middle -mt-24 bg-white dark:bg-darkBgMain border-4 border-white dark:border-darkBgPrimary"
                 />
+
                 {UserMatch && (
-                  <div className=" absolute bg-white dark:bg-secondary flex -bottom-4 right-9  rounded-full m-2 ">
+                  <div className="absolute bg-white dark:bg-secondary flex -bottom-4 right-9  rounded-full m-2 ">
                     <div className="hover:bg-[#e0d1ff] rounded-l-full">
                       <img src={editPen} className="p-2" onClick={ProfileImg} />
                     </div>
@@ -176,6 +176,44 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
                   </div>
                 )}
               </div>
+              <div className="flex mt-4 space-x-5 sm:justify-center sm:mt-0 absolute left-0">
+                {UserDetails?.socialLinks?.linkedin !== "" && (
+                  <a
+                    href={UserDetails.socialLinks.linkedin}
+                    target="_blank"
+                    className="text-gray-500 dark:text-white hover:text-primaryMain text-2xl dark:hover:text-secondary"
+                  >
+                    <i className="fa fa-linkedin"></i>
+                  </a>
+                )}
+                {UserDetails?.socialLinks?.github !== "" && (
+                  <a
+                    href={UserDetails.socialLinks.github}
+                    target="_blank"
+                    className="text-gray-500 dark:text-white hover:text-primaryMain text-2xl dark:hover:text-secondary"
+                  >
+                    <i className="fa fa-github"></i>
+                  </a>
+                )}
+                {UserDetails?.socialLinks?.twitter !== "" && (
+                  <a
+                    href={UserDetails.socialLinks.twitter}
+                    target="_blank"
+                    className="text-gray-500 dark:text-white hover:text-primaryMain text-2xl dark:hover:text-secondary"
+                  >
+                    <i className="fa fa-twitter"></i>
+                  </a>
+                )}
+                {UserDetails?.socialLinks?.instagram !== "" && (
+                  <a
+                    href={UserDetails.socialLinks.instagram}
+                    target="_blank"
+                    className="text-gray-500 dark:text-white hover:text-primaryMain text-2xl dark:hover:text-secondary"
+                  >
+                    <i className="fa fa-instagram"></i>
+                  </a>
+                )}
+              </div>
 
               {UserMatch && (
                 <div className="absolute right-0 top-0">
@@ -184,27 +222,25 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
                     onClick={() => {
                       navigate(`/settings`, {});
                     }}
-                    // onClick={ProfileModalStatus}
                   >
                     <img
                       src={editPen}
-                      className="p-3 text-base font-semibold text-white"
+                      className="p-3 text-base font-semibold  text-white"
                     />
                   </button>
                 </div>
               )}
             </div>
             <div className="text-center my-4">
-              <h3 className="text-3xl font-semibold leading-normals text-blueGray-700 mb-2 dark:text-darkTextMain">
+              <h3 className="text-3xl font-semibold leading-normals text-blueGray-700  dark:text-darkTextMain">
                 {UserProfile?.name}
               </h3>
-              <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-light uppercase dark:text-darkTextMain">
-                <div className="flex flex-col">
-                  <p>{UserProfile?.username}</p>
-                </div>
+              <div className="text-sm leading-normal text-blueGray-400 font-light dark:text-darkTextMain">
+                {UserProfile?.username}
               </div>
-              <div className=" leading-normal mt-0 mb-2 text-blueGray-400 font-light uppercase dark:text-darkTextMain">
-                <div className="flex text-xs flex-col">
+
+              <div className=" leading-normal mt-2 mb-2 text-blueGray-400 font-light dark:text-darkTextMain">
+                <div className="flex flex-col text-lg">
                   <p>{UserProfile?.description}</p>
                 </div>
               </div>

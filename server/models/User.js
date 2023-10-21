@@ -20,6 +20,9 @@ const UserSchema = new Schema({
   password: {
     type: String,
   },
+  isGoogleSignup: {
+    type: Boolean,
+  },
   Date: {
     default: Date.now,
     type: Date,

@@ -8,15 +8,16 @@ import { GoogleSignInAPI } from "../../../api/AuthAPI";
 import { toast } from "react-toastify";
 
 export default function Authentication(props) {
+  const host = "http://localhost:5001";
   const context = useContext(AuthContext);
   const {
     setAuthStatus,
     UserExistStatus,
     userexist,
     loggedin,
-    googlelogin,
     loggedinStatus,
-    googlesignup,
+    adduserdetail,
+    getCurrentUser,
   } = context;
   const [GooogleCreds, setGooogleCreds] = useState({});
 
@@ -58,6 +59,7 @@ export default function Authentication(props) {
       userexist(input.email);
     }
   };
+
   useEffect(() => {
     if (UserExistStatus) {
       googlelogin(GooogleCreds);
@@ -66,6 +68,63 @@ export default function Authentication(props) {
     }
   }, [UserExistStatus]);
 
+  const googlesignup = async (GoogleCreds) => {
+    //API call
+    const response = await fetch(`${host}/api/auth/googlesignup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: GoogleCreds.name,
+        email: GoogleCreds.email,
+        username: GoogleCreds.username,
+      }),
+    });
+
+    const json = await response.json();
+    if (json.success) {
+      localStorage.setItem("UserData", JSON.stringify(json));
+      ModalStatus();
+      setAuthStatus(true);
+      toast.success("Account Loggedin Succesfully");
+      getCurrentUser(JSON.parse(localStorage.getItem("UserData")).UserID);
+      adduserdetail({
+        description: "",
+        work: "",
+        education: "",
+        location: "",
+        profileImg: "",
+        bannerImg: "",
+        socialLinks: {},
+      });
+    } else {
+      toast.error("Can't Register");
+    }
+  };
+
+  const googlelogin = async (GoogleCreds) => {
+    //API call
+    const response = await fetch(`${host}/api/auth/googlelogin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: GoogleCreds.email,
+      }),
+    });
+
+    const json = await response.json();
+    if (json.success) {
+      localStorage.setItem("UserData", JSON.stringify(json));
+      ModalStatus();
+      setAuthStatus(true);
+      toast.success("Account Loggedin Succesfully");
+    } else {
+      toast.error("Can't Register");
+    }
+  };
   return (
     <>
       <div
@@ -74,7 +133,7 @@ export default function Authentication(props) {
         ref={modalRef}
         onClick={handleOutsideClick}
       >
-        <div className="w-1/2 max-lg:w-[90%] flex rounded-lg bg-white dark:bg-darkBgPrimary shadow-xl overflow-hidden">
+        <div className="w-1/2 max-lg:w-[90%] flex rounded-lg h-auto bg-white dark:bg-darkBgPrimary shadow-xl">
           <div className="flex items-center w-[50%] h-[auto]  bg-[#d1e3ff] dark:bg-[#ffd4bb] max-lg:hidden">
             <img src={auth} alt="girl-reading-a-book" />
           </div>

@@ -32,22 +32,19 @@ export default function ProfilePage() {
     const extractedUsername = urlParts[urlParts.length - 1];
     setUsername(extractedUsername);
   }, [location]);
-  useEffect(() => {
-    filterblogs(username);
-  }, [username]);
 
   useEffect(() => {
-    const currentUrl = window.location.href;
-    const urlParts = currentUrl.split("/");
-    const extractedUsername = urlParts[urlParts.length - 1];
-    setUsername(extractedUsername);
-  }, [location]);
+    if (UserDetails) {
+      filterblogs(UserDetails?._id);
+    }
+  }, [username, UserDetails]);
 
   useEffect(() => {
     if (username) {
       getUser(username);
     }
   }, [username, UserDetails]);
+
   return (
     <>
       <ProfileMain UserProfile={UserProfile} UserMatch={UserMatch} />
