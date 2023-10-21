@@ -15,7 +15,7 @@ app.use("/api/auth", require("./routes/auth"));
 
 app.use("/api/blogs", require("./routes/blog"));
 app.use("/api/comments", require("./routes/comments"));
-// app.use('/api/blogs', require('./routes/reviews'))
+app.use('/api/filter', require('./routes/filterAPIs'))
 
 app.listen(port, () => {
   console.log(`app listening at port http://localhost/${port}`);

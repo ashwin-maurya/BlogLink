@@ -27,7 +27,9 @@ const UserSchema = new Schema({
   bannerImg: {
     type: String,
 
-  }
+  },
+  relevant: []
+
 
 });
 const UserDetail = mongoose.model("UserDetail", UserSchema);

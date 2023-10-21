@@ -4,6 +4,7 @@ const fetchuser = require("../middleware/fetchuser");
 const { body, validationResult } = require("express-validator");
 
 const Comment = require("../models/Comments");
+const blogCard = require("../models/BlogCard");
 
 
 // ROUTE 3: Put all a blog in the database : POST "/api/blogs/addblog"
@@ -168,6 +169,44 @@ router.get("/getallcommentsbypostID/:id", async (req, res) => {
         res.status(500).send("Internal Sever error,Something in the way");
     }
 });
+
+
+router.put("/postViews/:id", async (req, res) => {
+    const { view } = req.body
+    let view2 = parseInt(view)
+    view2 = view2 + 1
+    console.log(view2)
+
+    console.log(req.params.id)
+    let blog1 = await blogCard.find({ postID: req.params.id });
+    // let blog2 = await blog.find({ postID: req.params.id });
+    if (!blog1) {
+        return res.status(404).send("not found");
+    }
+
+    // //Allow deletion only if user owns it
+    // // if (blog1.user.toString() !== req.user.id) {
+    // //   return res.status(401).send("Not Alowed")
+    // // }
+
+    blog1 = await blogCard.findOneAndUpdate({ postID: req.params.id },
+        { $set: { "view": view2 } },
+        { new: true });
+
+    // blog2 = await blog.findOneAndDelete({ postID: req.params.id },
+    //     { $set: { "view": view } },
+    //     { new: true });
+
+    // return res.json({
+    //     success: "note has been deleted",
+    //     blog1: blog1,
+    //     blog2: blog2,
+    // });
+    // let blog = bl
+
+
+    res.json(blog1)
+})
 
 
 

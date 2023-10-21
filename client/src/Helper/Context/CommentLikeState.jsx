@@ -1,7 +1,11 @@
 import { useState } from "react";
 import CommentLikeContext from "./CommentLikeContext";
+import blogContext from "./blogContext";
+import { useContext } from "react";
 
 const CommentLikeState = (props) => {
+  const context = useContext(blogContext);
+  // const {}
   const [reply, setreply] = useState([]);
   const host = "http://localhost:5001";
   const [SingleBlogComment, setSingleBlogComment] = useState([]);
@@ -82,9 +86,25 @@ const CommentLikeState = (props) => {
 
     console.log("form SingleBlogContent");
   };
+
+  const updateViews = async (data) => {
+    const { view, id } = data;
+    console.log(data);
+    let reponse = await fetch(`${host}/api/comments/postViews/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ view }),
+    });
+
+    let resp = await reponse.json();
+    console.log(resp);
+  };
   return (
     <CommentLikeContext.Provider
       value={{
+        updateViews,
         addreply,
         reply,
         setreply,

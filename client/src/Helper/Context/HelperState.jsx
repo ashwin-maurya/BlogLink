@@ -3,6 +3,9 @@ import HelperContext from "./HelperContext";
 
 const HelperState = (props) => {
   const [date, setdate] = useState("");
+  const [startTime, setstartTime] = useState("");
+  // const [endTime, setendTime] = useState("");
+  // setendTime;
   const formatUTCDate = (utcDateString) => {
     const date = new Date(utcDateString);
     const options = {
@@ -14,7 +17,16 @@ const HelperState = (props) => {
   };
 
   return (
-    <HelperContext.Provider value={{ formatUTCDate, date }}>
+    <HelperContext.Provider
+      value={{
+        formatUTCDate,
+        date,
+        setstartTime,
+        startTime,
+        // endTime,
+        // setendTime,
+      }}
+    >
       {props.children}
     </HelperContext.Provider>
   );
