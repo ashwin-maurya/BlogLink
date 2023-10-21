@@ -87,8 +87,7 @@ export default function Authentication(props) {
       localStorage.setItem("UserData", JSON.stringify(json));
       ModalStatus();
       setAuthStatus(true);
-      toast.success("Account Loggedin Succesfully");
-      getCurrentUser(JSON.parse(localStorage.getItem("UserData")).UserID);
+      toast.success("Google Loggedin Succesfully");
       adduserdetail({
         description: "",
         work: "",
@@ -96,8 +95,14 @@ export default function Authentication(props) {
         location: "",
         profileImg: "",
         bannerImg: "",
-        socialLinks: {},
+        socialLinks: {
+          github: "",
+          linkedin: "",
+          instagram: "",
+          twitter: "",
+        },
       });
+      getCurrentUser(JSON.parse(localStorage.getItem("UserData")).UserID);
     } else {
       toast.error("Can't Register");
     }

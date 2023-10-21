@@ -179,7 +179,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
               <div className="flex mt-4 space-x-5 sm:justify-center sm:mt-0 absolute left-0">
                 {UserDetails?.socialLinks?.linkedin !== "" && (
                   <a
-                    href={UserDetails.socialLinks.linkedin}
+                    href={UserDetails?.socialLinks?.linkedin}
                     target="_blank"
                     className="text-gray-500 dark:text-white hover:text-primaryMain text-2xl dark:hover:text-secondary"
                   >
@@ -188,7 +188,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
                 )}
                 {UserDetails?.socialLinks?.github !== "" && (
                   <a
-                    href={UserDetails.socialLinks.github}
+                    href={UserDetails?.socialLinks?.github}
                     target="_blank"
                     className="text-gray-500 dark:text-white hover:text-primaryMain text-2xl dark:hover:text-secondary"
                   >
@@ -197,7 +197,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
                 )}
                 {UserDetails?.socialLinks?.twitter !== "" && (
                   <a
-                    href={UserDetails.socialLinks.twitter}
+                    href={UserDetails?.socialLinks?.twitter}
                     target="_blank"
                     className="text-gray-500 dark:text-white hover:text-primaryMain text-2xl dark:hover:text-secondary"
                   >
@@ -206,7 +206,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
                 )}
                 {UserDetails?.socialLinks?.instagram !== "" && (
                   <a
-                    href={UserDetails.socialLinks.instagram}
+                    href={UserDetails?.socialLinks?.instagram}
                     target="_blank"
                     className="text-gray-500 dark:text-white hover:text-primaryMain text-2xl dark:hover:text-secondary"
                   >

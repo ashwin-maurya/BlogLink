@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export default function Register({ setSign, ModalStatus, setAuthStatus }) {
   const context = useContext(AuthContext);
-  const { adduserdetail } = context;
+  const { adduserdetail, getCurrentUser } = context;
 
   const [Registercreds, setRegistercreds] = useState({
     email: "",
@@ -45,8 +45,15 @@ export default function Register({ setSign, ModalStatus, setAuthStatus }) {
         location: "",
         profileImg: "",
         bannerImg: "",
-        socialLinks: {},
+        socialLinks: {
+          github: "",
+          linkedin: "",
+          instagram: "",
+          twitter: "",
+        },
       });
+      getCurrentUser(JSON.parse(localStorage.getItem("UserData")).UserID);
+
       ModalStatus();
 
       toast.success("Registered Successfully");
