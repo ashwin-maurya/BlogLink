@@ -84,8 +84,8 @@ router.get("/fetchallblogCards", async (req, res) => {
 
 router.get("/filterblog", async (req, res) => {
   try {
-    const username = req.query.username;
-    const blogs = await blogCard.find({ UserName: username });
+    const userID = req.query.userID;
+    const blogs = await blogCard.find({ userID: userID });
 
     //   console.log(req.user.id)
 

@@ -96,6 +96,7 @@ export default function Authentication(props) {
         location: "",
         profileImg: "",
         bannerImg: "",
+        socialLinks: {},
       });
     } else {
       toast.error("Can't Register");

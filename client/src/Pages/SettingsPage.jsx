@@ -1,21 +1,16 @@
-import React, { useContext, useEffect } from "react";
-import AuthContext from "../Helper/Context/AuthContext";
+import React, { useEffect } from "react";
 import Leftsection from "../Section/SettingsSection/Leftsection";
 import Rightsection from "../Section/SettingsSection/Rightsection";
 import { useNavigate } from "react-router-dom";
 
 export default function SettingsPage() {
-  const context = useContext(AuthContext);
-  const { getCurrentUser } = context;
   const navigate = useNavigate();
-
   useEffect(() => {
     if (!JSON.parse(localStorage.getItem("UserData"))) {
       navigate("/");
-    } else {
-      getCurrentUser(JSON.parse(localStorage.getItem("UserData")).UserID);
     }
   });
+
   return (
     <>
       <section className="max-container flex min-h-screen   justify-between  max-lg:flex-col">

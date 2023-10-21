@@ -289,6 +289,7 @@ router.post("/adduserdetail", fetchuser, async (req, res) => {
       location,
       profileImg,
       bannerImg,
+      socialLinks,
     } = req.body;
     console.log(userID);
     const errors = validationResult(req);
@@ -310,6 +311,7 @@ router.post("/adduserdetail", fetchuser, async (req, res) => {
       location,
       profileImg,
       bannerImg,
+      socialLinks,
     });
 
     const createdUserDetails = await newUserDetails.save();
@@ -483,6 +485,29 @@ router.put("/setpassword/:userId", fetchuser, async (req, res) => {
     await user.save();
 
     res.json({ message: "Password set successfully" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal server error, something went wrong");
+  }
+});
+
+// Update social links for a user
+router.put("/updateSocialLinks/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { socialLinks } = req.body;
+    console.log(socialLinks);
+    const userDetail = await Userdetail.findOne({ userID: userId });
+
+    if (!userDetail) {
+      return res.status(404).json({ message: "UserDetail not found" });
+    }
+
+    userDetail.socialLinks = socialLinks;
+
+    await userDetail.save();
+
+    res.json({ message: "Social links updated successfully" });
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal server error, something went wrong");

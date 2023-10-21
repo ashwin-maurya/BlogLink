@@ -9,18 +9,25 @@
   width: 7px;
   position: absolute;
 }
+
+/* @media not all and (min-width: 604px) {
+  ::-webkit-scrollbar {
+    width: 2px;
+    position: absolute;
+  }
+} */
 ::-webkit-scrollbar-track {
   background: #eadeff;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #8957e5;
+  background: #b08cf3;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #3b82f6;
+  background: #8957e5;
 }
 * {
   margin: 0;

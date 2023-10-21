@@ -45,8 +45,10 @@ export default function Register({ setSign, ModalStatus, setAuthStatus }) {
         location: "",
         profileImg: "",
         bannerImg: "",
+        socialLinks: {},
       });
       ModalStatus();
+
       toast.success("Registered Successfully");
     } else {
       toast.error("Can't Register");

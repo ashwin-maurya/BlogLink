@@ -16,6 +16,10 @@ export default function UsernameUpdate() {
     checkUsernameExists();
   }, [username]);
 
+  useEffect(() => {
+    setUsername(UserDetails?.username || "");
+  }, [UserDetails]);
+
   const handleInputChange = (event) => {
     const { value } = event.target;
     setUsername(value);
@@ -80,66 +84,69 @@ export default function UsernameUpdate() {
   };
 
   return (
-    <div className="w-full max-lg:w-[90%] h-auto py-5 px-10 flex rounded-lg bg-gray-100 dark:bg-darkBgPrimary shadow-xl flex-col">
-      <h1 className="text-xl pb-4 font-bold text-gray-500 tracking-wide">
-        Fill Details
-      </h1>
-      <form
-        className="form flex flex-col w-full overflow-y-scroll px-2"
-        onSubmit={handleSubmit}
-      >
-        <div>
-          <label
-            className="text-sm font-bold text-gray-500 tracking-wide mt-2"
-            htmlFor="username"
-          >
-            Username
-          </label>
-          <div className="flex flex-row items-center">
-            <input
-              type="text"
-              placeholder="Username"
-              name="username"
-              autoComplete="on"
-              value={username}
-              onChange={handleInputChange}
-              className="border border-gray-300 bg-transparent dark:text-darkTextPrimary rounded-md p-2 mb-2 focus:outline-none dark:focus:border-secondary focus:border-primaryMain"
-            />
-            {username.trim() === "" ? (
-              <span className="text-red-500 ml-5 font-semibold text-lg">
-                Username cannot be empty
-              </span>
-            ) : containsSpecialChars ? (
-              <span className="text-red-500 ml-5 font-semibold text-lg">
-                No special characters allowed
-              </span>
-            ) : usernameExists ? (
-              <span className="text-red-500 ml-5 font-semibold text-lg">
-                Username Already Exists
-              </span>
-            ) : (
-              <span className="text-green-500 ml-5 font-semibold text-lg">
-                Username Available
-              </span>
-            )}
-          </div>
-        </div>
-
-        <button
-          type="submit"
-          name="submit"
-          className={`button-submit my-2 text-white rounded-full p-2 font-bold bg-primaryMain dark:bg-secondary cursor-pointer ${
-            usernameExists || username.trim() === "" || containsSpecialChars
-              ? "bg-purple-300 dark:bg-red-200"
-              : ""
-          }`}
-          disabled={
-            usernameExists || username.trim() === "" || containsSpecialChars
-          }
+    <>
+      <div className="mt-10">
+        <h1 className="text-xl pb-2 font-bold text-gray-500 tracking-wide">
+          Select a Username
+        </h1>
+        <form
+          className="form flex flex-col w-full  px-2"
+          onSubmit={handleSubmit}
         >
-          Change
-        </button>
-      </form>
-    </div>
+          <div>
+            <label
+              className="text-sm font-bold text-gray-500 tracking-wide mt-2"
+              htmlFor="username"
+            >
+              Username
+            </label>
+            <div className="flex flex-row items-center">
+              <input
+                type="text"
+                placeholder="Username"
+                name="username"
+                autoComplete="on"
+                value={username}
+                onChange={handleInputChange}
+                className="border border-gray-300 bg-transparent dark:text-darkTextPrimary rounded-md p-2 mb-2 focus:outline-none dark:focus:border-secondary focus:border-primaryMain"
+              />
+              {username.trim() === "" ? (
+                <span className="text-red-500 ml-5 font-semibold text-lg">
+                  Username cannot be empty
+                </span>
+              ) : containsSpecialChars ? (
+                <span className="text-red-500 ml-5 font-semibold text-lg">
+                  No special characters allowed
+                </span>
+              ) : usernameExists ? (
+                <span className="text-red-500 ml-5 font-semibold text-lg">
+                  Username Already Exists
+                </span>
+              ) : (
+                <span className="text-green-500 ml-5 font-semibold text-lg">
+                  Username Available
+                </span>
+              )}
+            </div>
+          </div>
+          <div>
+            <button
+              type="submit"
+              name="submit"
+              className={`button-submit  my-2 text-white rounded-full p-2 px-6 font-bold bg-primaryMain dark:bg-secondary cursor-pointer ${
+                usernameExists || username.trim() === "" || containsSpecialChars
+                  ? "bg-purple-300 dark:bg-red-200"
+                  : ""
+              }`}
+              disabled={
+                usernameExists || username.trim() === "" || containsSpecialChars
+              }
+            >
+              Change Username
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
   );
 }

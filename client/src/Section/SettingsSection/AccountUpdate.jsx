@@ -129,15 +129,17 @@ export default function PasswordUpdate() {
           {passwordError && (
             <div className="text-red-500 mt-2">{passwordError}</div>
           )}
-          <button
-            type="submit"
-            name="submit"
-            className={`button-submit my-2 text-white rounded-full p-2 font-bold bg-primaryMain dark:bg-secondary  cursor-pointer ${
-              passwordError !== null ? "bg-purple-300 dark:bg-red-200" : ""
-            }`}
-          >
-            Change Password
-          </button>
+          <div>
+            <button
+              type="submit"
+              name="submit"
+              className={`button-submit my-2 text-white rounded-full p-2 px-6 font-bold bg-primaryMain dark:bg-secondary  cursor-pointer ${
+                passwordError !== null ? "bg-purple-300 dark:bg-red-200" : ""
+              }`}
+            >
+              Change Password
+            </button>
+          </div>
         </form>
       ) : (
         <form
@@ -192,13 +194,15 @@ export default function PasswordUpdate() {
           {passwordError && (
             <div className="text-red-500 mt-2">{passwordError}</div>
           )}
-          <button
-            type="submit"
-            name="submit"
-            className={`button-submit my-2 text-white rounded-full p-2 font-bold bg-primaryMain dark:bg-secondary cursor-pointer`}
-          >
-            Change Password
-          </button>
+          <div>
+            <button
+              type="submit"
+              name="submit"
+              className={`button-submit my-2 text-white rounded-full p-2 px-6 font-bold bg-primaryMain dark:bg-secondary cursor-pointer`}
+            >
+              Change Password
+            </button>
+          </div>
         </form>
       )}
     </div>

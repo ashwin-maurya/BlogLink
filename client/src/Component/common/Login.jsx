@@ -13,14 +13,11 @@ export default function Login() {
     if (AuthStatus) {
       getCurrentUser(JSON.parse(localStorage.getItem("UserData")).UserID);
     }
-    console.log(UserDetails);
   }, [AuthStatus]);
 
   const ModalStatus = () => {
     setModal((showModal) => !showModal);
   };
-  // console.log(UserDetails);
-  // console.log(UserDetails);
 
   return (
     <>

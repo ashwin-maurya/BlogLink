@@ -1,7 +1,8 @@
 import React from "react";
 import ProfileUpdate from "./ProfileUpdate";
-import UsernameUpdate from "./UsernameUpdate";
+import RelevantUpdate from "./RelevantUpdate";
 import AccountUpdate from "./AccountUpdate";
+import SocialUpdate from "./SocialUpdate";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 export default function Rightsection() {
@@ -16,13 +17,18 @@ export default function Rightsection() {
         />{" "}
         <Route
           exact
-          path="/UsernameUpdate"
-          element={<UsernameUpdate></UsernameUpdate>}
+          path="/ResetPassword"
+          element={<AccountUpdate></AccountUpdate>}
         />{" "}
         <Route
           exact
-          path="/AccountUpdate"
-          element={<AccountUpdate></AccountUpdate>}
+          path="/SocialUpdate"
+          element={<SocialUpdate></SocialUpdate>}
+        />{" "}
+        <Route
+          exact
+          path="/RelevantUpdate"
+          element={<RelevantUpdate></RelevantUpdate>}
         />{" "}
       </Routes>
     </>
