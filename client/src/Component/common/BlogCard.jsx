@@ -8,21 +8,23 @@ import { useContext, useEffect, useState } from "react";
 import HelperContext from "../../Helper/Context/HelperContext";
 import AuthContext from "../../Helper/Context/AuthContext";
 import { code1 } from "../../Assets/images";
-import { profileDefault } from "../../Assets/icons";
+import { profileDefault, view } from "../../Assets/icons";
 
 export default function BlogCard({ card }) {
   const context = useContext(blogContext);
   const { deletenote, host } = context;
-  const context2 = useContext(HelperContext);
   const context3 = useContext(AuthContext);
   const { UserDetails, AuthStatus, getUser, UserProfile } = context3;
-  const { formatUTCDate, date } = context2;
+  const [date, setdate] = useState("");
   const [ShowEdit, setShowEdit] = useState(false);
   const [user, setuser] = useState("");
-  // console.log(card);
+  console.log(card);
   const onDelete = async () => {
     await deletenote(card?.postID);
   };
+
+  const startTime = new Date().getTime();
+  // console.log(startTime);
 
   useEffect(() => {
     if (AuthStatus) {
@@ -38,8 +40,17 @@ export default function BlogCard({ card }) {
   }, [UserDetails, card]);
 
   useEffect(() => {
-    formatUTCDate(card?.Date);
-    console.log(card?.userID);
+
+    const date = new Date(card?.Date);
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    setdate(date.toLocaleString("en-US", options));
+
+    console.log(card?.UserName);
+
     const func = async () => {
       const response1 = await fetch(
         `${host}/api/blogs/userImg/${card?.userID}`,
@@ -57,8 +68,8 @@ export default function BlogCard({ card }) {
           ? Userimage[0]?.profileImg
           : profileDefault
       );
-      console.log(Userimage);
-      console.log("from getimg");
+      // console.log(Userimage);
+      // console.log("from getimg");
     };
     func();
 
@@ -66,33 +77,41 @@ export default function BlogCard({ card }) {
   }, []);
 
   const navigate = useNavigate();
+  //Date function
 
   // const navigate = useNavigate();
   return (
     <div className="flex dark:bg-darkBgPrimary my-2 rounded-xl bg-bgBlue flex-col p-6 w-[80%] max-lg:w-[95%] group">
       <div className="max-lg:gap-2  gap-8 flex  justify-center ">
         <div className="w-[70%]">
-          <div className="mb-2 flex  items-center justify-between max-lg:items-start max-lg:flex-col">
-            <div className="max-lg:items-start max-lg:flex-col flex items-center">
-              <div className="flex items-center ">
-                <img
-                  src={user}
-                  className="bg-white h-6 w-6 align-middle shadow-xl rounded-full dark:bg-darkBgMain"
-                  width={28}
-                  height={32}
-                  alt="img"
-                />
-                <p className="text-[14.5px] ml-2 font-semibold font-palanquin text-gray-700 dark:text-darkTextMain">
-                  {card?.UserName}
-                  {/* {UserProfile?.username} */}
+
+          <div className="flex justify-between  items-center">
+            <div className="mb-2 flex  items-center justify-between max-lg:items-start max-lg:flex-col">
+              <div className="max-lg:items-start max-lg:flex-col flex items-center">
+                <div className="flex items-center ">
+                  <img
+                    src={user}
+                    className="bg-white h-6 w-6  rounded-full object-contain"
+                    width={28}
+                    height={32}
+                    alt="img"
+                  />
+                  <p className="text-[14.5px] ml-2 font-semibold font-palanquin text-gray-700 dark:text-darkTextMain">
+                    {card?.UserName}
+                  </p>
+                </div>
+                <span className="text-sm ml-2 font-semibold font-palanquin text-gray-400 max-lg:hidden dark:text-darkTextPrimary">
+                  -
+                </span>
+                <p className="text-sm ml-1 font-semibold font-palanquin text-gray-400 dark:text-darkTextPrimary">
+                  {date}
+
                 </p>
               </div>
-              <span className="text-sm ml-2 font-semibold font-palanquin text-gray-400 max-lg:hidden dark:text-darkTextPrimary">
-                -
-              </span>
-              <p className="text-sm ml-1 font-semibold font-palanquin text-gray-400 dark:text-darkTextPrimary">
-                {date}
-              </p>
+            </div>
+            <div className="mr-20 flex ">
+              <img className="opacity-40" src={view} alt="v" />
+              <p className="text-[15px] text-gray-600 ml-1">{card?.view}</p>
             </div>
           </div>
 
@@ -102,7 +121,7 @@ export default function BlogCard({ card }) {
               toast.success("Welcome to Blog");
 
               navigate(`/blogs/${card?.Title?.replace(/\s+/g, "-")}`, {
-                state: { id: card.postID },
+                state: { id: card.postID, view: card?.view },
               });
             }}
           >

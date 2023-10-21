@@ -19,7 +19,10 @@ const BlogSchema = new mongoose.Schema({
         // required: true
     },
 
-
+    view: {
+        type: Number,
+        default: 0
+    },
 
     tags: [],
 

@@ -391,6 +391,7 @@ router.post(
   }
 );
 
+
 // Add this route to update the username
 router.put("/updateUsername/:userId", fetchuser, async (req, res) => {
   try {
@@ -513,5 +514,6 @@ router.put("/updateSocialLinks/:userId", async (req, res) => {
     res.status(500).send("Internal server error, something went wrong");
   }
 });
+
 
 module.exports = router;

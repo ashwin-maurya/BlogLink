@@ -97,7 +97,9 @@ const AuthState = (props) => {
           location: UserDetail.location,
           profileImg: UserDetail.profileImg,
           bannerImg: UserDetail.bannerImg,
+          relevant: UserDetail.relevant,
           socialLinks: UserDetail.socialLinks,
+
         };
         setUserDetails(updatedUserDetails);
       } else {
@@ -143,6 +145,7 @@ const AuthState = (props) => {
           location: UserDetail.location,
           profileImg: UserDetail.profileImg,
           bannerImg: UserDetail.bannerImg,
+          relevant: UserDetail.relevant,
           socialLinks: UserDetail.socialLinks,
         };
         console.log(updatedUserDetails);

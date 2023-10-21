@@ -7,6 +7,7 @@ import dark from "./dark.svg";
 import profileDefault from "./profileDefault.svg";
 import editPen from "./editPen.svg";
 import trash from "./trash.svg";
+import view from "./view.svg"
 export {
   edit,
   trash,
@@ -17,4 +18,5 @@ export {
   light,
   profileDefault,
   editPen,
+  view
 };

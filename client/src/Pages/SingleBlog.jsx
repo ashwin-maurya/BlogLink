@@ -6,8 +6,10 @@ import blogContext from "../Helper/Context/blogContext";
 import { useEffect } from "react";
 import TopicBar from "../Component/SingleBlogComponents/TopicBar";
 import { Comments } from "../Component/common";
+import HelperContext from "../Helper/Context/HelperContext";
 
 const SingleBlog = ({ blog1 }) => {
+  // console.log(window.innerHeight);
   const context = useContext(blogContext);
   const { blog, getblogs } = context;
 
@@ -23,6 +25,10 @@ const SingleBlog = ({ blog1 }) => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
 
   const navbarRef = useRef(null);
+  const pageRef = useRef(null);
+
+  // let top = window.pageYOffset + window.innerHeight;
+  // console.log(top);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,9 +57,22 @@ const SingleBlog = ({ blog1 }) => {
     }
   }, [scrollDirection]);
 
+  const context2 = useContext(HelperContext);
+  const { startTime, setstartTime } = context2;
+
+  // console.log(endTime);
+  let ch = startTime == "";
+  useEffect(() => {
+    setstartTime({ start: new Date().getTime() });
+    console.log(startTime);
+  }, [ch]);
+
   return (
     <>
-      <section className="flex bg-slate-50 dark:text-white dark:bg-darkBgMain flex-col gap-20 py-20 justify-center items-center">
+      <section
+        className="flex bg-slate-50 dark:text-white dark:bg-darkBgMain flex-col gap-20 py-20 justify-center items-center"
+        ref={pageRef}
+      >
         <div className=" relative flex max-w-[70%] flex-col   justify-center  gap-2">
           <p className="tracking-[2px] font-semibold dark:text-secondary text-primaryMain m-1">
             {blog1?.Category}

@@ -26,12 +26,14 @@ const UserSchema = new Schema({
   bannerImg: {
     type: String,
   },
+  },
   socialLinks: {
     type: Object,
   },
   relevant: {
     type: [String],
   },
+
 });
 const UserDetail = mongoose.model("UserDetail", UserSchema);
 // User.createIndexes();

@@ -29,10 +29,17 @@ const BlogCardSchema = new mongoose.Schema({
     type: String,
     // required: true
   },
+  view: {
+    type: String
+  },
   Date: {
     default: Date.now,
     type: Date,
   },
+
+
+
+
 });
 
 module.exports = mongoose.model("blogCard", BlogCardSchema);
