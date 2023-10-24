@@ -23,8 +23,8 @@ export default function Reviews() {
   return (
     <>
       <div className="my-32 max-lg:my-20 mx-auto ">
-        <div class="flex flex-col text-center w-full mb-10">
-          <h2 class="text-xs dark:text-secondary text-primaryMain font-medium title-font tracking-[5px]">
+        <div className="flex flex-col text-center w-full mb-10">
+          <h2 className="text-xs dark:text-secondary text-primaryMain font-medium title-font tracking-[5px]">
             USER EXPERIENCES
           </h2>
         </div>

@@ -391,7 +391,6 @@ router.post(
   }
 );
 
-
 // Add this route to update the username
 router.put("/updateUsername/:userId", fetchuser, async (req, res) => {
   try {
@@ -497,7 +496,6 @@ router.put("/updateSocialLinks/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
     const { socialLinks } = req.body;
-    console.log(socialLinks);
     const userDetail = await Userdetail.findOne({ userID: userId });
 
     if (!userDetail) {
@@ -514,6 +512,27 @@ router.put("/updateSocialLinks/:userId", async (req, res) => {
     res.status(500).send("Internal server error, something went wrong");
   }
 });
+// Update social links for a user
+router.put("/updateRelevant/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { relevant } = req.body;
+    console.log(relevant);
+    const userDetail = await Userdetail.findOne({ userID: userId });
 
+    if (!userDetail) {
+      return res.status(404).json({ message: "UserDetail not found" });
+    }
+
+    userDetail.relevant = relevant;
+
+    await userDetail.save();
+
+    res.json({ message: "Social links updated successfully" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal server error, something went wrong");
+  }
+});
 
 module.exports = router;

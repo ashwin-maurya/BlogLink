@@ -6,7 +6,7 @@ import Login from "./Login";
 import Register from "./Register";
 import { GoogleSignInAPI } from "../../../api/AuthAPI";
 import { toast } from "react-toastify";
-
+import RelevantModal from "./RelevantModal";
 export default function Authentication(props) {
   const host = "http://localhost:5001";
   const context = useContext(AuthContext);
@@ -21,7 +21,7 @@ export default function Authentication(props) {
   } = context;
   const [GooogleCreds, setGooogleCreds] = useState({});
 
-  const { ModalStatus } = props;
+  const { ModalStatus, RelevantModalStatus } = props;
   const modalRef = useRef(null);
   const [sign, setSign] = useState(true);
 
@@ -37,7 +37,7 @@ export default function Authentication(props) {
         localStorage.setItem("UserData", JSON.stringify(loggedin));
         ModalStatus();
         setAuthStatus(true);
-        toast.success("Account Loggedin Succesfully");
+        toast.success("Google Loggedin Succesfully");
       } else {
         toast.error("Invalid Credentials");
       }
@@ -46,7 +46,6 @@ export default function Authentication(props) {
 
   const goolesignin = async () => {
     let res = await GoogleSignInAPI();
-    console.log(res);
     if (res) {
       const parts = res.user.email.split("@");
       const username = parts[0];
@@ -87,7 +86,7 @@ export default function Authentication(props) {
       localStorage.setItem("UserData", JSON.stringify(json));
       ModalStatus();
       setAuthStatus(true);
-      toast.success("Google Loggedin Succesfully");
+      toast.success("Google Registration Succesfull");
       adduserdetail({
         description: "",
         work: "",
@@ -103,13 +102,13 @@ export default function Authentication(props) {
         },
       });
       getCurrentUser(JSON.parse(localStorage.getItem("UserData")).UserID);
+      RelevantModalStatus();
     } else {
       toast.error("Can't Register");
     }
   };
 
   const googlelogin = async (GoogleCreds) => {
-    //API call
     const response = await fetch(`${host}/api/auth/googlelogin`, {
       method: "POST",
       headers: {
@@ -134,7 +133,7 @@ export default function Authentication(props) {
     <>
       <div
         id="myModal"
-        className="fixed z-50 inset-0 flex items-center transition-all ease-in-out duration-300 justify-center backdrop-blur-sm bg-Opacityblack"
+        className="fixed z-49 inset-0 flex items-center transition-all ease-in-out duration-300 justify-center backdrop-blur-sm bg-Opacityblack"
         ref={modalRef}
         onClick={handleOutsideClick}
       >
@@ -154,6 +153,7 @@ export default function Authentication(props) {
               ModalStatus={ModalStatus}
               setAuthStatus={setAuthStatus}
               setSign={setSign}
+              RelevantModalStatus={RelevantModalStatus}
               goolesignin={goolesignin}
             />
           )}

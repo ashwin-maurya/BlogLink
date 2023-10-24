@@ -40,7 +40,6 @@ export default function BlogCard({ card }) {
   }, [UserDetails, card]);
 
   useEffect(() => {
-
     const date = new Date(card?.Date);
     const options = {
       year: "numeric",
@@ -84,7 +83,6 @@ export default function BlogCard({ card }) {
     <div className="flex dark:bg-darkBgPrimary my-2 rounded-xl bg-bgBlue flex-col p-6 w-[80%] max-lg:w-[95%] group">
       <div className="max-lg:gap-2  gap-8 flex  justify-center ">
         <div className="w-[70%]">
-
           <div className="flex justify-between  items-center">
             <div className="mb-2 flex  items-center justify-between max-lg:items-start max-lg:flex-col">
               <div className="max-lg:items-start max-lg:flex-col flex items-center">
@@ -96,7 +94,15 @@ export default function BlogCard({ card }) {
                     height={32}
                     alt="img"
                   />
-                  <p className="text-[14.5px] ml-2 font-semibold font-palanquin text-gray-700 dark:text-darkTextMain">
+                  <p
+                    className="text-[14.5px] ml-2 font-semibold font-palanquin text-gray-700 dark:text-darkTextMain"
+                    onClick={() => {
+                      navigate(
+                        `/profile/${card?.UserName?.replace(/\s+/g, "-")}`,
+                        {}
+                      );
+                    }}
+                  >
                     {card?.UserName}
                   </p>
                 </div>
@@ -105,7 +111,6 @@ export default function BlogCard({ card }) {
                 </span>
                 <p className="text-sm ml-1 font-semibold font-palanquin text-gray-400 dark:text-darkTextPrimary">
                   {date}
-
                 </p>
               </div>
             </div>

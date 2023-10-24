@@ -2,7 +2,12 @@ import { useState, useContext } from "react";
 import AuthContext from "../../../Helper/Context/AuthContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-export default function Register({ setSign, ModalStatus, setAuthStatus }) {
+export default function Register({
+  setSign,
+  ModalStatus,
+  setAuthStatus,
+  RelevantModalStatus,
+}) {
   const context = useContext(AuthContext);
   const { adduserdetail, getCurrentUser } = context;
 
@@ -22,14 +27,12 @@ export default function Register({ setSign, ModalStatus, setAuthStatus }) {
 
   const Register = async (e) => {
     e.preventDefault();
-    console.log("Register");
     const { name, password, email } = Registercreds;
     const parts = email.split("@");
     const username = parts[0];
     const response = await fetch(`${host}/api/auth/createuser`, {
       method: "POST",
       headers: {
-        //   'auth-token':localStorage.getItem("accessToken") ,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ username, name, email, password }),
@@ -37,7 +40,10 @@ export default function Register({ setSign, ModalStatus, setAuthStatus }) {
     const json = await response.json();
     if (json.success) {
       localStorage.setItem("UserData", JSON.stringify(json));
+
       setAuthStatus(true);
+      toast.success("Registered Successfully");
+
       adduserdetail({
         description: "",
         work: "",
@@ -52,11 +58,10 @@ export default function Register({ setSign, ModalStatus, setAuthStatus }) {
           twitter: "",
         },
       });
-      getCurrentUser(JSON.parse(localStorage.getItem("UserData")).UserID);
-
       ModalStatus();
 
-      toast.success("Registered Successfully");
+      getCurrentUser(JSON.parse(localStorage.getItem("UserData")).UserID);
+      RelevantModalStatus();
     } else {
       toast.error("Can't Register");
     }

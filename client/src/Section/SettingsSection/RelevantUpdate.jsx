@@ -1,11 +1,17 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "../../Helper/Context/AuthContext";
-
-export default function RelevantUpdate() {
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+export default function RelevantUpdate(props) {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const context = useContext(AuthContext);
   const { UserDetails, getCurrentUser } = context;
-  console.log(selectedOptions);
+  const host = "http://localhost:5001";
+  useEffect(() => {
+    setSelectedOptions(UserDetails?.relevant || []);
+  }, [UserDetails]);
+  const { RelevantModalStatus, firstSignUp = false } = props;
+
   const computerScienceOptions = [
     "React Js",
     "Python",
@@ -57,11 +63,13 @@ export default function RelevantUpdate() {
         }
       );
       const data = await response.json();
-      console.log(data);
 
       if (response.ok) {
-        toast.success("Password updated successfully");
+        toast.success("Updated successfully");
         getCurrentUser(JSON.parse(localStorage.getItem("UserData")).UserID);
+        if (firstSignUp) {
+          RelevantModalStatus();
+        }
       } else {
         toast.error(data.error);
       }
@@ -74,7 +82,7 @@ export default function RelevantUpdate() {
     <>
       <div className="w-full max-lg:w-[90%] h-auto py-5 px-10 flex rounded-lg bg-gray-100 dark:bg-darkBgPrimary shadow-xl flex-col">
         <form
-          className="form flex flex-col w-full  px-2"
+          className="form flex flex-col w-full  px-2 "
           onSubmit={(e) => {
             handleSubmit(e);
           }}
@@ -82,7 +90,7 @@ export default function RelevantUpdate() {
           <h3 className="mb-5 text-2xl font-medium text-gray-900 dark:text-white">
             Choose your preferences:
           </h3>
-          <ul className="flex flex-wrap gap-3">
+          <ul className="flex flex-wrap gap-3 overflow-y-scroll">
             {computerScienceOptions.map((option, index) => (
               <li key={index}>
                 <input

@@ -26,8 +26,8 @@ export default {
       },
       colors: {
         Opacityblack: "rgba(0, 0, 0, 0.15)",
-        bgBlue: "#f5f0ff",
-        primaryMain: "#8957E5",
+        bgBlue: "#e3eeff",
+        primaryMain: "#3b82f6",
         secondary: "#3b82f6",
         lightTextMain: "#000",
         darkTextMain: "#fff",
@@ -47,5 +47,3 @@ export default {
   },
   plugins: [],
 };
-
-
