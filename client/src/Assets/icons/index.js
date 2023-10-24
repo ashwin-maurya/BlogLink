@@ -8,7 +8,10 @@ import profileDefault from "./profileDefault.svg";
 import editPen from "./editPen.svg";
 import trash from "./trash.svg";
 import view from "./view.svg"
+import bookmark from "./bookmark.svg"
+import target from "./target.svg"
 export {
+  target,
   edit,
   trash,
   headerLogo,
@@ -18,5 +21,7 @@ export {
   light,
   profileDefault,
   editPen,
-  view
+  view,
+  bookmark,
+
 };

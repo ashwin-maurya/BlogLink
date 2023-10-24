@@ -5,26 +5,21 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import blogContext from "../../Helper/Context/blogContext";
 import { useContext, useEffect, useState } from "react";
-import HelperContext from "../../Helper/Context/HelperContext";
 import AuthContext from "../../Helper/Context/AuthContext";
-import { code1 } from "../../Assets/images";
-import { profileDefault, view } from "../../Assets/icons";
+import { profileDefault } from "../../Assets/icons";
 
 export default function BlogCard({ card }) {
   const context = useContext(blogContext);
   const { deletenote, host } = context;
   const context3 = useContext(AuthContext);
-  const { UserDetails, AuthStatus, getUser, UserProfile } = context3;
+  const { UserDetails, AuthStatus } = context3;
   const [date, setdate] = useState("");
   const [ShowEdit, setShowEdit] = useState(false);
   const [user, setuser] = useState("");
-  console.log(card);
+  // console.log(card);
   const onDelete = async () => {
     await deletenote(card?.postID);
   };
-
-  const startTime = new Date().getTime();
-  // console.log(startTime);
 
   useEffect(() => {
     if (AuthStatus) {
@@ -66,48 +61,50 @@ export default function BlogCard({ card }) {
           ? Userimage[0]?.profileImg
           : profileDefault
       );
-      // console.log(Userimage);
-      // console.log("from getimg");
     };
     func();
-
-    // console.log(UserProfile);
+    console.log(window.location.pathname);
   }, []);
 
   const navigate = useNavigate();
-  //Date function
 
-  // const navigate = useNavigate();
   return (
-    <div className="flex dark:bg-darkBgPrimary my-2 rounded-xl bg-bgBlue flex-col p-6 w-[80%] max-lg:w-[95%] group">
+    <div className="md:w-[77%]  md:m-auto flex md:my-2 dark:bg-darkBgPrimary my-2 rounded-xl bg-bgBlue flex-col p-6 pt-5 pb-2 w-[80%] max-lg:w-[95%] group">
       <div className="max-lg:gap-2  gap-8 flex  justify-center ">
         <div className="w-[70%]">
           <div className="flex justify-between  items-center">
             <div className="mb-2 flex  items-center justify-between max-lg:items-start max-lg:flex-col">
-              <div className="max-lg:items-start max-lg:flex-col flex items-center">
-                <div className="flex items-center ">
+              <div className=" flex items-center">
+                <div
+                  className=" group/author  flex items-center "
+                  onClick={() => {
+                    toast.success("Welcome to Profile");
+
+                    navigate(`/profile/${card?.UserName}`, {
+                      state: { id: card.userID },
+                    });
+                  }}
+                >
                   <img
                     src={user}
-                    className="bg-white h-6 w-6  rounded-full object-contain"
-                    width={28}
-                    height={32}
+                    className="border-[1px] border-purple-300 bg-white h-7 w-7  rounded-full object-contain"
                     alt="img"
                   />
-                  <p className="text-[14.5px] ml-2 font-semibold font-palanquin text-gray-700 dark:text-darkTextMain">
+                  <p className="group-hover/author:underline cursor-pointer transition-all ease-in-out duration-200  text-[16px] ml-2 font-semibold font-palanquin text-gray-700 dark:text-darkTextMain">
                     {card?.UserName}
                   </p>
                 </div>
                 <span className="text-sm ml-2 font-semibold font-palanquin text-gray-400 max-lg:hidden dark:text-darkTextPrimary">
                   -
                 </span>
-                <p className="text-sm ml-1 font-semibold font-palanquin text-gray-400 dark:text-darkTextPrimary">
+                <p className="text-sm ml-1 font-semibold font-palanquin text-gray-500 dark:text-darkTextPrimary">
                   {date}
                 </p>
               </div>
-            </div>
-            <div className="mr-20 flex ">
-              <img className="opacity-40" src={view} alt="v" />
-              <p className="text-[15px] text-gray-600 ml-1">{card?.view}</p>
+              <div className="ml-4 flex items-center">
+                <i className="dark:text-white fa fa-eye  text-gray-600  text-[17px] hover:text-primaryMain "></i>
+                <p className="text-[14px] text-gray-600 ml-1">{card?.view}</p>
+              </div>
             </div>
           </div>
 
@@ -125,6 +122,23 @@ export default function BlogCard({ card }) {
               {card?.Title}
             </h3>
           </div>
+          <div className="py-1 flex gap-2 justify-start items-center">
+            <button
+              className="p-1 rounded-md text-[15px] text-white px-2 bg-primaryMain border-black"
+              onClick={() => {
+                toast.success("Welcome to Blog");
+
+                navigate(`/blogs/${card?.Title?.replace(/\s+/g, "-")}`, {
+                  state: { id: card.postID, view: card?.view },
+                });
+              }}
+            >
+              Read
+            </button>
+            <button className="p-1 rounded-md text-[15px] text-white px-2 bg-primaryMain  border-black">
+              Save
+            </button>
+          </div>
         </div>
         <div className="relative flex items-center justify-center w-[30%]">
           <div className="absolute -top-1 -left-4 z-30">
@@ -132,24 +146,39 @@ export default function BlogCard({ card }) {
               {card?.Category}
             </p>
           </div>
-          <div className="overflow-hidden rounded-lg z-20">
+          <div
+            className="overflow-hidden mt-2 rounded-lg z-20"
+            onClick={() => {
+              toast.success("Welcome to Blog");
+
+              navigate(`/blogs/${card?.Title?.replace(/\s+/g, "-")}`, {
+                state: { id: card.postID, view: card?.view },
+              });
+            }}
+          >
             <img
               src={card?.Blog_url}
               className="content-evenly transition-all ease-in-out duration-200 group-hover:scale-[1.2] "
-              width={180}
+              width={280}
               alt="codeimg"
             />
           </div>
         </div>
       </div>
 
-      <div className="relative  flex justify-between items-center  flex-wrap w-full mt-2">
-        <div className="flex">
+      <div className="relative pb-1 flex justify-between items-center  flex-wrap w-full mt-1">
+        <div className="flex gap-3  items-center ">
           {card?.tags.map((tag, index) => (
             <Tags key={index} tags={tag} />
           ))}{" "}
         </div>
-        {ShowEdit && (
+        <div className="flex   items-center  gap-6  mr-1 mt-2">
+          <i className="dark:text-white fa fa-bookmark  text-gray-600 hover:text-primaryMain text-[15px] "></i>
+
+          <i className="dark:text-white fa fa-share  text-gray-600 hover:text-primaryMain text-[15px] "></i>
+          <i className="dark:text-white text-gray-600 fa fa-ellipsis-v"> </i>
+        </div>
+        {ShowEdit && window.location.pathname != "/blog" && (
           <div className="hidden px-4 py-1 rounded-full group/buttons  group-hover:block dark:hover:bg-slate-700 hover:bg-blue-100">
             <div
               className="hidden   space-x-3 pr-2

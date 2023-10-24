@@ -78,7 +78,22 @@ router.get("/getLatestBLogs", async (req, res) => {
 // })
 
 
+router.post("/gettopblogs/:range", async (req, res) => {
+    try {
+        console.log(req.params.range)
+        console.log("req.params.range")
 
+        let blog = await blogCard.find().sort({ view: 1 }).collation({ locale: "en_US", numericOrdering: true })
+
+
+        res.json(blog)
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Sever error,Something in the way");
+    }
+
+
+})
 
 
 

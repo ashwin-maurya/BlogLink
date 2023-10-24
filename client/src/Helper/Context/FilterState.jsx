@@ -35,9 +35,28 @@ const FilterState = (props) => {
     setfilterBlogs(resp);
   };
 
+  const getTopBlogs = async (range) => {
+    console.log(range);
+    let response = await fetch(`${host}/api/filter/gettopblogs/${range}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    let resp = await response.json();
+    console.log(resp);
+    setfilterBlogs(resp);
+  };
   return (
     <FilterContext.Provider
-      value={{ getrelevantblogs, getlatestblogs, filterBlogs, setfilterBlogs }}
+      value={{
+        getrelevantblogs,
+        getlatestblogs,
+        filterBlogs,
+        setfilterBlogs,
+        getTopBlogs,
+      }}
     >
       {props.children}
     </FilterContext.Provider>
