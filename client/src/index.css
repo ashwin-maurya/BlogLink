@@ -39,6 +39,13 @@ body {
   overflow-x: hidden;
 }
 @layer components {
+  .button-gradient {
+    background: linear-gradient(
+      90.4deg,
+      rgb(248, 52, 246) 0.6%,
+      rgb(152, 38, 252) 90%
+    );
+  }
   .max-container {
     max-width: 1600px;
     margin: 0 auto;

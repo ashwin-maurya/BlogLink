@@ -8,14 +8,14 @@ export default function LeftSection() {
   const context = useContext(blogContext);
   const { blog, getblogs } = context;
   const context2 = useContext(FilterContext);
-  const { getrelevantblogs, getlatestblogs, filterBlogs } = context2;
+  const { getrelevantblogs, getlatestblogs, filterBlogs, getTopBlogs } =
+    context2;
   const context3 = useContext(AuthContext);
   const { UserDetails } = context3;
-
   const [filterState, setfilterState] = useState("");
   const [BLogsArray, setBLogsArray] = useState([]);
   const [loading, setLoading] = useState(true);
-  // get all blogs and intialize filterval from previous refresh-----------------------------------------------
+  // get all blogs and intialize filterval from previous refresh-------------------------------
   useEffect(() => {
     setfilterState(localStorage.getItem("filterval"));
     getblogs()
@@ -40,6 +40,10 @@ export default function LeftSection() {
       console.log("called relevant");
       getrelevantblogs(UserDetails?.relevant);
     }
+    if (filterState === "top") {
+      console.log("called top");
+      getTopBlogs("week");
+    }
     if (filterState === "latest") {
       console.log("called latest");
 
@@ -49,24 +53,35 @@ export default function LeftSection() {
     if (filterState === "all") {
       console.log("called all");
       getblogs();
-      setBLogsArray(blog);
     }
 
     console.log(BLogsArray);
   }, [UserDetails, filterState]);
 
+  const [newArray, setnewArray] = useState([]);
   useEffect(() => {
     setBLogsArray(filterBlogs);
+    let array = [...BLogsArray];
+    array.reverse();
+    setnewArray(array);
   }, [filterBlogs]);
+  useEffect(() => {
+    setBLogsArray(blog);
+    let array = [...blog];
+    array.reverse();
+    setnewArray(array);
+  }, [blog]);
+
   // console.log(blog);
 
-  //filter frontend section-------------------------------------------------------------------------------------
+  //filter frontend section-------------------------------------------------------------------
   const onRelevanthandle = (e) => {
     setshowMoreOption(() => {
       false;
     });
     setInLocal(e);
   };
+
   const onLatesthandle = (e) => {
     setshowMoreOption(() => {
       false;
@@ -84,6 +99,13 @@ export default function LeftSection() {
     console.log();
     setInLocal(e);
   };
+  // ------------------------------------------
+  // FILTER TOP
+
+  const Topfilter = (e) => {
+    localStorage.setItem("filterTop", e.target.value);
+    setvalue(e.target.value);
+  };
 
   const setInLocal = (e) => {
     localStorage.setItem("filterval", e.target.value);
@@ -91,14 +113,16 @@ export default function LeftSection() {
     setvalue(e.target.value);
   };
 
-  useEffect(() => {}, [value]);
+  useEffect(() => {}, [value, newArray]);
 
   return (
-    <section className="flex justify-center max-lg:justify-start  flex-col rounded-md">
-      <div className="flex flex-col w-full items-center ">
+    <section className=" flex justify-center max-lg:justify-start  flex-col rounded-md ">
+      <div className=" flex flex-col w-full items-center ">
         <div
-          className="mt-4 
-         flex max-lg:px-2 max-lg:w-full lg:w-[80%] justify-between max-md:flex-col"
+          className={` md:${
+            localStorage.getItem("filterval") == "top" && "px-8"
+          } md:px-20 mt-4  lg:px-0
+         flex max-lg:px-2 max-lg:w-full lg:w-[77%] justify-between lg:flex-col  max-md:flex-col xl:gap-3  xl:flex-row`}
         >
           <div className="flex  gap-2">
             <button
@@ -147,16 +171,48 @@ export default function LeftSection() {
             </button>
           </div>
           <div className={`${showMoreOption ? "block" : "hidden"} flex gap-1`}>
-            <button className="dark:text-white dark:bg-darkBgPrimary dark:hover:bg-secondary  hover:bg-bgBlue pl-3 pr-3 p-2 rounded-md">
+            <button
+              className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
+                localStorage.getItem("filterTop") == "week" && "bg-bgBlue"
+              } pl-3 pr-3 p-2 rounded-md`}
+              value="week"
+              onClick={(e) => {
+                Topfilter(e);
+              }}
+            >
               Week
             </button>
-            <button className="dark:text-white dark:bg-darkBgPrimary dark:hover:bg-secondary   hover:bg-bgBlue pl-3 pr-3 p-2 rounded-md">
+            <button
+              className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
+                localStorage.getItem("filterTop") == "month" && "bg-bgBlue"
+              } pl-3 pr-3 p-2 rounded-md`}
+              value="month"
+              onClick={(e) => {
+                Topfilter(e);
+              }}
+            >
               Month
             </button>
-            <button className="dark:text-white dark:bg-darkBgPrimary dark:hover:bg-secondary  hover:bg-bgBlue pl-3 pr-3 p-2 rounded-md">
+            <button
+              className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
+                localStorage.getItem("filterTop") == "year" && "bg-bgBlue"
+              } pl-3 pr-3 p-2 rounded-md`}
+              value="year"
+              onClick={(e) => {
+                Topfilter(e);
+              }}
+            >
               Year
             </button>
-            <button className="dark:text-white dark:bg-darkBgPrimary dark:hover:bg-secondary   hover:bg-bgBlue pl-3 pr-3 p-2 rounded-md">
+            <button
+              className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
+                localStorage.getItem("filterTop") == "infinity" && "bg-bgBlue"
+              } pl-3 pr-3 p-2 rounded-md`}
+              value="infinity"
+              onClick={(e) => {
+                Topfilter(e);
+              }}
+            >
               Infinity
             </button>
           </div>
@@ -165,7 +221,7 @@ export default function LeftSection() {
           ? Array.from({ length: 3 }, (_, index) => (
               <BlogCardSkeleton key={index} />
             ))
-          : BLogsArray.map((card, index) => (
+          : newArray?.map((card, index) => (
               <BlogCard key={index} card={card}></BlogCard>
             ))}
       </div>

@@ -30,7 +30,8 @@ const BlogCardSchema = new mongoose.Schema({
     // required: true
   },
   view: {
-    type: String
+    type: String,
+    default: "0"
   },
   Date: {
     default: Date.now,
