@@ -7,10 +7,7 @@ const ThreeCarketeers = () => {
   const { getblogs, blog } = context;
 
   useEffect(() => {
-    const func = async () => {
-      getblogs();
-    };
-    func();
+    getblogs();
   }, []);
   return (
     <>

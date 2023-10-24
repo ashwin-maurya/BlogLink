@@ -44,6 +44,7 @@ export default function BlogCard({ card }) {
     setdate(date.toLocaleString("en-US", options));
 
     console.log(card?.UserName);
+
     const func = async () => {
       const response1 = await fetch(
         `${host}/api/blogs/userImg/${card?.userID}`,
@@ -90,7 +91,16 @@ export default function BlogCard({ card }) {
                     className="border-[1px] border-purple-300 bg-white h-7 w-7  rounded-full object-contain"
                     alt="img"
                   />
-                  <p className="group-hover/author:underline cursor-pointer transition-all ease-in-out duration-200  text-[16px] ml-2 font-semibold font-palanquin text-gray-700 dark:text-darkTextMain">
+
+                  <p
+                    className="text-[14.5px] ml-2 font-semibold font-palanquin text-gray-700 dark:text-darkTextMain"
+                    onClick={() => {
+                      navigate(
+                        `/profile/${card?.UserName?.replace(/\s+/g, "-")}`,
+                        {}
+                      );
+                    }}
+                  >
                     {card?.UserName}
                   </p>
                 </div>

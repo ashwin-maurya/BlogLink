@@ -39,6 +39,7 @@ router.post(
         name: req.body.name,
         password: secPass,
         email: req.body.email,
+        isGoogleSignup: false,
       });
       const data = {
         user: {
@@ -48,7 +49,12 @@ router.post(
       const authtoken = jwt.sign(data, JWT_SECRET);
       success = true;
 
-      res.json({ success: success, authtoken: authtoken, UserID: user.id });
+      res.json({
+        success: success,
+        authtoken: authtoken,
+        UserID: user.id,
+        isGoogleSignup: user.isGoogleSignup,
+      });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Sever error,Something  in the way");
@@ -85,6 +91,7 @@ router.post(
         name: req.body.name,
         password: "",
         email: req.body.email,
+        isGoogleSignup: true,
       });
       const data = {
         user: {
@@ -94,7 +101,12 @@ router.post(
       const authtoken = jwt.sign(data, JWT_SECRET);
       success = true;
 
-      res.json({ success: success, authtoken: authtoken, UserID: user.id });
+      res.json({
+        success: success,
+        authtoken: authtoken,
+        UserID: user.id,
+        isGoogleSignup: user.isGoogleSignup,
+      });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Sever error,Something  in the way");
@@ -140,7 +152,12 @@ router.post(
         },
       };
       const authtoken = jwt.sign(payload, JWT_SECRET);
-      res.json({ success: true, authtoken: authtoken, UserID: user.id });
+      res.json({
+        success: true,
+        authtoken: authtoken,
+        UserID: user.id,
+        isGoogleSignup: user.isGoogleSignup,
+      });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Sever error,Something in the way");
@@ -174,7 +191,12 @@ router.post(
         },
       };
       const authtoken = jwt.sign(payload, JWT_SECRET);
-      res.json({ success: true, authtoken: authtoken, UserID: user.id });
+      res.json({
+        success: true,
+        authtoken: authtoken,
+        UserID: user.id,
+        isGoogleSignup: user.isGoogleSignup,
+      });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Sever error,Something in the way");
@@ -209,10 +231,7 @@ router.get("/getCurrentuserDetails/:userID", async (req, res) => {
 
 router.get("/getuser", async (req, res) => {
   try {
-
-
     const username = req.query.username;
-
 
     const user = await User.findOne({ username });
 
@@ -270,6 +289,7 @@ router.post("/adduserdetail", fetchuser, async (req, res) => {
       location,
       profileImg,
       bannerImg,
+      socialLinks,
     } = req.body;
     console.log(userID);
     const errors = validationResult(req);
@@ -291,6 +311,7 @@ router.post("/adduserdetail", fetchuser, async (req, res) => {
       location,
       profileImg,
       bannerImg,
+      socialLinks,
     });
 
     const createdUserDetails = await newUserDetails.save();
@@ -370,8 +391,148 @@ router.post(
   }
 );
 
+// Add this route to update the username
+router.put("/updateUsername/:userId", fetchuser, async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { username } = req.body;
+    console.log(userId);
+    console.log(username);
+    // Check if the new username is available
+    const existingUser = await User.findOne({ username });
 
+    if (existingUser) {
+      return res.status(400).json({ message: "Username already exists." });
+    }
 
+    // Update the username for the user with the given userId
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { username },
+      { new: true }
+    );
 
+    res.json({ user: updatedUser });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal server error, something went wrong");
+  }
+});
+
+// Add this route to check username availability
+router.get("/checkUsernameAvailability", async (req, res) => {
+  try {
+    const { username } = req.query;
+    const user = await User.findOne({ username });
+
+    if (user) {
+      res.json({ available: false });
+    } else {
+      res.json({ available: true });
+    }
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal server error, something went wrong");
+  }
+});
+
+// Add this route to update the user's password
+router.put("/updatePassword/:userId", fetchuser, async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { oldPassword, newPassword } = req.body;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const isPasswordValid = await bycrypt.compare(oldPassword, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(400).json({ error: "Old password is incorrect" });
+    }
+
+    const salt = await bycrypt.genSalt(10);
+    const hashedPassword = await bycrypt.hash(newPassword, salt);
+
+    user.password = hashedPassword;
+    await user.save();
+
+    res.json({ message: "Password updated successfully" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal server error, something went wrong");
+  }
+});
+router.put("/setpassword/:userId", fetchuser, async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { newPassword } = req.body;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const salt = await bycrypt.genSalt(10);
+    const hashedPassword = await bycrypt.hash(newPassword, salt);
+
+    user.password = hashedPassword;
+    user.isGoogleSignup = false;
+    await user.save();
+
+    res.json({ message: "Password set successfully" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal server error, something went wrong");
+  }
+});
+
+// Update social links for a user
+router.put("/updateSocialLinks/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { socialLinks } = req.body;
+    const userDetail = await Userdetail.findOne({ userID: userId });
+
+    if (!userDetail) {
+      return res.status(404).json({ message: "UserDetail not found" });
+    }
+
+    userDetail.socialLinks = socialLinks;
+
+    await userDetail.save();
+
+    res.json({ message: "Social links updated successfully" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal server error, something went wrong");
+  }
+});
+// Update social links for a user
+router.put("/updateRelevant/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { relevant } = req.body;
+    console.log(relevant);
+    const userDetail = await Userdetail.findOne({ userID: userId });
+
+    if (!userDetail) {
+      return res.status(404).json({ message: "UserDetail not found" });
+    }
+
+    userDetail.relevant = relevant;
+
+    await userDetail.save();
+
+    res.json({ message: "Social links updated successfully" });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal server error, something went wrong");
+  }
+});
 
 module.exports = router;

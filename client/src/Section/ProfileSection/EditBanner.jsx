@@ -6,8 +6,6 @@ export default function EditBanner(props) {
     BannerModal,
     getBannerImage,
     uploadbannerimg,
-    showProfileModal,
-    setProfileModal,
     currentBannerImage,
     progress,
   } = props;
@@ -45,11 +43,14 @@ export default function EditBanner(props) {
                     src="https://img.freepik.com/free-vector/creative-office-workers-illustration_33099-2336.jpg?w=900&t=st=1696679862~exp=1696680462~hmac=fa08f13c8840ebc7e52b713274d97286fc0f471a8139ec8af0d09d6875bf2ae8"
                     alt="freepik image"
                   />
-                  <p>{currentBannerImage?.name}</p>
-                  <p className="pointer-none text-gray-500 ">
-                    <span className="text-sm">Please select an jpg/jpeg</span>{" "}
-                    file from your computer
-                  </p>
+                  {currentBannerImage?.name ? (
+                    <p>{currentBannerImage?.name}</p>
+                  ) : (
+                    <p className="pointer-none text-gray-500 ">
+                      <span className="text-sm">Please select an jpg/jpeg</span>{" "}
+                      file from your computer
+                    </p>
+                  )}
                 </div>
                 {progress === 0 ? (
                   <></>
@@ -74,6 +75,7 @@ export default function EditBanner(props) {
               type="primary"
               color="purple"
               onClick={uploadbannerimg}
+              className="button-submit my-2 text-white rounded-full p-2 px-6 font-bold bg-primaryMain dark:bg-secondary cursor-pointer"
             >
               Upload Profile Picture
             </Button>

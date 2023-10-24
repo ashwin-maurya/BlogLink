@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Leftsection from "../Section/SettingsSection/Leftsection";
 import Rightsection from "../Section/SettingsSection/Rightsection";
+import { useNavigate } from "react-router-dom";
+
 export default function SettingsPage() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!JSON.parse(localStorage.getItem("UserData"))) {
+      navigate("/");
+    }
+  });
+
   return (
     <>
       <section className="max-container flex min-h-screen   justify-between  max-lg:flex-col">

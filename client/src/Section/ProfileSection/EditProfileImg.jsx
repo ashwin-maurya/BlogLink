@@ -1,24 +1,29 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Button, Modal, Progress } from "antd";
 
 export default function EditProfileImg(props) {
-  const {
-    ProfileImg,
-    getImage,
-    uploadImage2,
-    showProfileModal,
-    setProfileModal,
-    currentImage,
-    progress,
-  } = props;
+  const { ProfileImg, getImage, uploadImage2, currentImage, progress } = props;
 
   const ProfileImgRef = useRef(null);
+  const [selectedImageName, setSelectedImageName] = useState(null);
 
   const handleOutsideClick = (event) => {
     if (ProfileImgRef.current === event.target) {
       ProfileImg();
+      setSelectedImageName(null);
     }
   };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedImageName(file.name);
+    } else {
+      setSelectedImageName(null);
+    }
+    getImage(e);
+  };
+
   return (
     <>
       <div
@@ -34,9 +39,7 @@ export default function EditProfileImg(props) {
 
           <form
             className="form flex flex-col w-full  px-2"
-            onChange={(e) => {
-              getImage(e);
-            }}
+            onChange={handleImageChange}
           >
             <div className="flex items-center justify-center w-full">
               <label className="flex flex-col rounded-lg border-4 border-dashed w-full p-10 group text-center">
@@ -46,10 +49,13 @@ export default function EditProfileImg(props) {
                     src="https://img.freepik.com/free-vector/customer-support-flat-illustration_23-2148892786.jpg?w=900&t=st=1696679801~exp=1696680401~hmac=8155e27b46a2e39d8a3e40fcf43a2227156c5e3fc42e1d34f4a35ac9c9fafc87"
                     alt="freepik image"
                   />
-                  <p>{currentImage?.name}</p>
+                  {/* <p>{selectedImageName || currentImage?.name}</p> */}
                   <p className="pointer-none text-gray-500 ">
-                    <span className="text-sm">Please select an jpg/jpeg</span>{" "}
-                    file from your computer
+                    <span className="text-sm">
+                      {selectedImageName
+                        ? selectedImageName
+                        : "Please select an jpg/jpeg file from your computer"}
+                    </span>{" "}
                   </p>
                 </div>
                 {progress === 0 ? (
@@ -60,24 +66,16 @@ export default function EditProfileImg(props) {
                   </div>
                 )}
                 <input
-                  onChange={(e) => {
-                    getImage(e);
-                  }}
+                  onChange={handleImageChange}
                   type="file"
                   className="hidden"
                 />
               </label>
             </div>
 
-            {/* <input
-              id="next"
-              type="submit"
-              value="Upload"
-              onClick={uploadImage}
-              className="button-submit my-2 text-white rounded-full p-2 font-bold bg-primaryMain dark:bg-secondary cursor-pointer"
-            /> */}
             <Button
-              disabled={currentImage?.name ? false : true}
+              className="button-submit my-2 text-white rounded-full p-2 px-6 font-bold bg-primaryMain dark:bg-secondary cursor-pointer"
+              disabled={selectedImageName ? false : true}
               key="submit"
               type="primary"
               color="purple"

@@ -43,7 +43,7 @@ export default function Login({ setSign, ModalStatus, goolesignin }) {
 
   return (
     <>
-      <div className="container flex flex-col justify-center items-center max-sm:p-5 p-10 max-lg:py-20 max-lg:px-20 w-[50%] max-lg:w-[90%]">
+      <div className="container flex flex-col justify-center items-center max-sm:p-5 p-10 max-lg:py-20 max-lg:px-20 w-[50%] max-lg:w-[90%] ">
         <p className="font-bold text-black dark:text-darkTextMain">Sign In</p>
 
         <button

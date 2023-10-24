@@ -48,6 +48,15 @@ const AuthState = (props) => {
     const json = await response.json();
     setLoggedin(json);
     setLoggedinStatus(json.success);
+    adduserdetail({
+      description: "",
+      work: "",
+      education: "",
+      location: "",
+      profileImg: "",
+      bannerImg: "",
+      socialLinks: {},
+    });
   };
 
   //Get all notes
@@ -89,6 +98,8 @@ const AuthState = (props) => {
           profileImg: UserDetail.profileImg,
           bannerImg: UserDetail.bannerImg,
           relevant: UserDetail.relevant,
+          socialLinks: UserDetail.socialLinks,
+
         };
         setUserDetails(updatedUserDetails);
       } else {
@@ -135,6 +146,7 @@ const AuthState = (props) => {
           profileImg: UserDetail.profileImg,
           bannerImg: UserDetail.bannerImg,
           relevant: UserDetail.relevant,
+          socialLinks: UserDetail.socialLinks,
         };
         console.log(updatedUserDetails);
 
@@ -177,8 +189,15 @@ const AuthState = (props) => {
   const adduserdetail = async (userDetail) => {
     //API call
     // const userID = UserDetails._id;
-    const { description, work, education, location, profileImg, bannerImg } =
-      userDetail;
+    const {
+      description,
+      work,
+      education,
+      location,
+      profileImg,
+      bannerImg,
+      socialLinks,
+    } = userDetail;
     const obj = JSON.parse(localStorage.getItem("UserData"));
     const userID = obj.UserID;
     const response = await fetch(`${host}/api/auth/adduserdetail`, {
@@ -195,6 +214,7 @@ const AuthState = (props) => {
         location,
         profileImg,
         bannerImg,
+        socialLinks,
       }),
     });
     const ProfileUpdated = await response.json();

@@ -13,7 +13,7 @@ export default function NewsletterCard() {
         </div>
         <button
           type="submit"
-          className="border-2 border-slate-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-[#ffa352] rounded-md bg-primaryMain dark:bg-secondary px-4 py-1 font-semibold text-white  "
+          className="border-2 border-slate-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500   rounded-md bg-primaryMain dark:bg-secondary px-4 py-1 font-semibold text-white  "
           data-te-ripple-init
           data-te-ripple-color="light"
         >

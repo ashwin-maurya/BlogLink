@@ -1,37 +1,95 @@
-import React from "react";
-import { useNavigate } from "react-router";
+import { Tags } from "../../Component/common";
+import { useNavigate } from "react-router-dom";
 
-export default function LandingCards(props) {
-  const { card } = props;
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import blogContext from "../../Helper/Context/blogContext";
+import { useContext, useEffect, useState } from "react";
+import HelperContext from "../../Helper/Context/HelperContext";
+import AuthContext from "../../Helper/Context/AuthContext";
+import { code1 } from "../../Assets/images";
+import { profileDefault, view } from "../../Assets/icons";
+
+export default function LandingCards({ card }) {
+  const context = useContext(blogContext);
+  const { deletenote, host } = context;
   const navigate = useNavigate();
+  const context3 = useContext(AuthContext);
+  const { UserDetails, AuthStatus, getUser, UserProfile } = context3;
+  const [date, setdate] = useState("");
+  const [ShowEdit, setShowEdit] = useState(false);
+  const [user, setuser] = useState("");
+  console.log(card);
+  const onDelete = async () => {
+    await deletenote(card?.postID);
+  };
+
+  const startTime = new Date().getTime();
+
+  useEffect(() => {
+    if (AuthStatus) {
+      if (card?.userID === UserDetails?._id) {
+        setShowEdit(true);
+      } else {
+        setShowEdit(false);
+      }
+    } else {
+      setShowEdit(false);
+    }
+  }, [UserDetails, card]);
+
+  useEffect(() => {
+    const date = new Date(card?.Date);
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    setdate(date.toLocaleString("en-US", options));
+
+    console.log(card?.UserName);
+
+    const func = async () => {
+      const response1 = await fetch(
+        `${host}/api/blogs/userImg/${card?.userID}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const Userimage = await response1.json();
+      setuser(
+        Userimage[0]?.profileImg != ""
+          ? Userimage[0]?.profileImg
+          : profileDefault
+      );
+    };
+    func();
+  }, []);
+
   return (
     <>
       <article className="break-inside-avoid mx-auto w-[100%] max-md:w-[95%] p-6 bg-bgBlue rounded-xl  dark:bg-darkBgPrimary flex flex-col bg-clip-border  my-5 group">
         <div className="flex pb-4 items-center justify-between">
           <div className="flex">
-            <a className="inline-block mr-4" href="#">
-              <img
-                className="rounded-full max-w-none w-14 h-auto max-md:w-10 "
-                src={card.Author_url}
-              />
-            </a>
-            <div className="flex flex-col justify-center">
+            <img className="rounded-full max-w-none w-10 h-10" src={user} />
+            <div className="flex flex-col justify-center ml-2">
               <div
-                className="flex items-center dark:text-darkTextMain"
+                className="flex items-center dark:text-darkTextMain cursor-pointer font-semibold"
                 onClick={() => {
                   navigate(
-                    `/author/${card?.Author_name?.replace(/\s+/g, "-")}`,
-                    {
-                      state: { card },
-                    }
+                    `/profile/${card?.UserName?.replace(/\s+/g, "-")}`,
+                    {}
                   );
                 }}
               >
-                {card.Author_name}
+                {card?.UserName}
               </div>
-              <div className="text-slate-500 max-md:text-xs  dark:text-darkTextPrimary">
-                {/* {card.date} */}
-                28 August, 2023
+              <div className="text-slate-500 text-xs  dark:text-darkTextPrimary">
+                {date}
               </div>
             </div>
           </div>
@@ -39,8 +97,8 @@ export default function LandingCards(props) {
         <h2
           className="text-xl leading-7 font-bold font-serif   max-md:text-2xl  dark:text-darkTextMain group-hover:text-primaryMain  dark:group-hover:text-secondary"
           onClick={() => {
-            navigate(`/${card?.Title?.replace(/\s+/g, "-")}`, {
-              state: { card },
+            navigate(`/blogs/${card?.Title?.replace(/\s+/g, "-")}`, {
+              state: { id: card.postID, view: card?.view },
             });
           }}
         >
@@ -48,14 +106,8 @@ export default function LandingCards(props) {
           {card.Title}
         </h2>
         <div className="py-4">
-          <a className="flex" href="#">
-            <img className="max-w-full rounded-lg" src={card.Blog_url} />
-          </a>
+          <img className="max-w-full rounded-lg" src={card.Blog_url} />
         </div>
-        {/* <p className="max-md:hidden  dark:text-darkTextMain">
-          {card.Description.slice(0, 210) +
-            (card.description.length > 210 ? "..." : "")}
-        </p> */}
         <div className="pt-4">
           <a className="inline-flex items-center" href="#">
             <span className="mr-2">
