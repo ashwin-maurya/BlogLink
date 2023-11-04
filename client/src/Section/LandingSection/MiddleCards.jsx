@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { LandingCards } from "../../Component/common";
 import blogContext from "../../Helper/Context/blogContext";
+import { Link } from "react-router-dom";
 
 const ThreeCarketeers = () => {
   const context = useContext(blogContext);
@@ -20,10 +21,18 @@ const ThreeCarketeers = () => {
             Trending Reads of the Day
           </h1>
         </div>
-        <div className="box-border px-2 max-md:mx-1 gap-6 sm:columns-1 mx-10 mb-10 md:columns-2 lg:columns-3 xl:columns-3">
+        <div className="box-border px-2 max-md:mx-1 gap-6 max-sm:columns-1 sm:columns-2 mx-10 mb-10 md:columns-2 lg:columns-3 xl:columns-3">
           {blog?.slice(0, 6)?.map((card, index) => (
             <LandingCards key={index} card={card}></LandingCards>
           ))}
+        </div>
+        <div className="flex flex-col text-center w-full mb-10 ">
+          <Link
+            to="/blog"
+            className="text-md font-semibold text-primaryMain   hover:text-blue-400 cursor-pointer "
+          >
+            Read More...
+          </Link>
         </div>
       </div>
     </>

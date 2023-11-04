@@ -217,13 +217,15 @@ export default function LeftSection() {
             </button>
           </div>
         </div>
-        {loading
-          ? Array.from({ length: 3 }, (_, index) => (
-              <BlogCardSkeleton key={index} />
-            ))
-          : newArray?.map((card, index) => (
-              <BlogCard key={index} card={card}></BlogCard>
-            ))}
+        <div className="p-3">
+          {loading
+            ? Array.from({ length: 3 }, (_, index) => (
+                <BlogCardSkeleton key={index} />
+              ))
+            : newArray?.map((card, index) => (
+                <BlogCard key={index} card={card}></BlogCard>
+              ))}
+        </div>
       </div>
     </section>
   );

@@ -131,10 +131,10 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
 
             {UserMatch && (
               <div className=" absolute bg-white dark:bg-darkBgPrimary  top-0 right-0 border-2 border-bgBlue  dark:border-darkBgMain rounded-full m-2 ">
-                <div className="hover:bg-bgBlue  rounded-t-full">
+                <div className="hover:bg-bgBlue  rounded-t-full dark:hover:bg-darkBgMain ">
                   <img src={editPen} className="p-2" onClick={BannerModal} />
                 </div>
-                <div className="hover:bg-bgBlue rounded-b-full">
+                <div className="hover:bg-bgBlue rounded-b-full dark:hover:bg-darkBgMain ">
                   <img src={trash} className="p-2" onClick={deletebannerimg} />
                 </div>
               </div>
@@ -143,9 +143,9 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
         </div>
       </section>
 
-      <section className="relative pt-8 ">
+      <section className="relative pt-8">
         <div className="container mx-auto px">
-          <div className="relative flex flex-col min-w-0 bg-white  dark:bg-darkBgPrimary w-[60%] max-lg:w-[95%] mx-auto mb-6 shadow-md rounded-lg -mt-60 p-10 max-lg:py-5 max-lg:px-2">
+          <div className="relative flex flex-col min-w-0 bg-white  dark:bg-darkBgPrimary w-[60%] max-lg:w-[95%] mx-auto mb-6 shadow-md rounded-lg -mt-60 p-10 max-lg:py-2 max-lg:px-2">
             <div className=" flex flex-wrap relative justify-center flex-row max-lg:justify-between  ">
               <div className="group/buttons absolute max-lg:relative ">
                 <img
@@ -160,12 +160,12 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
 
                 {UserMatch && (
                   <div className="absolute bg-white dark:bg-darkBgPrimary dark:border-darkBgMain  flex -bottom-4 right-9  rounded-full m-2 border-2 border-bgBlue ">
-                    <div className="hover:bg-bgBlue rounded-l-full">
+                    <div className="hover:bg-bgBlue rounded-l-full dark:hover:bg-darkBgMain ">
                       <img src={editPen} className="p-2" onClick={ProfileImg} />
                     </div>
                     <img
                       src={trash}
-                      className="p-2 hover:bg-bgBlue rounded-r-full"
+                      className="p-2 hover:bg-bgBlue rounded-r-full dark:hover:bg-darkBgMain "
                       onClick={deleteimg}
                     />
                   </div>
@@ -214,7 +214,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
                 {UserMatch && (
                   <div className=" right-0 top-0">
                     <button
-                      className=" hover:bg-bgBlue rounded-full  font-semibold text-white"
+                      className=" hover:bg-bgBlue dark:hover:bg-darkBgMain rounded-full  font-semibold text-white"
                       onClick={() => {
                         navigate(`/settings`, {});
                       }}
@@ -228,7 +228,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
                 )}
               </div>
             </div>
-            <div className="p-4 my-4">
+            <div className="p-4 my-4 flex flex-col justify-center items-center max-lg:items-start">
               <h3 className="text-3xl font-semibold leading-normals text-blueGray-700  dark:text-darkTextMain">
                 {UserProfile?.name}
               </h3>
@@ -259,7 +259,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
                   </div>
                 </div>
               </div>
-              <div className="w-[50%] max-lg:w-[100%] rounded-lg p-5 max-lg:mt-2 bg-bgBlue dark:bg-darkBgMain">
+              <div className="w-[50%] max-lg:w-[100%] rounded-lg p-5 bg-bgBlue dark:bg-darkBgMain">
                 <div className="flex items-center">
                   <div className="w-[20%] max-lg:w-[10%] max-sm:w-[20%]">
                     <div className="w-7 h-7 bg-primaryMain dark:bg-secondary rounded-full m-2 flex justify-center items-center ">

@@ -5,8 +5,6 @@ import { target } from "../../Assets/icons";
 const TopicBar = ({ navbarRef, card }) => {
   const [isHovered, setIsHovered] = useState(false);
 
-  // Define an array of social media icons or names
-
   return (
     <>
       <section

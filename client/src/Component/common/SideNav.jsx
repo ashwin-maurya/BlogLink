@@ -26,9 +26,9 @@ export default function SideNav(props) {
         id="mySidenav"
         ref={navRef}
         onClick={handleOutsideClick}
-        className="backdrop-blur-sm fixed w-screen sidenav h-[100%]  z-[51]"
+        className="backdrop-blur-sm fixed w-screen sidenav bg-Opacitywhite h-[100%]  z-[51]"
       >
-        <div className="w-[70%] max-w-[400px] flex justify-evenly h-[100%] bg-white dark:bg-darkBgPrimary shadow-lg overflow-hidden flex-col p-2">
+        <div className="w-[70%] max-w-[400px] flex justify-evenly h-[100%] bg-white shadow-lg overflow-hidden dark:bg-darkBgMain flex-col p-2">
           {AuthStatus && (
             <div
               className="flex justify-center items-center  pt-2 pb-4 "
@@ -55,7 +55,7 @@ export default function SideNav(props) {
             {navLinks.map((item) => (
               <li
                 key={item.label}
-                className="w-[100%] bg-bgBlue dark:bg-darkBgMain rounded-lg my-1"
+                className="w-[100%] bg-bgBlue  dark:bg-darkBgPrimary  rounded-lg my-1"
               >
                 <Link
                   to={item.href}
@@ -67,7 +67,7 @@ export default function SideNav(props) {
               </li>
             ))}
           </ul>
-          <div className="flex gap-2 text-lg leading-normal py-4 text-gray-400 justify-center font-medium  bg-bgBlue dark:bg-darkBgMain rounded-lg">
+          <div className="flex gap-2 text-lg leading-normal py-4 dark:bg-darkBgPrimary  text-gray-400 justify-center font-medium  bg-bgBlue rounded-lg">
             {!AuthStatus ? (
               <Signin />
             ) : (
