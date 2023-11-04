@@ -33,7 +33,16 @@ const UserSchema = new Schema({
   relevant: {
     type: [String],
   },
+  bookmarks: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "blogCard",
+
+
+    }
+  ]
 });
+
 const UserDetail = mongoose.model("UserDetail", UserSchema);
 // User.createIndexes();
 

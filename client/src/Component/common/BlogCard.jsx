@@ -7,9 +7,11 @@ import blogContext from "../../Helper/Context/blogContext";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../Helper/Context/AuthContext";
 import { profileDefault } from "../../Assets/icons";
-
+import CommentLikeContext from "../../Helper/Context/CommentLikeContext";
 export default function BlogCard({ card }) {
   const context = useContext(blogContext);
+  const context5 = useContext(CommentLikeContext);
+  const { addbookmark } = context5;
   const { deletenote, host } = context;
   const context3 = useContext(AuthContext);
   const { UserDetails, AuthStatus } = context3;
@@ -68,6 +70,14 @@ export default function BlogCard({ card }) {
     console.log(window.location.pathname);
   }, []);
 
+  const addBookmark = async () => {
+    console.log(UserDetails?._id);
+    console.log(card?._id);
+    //
+    await addbookmark({ userID: UserDetails?._id, postID: card?._id });
+    toast.success("Bookmark Added");
+  };
+
   const navigate = useNavigate();
 
   return (
@@ -78,7 +88,7 @@ export default function BlogCard({ card }) {
             <div className="mb-2 flex  items-center justify-between max-lg:items-start max-lg:flex-col">
               <div className=" flex items-center ">
                 <div
-                  className=" group/author  flex items-center "
+                  className="  group/author  flex items-center "
                   onClick={() => {
                     toast.success("Welcome to Profile");
 
@@ -122,7 +132,11 @@ export default function BlogCard({ card }) {
               toast.success("Welcome to Blog");
 
               navigate(`/blogs/${card?.Title?.replace(/\s+/g, "-")}`, {
-                state: { id: card.postID, view: card?.view },
+                state: {
+                  id: card.postID,
+                  view: card?.view,
+                  username: card?.UserName,
+                },
               });
             }}
           >
@@ -155,6 +169,7 @@ export default function BlogCard({ card }) {
           </div>
         </div>
         <div className="relative flex items-center justify-center w-[30%]">
+
           <div className="relative">
             <div
               className="overflow-hidden mt-2 rounded-lg z-20"
@@ -186,8 +201,13 @@ export default function BlogCard({ card }) {
             <Tags key={index} tags={tag} />
           ))}{" "}
         </div>
-        <div className="flex   items-center  gap-6  mr-1 m-2 h-4">
-          <i className="dark:text-white fa fa-bookmark  text-gray-600 hover:text-primaryMain text-[15px] "></i>
+        <div className="flex   items-center  gap-6  mr-1 mt-2">
+          <i
+            className="dark:text-white fa fa-bookmark  text-gray-600 hover:text-primaryMain text-[15px] "
+            onClick={addBookmark}
+          ></i>
+
+
           <i className="dark:text-white fa fa-share  text-gray-600 hover:text-primaryMain text-[15px] "></i>
           {ShowEdit && window.location.pathname != "/profile" && (
             <div className=" flex" onMouseLeave={() => setIsHovered(false)}>

@@ -2,8 +2,8 @@ import { useState } from "react";
 import CommentLikeContext from "./CommentLikeContext";
 import blogContext from "./blogContext";
 import { useContext } from "react";
-
 const CommentLikeState = (props) => {
+  const [allbookmarks, setallbookmarks] = useState([]);
   const context = useContext(blogContext);
   // const {}
   const [reply, setreply] = useState([]);
@@ -101,6 +101,42 @@ const CommentLikeState = (props) => {
     let resp = await reponse.json();
     console.log(resp);
   };
+
+  const addbookmark = async (data) => {
+    console.log(data);
+    const obj = JSON.parse(localStorage.getItem("UserData"));
+
+    const resp = await fetch(`${host}/api/comments/addbookmark/`, {
+      method: "PUT",
+      headers: {
+        "auth-token": obj.authtoken,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const resp2 = await resp.json();
+
+    console.log(resp2);
+  };
+  const getbookmark = async (data) => {
+    console.log(data);
+    const obj = JSON.parse(localStorage.getItem("UserData"));
+
+    const resp = await fetch(`${host}/api/comments/getbookmark/`, {
+      method: "PUT",
+      headers: {
+        "auth-token": obj.authtoken,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data }),
+    });
+
+    const resp2 = await resp.json();
+    setallbookmarks(resp2.bookmarks);
+    console.log(resp2);
+  };
+
   return (
     <CommentLikeContext.Provider
       value={{
@@ -108,6 +144,10 @@ const CommentLikeState = (props) => {
         addreply,
         reply,
         setreply,
+        addbookmark,
+        getbookmark,
+        setallbookmarks,
+        allbookmarks,
         addcomment,
         SingleBlogComment,
         getsingleblogComment,

@@ -7,12 +7,16 @@ import { useEffect } from "react";
 import TopicBar from "../Component/SingleBlogComponents/TopicBar";
 import { Comments } from "../Component/common";
 import HelperContext from "../Helper/Context/HelperContext";
-
-const SingleBlog = ({ blog1 }) => {
+import TopSection from "../Section/SingleBlogSection/TopSection";
+import LeftSectionSkeleton from "../Component/SkeletonLoaders/SingleBlogPageSkeleton/LeftSectionSkeleton";
+import TopSectionSkeleton from "../Component/SkeletonLoaders/SingleBlogPageSkeleton/TopSectionSkeleton";
+import MiddleSectionSkeleton from "../Component/SkeletonLoaders/SingleBlogPageSkeleton/MiddleSectionSkeleton";
+import RightSectionSkeleton from "../Component/SkeletonLoaders/SingleBlogPageSkeleton/RightSectionSkeleton";
+const SingleBlog = ({ blog1, loading }) => {
   // console.log(window.innerHeight);
   const context = useContext(blogContext);
   const { blog, getblogs } = context;
-
+  // console.log(blog1);
   useEffect(() => {
     const fetchdata = async () => {
       await getblogs();
@@ -70,41 +74,51 @@ const SingleBlog = ({ blog1 }) => {
   return (
     <>
       <section
-        className="flex bg-slate-50 dark:text-white dark:bg-darkBgMain flex-col gap-20 py-20 justify-center items-center"
+        className="flex bg-slate-50 dark:text-white dark:bg-darkBgMain flex-col   justify-center items-center"
         ref={pageRef}
       >
-        <div className=" relative flex max-w-[70%] flex-col   justify-center  gap-2">
-          <p className="tracking-[2px] font-semibold dark:text-secondary text-primaryMain m-1">
-            {blog1?.Category}
-          </p>
-          <h1 className=" font-bold leading-[75px] text-[65px] font-serif">
-            {blog1?.Title}{" "}
-          </h1>
-        </div>
-        <div className=" h-[800px] overflow-hidden w-[100%] max-lg:h-auto">
-          <img
-            className="overflow-hidden w-[100%]"
-            src={blog1?.Blog_url}
-            alt="Blog_url"
-          />
-        </div>
+        {loading ? (
+          <TopSectionSkeleton></TopSectionSkeleton>
+        ) : (
+          <TopSection blog1={blog1}></TopSection>
+        )}
         <div className="flex max-xl:w-full  max-xl:flex max-xl:flex-col max-xl:justify-center max-xl:items-center justify-center">
           <div className="w-[26%] max-2xl:hidden ">
-            <LeftSection blog={blog1}></LeftSection>
+            {loading ? (
+              <LeftSectionSkeleton></LeftSectionSkeleton>
+            ) : (
+              <LeftSection blog={blog1}></LeftSection>
+            )}
           </div>
           <div className="xl:w-[70%] max-xl:w-[70%] max-md:w-[90%]  ">
-            <MiddleSection blog={blog1}></MiddleSection>
+            {loading ? (
+              <MiddleSectionSkeleton></MiddleSectionSkeleton>
+            ) : (
+              <MiddleSection blog={blog1}></MiddleSection>
+            )}
           </div>
           <div className="w-[26%] max-2xl:hidden">
-            <RightSection blog={blog1}></RightSection>
+            {loading ? (
+              <RightSectionSkeleton></RightSectionSkeleton>
+            ) : (
+              <RightSection blog={blog1}></RightSection>
+            )}
           </div>
         </div>
         <div className="max-md:flex max-md:flex-col 2xl:hidden border-t-[2px] dark:border-gray-500   flex w-full  justify-center">
           <div className="w-[30%] max-2xl:w-full flex border-r-[2px] dark:border-gray-500 ">
-            <LeftSection blog={blog1}></LeftSection>
+            {loading ? (
+              <LeftSectionSkeleton></LeftSectionSkeleton>
+            ) : (
+              <LeftSection blog={blog1}></LeftSection>
+            )}
           </div>
           <div className="w-[30%] max-2xl:w-full flex justify-center items-center">
-            <RightSection blog={blog1}></RightSection>
+            {loading ? (
+              <RightSectionSkeleton></RightSectionSkeleton>
+            ) : (
+              <RightSection blog={blog1}></RightSection>
+            )}
           </div>
         </div>
         <div className="w-[58%] mt-10">
