@@ -95,7 +95,7 @@ export default function LandingCards({ card }) {
           </div>
         </div>
         <h2
-          className="text-xl leading-7 font-bold font-serif   max-md:text-2xl  dark:text-darkTextMain group-hover:text-primaryMain  dark:group-hover:text-secondary"
+          className="text-xl max-lg:text-md max-sm:text-sm leading-7 font-bold font-serif  dark:text-darkTextMain hover:text-primaryMain  dark:hover:text-secondary  cursor-pointer "
           onClick={() => {
             navigate(`/blogs/${card?.Title?.replace(/\s+/g, "-")}`, {
               state: { id: card.postID, view: card?.view },

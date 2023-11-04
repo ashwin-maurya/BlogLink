@@ -1,13 +1,11 @@
 export default function Tags({ tags }) {
+  const trimSpaces = (str) => str.trim();
+
   return (
     <>
       <div className="">
-        <span className="text-[18px]">#</span>
-        <a
-          // href={tags.url}
-          className="text-[18px] hover:text-blue-600 hover:underline"
-        >
-          {tags}
+        <a className="text-[14px] dark:text-white hover:text-primaryMain hover:underline font-semibold lowercase">
+          #{trimSpaces(tags)}
         </a>
       </div>
     </>

@@ -26,6 +26,7 @@ export default {
       },
       colors: {
         Opacityblack: "rgba(0, 0, 0, 0.15)",
+        Opacitywhite: "rgba(255,255,255,0.08)",
         bgBlue: "#e3eeff",
         primaryMain: "#3b82f6",
         secondary: "#3b82f6",

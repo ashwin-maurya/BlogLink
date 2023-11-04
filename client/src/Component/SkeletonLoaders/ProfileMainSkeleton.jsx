@@ -11,7 +11,7 @@ export default function ProfileMainSkeleton() {
 
       <section className="relative pt-8 ">
         <div className="container mx-auto px-4">
-          <div className="relative flex flex-col min-w-0 bg-white  dark:bg-darkBgPrimary w-[60%] mx-auto mb-6 shadow-xl rounded-lg -mt-60 p-10">
+          <div className="relative flex flex-col min-w-0 bg-white  dark:bg-darkBgPrimary w-[60%] max-lg:w-[95%]  mx-auto mb-6 shadow-xl rounded-lg -mt-60 p-10">
             <div className="flex flex-wrap justify-center relative animate-pulse">
               <img
                 alt="..."
