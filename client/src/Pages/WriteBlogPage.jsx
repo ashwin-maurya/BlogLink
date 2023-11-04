@@ -70,7 +70,7 @@ const WriteBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
   return (
     <section className="m-3 rounded-lg bg-gray-100 dark:text-white dark:bg-darkBgPrimary">
       <div className="text-[24px] ">
-        <div className="max-lg:flex max-lg:flex-col  flex p-10  ">
+        <div className="max-lg:flex max-lg:flex-col flex-col  flex p-10  ">
           <div className="w-[30%]">Title</div>
           <div className="w-[60%]">
             <input

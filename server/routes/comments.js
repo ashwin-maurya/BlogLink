@@ -5,6 +5,8 @@ const { body, validationResult } = require("express-validator");
 
 const Comment = require("../models/Comments");
 const blogCard = require("../models/BlogCard");
+const Userdetail = require("../models/UserDetails");
+const { default: mongoose } = require("mongoose");
 
 
 // ROUTE 3: Put all a blog in the database : POST "/api/blogs/addblog"
@@ -179,30 +181,16 @@ router.put("/postViews/:id", async (req, res) => {
 
     console.log(req.params.id)
     let blog1 = await blogCard.find({ postID: req.params.id });
-    // let blog2 = await blog.find({ postID: req.params.id });
     if (!blog1) {
         return res.status(404).send("not found");
     }
 
-    // //Allow deletion only if user owns it
-    // // if (blog1.user.toString() !== req.user.id) {
-    // //   return res.status(401).send("Not Alowed")
-    // // }
 
     blog1 = await blogCard.findOneAndUpdate({ postID: req.params.id },
         { $set: { "view": view2 } },
         { new: true });
 
-    // blog2 = await blog.findOneAndDelete({ postID: req.params.id },
-    //     { $set: { "view": view } },
-    //     { new: true });
 
-    // return res.json({
-    //     success: "note has been deleted",
-    //     blog1: blog1,
-    //     blog2: blog2,
-    // });
-    // let blog = bl
 
 
     res.json(blog1)
@@ -210,5 +198,79 @@ router.put("/postViews/:id", async (req, res) => {
 
 
 
+
+
+router.put("/addbookmark", async (req, res) => {
+    try {
+
+
+
+
+        let { postID, userID } = req.body
+        console.log(req.body)
+        console.log(userID)
+        // postID = postID.replaceAll("-", "")
+        // postID = parseInt(postID)
+        // const id = new mongoose.Types.ObjectId(postID)
+        console.log(postID)
+        let user = await Userdetail.findOneAndUpdate({ userID }, {
+            $push: { bookmarks: postID }
+        })
+        // console.log(user)
+
+
+        // let bookmark = []
+        // bookmark.push(postID)
+        if (!user) {
+            return res.status(404).send("not found");
+        }
+        // if (user.bookmarks.includes(postID)) {
+        //     return res.status(400).json({ error: 'Post is already bookmarked' });
+        // }
+        // console.log(user)
+
+
+        // user.bookmarks.push(postID);
+
+        // Save the updated user details
+        const updatedUser = await user.save();
+        console.log(updatedUser)
+        res.json(updatedUser)
+
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Sever error,Something in the way");
+    }
+
+
+}
+)
+
+
+
+router.put("/getbookmark", fetchuser, async (req, res) => {
+    try {
+
+        console.log(req.body)
+
+
+
+
+        let user = await Userdetail.findOne({ userID: req.body.data }).populate('bookmarks')
+
+
+        // let bk = await Userdetail.findOne({ userID: req.body.data })
+        console.log(user)
+        res.json(user);
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Sever error,Something in the way");
+    }
+})
+
+
+// router.put("/removeBookmark", async (req, res) => {
 
 module.exports = router;

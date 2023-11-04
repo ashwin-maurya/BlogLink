@@ -3,14 +3,14 @@ import { headerLogo, hamburger, light, dark, edit } from "../../Assets/icons";
 import Cookies from "js-cookie";
 // cf9b0387da88fba18a08f6f37f8d495f73007fe2
 import { navLinks } from "../constants";
-
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Search, SideNav, ScrollProgress, Login, Profile } from "./";
 import { toast } from "react-toastify";
 import TopicBar from "../SingleBlogComponents/TopicBar";
 import AuthContext from "../../Helper/Context/AuthContext";
 TopicBar;
 const MainNav = () => {
+  const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(false);
   const [scrollDirection, setScrollDirection] = useState("up");
   const [prevScrollPos, setPrevScrollPos] = useState(0);
@@ -22,6 +22,7 @@ const MainNav = () => {
   const func = async () => {
     await getCurrentUser(JSON.parse(localStorage.getItem("UserData")).UserID);
   };
+  // console.log(UserDetails);
 
   useEffect(() => {
     User && func();
@@ -111,6 +112,21 @@ const MainNav = () => {
                 </ul>
               )}
             </div>
+
+            <button
+              onClick={
+                () => {
+                  navigate(`/bookmarks`, {
+                    state: {
+                      userID: UserDetails?.userID,
+                    },
+                  });
+                }
+                // console.log(User)
+              }
+            >
+              Bookmark
+            </button>
             <div className="flex items-center w-auto">
               <div className="flex gap-2 px-5">
                 <button

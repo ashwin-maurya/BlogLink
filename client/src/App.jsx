@@ -14,6 +14,7 @@ import CommentLikeState from "./Helper/Context/CommentLikeState";
 import UpdateBlogLayout from "./Layouts/UpdateBlogLayout";
 import SettingsLayout from "./Layouts/SettingsLayout";
 import FilterState from "./Helper/Context/FilterState";
+import BookmarkLayout from "./Layouts/BookmarkLayout";
 
 const App = () => {
   return (
@@ -53,6 +54,11 @@ const App = () => {
                     path="/updateblog"
                     element={<UpdateBlogLayout></UpdateBlogLayout>}
                   ></Route>
+                  <Route
+                    path="/bookmarks"
+                    element={<BookmarkLayout></BookmarkLayout>}
+                  ></Route>
+
                   {/* <Route path="/*" element={<NotFound />} /> */}
                 </Routes>
                 <Footer />

@@ -1,5 +1,5 @@
+import { useNavigate } from "react-router";
 import { search } from "../../Assets/icons";
-
 export default function Search() {
   return (
     <>
@@ -19,6 +19,13 @@ export default function Search() {
             required
           />
         </div>
+        <button
+          onClick={() => {
+            //  navigate(`/profile/${card?.UserName}`, {
+            //   state: { id: card.userID },
+            // });
+          }}
+        ></button>
       </form>
     </>
   );

@@ -5,6 +5,7 @@ import { useLocation } from "react-router";
 
 import blogContext from "../Helper/Context/blogContext";
 import CommentLikeContext from "../Helper/Context/CommentLikeContext";
+import SingleBlogPageSkeleton from "../Component/SkeletonLoaders/SingleBlogPageSkeleton";
 const SingleBlogLayout = () => {
   const location = useLocation();
 
@@ -12,20 +13,30 @@ const SingleBlogLayout = () => {
   const { SingleBlogContent, getsingleblogContent } = context;
   const context2 = useContext(CommentLikeContext);
   const { updateViews } = context2;
-
+  const [loading, setloading] = useState(true);
+  const [blogcontent, setblogcontent] = useState([]);
   // console.log("I work in writeblogLAyotu");
   const id = location.state?.id;
   const view = location.state?.view;
-  console.log(view);
+  const username = location.state?.username;
+  // console.log(username);
 
   useEffect(() => {
-    getsingleblogContent(id);
+    getsingleblogContent(id)
+      .then(() => {
+        setloading(false);
+      })
+      .catch((error) => {
+        console.error("Error fetching blog data:", error);
+        setloading(false);
+      });
+
+    setblogcontent({ ...SingleBlogContent[0], username: username });
   }, []);
   // Timer to update views
 
   const [viewCount, setViewCount] = useState(0);
   const [timer, setTimer] = useState(null);
-
   useEffect(() => {
     // Start the timer when the component mounts
     const startTime = Date.now();
@@ -49,9 +60,13 @@ const SingleBlogLayout = () => {
     // Clean up the timer when the component unmounts
   }, []);
   return (
-    <section>
-      <SingleBlog blog1={SingleBlogContent[0]}></SingleBlog>
-    </section>
+    <>
+      {
+        <section>
+          <SingleBlog loading={loading} blog1={blogcontent}></SingleBlog>
+        </section>
+      }
+    </>
   );
 };
 
