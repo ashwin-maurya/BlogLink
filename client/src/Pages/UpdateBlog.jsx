@@ -57,7 +57,7 @@ const UpdateBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
 
   const handleupdate = () => {
     console.log(blogs);
-    console.log(blog2[0].postID);
+    console.log(blog2[0]);
     console.log({ ...blogs, ...blogContent });
     updateblog({ ...blogs, ...blogContent }, blog2[0].postID);
     console.log("Saved to Database");

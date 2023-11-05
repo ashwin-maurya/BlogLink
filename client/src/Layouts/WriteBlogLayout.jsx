@@ -38,7 +38,7 @@ const WriteBlogLayout = () => {
   console.log("blog1 from writeLayout");
 
   return (
-    <div>
+    <div className="">
       <WriteBlogPage
         postid={postid}
         UserDetails={UserDetails}

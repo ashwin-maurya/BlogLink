@@ -157,7 +157,11 @@ export default function BlogCard({ card }) {
                 toast.success("Welcome to Blog");
 
                 navigate(`/blogs/${card?.Title?.replace(/\s+/g, "-")}`, {
-                  state: { id: card.postID, view: card?.view },
+                  state: {
+                    id: card.postID,
+                    view: card?.view,
+                    username: card?.UserName,
+                  },
                 });
               }}
             >
@@ -169,7 +173,6 @@ export default function BlogCard({ card }) {
           </div>
         </div>
         <div className="relative flex items-center justify-center w-[30%]">
-
           <div className="relative">
             <div
               className="overflow-hidden mt-2 rounded-lg z-20"
@@ -206,7 +209,6 @@ export default function BlogCard({ card }) {
             className="dark:text-white fa fa-bookmark  text-gray-600 hover:text-primaryMain text-[15px] "
             onClick={addBookmark}
           ></i>
-
 
           <i className="dark:text-white fa fa-share  text-gray-600 hover:text-primaryMain text-[15px] "></i>
           {ShowEdit && window.location.pathname != "/profile" && (

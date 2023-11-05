@@ -30,13 +30,14 @@ const SingleBlogLayout = () => {
         console.error("Error fetching blog data:", error);
         setloading(false);
       });
-
-    setblogcontent({ ...SingleBlogContent[0], username: username });
   }, []);
+
+  useEffect(() => {
+    setblogcontent({ ...SingleBlogContent[0], username: username });
+  }, [SingleBlogContent]);
   // Timer to update views
 
   const [viewCount, setViewCount] = useState(0);
-  const [timer, setTimer] = useState(null);
   useEffect(() => {
     // Start the timer when the component mounts
     const startTime = Date.now();

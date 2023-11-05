@@ -57,6 +57,7 @@ const BlogState = (props) => {
     const json = await response.json();
 
     setSingleBlogContent(json);
+    console.log(SingleBlogContent);
   };
 
   //Add a note
@@ -83,6 +84,7 @@ const BlogState = (props) => {
     });
     const blog2 = await response.json();
 
+    console.log(blog2);
     // setblogs(blog.concat(blog2));
   };
 
@@ -119,6 +121,7 @@ const BlogState = (props) => {
       }),
     });
     const blog2 = await response.json();
+    console.log(blog2);
   };
 
   //Delete a note

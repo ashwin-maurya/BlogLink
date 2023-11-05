@@ -82,7 +82,7 @@ const SingleBlog = ({ blog1, loading }) => {
         ) : (
           <TopSection blog1={blog1}></TopSection>
         )}
-        <div className="flex max-xl:w-full  max-xl:flex max-xl:flex-col max-xl:justify-center max-xl:items-center justify-center">
+        <div className="flex max-xl:w-full w-full px-4  max-xl:flex max-xl:flex-col max-xl:justify-evenly max-xl:items-center justify-evenly">
           <div className="w-[26%] max-2xl:hidden ">
             {loading ? (
               <LeftSectionSkeleton></LeftSectionSkeleton>
@@ -90,7 +90,7 @@ const SingleBlog = ({ blog1, loading }) => {
               <LeftSection blog={blog1}></LeftSection>
             )}
           </div>
-          <div className="xl:w-[70%] max-xl:w-[70%] max-md:w-[90%]  ">
+          <div className="xl:w-[70%] max-xl:w-[70%] mx-14 max-md:w-[90%]  ">
             {loading ? (
               <MiddleSectionSkeleton></MiddleSectionSkeleton>
             ) : (
