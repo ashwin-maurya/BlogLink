@@ -291,7 +291,6 @@ router.post("/adduserdetail", fetchuser, async (req, res) => {
       bannerImg,
       socialLinks,
     } = req.body;
-    console.log(userID);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -384,7 +383,6 @@ router.post(
 
       res.json({ details });
     } catch (error) {
-      console.log("errro dfkvjdfkv");
       console.error(error.message);
       res.status(500).send("Internal Sever error,Something in the way");
     }
@@ -396,8 +394,6 @@ router.put("/updateUsername/:userId", fetchuser, async (req, res) => {
   try {
     const { userId } = req.params;
     const { username } = req.body;
-    console.log(userId);
-    console.log(username);
     // Check if the new username is available
     const existingUser = await User.findOne({ username });
 
@@ -517,7 +513,6 @@ router.put("/updateRelevant/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
     const { relevant } = req.body;
-    console.log(relevant);
     const userDetail = await Userdetail.findOne({ userID: userId });
 
     if (!userDetail) {

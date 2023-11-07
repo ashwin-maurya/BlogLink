@@ -109,11 +109,8 @@ router.post(
       // If there are errors , return Bad request and the errors
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        console.log("hello");
-
         return res.status(400).json({ errors: errors.array() });
       }
-
 
       const blog = new blogCard({
         Title,
@@ -138,11 +135,9 @@ router.post(
 router.put("/updateblog/:id", fetchuser, async (req, res) => {
   try {
     const { Title, description, tags, Category, Blog_url } = req.body;
-    console.log(req.body);
     // let blog1 = await blogCard.find({ postID: req.params.id })
     const newblog = {};
     // const newblog = {};
-    console.log({ postID: req.params.id });
     if (Title) {
       newblog.Title = Title;
     }
@@ -177,13 +172,11 @@ router.put("/updateblog/:id", fetchuser, async (req, res) => {
       { $set: newblog },
       { new: true }
     );
-    console.log(Blog);
     Blog2 = await blog.findOneAndUpdate(
       { postID: req.params.id },
       { $set: { ...newblog, description: description } },
       { new: true }
     );
-    console.log(Blog2);
     res.json({ Blog, Blog2 });
   } catch (error) {
     console.error(error.message);
@@ -221,7 +214,6 @@ router.delete("/deleteblog/:id", async (req, res) => {
   }
 });
 
-module.exports = router;
 //getuserimg
 router.get("/userImg/:userID", async (req, res) => {
   try {
@@ -229,10 +221,30 @@ router.get("/userImg/:userID", async (req, res) => {
     const blogs = await UserDetail.find({ userID: userID });
 
     //   console.log(req.user.id)
-    console.log(blogs[0]?.profileImg);
     res.json(blogs);
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Sever error,Something in the way");
   }
 });
+// ROUTE: Search for the top 10 results based on views
+router.get("/searchForResults/:searchtext", async (req, res) => {
+  try {
+    const searchtext = req.params.searchtext; // Access the parameter from req.params
+    const searchResults = await blogCard
+      .find({ Title: { $regex: searchtext, $options: "i" } })
+      .sort({ view: -1 })
+      .limit(10);
+
+    if (searchResults.length > 0) {
+      res.json({ available: true, results: searchResults });
+    } else {
+      res.json({ available: false });
+    }
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal server error, something went wrong");
+  }
+});
+
+module.exports = router;
