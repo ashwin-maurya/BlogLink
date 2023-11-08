@@ -120,7 +120,7 @@ export default function Search() {
                 >
                   <div className="flex flex-col">
                     <span className="">{card?.Title} </span>
-                    <span className="text-gray-400 text-xs">
+                    <span className="text-gray-400 text-xs my-1">
                       @{card?.UserName}{" "}
                     </span>
                   </div>

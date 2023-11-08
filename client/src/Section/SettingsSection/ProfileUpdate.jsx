@@ -51,7 +51,7 @@ export default function ProfileUpdate() {
   }, [userDetailExist]);
   return (
     <>
-      <div className="w-full max-lg:w-[90%] h-auto  py-5 px-10 flex rounded-lg bg-gray-100 dark:bg-darkBgPrimary shadow-xl flex-col">
+      <div className="w-full h-auto  py-5 px-10 max-lg:px-2 flex rounded-lg bg-gray-100 dark:bg-darkBgPrimary shadow-xl flex-col">
         <h1 className="text-xl pb-2   font-bold text-gray-500 tracking-wide">
           Fill Details
         </h1>

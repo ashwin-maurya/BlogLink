@@ -30,13 +30,13 @@ export default function Reviews() {
         </div>
         <div className="relative flex">
           <button
-            className=" text-primaryMain dark:text-secondary hover:underline  hover:bg-gray-100 dark:hover:bg-darkBgPrimary p-5 rounded-r-lg"
+            className=" text-primaryMain dark:text-secondary hover:underline  hover:bg-gray-100 dark:hover:bg-darkBgPrimary p-5 max-lg:p-2 rounded-r-lg"
             onClick={prevSlide}
           >
             <i className="fa fa-chevron-left text-lg w-5 h-3"></i>
           </button>{" "}
           <div className="xl:w-[50%] lg:w-3/4 w-full mx-auto text-center">
-            <i className="fa fa-quote-right text-4xl text-gray-400 dark:text-darkTextPrimary mb-8"></i>
+            <i className="fa fa-quote-right text-4xl text-gray-400  dark:text-darkTextPrimary mb-8"></i>
             <p className="leading-relaxed text-lg max-lg:text-md text-lightTextMain dark:text-darkTextMain ">
               {reviews[currentIndex].review}
             </p>
@@ -56,7 +56,7 @@ export default function Reviews() {
             </p>
           </div>
           <button
-            className=" text-primaryMain dark:text-secondary hover:underline  hover:bg-gray-100 dark:hover:bg-darkBgPrimary p-5  rounded-l-lg"
+            className=" text-primaryMain dark:text-secondary hover:underline  hover:bg-gray-100 dark:hover:bg-darkBgPrimary p-5 max-lg:p-2 rounded-l-lg"
             onClick={nextSlide}
           >
             <i className="fa fa-chevron-right text-lg w-5 h-3"></i>
