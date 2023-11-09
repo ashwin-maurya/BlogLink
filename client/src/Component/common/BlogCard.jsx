@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import blogContext from "../../Helper/Context/blogContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import AuthContext from "../../Helper/Context/AuthContext";
 import { profileDefault } from "../../Assets/icons";
 import CommentLikeContext from "../../Helper/Context/CommentLikeContext";
@@ -17,9 +17,19 @@ export default function BlogCard({ card }) {
   const { UserDetails, AuthStatus } = context3;
   const [date, setdate] = useState("");
   const [ShowEdit, setShowEdit] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
   const [user, setuser] = useState("");
-  // console.log(card);
+  const modalRef = useRef(null);
+  const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+
+  const handleOutsideClick = (event) => {
+    console.log("CLICED");
+    if (modalRef.current === event.target) {
+      profileMenu();
+    }
+  };
+  const profileMenu = () => {
+    setIsDropdownVisible(!isDropdownVisible);
+  };
   const onDelete = async () => {
     await deletenote(card?.postID);
   };
@@ -169,7 +179,6 @@ export default function BlogCard({ card }) {
           </div>
         </div>
         <div className="relative flex items-center justify-center w-[30%]">
-
           <div className="relative">
             <div
               className="overflow-hidden mt-2 rounded-lg z-20"
@@ -201,51 +210,66 @@ export default function BlogCard({ card }) {
             <Tags key={index} tags={tag} />
           ))}{" "}
         </div>
-        <div className="flex   items-center  gap-6  mr-1 mt-2">
-          <i
-            className="dark:text-white fa fa-bookmark  text-gray-600 hover:text-primaryMain text-[15px] "
-            onClick={addBookmark}
-          ></i>
+        <div className="flex   items-center mr-1 mt-2">
+          <div className="rounded-full py-2 px-4 hover:bg-darkBgMain flex justify-center items-center">
+            <i
+              className="dark:text-white fa fa-bookmark  text-gray-600 hover:text-primaryMain text-[15px] "
+              onClick={addBookmark}
+            ></i>
+          </div>
 
+          <div className="rounded-full py-2 px-4 hover:bg-darkBgMain flex justify-center items-center">
+            <i className="dark:text-white fa fa-share  text-gray-600 hover:text-primaryMain text-[15px] "></i>
+          </div>
 
-          <i className="dark:text-white fa fa-share  text-gray-600 hover:text-primaryMain text-[15px] "></i>
           {ShowEdit && window.location.pathname != "/profile" && (
-            <div className=" flex" onMouseLeave={() => setIsHovered(false)}>
-              <div
-                className={` w-0 ${
-                  isHovered ? "w-36" : ""
-                } transition-all duration-300 ease-in-out overflow-hidden`}
-              >
-                {isHovered && (
-                  <div className="flex gap-2 text-sm">
-                    <span
-                      className="bg-primaryMain text-white rounded-md px-2 py-1 cursor-pointer border-2 border-slate-200 dark:border-gray-700 hover:border-blue-300 "
-                      onClick={() => {
-                        navigate("/updateblog", {
-                          state: { id: card?.postID },
-                        });
-                      }}
+            <div className="relative">
+              {isDropdownVisible && (
+                <div className="relative">
+                  <div
+                    id="myModal"
+                    className="fixed z-50 inset-0 w-full h-full  transition-all ease-in-out duration-300 "
+                    ref={modalRef}
+                    onClick={handleOutsideClick}
+                  ></div>
+                  <div
+                    id="dropdownAvatarName"
+                    className="z-50 block absolute top-6 left-4  bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-32 dark:bg-darkBgPrimary dark:divide-gray-600 border dark:border-gray-600"
+                  >
+                    <ul
+                      className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                      aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton"
                     >
-                      Update
-                    </span>
-                    <span
-                      className="bg-primaryMain text-white rounded-md px-2 py-1 cursor-pointer border-2 border-slate-200 dark:border-gray-700 hover:border-blue-300 "
-                      onClick={onDelete}
-                    >
-                      Delete
-                    </span>
+                      <li>
+                        <span
+                          to="/"
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          onClick={() => {
+                            navigate("/updateblog", {
+                              state: { id: card?.postID },
+                            });
+                          }}
+                        >
+                          Update
+                        </span>
+                      </li>
+                      <li>
+                        <span
+                          onClick={onDelete}
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                          Delete
+                        </span>
+                      </li>
+                    </ul>
                   </div>
-                )}
-              </div>
+                </div>
+              )}
               <div
-                onMouseEnter={() => setIsHovered(true)}
-                className="rounded-full px-1 py-2"
+                className="rounded-full py-2 px-4 hover:bg-darkBgMain flex justify-center items-center"
+                onClick={profileMenu}
               >
-                <i
-                  className={`${
-                    isHovered ? "block  " : "block"
-                  } dark:text-white fa fa-ellipsis-v`}
-                ></i>
+                <i className="block dark:text-white fa fa-ellipsis-v"></i>
               </div>
             </div>
           )}

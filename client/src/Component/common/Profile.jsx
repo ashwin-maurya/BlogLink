@@ -3,11 +3,8 @@ import React, { useState, useRef, useEffect } from "react";
 
 export default function Profile({ profileImg, name }) {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
-  const dropdownRef = useRef(null);
 
   const profileMenu = () => {
-    console.log("Button clicked");
-    console.log(isDropdownVisible);
     setIsDropdownVisible(!isDropdownVisible);
   };
 

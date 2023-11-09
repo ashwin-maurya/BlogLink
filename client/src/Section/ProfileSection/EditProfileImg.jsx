@@ -44,13 +44,7 @@ export default function EditProfileImg(props) {
             <div className="flex items-center justify-center w-full">
               <label className="flex flex-col rounded-lg border-4 border-dashed w-full p-10 group text-center">
                 <div className=" w-full text-center flex  items-center justify-center  flex-row">
-                  <img
-                    className="has-mask h-36 object-center"
-                    src="https://img.freepik.com/free-vector/customer-support-flat-illustration_23-2148892786.jpg?w=900&t=st=1696679801~exp=1696680401~hmac=8155e27b46a2e39d8a3e40fcf43a2227156c5e3fc42e1d34f4a35ac9c9fafc87"
-                    alt="freepik image"
-                  />
-                  {/* <p>{selectedImageName || currentImage?.name}</p> */}
-                  <p className="pointer-none text-gray-500 ">
+                  <p className="pointer-none dark:text-white text-white mb-5">
                     <span className="text-sm">
                       {selectedImageName
                         ? selectedImageName

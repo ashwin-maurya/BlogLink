@@ -64,7 +64,6 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
       currentBannerImage,
       UserDetails?._id,
       BannerModal,
-
       setProgress,
       setCurrentBannerImage,
       addImg
@@ -130,7 +129,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
             />
 
             {UserMatch && (
-              <div className=" absolute bg-white dark:bg-darkBgPrimary  top-0 right-0 border-2 border-bgBlue  dark:border-darkBgMain rounded-full m-2 ">
+              <div className="absolute bg-white dark:bg-darkBgPrimary  top-0 right-0 border-2 border-bgBlue  dark:border-darkBgMain rounded-full m-2 ">
                 <div className="hover:bg-bgBlue  rounded-t-full dark:hover:bg-darkBgMain ">
                   <img src={editPen} className="p-2" onClick={BannerModal} />
                 </div>
@@ -238,7 +237,12 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
 
               <div className=" leading-normal mt-2 mb-2 text-blueGray-400 font-light dark:text-darkTextMain">
                 <div className="flex flex-col text-lg">
-                  <p>{UserProfile?.description}</p>
+                  <p className="text-center">
+                    {UserProfile?.description &&
+                    UserProfile.description.length > 200
+                      ? UserProfile.description.slice(0, 200) + "..."
+                      : UserProfile.description}
+                  </p>
                 </div>
               </div>
             </div>

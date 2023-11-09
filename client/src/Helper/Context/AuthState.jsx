@@ -99,7 +99,6 @@ const AuthState = (props) => {
           bannerImg: UserDetail.bannerImg,
           relevant: UserDetail.relevant,
           socialLinks: UserDetail.socialLinks,
-
         };
         setUserDetails(updatedUserDetails);
       } else {
@@ -138,6 +137,7 @@ const AuthState = (props) => {
       if (UserDetail) {
         const updatedUserDetails = {
           ...json,
+          ID: UserDetail._id,
           userID: UserDetail.userID,
           description: UserDetail.description,
           education: UserDetail.education,

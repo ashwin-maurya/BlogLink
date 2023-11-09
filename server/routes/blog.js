@@ -37,7 +37,6 @@ router.post("/postblogcontent", fetchuser, async (req, res) => {
       description,
       tags,
       Category,
-
       Blog_url,
     });
 
