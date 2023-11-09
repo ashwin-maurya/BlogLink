@@ -7,15 +7,17 @@ import dark from "./dark.svg";
 import profileDefault from "./profileDefault.svg";
 import editPen from "./editPen.svg";
 import trash from "./trash.svg";
-import view from "./view.svg"
-import bookmark from "./bookmark.svg"
-import target from "./target.svg"
+import view from "./view.svg";
+import bookmark from "./bookmark.svg";
+import target from "./target.svg";
+import chevronRight from "./chevronRight.svg";
 export {
   target,
   edit,
   trash,
   headerLogo,
   hamburger,
+  chevronRight,
   search,
   dark,
   light,
@@ -23,5 +25,4 @@ export {
   editPen,
   view,
   bookmark,
-
 };

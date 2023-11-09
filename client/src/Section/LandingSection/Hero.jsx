@@ -13,15 +13,15 @@ export default function Hero() {
             <span className="text-primaryMain dark:text-secondary text-[18px] font-medium max-lg:text-[12px] tracking-[5px]">
               EXPLAINERS
             </span>
-            <h1 className="text-[40px] font-bold py-5 text-center max-lg:py-2 max-lg:text-[30px] font-serif hover:text-primaryMain dark:text-darkTextMain dark:hover:text-secondary">
+            <h1 className="text-[40px] font-bold py-5 text-center max-lg:py-2 max-lg:text-[20px] font-serif hover:text-primaryMain dark:text-darkTextMain dark:hover:text-secondary">
               How Scientists Are Tackling the Tricky Task of Solar Cycle
               Prediction
             </h1>
             <div className="flex flex-row items-center justify-center ">
-              <p className="text-lg max-lg:text-sm ml-2 font-semibold font-palanquin text-gray-700 dark:text-darkTextMain">
+              <p className="text-lg max-lg:text-[15px] ml-2 font-semibold font-palanquin text-gray-700 dark:text-darkTextMain">
                 By Ashwin Maurya
               </p>
-              <span className="text-lg max-lg:text-sm ml-2 font-semibold font-palanquin text-gray-400">
+              <span className="text-lg max-lg:text-[15px] max-lg:text-sm ml-2 font-semibold font-palanquin text-gray-400">
                 -
               </span>
               <p className="text-lg max-lg:text-sm ml-1 font-semibold font-palanquin text-gray-400 dark:text-darkTextPrimary">

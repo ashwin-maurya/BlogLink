@@ -14,22 +14,21 @@ export default function Logout() {
   return (
     <>
       {
-        <div className="flex  hover:bg-bgBlue  rounded-md gap-2 text-lg leading-normal font-medium px-4 items-center dark:hover:bg-darkBgMain dark:text-darkTextMain hover:text-primaryMain dark:hover:text-secondary">
-          <button
-            className=""
-            onClick={() => {
-              setAuthStatus(false);
-              setLoggedinStatus(false);
-              setUserExistStatus();
-              setUserExistStatus();
-              setUserDetails();
-              setLoggedin({});
-              localStorage.removeItem("UserData");
-            }}
-          >
-            Sign Out
-          </button>
-        </div>
+        <a
+          href="#"
+          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+          onClick={() => {
+            setAuthStatus(false);
+            setLoggedinStatus(false);
+            setUserExistStatus();
+            setUserExistStatus();
+            setUserDetails();
+            setLoggedin({});
+            localStorage.removeItem("UserData");
+          }}
+        >
+          Sign out
+        </a>
       }
     </>
   );

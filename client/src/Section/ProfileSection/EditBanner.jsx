@@ -38,13 +38,10 @@ export default function EditBanner(props) {
             <div className="flex items-center justify-center w-full">
               <label className="flex flex-col rounded-lg border-4 border-dashed w-full p-10 group text-center">
                 <div className=" w-full text-center flex  items-center justify-center  flex-row">
-                  <img
-                    className="has-mask h-36 object-center"
-                    src="https://img.freepik.com/free-vector/creative-office-workers-illustration_33099-2336.jpg?w=900&t=st=1696679862~exp=1696680462~hmac=fa08f13c8840ebc7e52b713274d97286fc0f471a8139ec8af0d09d6875bf2ae8"
-                    alt="freepik image"
-                  />
                   {currentBannerImage?.name ? (
-                    <p>{currentBannerImage?.name}</p>
+                    <p className="pointer-none dark:text-white text-white mb-5">
+                      {currentBannerImage?.name}
+                    </p>
                   ) : (
                     <p className="pointer-none text-gray-500 ">
                       <span className="text-sm">Please select an jpg/jpeg</span>{" "}

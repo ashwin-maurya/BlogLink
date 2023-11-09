@@ -40,14 +40,19 @@ export default function SideNav(props) {
                 NavStatus();
               }}
             >
-              <Profile
-                profileImg={
-                  UserDetails?.profileImg !== ""
-                    ? UserDetails?.profileImg
-                    : profileDefault
-                }
-                name={UserDetails?.username}
-              ></Profile>
+              <div className="flex items-center text-sm font-medium text-gray-900 rounded-full hover:text-blue-600 dark:hover:text-blue-500 md:mr-0 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:text-white">
+                <span className="sr-only">Open user menu</span>
+                <img
+                  src={
+                    UserDetails?.profileImg !== ""
+                      ? UserDetails?.profileImg
+                      : profileDefault
+                  }
+                  alt=""
+                  className="rounded-full h-8 w-8 mr-2"
+                />
+                {UserDetails?.username}
+              </div>
             </div>
           )}
 
