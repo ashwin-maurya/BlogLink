@@ -17,6 +17,7 @@ export default function BlogCard({ card }) {
   const { UserDetails, AuthStatus } = context3;
   const [date, setdate] = useState("");
   const [ShowEdit, setShowEdit] = useState(false);
+
   const [user, setuser] = useState("");
   const modalRef = useRef(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -30,8 +31,10 @@ export default function BlogCard({ card }) {
   const profileMenu = () => {
     setIsDropdownVisible(!isDropdownVisible);
   };
+
   const onDelete = async () => {
     await deletenote(card?.postID);
+    toast.success("Blog Deleted");
   };
 
   useEffect(() => {
@@ -47,43 +50,7 @@ export default function BlogCard({ card }) {
     // getUser(card?.UserName);
   }, [UserDetails, card]);
 
-  useEffect(() => {
-    const date = new Date(card?.Date);
-    const options = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    setdate(date.toLocaleString("en-US", options));
-
-    console.log(card?.UserName);
-
-    const func = async () => {
-      const response1 = await fetch(
-        `${host}/api/blogs/userImg/${card?.userID}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      const Userimage = await response1.json();
-      setuser(
-        Userimage[0]?.profileImg != ""
-          ? Userimage[0]?.profileImg
-          : profileDefault
-      );
-    };
-    func();
-    console.log(window.location.pathname);
-  }, []);
-
   const addBookmark = async () => {
-    console.log(UserDetails?._id);
-    console.log(card?._id);
-    //
     await addbookmark({ userID: UserDetails?._id, postID: card?._id });
     toast.success("Bookmark Added");
   };
@@ -108,7 +75,12 @@ export default function BlogCard({ card }) {
                   }}
                 >
                   <img
-                    src={user}
+                    // src={user}
+                    src={
+                      card?.author?.profileImg != ""
+                        ? card?.author?.profileImg
+                        : profileDefault
+                    }
                     className="border-[1px] border-purple-300 bg-white h-7 w-7  rounded-full object-contain"
                     alt="img"
                   />
@@ -128,7 +100,11 @@ export default function BlogCard({ card }) {
                       -
                     </span>
                     <p className="text-sm ml-1 max-lg:ml-0 font-semibold font-palanquin text-gray-500 dark:text-darkTextPrimary">
-                      {date}
+                      {new Date(card?.Date).toLocaleString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
                     </p>
                   </div>
                 </div>
@@ -139,11 +115,10 @@ export default function BlogCard({ card }) {
           <div
             className="flex flex-col "
             onClick={() => {
-              toast.success("Welcome to Blog");
-
               navigate(`/blogs/${card?.Title?.replace(/\s+/g, "-")}`, {
                 state: {
-                  id: card.postID,
+                  id: card._id,
+                  userID: card.userID,
                   view: card?.view,
                   username: card?.UserName,
                 },
@@ -167,7 +142,12 @@ export default function BlogCard({ card }) {
                 toast.success("Welcome to Blog");
 
                 navigate(`/blogs/${card?.Title?.replace(/\s+/g, "-")}`, {
-                  state: { id: card.postID, view: card?.view },
+                  state: {
+                    id: card._id,
+                    userID: card.userID,
+                    view: card?.view,
+                    username: card?.UserName,
+                  },
                 });
               }}
             >
@@ -218,10 +198,10 @@ export default function BlogCard({ card }) {
             ></i>
           </div>
 
+
           <div className="rounded-full py-2 px-4 hover:bg-darkBgMain flex justify-center items-center">
             <i className="dark:text-white fa fa-share  text-gray-600 hover:text-primaryMain text-[15px] "></i>
           </div>
-
           {ShowEdit && window.location.pathname != "/profile" && (
             <div className="relative">
               {isDropdownVisible && (

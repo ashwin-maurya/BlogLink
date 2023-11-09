@@ -14,15 +14,13 @@ const UserDetail = require("../models/UserDetails");
 router.post("/postblogcontent", fetchuser, async (req, res) => {
   try {
     const {
-      userID,
+      // userID,
 
-      postID,
-      Title,
+      // postID,
+      // Title,
       description,
-      tags,
-      Category,
+      userID, postID, Title, Category, UserName, tags, Blog_url,
 
-      Blog_url,
     } = req.body;
     // If there are errors , return Bad request and the errors
     const errors = validationResult(req);
@@ -31,31 +29,85 @@ router.post("/postblogcontent", fetchuser, async (req, res) => {
     }
 
     const blog2 = new blog({
-      userID,
-      postID,
-      Title,
+      userID, postID, Title, Category, UserName, tags, Blog_url,
+      // userID,
+      // postID,
+      // Title,
       description,
-      tags,
-      Category,
-      Blog_url,
+
+      // tags,
+      // Category,
+      // Blog_url,
+
     });
 
     const savedblog = await blog2.save();
-    res.json(savedblog);
+    console.log(savedblog)
+    const Blog = new blogCard({
+      Title,
+      UserName,
+      postID,
+      userID,
+      Category,
+      tags,
+      Blog_url,
+      blogcontent: blog2._id,
+      author: userID
+    });
+    const savedblog2 = await Blog.save();
+    console.log(savedblog2)
+    res.json(savedblog2);
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Sever error,Something in the way");
   }
 });
 
+// ROUTE 3: Put all a blog in the database : POST "/api/blogs/addblog"
+router.post(
+  "/addblogCard",
+  fetchuser,
+
+  async (req, res) => {
+    try {
+      const { userID, postID, Title, Category, UserName, tags, Blog_url } =
+        req.body;
+
+      // If there are errors , return Bad request and the errors
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        console.log("hello");
+
+        return res.status(400).json({ errors: errors.array() });
+      }
+
+
+      const blog = new blogCard({
+        Title,
+        UserName,
+        postID,
+        userID,
+        Category,
+        tags,
+        Blog_url,
+      });
+      const savedblog = await blog.save();
+      res.json(savedblog);
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send("Internal Sever error,Something in the way");
+    }
+  }
+);
 // ROUTE 2: Get Single blog content in the database : POST "/api/blogs/singleblogcontent"
 
 router.post("/getsingleblogcontent", async (req, res) => {
   try {
     const { id } = req.body;
-    const blogs = await blog.find({ postID: id });
+    const blogs = await blogCard.find({ _id: id }).populate("blogcontent").populate("author");
 
-    //   console.log(req.user.id)
+    console.log("BlogContent")
+    console.log(blogs)
 
     res.json(blogs);
   } catch (error) {
@@ -69,9 +121,10 @@ router.post("/getsingleblogcontent", async (req, res) => {
 //ROUTE 1: Get all the blogs using : GET "/api/blogs/fetchallblogs". Login required
 router.get("/fetchallblogCards", async (req, res) => {
   try {
-    const blogs = await blogCard.find();
+    console.log("hello")
+    const blogs = await blogCard.find({}).populate("author");
     //   console.log(req.user.id)
-
+    console.log(blogs)
     res.json(blogs);
   } catch (error) {
     console.error(error.message);
@@ -95,39 +148,6 @@ router.get("/filterblog", async (req, res) => {
   }
 });
 
-// ROUTE 3: Put all a blog in the database : POST "/api/blogs/addblog"
-router.post(
-  "/addblogCard",
-  fetchuser,
-
-  async (req, res) => {
-    try {
-      const { userID, postID, Title, Category, UserName, tags, Blog_url } =
-        req.body;
-
-      // If there are errors , return Bad request and the errors
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-      }
-
-      const blog = new blogCard({
-        Title,
-        UserName,
-        postID,
-        userID,
-        Category,
-        tags,
-        Blog_url,
-      });
-      const savedblog = await blog.save();
-      res.json(savedblog);
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).send("Internal Sever error,Something in the way");
-    }
-  }
-);
 
 // ROUTE 3:Update an existing note using : POST "/api/notes/updatenote" .login required
 

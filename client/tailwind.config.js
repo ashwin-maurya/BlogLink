@@ -37,6 +37,8 @@ export default {
         darkBgMain: "#222222",
         darkBgPrimary: "#323232",
         darkBorderAll: "#2D3332",
+        darkSkeleton: "#323232",
+        lightSkeleton: " rgb(229 231 235)",
       },
       boxShadow: {},
       backgroundImage: {

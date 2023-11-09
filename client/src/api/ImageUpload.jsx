@@ -87,3 +87,43 @@ export const uploadBannerImage = async (
     }
   );
 };
+
+export const uploadFeaturedImage = async (
+  file,
+
+  postID,
+
+  // setProgress,
+  setFile,
+  setfeaturedImage
+) => {
+  const postPicsRef = ref(storage, `featuredImages/${file.name}`);
+  const uploadTask = uploadBytesResumable(postPicsRef, file);
+
+  uploadTask.on(
+    "state_changed",
+    (snapshot) => {
+      const progress = Math.round(
+        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+      );
+
+      // setProgress(progress);
+    },
+    (error) => {
+      console.error(error);
+    },
+    async () => {
+      const response = await getDownloadURL(uploadTask.snapshot.ref);
+      // editProfile(id, { imageLink: response });
+
+      setfeaturedImage(response);
+      console.log(response);
+      console.log("response");
+      // setFile({});
+      // setCurrentBannerImage({});
+      // addImg({ key: "bannerImg", imgUrl: response, userID: userID });
+      // setProgress(0);
+      // BannerModal();
+    }
+  );
+};
