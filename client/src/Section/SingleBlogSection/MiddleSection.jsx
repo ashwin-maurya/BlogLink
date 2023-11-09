@@ -10,7 +10,7 @@ const MiddleSection = ({ blog }) => {
         <div
           className="p-6 rounded-xl bg-white dark:bg-darkBgPrimary"
           dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(blog?.description),
+            __html: DOMPurify.sanitize(blog?.blogcontent?.description),
           }}
         />
       }

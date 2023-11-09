@@ -17,9 +17,8 @@ const WriteBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
   });
 
   const [blogContent, setblogContent] = useState({});
-  useEffect(() => {
-    if (id == undefined) setcheck(!check);
-  }, []);
+  const [category, setcategory] = useState("");
+
   console.log("blog2 from write page ");
   const [featuredImage, setfeaturedImage] = useState("");
 
@@ -28,12 +27,17 @@ const WriteBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
     let input = {
       Blog_url: featuredImage,
     };
-    setblog({ ...blogs, UserName: UserDetails?.username, ...input });
-    setblogContent({ ...blogContent, ...blogs, ...input });
-
+    setblog({
+      ...blogs,
+      UserName: UserDetails?.username,
+      ...input,
+      Category: category,
+    });
+    setblogContent({ ...blogContent, ...blogs, ...input, Category: category });
+    console.log(category);
     console.log(blogs);
     console.log(blogContent);
-  }, [featuredImage]);
+  }, [featuredImage, category]);
   const context = useContext(blogContext);
 
   const { addblogCard, addblogcontent, updateblog } = context;
@@ -77,13 +81,25 @@ const WriteBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
     try {
       let input = {
         Blog_url: featuredImage,
+        Category: "category",
       };
 
-      setblog({ ...blogs, ...input, UserName: UserDetails });
+      setblog({
+        ...blogs,
+        ...input,
+        UserName: UserDetails,
+        Category: category,
+      });
       console.log(blogs);
-      setblogContent({ ...blogContent, ...input });
+      console.log(category);
+
+      setblogContent({
+        ...blogContent,
+        ...input,
+        Category: category,
+      });
       console.log(blogContent);
-      await addblogCard(blogs);
+      // await addblogCard(blogs);
       await addblogcontent(blogContent);
       toast.success("Your blog added Successfully!");
     } catch (error) {
@@ -94,14 +110,19 @@ const WriteBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
   };
 
   return (
-    <section className="p-4 rounded-lg flex  dark:text-white dark:bg-darkBgPrimary">
+    <section className="p-4 rounded-lg flex  dark:text-white dark:bg-darkBgMain ">
       <div className=" w-[70%] px-6 p-3">
         <TitleandContent blogs={blogs} getInput={getInput}></TitleandContent>
         <Content blogContent={blogContent} updateDesc={updateDesc}></Content>
       </div>
       <div className="w-[30%] flex   flex-col justify-between my-3  ">
         <div className="">
-          <Category blogs={blogs} getInput={getInput}></Category>
+          <Category
+            blogs={blogs}
+            setcategory={setcategory}
+            category={category}
+            getInput={getInput}
+          ></Category>
 
           <Tag tags={tags} getTags={getTags}></Tag>
           <FeaturedImage

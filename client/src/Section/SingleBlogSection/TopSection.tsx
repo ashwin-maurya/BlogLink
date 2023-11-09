@@ -1,7 +1,7 @@
 import React from 'react'
 
 const TopSection = ({blog1}) => {
-  console.log(blog1)
+  // console.log(blog1)
   return (
     <div className="flex bg-slate-50 dark:text-white dark:bg-darkBgMain flex-col gap-20 py-20 justify-center items-center">
     <div className=" relative flex  flex-col   justify-center  gap-2">

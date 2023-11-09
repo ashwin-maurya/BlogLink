@@ -14,10 +14,11 @@ const LeftSection = ({ blog }) => {
       month: "long",
       day: "numeric",
     };
-    setdate(date.toLocaleString("en-US", options));
 
-    // console.log(card?.UserName);
-    const func = async () => {
+    setdate(date.toLocaleString("en-US", options));
+  }, [blog]);
+  useEffect(() => {
+    async () => {
       const response1 = await fetch(
         `${host}/api/blogs/userImg/${blog?.userID}`,
         {
@@ -36,14 +37,21 @@ const LeftSection = ({ blog }) => {
           : profileDefault
       );
     };
-    func();
-    console.log(window.location.pathname);
+
+    // func();
+    // console.log(window.location.pathname);
   }, []);
+
+  // useEffect(() => {
+  //   setuser(user);
+  // }, [user]);
+  // console.log(card?.UserName);
+  console.log(blog);
   return (
     <section className="flex mt-[8%] max-2xl:w-full max-xl:mt-3  flex-col justify-center items-center ">
       <div className=" flex justify-center items-center w-28 ">
         <img
-          src={user}
+          src={blog?.author?.profileImg}
           alt=""
           className="md:w-[140px] border-2  h-28 rounded-full "
         />

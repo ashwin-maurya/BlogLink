@@ -14,15 +14,15 @@ const SingleBlogLayout = () => {
   const context2 = useContext(CommentLikeContext);
   const { updateViews } = context2;
   const [loading, setloading] = useState(true);
-  const [blogcontent, setblogcontent] = useState([]);
   // console.log("I work in writeblogLAyotu");
   const id = location.state?.id;
-  const view = location.state?.view;
+  const userID = location.state?.userID;
+  // const view = location.state?.view;
   const username = location.state?.username;
   // console.log(username);
-
+  const [Id, setId] = useState(id);
   useEffect(() => {
-    getsingleblogContent(id)
+    getsingleblogContent(id, userID)
       .then(() => {
         setloading(false);
       })
@@ -30,12 +30,8 @@ const SingleBlogLayout = () => {
         console.error("Error fetching blog data:", error);
         setloading(false);
       });
-  }, []);
-
-  useEffect(() => {
-    setblogcontent({ ...SingleBlogContent[0], username: username });
-  }, [SingleBlogContent]);
-  // Timer to update views
+  }, [Id]);
+  console.log(SingleBlogContent);
 
   const [viewCount, setViewCount] = useState(0);
   useEffect(() => {
@@ -51,7 +47,7 @@ const SingleBlogLayout = () => {
         console.log(SingleBlogContent);
         console.log({ viewCount, id });
 
-        updateViews({ view, id });
+        updateViews({ view: SingleBlogContent[0]?.view, id });
         clearInterval(intervalId); // Stop the timer
       }
     }, 1000);
@@ -64,7 +60,10 @@ const SingleBlogLayout = () => {
     <>
       {
         <section>
-          <SingleBlog loading={loading} blog1={blogcontent}></SingleBlog>
+          <SingleBlog
+            loading={loading}
+            blog1={SingleBlogContent[0]}
+          ></SingleBlog>
         </section>
       }
     </>

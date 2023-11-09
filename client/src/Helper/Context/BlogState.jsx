@@ -23,7 +23,7 @@ const BlogState = (props) => {
     });
 
     const json = await response.json();
-
+    console.log(json);
     setblogs(json);
   };
 
@@ -44,7 +44,9 @@ const BlogState = (props) => {
 
     setfilterData(json);
   };
-  const getsingleblogContent = async (id) => {
+  const getsingleblogContent = async (id, userID) => {
+    console.log(id + " " + userID);
+
     const response = await fetch(`${host}/api/blogs/getsingleblogcontent`, {
       method: "POST",
 
@@ -95,12 +97,26 @@ const BlogState = (props) => {
       userID,
       postID,
       Title,
-
+      UserName,
       Category,
       Blog_url,
       tags,
       description,
     } = data;
+
+    const response1 = await fetch(
+      `${host}/api/auth/getCurrentUserDetails/${userID}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    let resp = await response1.json();
+    console.log("resp");
+    console.log(resp);
 
     const obj = JSON.parse(localStorage.getItem("UserData"));
     const response = await fetch(`${host}/api/blogs/postblogcontent`, {
@@ -110,11 +126,11 @@ const BlogState = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        userID,
+        userID: resp._id,
         postID,
         Title,
         description,
-
+        UserName,
         tags,
         Category,
         Blog_url,

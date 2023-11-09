@@ -30,7 +30,7 @@ export default function LeftSection() {
   }, []);
 
   // setfilterstate on localstorage.filterval change--------------------------------------------------
-
+  console.log(blog);
   useEffect(() => {
     setfilterState(localStorage.getItem("filterval"));
   }, [localStorage.getItem("filterval")]);

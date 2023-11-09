@@ -29,6 +29,20 @@ const BlogCardSchema = new mongoose.Schema({
     type: String,
     // required: true
   },
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "UserDetail",
+  },
+
+  blogcontent: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "blog",
+  },
+
+  comment: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "blog",
+  },
   view: {
     type: String,
     default: "0"

@@ -105,8 +105,9 @@ const SingleBlog = ({ blog1, loading }) => {
             )}
           </div>
         </div>
-        <div className="max-md:flex max-md:flex-col 2xl:hidden border-t-[2px] dark:border-gray-500   flex w-full  justify-center">
-          <div className="w-[30%] max-2xl:w-full flex border-r-[2px] dark:border-gray-500 ">
+        <div className="border-t-2 2xl:hidden  mt-10  w-[80%]"></div>
+        <div className="max-md:flex max-md:flex-col 2xl:hidden  mt-3  flex w-full  justify-center">
+          <div className="w-[30%] max-2xl:w-full flex  ">
             {loading ? (
               <LeftSectionSkeleton></LeftSectionSkeleton>
             ) : (
