@@ -19,7 +19,11 @@ export default function Profile({ profileImg, name }) {
         onClick={profileMenu}
       >
         <span className="sr-only">Open user menu</span>
-        <img src={profileImg} alt="" className="rounded-full h-8 w-8 mr-2" />
+        <img
+          src={profileImg}
+          alt=""
+          className="rounded-full dark:bg-darkBgPrimary h-8 w-8 mr-2"
+        />
       </div>
     </>
   );
