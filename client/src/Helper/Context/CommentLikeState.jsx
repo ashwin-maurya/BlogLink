@@ -6,16 +6,17 @@ const CommentLikeState = (props) => {
   const [allbookmarks, setallbookmarks] = useState([]);
   const context = useContext(blogContext);
   // const {}
-  const [reply, setreply] = useState([]);
+  const [reply, setreply] = useState({});
   const host = "http://localhost:5001";
   const [SingleBlogComment, setSingleBlogComment] = useState([]);
-  const addreply = async (data, id) => {
+  const addreply = async (data) => {
     console.log(data);
+    const { id } = data;
 
     const obj = JSON.parse(localStorage.getItem("UserData"));
     console.log(obj.authtoken);
 
-    const response = await fetch(`${host}/api/comments/addreply/${id}`, {
+    const response = await fetch(`${host}/api/comments/addreply`, {
       method: "POST",
       headers: {
         "auth-token": obj.authtoken,
@@ -26,18 +27,8 @@ const CommentLikeState = (props) => {
       }),
     });
     const comments2 = await response.json();
-
-    let { comments } = comments2;
+    setreply(comments2);
     console.log(comments2);
-
-    let datas = SingleBlogComment.filter((comment) => {
-      return comment._id != id;
-    });
-    // );
-    datas.push(comments);
-    setSingleBlogComment(datas);
-    console.log(SingleBlogComment);
-    console.log("form addreply");
   };
   const addcomment = async (data) => {
     // todo api call
@@ -45,7 +36,7 @@ const CommentLikeState = (props) => {
     console.log(data);
     const obj = JSON.parse(localStorage.getItem("UserData"));
     console.log(obj.authtoken);
-    const { postID, comment, userID, UserName } = data;
+    const { postID, comment, userID } = data;
     const response = await fetch(`${host}/api/comments/addcomment`, {
       method: "POST",
       headers: {
@@ -56,13 +47,12 @@ const CommentLikeState = (props) => {
         postID,
         comment,
         userID,
-        UserName,
       }),
     });
     const comments = await response.json();
 
     console.log(comments);
-    setSingleBlogComment(SingleBlogComment.concat(comments));
+    // setSingleBlogComment(SingleBlogComment.concat(comments));
     console.log("form addcomment");
   };
 
@@ -85,6 +75,24 @@ const CommentLikeState = (props) => {
     console.log(SingleBlogComment);
 
     console.log("form SingleBlogContent");
+  };
+  const getreply = async (id) => {
+    const response = await fetch(`${host}/api/comments/getreply/${id}`, {
+      method: "GET",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const json = await response.json();
+
+    setreply(json);
+    // console.log(SingleBlogComment);
+    console.log(json);
+
+    console.log("form get reply");
+    return json;
   };
 
   const updateViews = async (data) => {
@@ -143,6 +151,7 @@ const CommentLikeState = (props) => {
         updateViews,
         addreply,
         reply,
+        getreply,
         setreply,
         addbookmark,
         getbookmark,

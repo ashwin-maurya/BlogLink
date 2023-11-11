@@ -11,7 +11,7 @@ const WriteBlogLayout = () => {
   const [check, setcheck] = useState(false);
   const context2 = useContext(AuthContext);
   const { UserDetails } = context2;
-  // console.log(UserDetails.username);
+  console.log(UserDetails);
 
   const location = useLocation();
   const context = useContext(blogContext);
@@ -39,14 +39,7 @@ const WriteBlogLayout = () => {
 
   return (
     <div className="">
-      <WriteBlogPage
-        postid={postid}
-        UserDetails={UserDetails}
-        id={id}
-        // blog2={data}
-        setcheck={setcheck}
-        check={check}
-      ></WriteBlogPage>
+      <WriteBlogPage postid={postid} UserDetails={UserDetails}></WriteBlogPage>
     </div>
   );
 };

@@ -15,6 +15,7 @@ const Category = ({ blogs, getInput, setcategory, category }) => {
       <div className=" ">Category</div>
       <div className="">
         <Select
+          className="dark:bg-darkBgMain"
           name="category"
           value={blogs?.category}
           onChange={handleSelectChange}

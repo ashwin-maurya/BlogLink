@@ -93,9 +93,9 @@ export const uploadFeaturedImage = async (
 
   postID,
 
-  // setProgress,
   setFile,
-  setfeaturedImage
+  setfeaturedImage,
+  setProgress
 ) => {
   const postPicsRef = ref(storage, `featuredImages/${file.name}`);
   const uploadTask = uploadBytesResumable(postPicsRef, file);
@@ -107,7 +107,7 @@ export const uploadFeaturedImage = async (
         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
       );
 
-      // setProgress(progress);
+      setProgress(progress);
     },
     (error) => {
       console.error(error);
@@ -119,6 +119,7 @@ export const uploadFeaturedImage = async (
       setfeaturedImage(response);
       console.log(response);
       console.log("response");
+      setProgress(0);
       // setFile({});
       // setCurrentBannerImage({});
       // addImg({ key: "bannerImg", imgUrl: response, userID: userID });

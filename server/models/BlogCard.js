@@ -39,10 +39,15 @@ const BlogCardSchema = new mongoose.Schema({
     ref: "blog",
   },
 
-  comment: {
+  comment: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "blog",
-  },
+    ref: "Comment",
+  }],
+
+
+
+
+
   view: {
     type: String,
     default: "0"

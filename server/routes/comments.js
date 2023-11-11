@@ -17,9 +17,10 @@ router.post(
     async (req, res) => {
         try {
             const { userID, postID, comment,
-                UserName
+                // UserName
             } =
                 req.body;
+
 
             // If there are errors , return Bad request and the errors
             const errors = validationResult(req);
@@ -30,13 +31,19 @@ router.post(
             }
             const commentdata = new Comment({
 
-                UserName,
-                postID,
-                userID,
-                comment,
+                // UserName,
+
+                author: userID,
+                text: comment,
+                parentId: postID
 
             });
             const savedcomment = await commentdata.save();
+
+            const blog = await blogCard.findByIdAndUpdate(postID, { $push: { comment: savedcomment._id } }, { new: true });
+
+            const updateblog = await blog.save()
+            console.log(updateblog)
             res.json(savedcomment);
         } catch (error) {
             console.error(error.message);
@@ -49,44 +56,84 @@ router.post(
 
 // adding reply
 router.post(
-    "/addreply/:id",
+    "/addreply",
     fetchuser,
 
     async (req, res) => {
         try {
-            console.log(req.params.id)
-            const { reply
-
+            const { userID, id, reply,
+                // UserName
             } =
                 req.body;
-            console.log("req.body")
+
             console.log(req.body)
 
 
-            let comments = await Comment.findById({ _id: req.params.id });
-            console.log(comments)
-            if (!comments) {
-                return res.status(404).send("not found");
+            // If there are errors , return Bad request and the errors
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                console.log("hello");
+
+                return res.status(400).json({ errors: errors.array() });
             }
+            const commentdata = new Comment({
 
-            //   if (blog.user.toString() !== req.user.id) {
-            //     return res.status(401).send("Not Alowed");
-            //   }
+                // UserName,
 
-            comments = await Comment.findByIdAndUpdate(
-                { _id: req.params.id },
-                { $set: { "reply": req.body } },
-                { new: true }
-            );
+                author: userID,
+                text: reply,
+                parentId: id
+
+            });
+            const savedcomment = await commentdata.save();
+
+
+            let comments = await Comment.findByIdAndUpdate(id, { $push: { children: savedcomment._id } }, { new: true });
             console.log(comments)
+
+
+
             res.json({ comments });
         } catch (error) {
-            console.log("errro dfkvjdfkv")
             console.error(error.message);
             res.status(500).send("Internal Sever error,Something in the way");
         }
     }
 );
+
+
+router.get('/getreply/:id', async (req, res) => {
+    try {
+
+        const comment = await Comment.findById(req.params.id).populate(
+            {
+                path: 'children',
+                populate:
+                    [
+                        {
+                            path: 'author',
+                            // model: User,
+                        }
+                        , {
+                            path: 'children',
+                            model: 'Comment',
+                            populate: {
+                                path: 'author',
+                                // model: User,
+                                // select: "_id id name parentId image"
+                            }
+                        }
+                    ]
+            }
+        )
+        console.log(comment)
+        res.json(comment)
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Sever error,Something in the way");
+    }
+})
 
 // ROUTE 3:Update an existing note using : POST "/api/notes/updatenote" .login required
 
@@ -162,10 +209,30 @@ router.delete('/deletecomment/:id', async (req, res) => {
 
 router.get("/getallcommentsbypostID/:id", async (req, res) => {
     try {
-        const comments = await Comment.find({ postID: req.params.id });
-        //   console.log(req.user.id)
 
-        res.json(comments);
+        const comment = await blogCard.findById(req.params.id).populate(
+            {
+                path: 'comment',
+                populate:
+                    [
+                        {
+                            path: 'author',
+                            // model: User,
+                        }
+                        , {
+                            path: 'children',
+                            model: 'Comment',
+                            populate: {
+                                path: 'author',
+                                // model: User,
+                                // select: "_id id name parentId image"
+                            }
+                        }
+                    ]
+            }
+        )
+        console.log(comment)
+        res.json(comment);
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Sever error,Something in the way");
@@ -221,12 +288,13 @@ router.put("/addbookmark", async (req, res) => {
 
         // let bookmark = []
         // bookmark.push(postID)
+
         if (!user) {
             return res.status(404).send("not found");
         }
-        // if (user.bookmarks.includes(postID)) {
-        //     return res.status(400).json({ error: 'Post is already bookmarked' });
-        // }
+        if (user.bookmarks.includes(postID)) {
+            return res.status(400).json({ error: 'Post is already bookmarked' });
+        }
         // console.log(user)
 
 

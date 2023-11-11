@@ -30,7 +30,7 @@ export default function LeftSection() {
   }, []);
 
   // setfilterstate on localstorage.filterval change--------------------------------------------------
-  console.log(blog);
+
   useEffect(() => {
     setfilterState(localStorage.getItem("filterval"));
   }, [localStorage.getItem("filterval")]);
@@ -119,12 +119,14 @@ export default function LeftSection() {
     <section className=" flex justify-center max-lg:justify-start  flex-col rounded-md ">
       <div className=" flex flex-col w-full items-center ">
         <div
-          className={` md:${
-            localStorage.getItem("filterval") == "top" && "px-8"
-          } md:px-20 mt-4  lg:px-0
-         flex max-lg:px-2 max-lg:w-full lg:w-[77%] justify-between lg:flex-col  max-md:flex-col xl:gap-3  xl:flex-row`}
+          className={` 
+          
+          md:${
+            localStorage.getItem("filterval") == "top" && "px-0"
+          }   md:px-20 mt-4  lg:px-0
+         flex  max-lg:flex-col justify-between lg:flex-col  max-md:flex-col xl:gap-7    xl:flex-row`}
         >
-          <div className="flex  gap-2">
+          <div className="flex   gap-2">
             <button
               className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
                 localStorage.getItem("filterval") == "all" && "bg-bgBlue"
@@ -170,7 +172,11 @@ export default function LeftSection() {
               Top
             </button>
           </div>
-          <div className={`${showMoreOption ? "block" : "hidden"} flex gap-1`}>
+          <div
+            className={`${
+              showMoreOption ? "block" : "hidden"
+            } flex max-lg:mt-3 gap-1`}
+          >
             <button
               className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
                 localStorage.getItem("filterTop") == "week" && "bg-bgBlue"

@@ -58,7 +58,7 @@ export default function BlogCard({ card }) {
   const navigate = useNavigate();
 
   return (
-    <div className="md:w-[77%]  md:m-auto flex md:my-2 dark:bg-darkBgPrimary my-2 rounded-md bg-bgBlue flex-col p-6 pt-5 pb-2 w-[80%] max-lg:w-[100%] group">
+    <div className="md:w-[100%]  md:m-auto flex md:my-2 dark:bg-darkBgPrimary my-2 rounded-md bg-bgBlue flex-col p-6 pt-5 pb-2 w-[80%] max-lg:w-[100%] group">
       <div className="max-lg:gap-2  gap-8 flex  justify-center ">
         <div className="w-[70%]">
           <div className="flex justify-between  items-center">
@@ -197,7 +197,6 @@ export default function BlogCard({ card }) {
               onClick={addBookmark}
             ></i>
           </div>
-
 
           <div className="rounded-full py-2 px-4 hover:bg-darkBgMain flex justify-center items-center">
             <i className="dark:text-white fa fa-share  text-gray-600 hover:text-primaryMain text-[15px] "></i>

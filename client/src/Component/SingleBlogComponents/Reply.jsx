@@ -4,20 +4,20 @@ import AuthContext from "../../Helper/Context/AuthContext";
 import { profileDefault } from "../../Assets/icons";
 import CommentLikeContext from "../../Helper/Context/CommentLikeContext";
 
-const Reply = ({ reply, setreply, commentID, show, setshow }) => {
+const Reply = ({ comment, show, onReplySubmit, setshow }) => {
   // console.log(reply1);
   const context2 = useContext(AuthContext);
   const context3 = useContext(CommentLikeContext);
   const { addreply } = context3;
-  const [allreply, setallreply] = useState(reply);
   const { UserDetails } = context2;
   // console.log(UserDetails);
 
   const [Reply, setReply] = useState({
     reply: "",
-    username: UserDetails?.username,
-    userImg: { profileDefault },
-    timeStamp: new Date().toISOString(),
+    // ...comment,
+    userID: UserDetails?.userID,
+
+    id: comment?._id,
   });
 
   const getInput = (event) => {
@@ -33,15 +33,13 @@ const Reply = ({ reply, setreply, commentID, show, setshow }) => {
   };
 
   const submit = () => {
-    console.log(reply);
-    let arr = reply;
-    arr.push(Reply);
-    // console.log(reply,Reply);
-    console.log(arr);
+    async function f() {
+      console.log(Reply);
 
-    setreply(arr);
-    console.log(reply);
-    addreply(reply, commentID);
+      await addreply(Reply);
+    }
+    f();
+    onReplySubmit();
     console.log("Saved to reply");
   };
   return (
