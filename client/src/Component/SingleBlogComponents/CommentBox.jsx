@@ -5,27 +5,41 @@ import UserReplies from "./UserReplies";
 import HelperContext from "../../Helper/Context/HelperContext";
 import CommentLikeContext from "../../Helper/Context/CommentLikeContext";
 
-const CommentBox = ({ comment }) => {
+const CommentBox = ({ comment, depth, maxdepth }) => {
   const constext = useContext(HelperContext);
+  const context3 = useContext(CommentLikeContext);
+  const { getreply, reply } = context3;
   const { formatUTCDate, date } = constext;
   // console.log(comment);
-  const [reply, setreply] = useState(comment.reply);
+  const [data, setdata] = useState({});
+
+  // const comData = getreply(comment?._id);
   useEffect(() => {
-    setreply(comment.reply);
+    // console.log(comment);
+    async function f() {
+      setdata(await getreply(comment?._id));
+      console.log(data);
+    }
+    f();
   }, []);
+
   useEffect(() => {
+    // Uncomment the next line if you need to log replies
     // console.log(reply);
-    setreply(comment.reply);
-    console.log(reply);
-    console.log(comment);
-    formatUTCDate(comment.Date);
-  }, [comment]);
+  }, [data]);
+
+  const handleReplySubmit = async () => {
+    // Trigger a re-fetch of replies when a reply is submitted
+    // console.log("I ran");
+    setdata(await getreply(comment?._id));
+  };
+
   const [replyBox, setreplyBox] = useState(false);
   // console.log(reply);
 
   return (
     <section>
-      <article className="p-6 text-base bg-white rounded-lg dark:bg-darkBgPrimary">
+      <article className="p-6 text-base mt-2 bg-white rounded-lg dark:bg-darkBgPrimary">
         <footer className="flex justify-between items-center mb-2">
           <div className="flex items-center">
             <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
@@ -34,7 +48,7 @@ const CommentBox = ({ comment }) => {
                 src={code1}
                 alt="Ram Ghanshyam"
               />
-              {comment?.UserName}
+              {comment?.author?.username}
             </p>
             <p className="text-sm text-gray-600 dark:text-gray-400">
               <time title="February 8th, 2022">{date}</time>
@@ -58,7 +72,7 @@ const CommentBox = ({ comment }) => {
             <span className="sr-only">Comment settings</span>
           </button>
         </footer>
-        <p className="text-gray-500 dark:text-gray-400">{comment.comment}</p>
+        <p className="text-gray-500 dark:text-gray-400">{comment.text}</p>
         <div className="flex mt-4 gap-7  items-center">
           <div className="flex items-center  space-x-4">
             <button
@@ -88,23 +102,35 @@ const CommentBox = ({ comment }) => {
             </button>
           </div>
           <div className="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium">
-            {comment?.reply.length != 0 &&
-              `(${comment?.reply.length}) Replies `}
+            {/* {comment?.reply.length != 0 &&
+              `(${comment?.reply.length}) Replies `} */}
           </div>
         </div>
         <Reply
-          reply={reply}
-          setreply={setreply}
-          commentID={comment?._id}
+          // reply={reply}
+          // setreply={setreply}
+          comment={comment}
+          // commentID={comment?._id}
           setshow={setreplyBox}
           show={replyBox}
+          onReplySubmit={handleReplySubmit}
         ></Reply>
-        {comment?.reply.length != 0 &&
-          Object.values(comment?.reply[0]).map((reply) => {
-            return (
-              <UserReplies key={reply?.username} reply2={reply}></UserReplies>
-            );
-          })}
+        {
+          // depth < maxdepth &&
+          // data.children &&
+          data.children?.length > 0 &&
+            data?.children?.map((item) => {
+              // console.log(item);
+              return (
+                <CommentBox
+                  key={item._id}
+                  depth={depth + 1}
+                  maxdepth={maxdepth}
+                  comment={item}
+                ></CommentBox>
+              );
+            })
+        }
       </article>
     </section>
   );

@@ -15,6 +15,7 @@ import UpdateBlogLayout from "./Layouts/UpdateBlogLayout";
 import SettingsLayout from "./Layouts/SettingsLayout";
 import FilterState from "./Helper/Context/FilterState";
 import BookmarkLayout from "./Layouts/BookmarkLayout";
+import PreviewLayout from "./Layouts/PreviewLayout";
 
 const App = () => {
   return (
@@ -53,6 +54,10 @@ const App = () => {
                   <Route
                     path="/updateblog"
                     element={<UpdateBlogLayout></UpdateBlogLayout>}
+                  ></Route>
+                  <Route
+                    path="/preview"
+                    element={<PreviewLayout></PreviewLayout>}
                   ></Route>
                   <Route
                     path="/bookmarks"

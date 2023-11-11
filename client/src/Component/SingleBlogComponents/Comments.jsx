@@ -12,19 +12,13 @@ export default function Comments({ blog }) {
   const { UserDetails } = context2;
   const { addcomment, getsingleblogComment, SingleBlogComment } = context;
 
-  // console.log(blog);
   useEffect(() => {
-    // setcomment({ ...comment,  });
-  }, [UserDetails]);
-  useEffect(() => {
-    setcomment({
-      ...comment,
-      postID: blog?.postID,
-      userID: blog?.userID,
-      UserName: UserDetails?.username,
-    });
+    // console.log(UserDetails);
+    setcomment({ comment, postID: blog?._id, userID: UserDetails?.userID });
   }, [blog, UserDetails]);
-  const [comment, setcomment] = useState({});
+
+  const [comment, setcomment] = useState("");
+
   const getInput = (event) => {
     let { name, value } = event.target;
     let input = {
@@ -33,31 +27,29 @@ export default function Comments({ blog }) {
     setcomment({ ...comment, ...input });
     console.log(comment);
   };
-  const onsubmit = (e) => {
+  const onsubmit = async (e) => {
     e.preventDefault();
     console.log(comment);
-    addcomment(comment);
+    await addcomment(comment);
+    getsingleblogComment(blog?._id);
+    console.log(SingleBlogComment);
   };
+  // console.log
 
   useEffect(() => {
-    getsingleblogComment(blog?.postID);
-
     console.log("Hello");
+    async function d() {
+      await getsingleblogComment(blog?._id);
+    }
+    d();
     console.log(SingleBlogComment);
   }, [blog]);
-
-  // useEffect(() => {
-  //   getsingleblogComment(blog?.postID);
-
-  //   console.log("Hello");
-  //   console.log(SingleBlogComment);
-  // }, [SingleBlogComment]);
 
   return (
     <>
       <section
         id="comment"
-        className="bg-white w-[100%] dark:bg-transparent  py-8 lg:py-16 antialiased"
+        className="bg-white w-[100%]  dark:bg-transparent  py-8 lg:py-16 antialiased"
       >
         <div className=" mx-auto px-4">
           <div className="flex justify-between items-center mb-6">
@@ -92,11 +84,15 @@ export default function Comments({ blog }) {
             </button>
           </form>
           <div>
-            {SingleBlogComment?.map((comment) => {
+            {SingleBlogComment?.comment?.map((comment) => {
               return (
                 <>
-                  {/* {console.log(comment)} */}
-                  <CommentBox comment={comment}></CommentBox>
+                  <CommentBox
+                    depth={0}
+                    maxdepth={3}
+                    key={comment?._id}
+                    comment={comment}
+                  ></CommentBox>
                 </>
               );
             })}

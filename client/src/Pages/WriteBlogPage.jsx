@@ -9,17 +9,17 @@ import Tag from "../Component/common/WriteComponents/Tag";
 import Category from "../Component/common/WriteComponents/Category";
 import FeaturedImage from "../Component/common/WriteComponents/FeaturedImage";
 import Content from "../Component/common/WriteComponents/Content";
-const WriteBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
+import { useNavigation } from "react-router";
+import ShowPreview from "../Component/common/WriteComponents/ShowPreview";
+import SaveasDraft from "../Component/common/WriteComponents/SaveasDraft";
+const WriteBlog = ({ postid, UserDetails }) => {
   const [blogs, setblog] = useState({
-    postID: postid,
     userID: JSON.parse(localStorage.getItem("UserData")).UserID,
-    UserName: "",
   });
 
   const [blogContent, setblogContent] = useState({});
   const [category, setcategory] = useState("");
 
-  console.log("blog2 from write page ");
   const [featuredImage, setfeaturedImage] = useState("");
 
   useEffect(() => {
@@ -29,15 +29,44 @@ const WriteBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
     };
     setblog({
       ...blogs,
-      UserName: UserDetails?.username,
       ...input,
       Category: category,
     });
+
     setblogContent({ ...blogContent, ...blogs, ...input, Category: category });
     console.log(category);
     console.log(blogs);
     console.log(blogContent);
   }, [featuredImage, category]);
+
+  useEffect(() => {
+    if (
+      JSON.parse(localStorage.getItem("BlogData")).Title ||
+      blogs.Title != ""
+    ) {
+      localStorage.setItem(
+        "BlogData",
+        JSON.stringify({ ...blogContent, ...blogs, author: UserDetails })
+      );
+    }
+    // if (blogs.Title == "") {
+    //   localStorage.setItem(
+    //     "BlogData",
+    //     JSON.stringify({ ...blogContent, ...blogs, author: UserDetails })
+    //   );
+    // }
+
+    // if (
+    //   blogs?.Blog_url != "" ||
+    //   blogs?.Category != "" ||
+    //   blogContent?.description != "" ||
+    //   blogs?.tags != [] ||
+    //   blogs?.Title != ""
+    // ) {
+
+    // }
+  }, [blogContent, blogs]);
+
   const context = useContext(blogContext);
 
   const { addblogCard, addblogcontent, updateblog } = context;
@@ -47,7 +76,7 @@ const WriteBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
   // UserName:""
   const [tags, settags] = useState("");
   useEffect(() => {
-    setblog({ ...blogs, UserName: UserDetails?.username });
+    setblog({ ...blogs });
   }, [UserDetails]);
 
   const updateDesc = (content) => {
@@ -65,7 +94,7 @@ const WriteBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
 
     settags(strarr);
 
-    setblog({ ...blogs, tags: strarr, UserName: UserDetails?.username });
+    setblog({ ...blogs, tags: strarr });
     console.log(blogs);
   };
   const getInput = (event) => {
@@ -73,7 +102,7 @@ const WriteBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
     let input = {
       [name]: value,
     };
-    setblog({ ...blogs, ...input, UserName: UserDetails?.username });
+    setblog({ ...blogs, ...input });
     console.log(blogs);
   };
 
@@ -117,6 +146,10 @@ const WriteBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
       </div>
       <div className="w-[30%] flex   flex-col justify-between my-3  ">
         <div className="">
+          <div className="flex items-center ">
+            <SaveasDraft setblogContent={setblogContent}></SaveasDraft>
+            <ShowPreview blogData={{ ...blogContent, ...blogs }}></ShowPreview>
+          </div>
           <Category
             blogs={blogs}
             setcategory={setcategory}
@@ -135,7 +168,7 @@ const WriteBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
           ></FeaturedImage>
         </div>
         <button
-          className="mx-3 rounded-md border-2 dark:bg-white dark:text-black dark:hover:bg-secondary dark:hover:text-white dark:hover:border-0  text-white    pr-10 pl-10 pt-2 pb-2  bg-primaryMain"
+          className="mx-3 rounded-md border-2  dark:hover:bg-secondary dark:hover:text-white dark:hover:border-0  text-white    pr-10 pl-10 pt-2 pb-2  bg-primaryMain"
           onClick={handleadd}
         >
           Create

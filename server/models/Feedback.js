@@ -10,6 +10,9 @@ const FeedbackSchema = new Schema({
   type: {
     type: String,
   },
+  author: {
+    type:
+  }
   description: {
     type: String,
   },

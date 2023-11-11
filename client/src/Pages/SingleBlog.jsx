@@ -14,17 +14,17 @@ import MiddleSectionSkeleton from "../Component/SkeletonLoaders/SingleBlogPageSk
 import RightSectionSkeleton from "../Component/SkeletonLoaders/SingleBlogPageSkeleton/RightSectionSkeleton";
 const SingleBlog = ({ blog1, loading }) => {
   // console.log(window.innerHeight);
-  const context = useContext(blogContext);
-  const { blog, getblogs } = context;
-  // console.log(blog1);
-  useEffect(() => {
-    const fetchdata = async () => {
-      await getblogs();
-    };
-    fetchdata();
-    console.log(blog);
-  }, []);
-
+  // const context = useContext(blogContext);
+  // const { blog, getblogs } = context;
+  // // console.log(blog1);
+  // useEffect(() => {
+  //   const fetchdata = async () => {
+  //     await getblogs();
+  //   };
+  //   fetchdata();
+  //   console.log(blog);
+  // }, []);
+  // console.log(blog1.description);
   const [scrollDirection, setScrollDirection] = useState("up");
   const [prevScrollPos, setPrevScrollPos] = useState(0);
 
@@ -105,9 +105,8 @@ const SingleBlog = ({ blog1, loading }) => {
             )}
           </div>
         </div>
-        <div className="border-t-2 2xl:hidden  mt-10  w-[80%]"></div>
-        <div className="max-md:flex max-md:flex-col 2xl:hidden  mt-3  flex w-full  justify-center">
-          <div className="w-[30%] max-2xl:w-full flex  ">
+        <div className="max-md:flex max-md:flex-col 2xl:hidden border-t-[2px] dark:border-gray-500   flex w-full  justify-center">
+          <div className="w-[30%] max-2xl:w-full flex border-r-[2px] dark:border-gray-500 ">
             {loading ? (
               <LeftSectionSkeleton></LeftSectionSkeleton>
             ) : (
