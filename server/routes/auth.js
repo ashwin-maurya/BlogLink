@@ -58,7 +58,7 @@ router.post(
       });
     } catch (error) {
       console.error(error.message);
-      res.status(500).send("Internal Sever error,Something  in the way");
+      res.status(500).send("Internal Sever error, Something in the way");
     }
     // .then(user=>res.json(user)).catch(err=>{
     //     console.log(err)
@@ -66,6 +66,34 @@ router.post(
     // })
   }
 );
+router.post("/addUserDetailIdToUsers", async (req, res) => {
+  try {
+    const { userID, userDetailId } = req.body;
+    console.log("Username: ", userID);
+    const user = await User.findById(userID);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.userDetailId = userDetailId;
+
+    await user.save();
+
+    // Include userDetailId in the response
+    res.json({
+      success: true,
+      authtoken: req.headers["auth-token"], // Assuming you want to include the existing auth-token
+      UserID: user.id,
+      userDetailId: user.userDetailId,
+      username: user.username,
+      isGoogleSignup: user.isGoogleSignup,
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server error, Something went wrong");
+  }
+});
 
 //ROUTE:1 Create a user using : POST "/api/auth/createuser". No login required
 
@@ -158,6 +186,7 @@ router.post(
         success: true,
         authtoken: authtoken,
         UserID: user.id,
+        userDetailId: user.userDetailId,
         isGoogleSignup: user.isGoogleSignup,
       });
     } catch (error) {
@@ -197,6 +226,7 @@ router.post(
         success: true,
         authtoken: authtoken,
         UserID: user.id,
+        userDetailId: user.userDetailId,
         isGoogleSignup: user.isGoogleSignup,
       });
     } catch (error) {

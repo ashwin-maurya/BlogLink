@@ -59,10 +59,9 @@ export default function Register({
           twitter: "",
         },
       });
-      ModalStatus();
-
       getCurrentUser(JSON.parse(localStorage.getItem("UserData")).UserID);
       RelevantModalStatus();
+      ModalStatus();
     } else {
       toast.error("Can't Register");
     }

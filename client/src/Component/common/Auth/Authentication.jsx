@@ -84,7 +84,6 @@ export default function Authentication(props) {
     const json = await response.json();
     if (json.success) {
       localStorage.setItem("UserData", JSON.stringify(json));
-      ModalStatus();
       setAuthStatus(true);
       toast.success("Google Registration Succesfull");
       adduserdetail({
@@ -104,6 +103,7 @@ export default function Authentication(props) {
       });
       getCurrentUser(JSON.parse(localStorage.getItem("UserData")).UserID);
       RelevantModalStatus();
+      ModalStatus();
     } else {
       toast.error("Can't Register");
     }

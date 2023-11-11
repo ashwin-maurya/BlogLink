@@ -187,8 +187,6 @@ const AuthState = (props) => {
   };
 
   const adduserdetail = async (userDetail) => {
-    //API call
-    // const userID = UserDetails._id;
     const {
       username,
       description,
@@ -200,6 +198,7 @@ const AuthState = (props) => {
       socialLinks,
     } = userDetail;
     const obj = JSON.parse(localStorage.getItem("UserData"));
+
     const userID = obj.UserID;
     const response = await fetch(`${host}/api/auth/adduserdetail`, {
       method: "POST",
@@ -220,6 +219,21 @@ const AuthState = (props) => {
       }),
     });
     const ProfileUpdated = await response.json();
+    console.log(userID);
+    const response1 = await fetch(`${host}/api/auth/addUserDetailIdToUsers`, {
+      method: "POST",
+      headers: {
+        "auth-token": obj.authtoken,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userID: JSON.parse(localStorage.getItem("UserData")).UserID,
+        userDetailId: ProfileUpdated._id,
+      }),
+    });
+    const json1 = await response1.json();
+    localStorage.setItem("UserData", JSON.stringify(json1));
+
     if (ProfileUpdated) {
       toast.success("Profile Saved");
       const updatedUserDetails = {
@@ -229,6 +243,10 @@ const AuthState = (props) => {
         education: ProfileUpdated.education,
         work: ProfileUpdated.work,
         location: ProfileUpdated.location,
+        profileImg: ProfileUpdated.profileImg,
+        bannerImg: ProfileUpdated.bannerImg,
+        relevant: ProfileUpdated.relevant,
+        socialLinks: ProfileUpdated.socialLinks,
       };
       setUserDetails(updatedUserDetails);
       setUserDetailExist();
