@@ -237,7 +237,7 @@ export default function ProfileMain({ UserProfile, UserMatch }) {
 
               <div className=" leading-normal mt-2 mb-2 text-blueGray-400 font-light dark:text-darkTextMain">
                 <div className="flex flex-col text-lg">
-                  <p className="text-center">
+                  <p className="text-center max-lg:text-left">
                     {UserProfile?.description &&
                     UserProfile.description.length > 200
                       ? UserProfile.description.slice(0, 200) + "..."

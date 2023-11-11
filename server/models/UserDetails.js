@@ -8,6 +8,9 @@ const UserSchema = new Schema({
     required: true,
     unique: true,
   },
+  username: {
+    type: String,
+  },
   description: {
     type: String,
   },
@@ -37,10 +40,8 @@ const UserSchema = new Schema({
     {
       type: mongoose.Types.ObjectId,
       ref: "blogCard",
-
-
-    }
-  ]
+    },
+  ],
 });
 
 const UserDetail = mongoose.model("UserDetail", UserSchema);

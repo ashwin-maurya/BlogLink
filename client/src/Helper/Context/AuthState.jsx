@@ -190,6 +190,7 @@ const AuthState = (props) => {
     //API call
     // const userID = UserDetails._id;
     const {
+      username,
       description,
       work,
       education,
@@ -208,6 +209,7 @@ const AuthState = (props) => {
       },
       body: JSON.stringify({
         userID,
+        username,
         description,
         work,
         education,

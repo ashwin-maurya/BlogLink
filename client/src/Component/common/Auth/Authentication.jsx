@@ -88,6 +88,7 @@ export default function Authentication(props) {
       setAuthStatus(true);
       toast.success("Google Registration Succesfull");
       adduserdetail({
+        username: GoogleCreds.username,
         description: "",
         work: "",
         education: "",

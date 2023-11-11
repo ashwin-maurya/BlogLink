@@ -4,19 +4,16 @@ export default function ProfileMainSkeleton() {
   return (
     <>
       <section className="relative block h-[400px] ">
-        <div className=" w-full h-full  ">
-          <div className="relative group/buttons h-[300px] bg-bgBlue dark:bg-darkBgPrimary"></div>
+        <div className=" w-full h-full">
+          <div className="relative group/buttons h-[300px] bg-bgBlue dark:bg-gray-700"></div>
         </div>
       </section>
 
       <section className="relative pt-8 ">
         <div className="container mx-auto px-4">
           <div className="relative flex flex-col min-w-0 bg-white  dark:bg-darkBgPrimary w-[60%] max-lg:w-[95%]  mx-auto mb-6 shadow-xl rounded-lg -mt-60 p-10">
-            <div className="flex flex-wrap justify-center relative animate-pulse">
-              <img
-                alt="..."
-                className="shadow-xl rounded-full w-32 h-32  dark:bg-gray-700 align-middle border-none -mt-24 bg-white"
-              />
+            <div className="flex flex-wrap justify-center relative ">
+              <div className="shadow-md rounded-full w-40 h-40  dark:bg-gray-700 align-middle border-none -mt-24 bg-white"></div>
             </div>
             <div className="text-center my-4 flex flex-col justify-center items-center   animate-pulse">
               <h3 className="text-3xl font-semibold leading-normals text-blueGray-700 mb-2 dark:text-darkTextMain">

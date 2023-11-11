@@ -45,6 +45,7 @@ export default function Register({
       toast.success("Registered Successfully");
 
       adduserdetail({
+        username: json.username,
         description: "",
         work: "",
         education: "",

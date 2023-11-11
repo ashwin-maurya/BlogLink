@@ -16,7 +16,6 @@ const BlogCardSchema = new mongoose.Schema({
   },
   UserName: {
     type: String,
-    // required: true
   },
 
   Category: {
@@ -45,16 +44,12 @@ const BlogCardSchema = new mongoose.Schema({
   },
   view: {
     type: String,
-    default: "0"
+    default: "0",
   },
   Date: {
     default: Date.now,
     type: Date,
   },
-
-
-
-
 });
 
 module.exports = mongoose.model("blogCard", BlogCardSchema);

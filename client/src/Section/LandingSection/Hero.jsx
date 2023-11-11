@@ -1,36 +1,106 @@
-import React from "react";
-import { hero } from "../../Assets/images";
+import React, { useState, useEffect } from "react";
+import HomeHeroSkeleton from "../../Component/SkeletonLoaders/HomeHeroSkeleton";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+const Hero = () => {
+  const [randomBlog, setRandomBlog] = useState(null);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
-export default function Hero() {
+  useEffect(() => {
+    setRandomBlog(null);
+    setLoading(true);
+
+    const fetchRandomBlog = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:5001/api/blogs/fetchrandomblog"
+        );
+        const data = await response.json();
+        setRandomBlog(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching random blog:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchRandomBlog();
+  }, []);
+
   return (
     <>
-      <section className="w-full  relative flex items-center flex-col">
-        <div className=" max-h-[400px] overflow-hidden">
-          <img src={hero} alt="hero-image" className="w-full" />
-        </div>
-        <div className="relative rounded-xl w-[60%] bg-white max-lg:bottom-[30px] bottom-[100px] max-lg:w-[90%] shadow-[0_18px_10px_-15px_rgba(0,0,0,0.1)] group  dark:bg-darkBgPrimary">
-          <div className="px-20  py-10 flex flex-col items-center max-lg:px-10 max-lg:py-5">
-            <span className="text-primaryMain dark:text-secondary text-[18px] font-medium max-lg:text-[12px] tracking-[5px]">
-              EXPLAINERS
-            </span>
-            <h1 className="text-[40px] font-bold py-5 text-center max-lg:py-2 max-lg:text-[20px] font-serif hover:text-primaryMain dark:text-darkTextMain dark:hover:text-secondary">
-              How Scientists Are Tackling the Tricky Task of Solar Cycle
-              Prediction
-            </h1>
-            <div className="flex flex-row items-center justify-center ">
-              <p className="text-lg max-lg:text-[15px] ml-2 font-semibold font-palanquin text-gray-700 dark:text-darkTextMain">
-                By Ashwin Maurya
-              </p>
-              <span className="text-lg max-lg:text-[15px] max-lg:text-sm ml-2 font-semibold font-palanquin text-gray-400">
-                -
-              </span>
-              <p className="text-lg max-lg:text-sm ml-1 font-semibold font-palanquin text-gray-400 dark:text-darkTextPrimary">
-                8 July, 2023
-              </p>
-            </div>
-          </div>
-        </div>
+      <section className="w-full relative flex items-center flex-col">
+        {loading ? (
+          <HomeHeroSkeleton />
+        ) : (
+          randomBlog && (
+            <>
+              <div className="max-h-[400px] min-h-[400px] w-full overflow-hidden dark:bg-gray-700">
+                <img
+                  src={randomBlog?.Blog_url}
+                  alt="hero-image"
+                  className="w-full h-auto"
+                />
+              </div>
+
+              <div className="relative rounded-xl w-[60%] bg-white max-lg:bottom-[30px] bottom-[100px] max-lg:w-[90%] shadow-[0_18px_10px_-15px_rgba(0,0,0,0.1)] group dark:bg-darkBgPrimary">
+                <div className="px-20 py-10 flex flex-col items-center max-lg:px-10 max-lg:py-5">
+                  <span className="text-primaryMain dark:text-secondary text-[18px] font-medium max-lg:text-[12px] tracking-[5px] uppercase cursor-pointer">
+                    {randomBlog?.Category}
+                  </span>
+                  <h1
+                    className="text-[40px] font-bold py-5 text-center max-lg:py-2 max-lg:text-[20px] font-serif hover:text-primaryMain dark:text-darkTextMain dark:hover:text-secondary capitalize cursor-pointer"
+                    onClick={() => {
+                      navigate(
+                        `/blogs/${randomBlog?.Title?.replace(/\s+/g, "-")}`,
+                        {
+                          state: {
+                            id: randomBlog._id,
+                            userID: randomBlog.userID,
+                            view: randomBlog?.view,
+                            username: randomBlog?.UserName,
+                          },
+                        }
+                      );
+                    }}
+                  >
+                    {randomBlog?.Title}
+                  </h1>
+
+                  <div className="flex flex-row items-center justify-center">
+                    <p
+                      className="text-lg max-lg:text-[15px] ml-2 font-semibold font-palanquin text-gray-700 dark:text-darkTextMain cursor-pointer"
+                      onClick={() => {
+                        toast.success("Welcome to Profile");
+
+                        navigate(`/profile/${randomBlog?.UserName}`, {
+                          state: { id: randomBlog?.userID },
+                        });
+                      }}
+                    >
+                      By {randomBlog.UserName}
+                    </p>
+                    <span className="text-lg max-lg:text-[15px] max-lg:text-sm ml-2 font-semibold font-palanquin text-gray-400">
+                      -
+                    </span>
+                    <p className="text-lg max-lg:text-sm ml-1 font-semibold font-palanquin text-gray-400 dark:text-darkTextPrimary">
+                      {new Date(randomBlog?.Date).toLocaleString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </>
+          )
+        )}
       </section>
     </>
   );
-}
+};
+
+export default Hero;

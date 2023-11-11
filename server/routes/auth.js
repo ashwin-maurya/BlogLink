@@ -53,6 +53,7 @@ router.post(
         success: success,
         authtoken: authtoken,
         UserID: user.id,
+        username: user.username,
         isGoogleSignup: user.isGoogleSignup,
       });
     } catch (error) {
@@ -105,6 +106,7 @@ router.post(
         success: success,
         authtoken: authtoken,
         UserID: user.id,
+        username: user.username,
         isGoogleSignup: user.isGoogleSignup,
       });
     } catch (error) {
@@ -283,6 +285,7 @@ router.post("/adduserdetail", fetchuser, async (req, res) => {
   try {
     const {
       userID,
+      username,
       description,
       work,
       education,
@@ -291,6 +294,7 @@ router.post("/adduserdetail", fetchuser, async (req, res) => {
       bannerImg,
       socialLinks,
     } = req.body;
+    console.log(username);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -304,6 +308,7 @@ router.post("/adduserdetail", fetchuser, async (req, res) => {
 
     const newUserDetails = new Userdetail({
       userID,
+      username,
       description,
       work,
       education,

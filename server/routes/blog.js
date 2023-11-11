@@ -19,8 +19,13 @@ router.post("/postblogcontent", fetchuser, async (req, res) => {
       // postID,
       // Title,
       description,
-      userID, postID, Title, Category, UserName, tags, Blog_url,
-
+      userID,
+      postID,
+      Title,
+      Category,
+      UserName,
+      tags,
+      Blog_url,
     } = req.body;
     // If there are errors , return Bad request and the errors
     const errors = validationResult(req);
@@ -29,7 +34,13 @@ router.post("/postblogcontent", fetchuser, async (req, res) => {
     }
 
     const blog2 = new blog({
-      userID, postID, Title, Category, UserName, tags, Blog_url,
+      userID,
+      postID,
+      Title,
+      Category,
+      UserName,
+      tags,
+      Blog_url,
       // userID,
       // postID,
       // Title,
@@ -38,11 +49,10 @@ router.post("/postblogcontent", fetchuser, async (req, res) => {
       // tags,
       // Category,
       // Blog_url,
-
     });
 
     const savedblog = await blog2.save();
-    console.log(savedblog)
+    console.log(savedblog);
     const Blog = new blogCard({
       Title,
       UserName,
@@ -52,10 +62,10 @@ router.post("/postblogcontent", fetchuser, async (req, res) => {
       tags,
       Blog_url,
       blogcontent: blog2._id,
-      author: userID
+      author: userID,
     });
     const savedblog2 = await Blog.save();
-    console.log(savedblog2)
+    console.log(savedblog2);
     res.json(savedblog2);
   } catch (error) {
     console.error(error.message);
@@ -81,7 +91,6 @@ router.post(
         return res.status(400).json({ errors: errors.array() });
       }
 
-
       const blog = new blogCard({
         Title,
         UserName,
@@ -104,10 +113,13 @@ router.post(
 router.post("/getsingleblogcontent", async (req, res) => {
   try {
     const { id } = req.body;
-    const blogs = await blogCard.find({ _id: id }).populate("blogcontent").populate("author");
+    const blogs = await blogCard
+      .find({ _id: id })
+      .populate("blogcontent")
+      .populate("author");
 
-    console.log("BlogContent")
-    console.log(blogs)
+    console.log("BlogContent");
+    console.log(blogs);
 
     res.json(blogs);
   } catch (error) {
@@ -121,10 +133,10 @@ router.post("/getsingleblogcontent", async (req, res) => {
 //ROUTE 1: Get all the blogs using : GET "/api/blogs/fetchallblogs". Login required
 router.get("/fetchallblogCards", async (req, res) => {
   try {
-    console.log("hello")
+    console.log("hello");
     const blogs = await blogCard.find({}).populate("author");
     //   console.log(req.user.id)
-    console.log(blogs)
+    console.log(blogs);
     res.json(blogs);
   } catch (error) {
     console.error(error.message);
@@ -147,7 +159,6 @@ router.get("/filterblog", async (req, res) => {
     res.status(500).send("Internal Sever error,Something in the way");
   }
 });
-
 
 // ROUTE 3:Update an existing note using : POST "/api/notes/updatenote" .login required
 
@@ -259,6 +270,22 @@ router.get("/searchForResults/:searchtext", async (req, res) => {
       res.json({ available: true, results: searchResults });
     } else {
       res.json({ available: false });
+    }
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal server error, something went wrong");
+  }
+});
+router.get("/fetchrandomblog", async (req, res) => {
+  try {
+    const totalBlogs = await blogCard.countDocuments();
+    const randomIndex = Math.floor(Math.random() * totalBlogs);
+    const randomBlog = await blogCard.findOne().skip(randomIndex).exec();
+
+    if (randomBlog) {
+      res.json(randomBlog);
+    } else {
+      res.json({ message: "No blogs found" });
     }
   } catch (error) {
     console.error(error.message);

@@ -29,7 +29,6 @@ export default function Login() {
           ) : (
             <div className="flex gap-2 text-lg leading-normal font-medium px-4 items-center mt-3">
               <div className="w-8 h-8 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
-              <div className="w-40 h-8 mb-2.5 bg-gray-200 rounded-full dark:bg-gray-700"></div>
             </div>
           )}
         </div>
