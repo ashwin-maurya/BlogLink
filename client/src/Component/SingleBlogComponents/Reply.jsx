@@ -15,7 +15,7 @@ const Reply = ({ comment, show, onReplySubmit, setshow }) => {
   const [Reply, setReply] = useState({
     reply: "",
     // ...comment,
-    userID: UserDetails?.userID,
+    userID: JSON.parse(localStorage.getItem("UserData")).userDetailId,
 
     id: comment?._id,
   });

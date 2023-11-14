@@ -6,26 +6,55 @@ import blogContext from "../../Helper/Context/blogContext";
 import { useContext, useEffect, useState, useRef } from "react";
 import AuthContext from "../../Helper/Context/AuthContext";
 import { profileDefault } from "../../Assets/icons";
+
 import CommentLikeContext from "../../Helper/Context/CommentLikeContext";
 import ShareModal from "../SingleBlogComponents/ShareModal";
-export default function BlogCard({ card }) {
+import FilterContext from "../../Helper/Context/FilterContext";
+export default function BlogCard({ card, isBookmark }) {
   const context = useContext(blogContext);
   const context5 = useContext(CommentLikeContext);
-  const { addbookmark } = context5;
-  const { deletenote, host } = context;
+  const context6 = useContext(FilterContext);
+
+  const { addbookmark, deletebookmark } = context5;
+  const { deletenote } = context6;
   const context3 = useContext(AuthContext);
   const navigate = useNavigate();
   const { UserDetails, AuthStatus } = context3;
-  const [date, setdate] = useState("");
   const [ShowEdit, setShowEdit] = useState(false);
-  const [user, setuser] = useState("");
+  // console.log(isBookmark);
+  const [Bookmarked, setBookmarked] = useState(isBookmark);
+
   const modalRef = useRef(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [shareModalVisible, setShareModalVisible] = useState(false);
 
+
+  const bookmark = async () => {
+    // setBookmarked(!Bookmarked);
+    console.log(Bookmarked);
+
+    if (Bookmarked == true) {
+      await deletebookmark({
+        userID: JSON.parse(localStorage.getItem("UserData")).userDetailId,
+        postID: card?._id,
+      });
+      toast.success("Bookmark deleted");
+      setBookmarked(!Bookmarked);
+    } else {
+      await addBookmark({
+        userID: JSON.parse(localStorage.getItem("UserData")).userDetailId,
+        postID: card?._id,
+      });
+      toast.success("Bookmark addedd");
+      setBookmarked(!Bookmarked);
+    }
+  };
+
+
   const sharemodal = () => {
     setShareModalVisible(!shareModalVisible);
   };
+
   const handleOutsideClick = (event) => {
     console.log("CLICED");
     if (modalRef.current === event.target) {
@@ -37,13 +66,16 @@ export default function BlogCard({ card }) {
   };
 
   const onDelete = async () => {
-    await deletenote(card?.postID);
+    await deletenote(card?._id);
     toast.success("Blog Deleted");
   };
 
   useEffect(() => {
     if (AuthStatus) {
-      if (card?.userID === UserDetails?._id) {
+      if (
+        card?.author?._id ===
+        JSON.parse(localStorage.getItem("UserData")).userDetailId
+      ) {
         setShowEdit(true);
       } else {
         setShowEdit(false);
@@ -55,7 +87,10 @@ export default function BlogCard({ card }) {
   }, [UserDetails, card]);
 
   const addBookmark = async () => {
-    await addbookmark({ userID: UserDetails?._id, postID: card?._id });
+    await addbookmark({
+      userID: JSON.parse(localStorage.getItem("UserData")).userDetailId,
+      postID: card?._id,
+    });
     toast.success("Bookmark Added");
   };
 
@@ -81,50 +116,53 @@ export default function BlogCard({ card }) {
                     onClick={() => {
                       toast.success("Welcome to Profile");
 
-                      navigate(`/profile/${card?.UserName}`, {
-                        state: { id: card?.userID },
-                      });
-                    }}
-                  >
-                    <img
-                      src={
-                        card?.author?.profileImg != ""
-                          ? card?.author?.profileImg
-                          : profileDefault
-                      }
-                      className="border-[1px] border-purple-300 bg-white h-7 w-7 max-sm:w-6 max-sm:h-6  rounded-full object-contain"
-                      alt="img"
-                    />
-                    <div className="flex flex-row ml-2 max-lg:flex-col">
-                      <p
-                        className="text-md cursor-pointer font-semibold font-palanquin text-gray-700 dark:text-darkTextMain max-sm:text-sm"
-                        onClick={() => {
-                          navigate(
-                            `/profile/${card?.UserName?.replace(/\s+/g, "-")}`,
-                            {}
-                          );
-                        }}
-                      >
-                        {card?.UserName}
-                      </p>
-                      <span className="text-sm ml-2 font-semibold font-palanquin text-gray-400 dark:text-darkTextPrimary max-lg:hidden ">
-                        -
-                      </span>
-                      <p className="text-sm ml-1 max-lg:ml-0 font-semibold font-palanquin text-gray-500 dark:text-darkTextPrimary max-sm:text-[14px]">
-                        {new Date(card?.Date).toLocaleString("en-US", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        })}
-                      </p>
-                    </div>
+                    navigate(`/profile/${card?.author?.username}`, {
+                      state: { id: card?.author?.username },
+                    });
+                  }}
+                >
+                  <img
+                    // src={user}
+                    src={
+                      card?.author?.profileImg != ""
+                        ? card?.author?.profileImg
+                        : profileDefault
+                    }
+                    className="border-[1px] border-purple-300 bg-white h-7 w-7  rounded-full object-contain"
+                    alt="img"
+                  />
+                  <div className="flex flex-row ml-2 max-lg:flex-col">
+                    <p
+                      className="text-md cursor-pointer font-semibold font-palanquin text-gray-700 dark:text-darkTextMain"
+                      onClick={() => {
+                        navigate(
+                          `/profile/${card?.UserName?.replace(/\s+/g, "-")}`,
+                          {}
+                        );
+                      }}
+                    >
+                      {card?.author.username}
+                    </p>
+                    <span className="text-sm ml-2 font-semibold font-palanquin text-gray-400 dark:text-darkTextPrimary max-lg:hidden">
+                      -
+                    </span>
+                    <p className="text-sm ml-1 max-lg:ml-0 font-semibold font-palanquin text-gray-500 dark:text-darkTextPrimary">
+                      {new Date(card?.Date).toLocaleString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </p>
+
                   </div>
                 </div>
               </div>
             </div>
 
+
             <div
               className="flex flex-col "
+
               onClick={() => {
                 navigate(`/blogs/${card?.Title?.replace(/\s+/g, "-")}`, {
                   state: {
@@ -195,19 +233,26 @@ export default function BlogCard({ card }) {
           </div>
         </div>
 
-        <div className="relative pb-1 flex justify-between items-center  flex-wrap w-full mt-1">
-          <div className="flex  items-center ">
-            {card?.tags.slice(0, 3)?.map((tag, index) => (
-              <Tags key={index} tags={tag} />
-            ))}{" "}
-          </div>
-          <div className="flex   items-center mr-1 mt-2">
-            <div className="rounded-full py-2 px-4 hover:bg-primaryMain group/btn dark:hover:bg-darkBgMain flex justify-center items-center transition ease-in-out">
+      <div className="relative pb-1 flex justify-between items-center  flex-wrap w-full mt-1">
+        <div className="flex gap-3  items-center ">
+          {card?.tags.slice(0, 3)?.map((tag, index) => (
+            <Tags key={index} tags={tag} />
+          ))}{" "}
+        </div>
+        <div className="flex   items-center mr-1 mt-2">
+          {
+            <div className="rounded-full py-2 px-4 hover:bg-darkBgMain flex justify-center items-center">
               <i
-                className="dark:text-white fa fa-bookmark group-hover/btn:text-white text-gray-600 hover:text-primaryMain text-[15px] "
-                onClick={addBookmark}
+                className={`dark:text-white  border-2    text-${
+                  Bookmarked
+                    ? "primaryMain fa fa-bookmark"
+                    : " fa fa-bookmark-o"
+                } hover:text-primaryMain text-[15px] `}
+                onClick={bookmark}
               ></i>
             </div>
+          }
+
 
             <div className="rounded-full py-2 px-4 hover:bg-primaryMain group/btn dark:hover:bg-darkBgMain flex justify-center items-center transition ease-in-out">
               {" "}

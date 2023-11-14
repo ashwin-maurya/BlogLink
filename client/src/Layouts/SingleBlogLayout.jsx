@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 
 import SingleBlog from "../Pages/SingleBlog";
-import { useLocation } from "react-router";
+import { useLocation, useParams } from "react-router";
 
 import blogContext from "../Helper/Context/blogContext";
 import CommentLikeContext from "../Helper/Context/CommentLikeContext";
@@ -15,14 +15,16 @@ const SingleBlogLayout = () => {
   const { updateViews } = context2;
   const [loading, setloading] = useState(true);
   // console.log("I work in writeblogLAyotu");
-  const id = location.state?.id;
-  const userID = location.state?.userID;
+  // const id = location.state?.id;
+  // const userID = location.state?.userID;
   // const view = location.state?.view;
-  const username = location.state?.username;
-  // console.log(username);
+
+  // const username = location.state?.username;
+  const { id } = useParams();
+  console.log(id + " id -----------------------sjcner verjv ervjeve rjverjv n");
   const [Id, setId] = useState(id);
   useEffect(() => {
-    getsingleblogContent(id, userID)
+    getsingleblogContent(id)
       .then(() => {
         setloading(false);
       })
@@ -44,7 +46,7 @@ const SingleBlogLayout = () => {
       // If the user has stayed on the page for more than 3 minutes (180 seconds), increase the view count
       if (elapsedSeconds >= 10) {
         setViewCount((prevViewCount) => prevViewCount + 1);
-        console.log(SingleBlogContent);
+        // console.log();
         console.log({ viewCount, id });
 
         updateViews({ view: SingleBlogContent[0]?.view, id });

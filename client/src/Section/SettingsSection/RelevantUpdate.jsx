@@ -1,20 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import AuthContext from "../../Helper/Context/AuthContext";
+
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-export default function RelevantUpdate(props) {
+import FilterContext from "../../Helper/Context/FilterContext";
+const RelevantUpdate = (props) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
+  const [computerScienceOption, setcomputerScienceOption] = useState([]);
   const context = useContext(AuthContext);
   const { UserDetails, getCurrentUser } = context;
+  const context2 = useContext(FilterContext);
+  const { getallcategory } = context2;
   const host = "http://localhost:5001";
   useEffect(() => {
     setSelectedOptions(UserDetails?.relevant || []);
   }, [UserDetails]);
   const { RelevantModalStatus, firstSignUp = false } = props;
-
-  const computerScienceOptions = [
+  let computerScienceOptions = [
     "React Js",
-    "Python",
     "Java",
     "JavaScript",
     "C++",
@@ -36,7 +39,19 @@ export default function RelevantUpdate(props) {
     "Game Development",
     "Data Analytics",
   ];
+  useEffect(() => {
+    async function f() {
+      setcomputerScienceOption(
+        await getallcategory()
+        // ...computerScienceOptions
+      );
+      // console.log(computerScienceOption);
+    }
+    f();
 
+    // computerScienceOptions.push(...computerScienceOption);
+  }, []);
+  const arr = [...computerScienceOption, ...computerScienceOptions];
   const handleOptionChange = (option) => {
     if (selectedOptions.includes(option)) {
       setSelectedOptions(selectedOptions.filter((item) => item !== option));
@@ -91,7 +106,7 @@ export default function RelevantUpdate(props) {
             Choose your preferences:
           </h3>
           <ul className="flex flex-wrap gap-3 overflow-y-scroll">
-            {computerScienceOptions.map((option, index) => (
+            {arr.map((option, index) => (
               <li key={index}>
                 <input
                   type="checkbox"
@@ -129,4 +144,6 @@ export default function RelevantUpdate(props) {
       </div>
     </>
   );
-}
+};
+
+export default RelevantUpdate;

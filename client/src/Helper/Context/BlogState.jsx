@@ -44,8 +44,8 @@ const BlogState = (props) => {
 
     setfilterData(json);
   };
-  const getsingleblogContent = async (id, userID) => {
-    console.log(id + " " + userID);
+  const getsingleblogContent = async (id) => {
+    console.log(id);
 
     const response = await fetch(`${host}/api/blogs/getsingleblogcontent`, {
       method: "POST",
@@ -104,19 +104,19 @@ const BlogState = (props) => {
       description,
     } = data;
 
-    const response1 = await fetch(
-      `${host}/api/auth/getCurrentUserDetails/${userID}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    // const response1 = await fetch(
+    //   `${host}/api/auth/getCurrentUserDetails/${userID}`,
+    //   {
+    //     method: "GET",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   }
+    // );
 
-    let resp = await response1.json();
-    console.log("resp");
-    console.log(resp);
+    // let resp = await response1.json();
+    // console.log("resp");
+    // console.log(resp);
 
     const obj = JSON.parse(localStorage.getItem("UserData"));
     const response = await fetch(`${host}/api/blogs/postblogcontent`, {
@@ -126,7 +126,7 @@ const BlogState = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        userID: resp._id,
+        userID,
         postID,
         Title,
         description,
@@ -141,23 +141,6 @@ const BlogState = (props) => {
   };
 
   //Delete a note
-  const deletenote = async (id) => {
-    //API call
-    const obj = JSON.parse(localStorage.getItem("UserData"));
-    const response = await fetch(`${host}/api/blogs/deleteblog/${id}`, {
-      method: "DELETE",
-      headers: {
-        "auth-token": obj.authtoken,
-        "Content-Type": "application/json",
-      },
-    });
-
-    const json = response.json();
-    const output = blog.filter((blog) => {
-      return blog.postID != id;
-    });
-    setblogs(output);
-  };
 
   //Edit a note
   const updateblog = async (data, id) => {
@@ -213,7 +196,7 @@ const BlogState = (props) => {
         addblogcontent,
         SingleBlogContent,
         getsingleblogContent,
-        deletenote,
+
         // getimg,
         UserImage,
         host,

@@ -14,7 +14,11 @@ export default function Comments({ blog }) {
 
   useEffect(() => {
     // console.log(UserDetails);
-    setcomment({ comment, postID: blog?._id, userID: UserDetails?.userID });
+    setcomment({
+      comment,
+      postID: blog?._id,
+      userID: JSON.parse(localStorage.getItem("UserData")).userDetailId,
+    });
   }, [blog, UserDetails]);
 
   const [comment, setcomment] = useState("");
@@ -49,7 +53,7 @@ export default function Comments({ blog }) {
     <>
       <section
         id="comment"
-        className="bg-white w-[100%]  dark:bg-transparent  py-8 lg:py-16 antialiased"
+        className="bg-slate-50 w-[100%]  dark:bg-transparent  py-8 lg:py-16 antialiased"
       >
         <div className=" mx-auto px-4">
           <div className="flex justify-between items-center mb-6">

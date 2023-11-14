@@ -17,7 +17,7 @@ const Hero = () => {
         const response = await fetch(
           "http://localhost:5001/api/blogs/fetchrandomblog"
         );
-        const data = await response.json();
+        const data = await response?.json();
         setRandomBlog(data);
         setLoading(false);
       } catch (error) {

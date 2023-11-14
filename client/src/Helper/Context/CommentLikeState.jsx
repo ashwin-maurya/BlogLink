@@ -4,6 +4,8 @@ import blogContext from "./blogContext";
 import { useContext } from "react";
 const CommentLikeState = (props) => {
   const [allbookmarks, setallbookmarks] = useState([]);
+  const [checkbookmark, setcheckbookmark] = useState([]);
+
   const context = useContext(blogContext);
   // const {}
   const [reply, setreply] = useState({});
@@ -127,6 +129,24 @@ const CommentLikeState = (props) => {
 
     console.log(resp2);
   };
+
+  const deletebookmark = async (data) => {
+    console.log(data);
+    const obj = JSON.parse(localStorage.getItem("UserData"));
+
+    const resp = await fetch(`${host}/api/comments/deletebookmark/`, {
+      method: "PUT",
+      headers: {
+        "auth-token": obj.authtoken,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const resp2 = await resp.json();
+
+    console.log(resp2);
+  };
   const getbookmark = async (data) => {
     console.log(data);
     const obj = JSON.parse(localStorage.getItem("UserData"));
@@ -141,8 +161,25 @@ const CommentLikeState = (props) => {
     });
 
     const resp2 = await resp.json();
-    setallbookmarks(resp2.bookmarks);
     console.log(resp2);
+    setallbookmarks(resp2?.postId);
+  };
+  const Checkbookmark = async (data) => {
+    console.log(data);
+    const obj = JSON.parse(localStorage.getItem("UserData"));
+
+    const resp = await fetch(`${host}/api/comments/checkbookmark/`, {
+      method: "PUT",
+      headers: {
+        "auth-token": obj.authtoken,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data }),
+    });
+
+    const resp2 = await resp.json();
+    console.log(resp2);
+    setcheckbookmark(resp2?.postId);
   };
 
   return (
@@ -157,9 +194,12 @@ const CommentLikeState = (props) => {
         getbookmark,
         setallbookmarks,
         allbookmarks,
+        Checkbookmark,
         addcomment,
         SingleBlogComment,
         getsingleblogComment,
+        checkbookmark,
+        deletebookmark,
       }}
     >
       {props.children}

@@ -38,14 +38,14 @@ const CommentBox = ({ comment, depth, maxdepth }) => {
   // console.log(reply);
 
   return (
-    <section>
+    <section className="">
       <article className="p-6 text-base mt-2 bg-white rounded-lg dark:bg-darkBgPrimary">
-        <footer className="flex justify-between items-center mb-2">
+        <footer className=" flex justify-between items-center mb-2">
           <div className="flex items-center">
             <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
               <img
                 className="mr-2 w-6 h-6 rounded-full"
-                src={code1}
+                src={comment?.author?.profileImg}
                 alt="Ram Ghanshyam"
               />
               {comment?.author?.username}
@@ -72,49 +72,51 @@ const CommentBox = ({ comment, depth, maxdepth }) => {
             <span className="sr-only">Comment settings</span>
           </button>
         </footer>
-        <p className="text-gray-500 dark:text-gray-400">{comment.text}</p>
-        <div className="flex mt-4 gap-7  items-center">
-          <div className="flex items-center  space-x-4">
-            <button
-              type="button"
-              className="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium"
-              onClick={() => {
-                setreplyBox(true);
-              }}
-            >
-              r
-              <svg
-                className="mr-1.5 w-3.5 h-3.5"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 20 18"
+        <div className="border-l-2 pl-2">
+          <p className=" text-gray-500 dark:text-gray-400">{comment.text}</p>
+          <div className="flex mt-4 gap-7  items-center">
+            <div className="flex items-center  space-x-4">
+              <button
+                type="button"
+                className="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium"
+                onClick={() => {
+                  setreplyBox(true);
+                }}
               >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"
-                />
-              </svg>
-              Reply
-            </button>
-          </div>
-          <div className="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium">
-            {/* {comment?.reply.length != 0 &&
+                r
+                <svg
+                  className="mr-1.5 w-3.5 h-3.5"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 20 18"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 5h5M5 8h2m6-3h2m-5 3h6m2-7H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h3v5l5-5h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1Z"
+                  />
+                </svg>
+                Reply
+              </button>
+            </div>
+            <div className="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium">
+              {/* {comment?.reply.length != 0 &&
               `(${comment?.reply.length}) Replies `} */}
+            </div>
           </div>
+          <Reply
+            // reply={reply}
+            // setreply={setreply}
+            comment={comment}
+            // commentID={comment?._id}
+            setshow={setreplyBox}
+            show={replyBox}
+            onReplySubmit={handleReplySubmit}
+          ></Reply>
         </div>
-        <Reply
-          // reply={reply}
-          // setreply={setreply}
-          comment={comment}
-          // commentID={comment?._id}
-          setshow={setreplyBox}
-          show={replyBox}
-          onReplySubmit={handleReplySubmit}
-        ></Reply>
         {
           // depth < maxdepth &&
           // data.children &&

@@ -5,7 +5,7 @@ const MiddleSection = ({ blog }) => {
     <section className="max-container text-[27px]">
       {
         <div
-          className="p-6 rounded-xl bg-white dark:bg-darkBgPrimary"
+          className="px-6 py-1 rounded-xl bg-white dark:bg-darkBgPrimary"
           dangerouslySetInnerHTML={{
             __html: DOMPurify.sanitize(blog?.blogcontent?.description),
           }}

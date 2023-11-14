@@ -36,7 +36,7 @@ const App = () => {
                   <Route path="/blog" element={<BlogLayout />} />
                   <Route path="/settings/*" element={<SettingsLayout />} />
 
-                  <Route path="/blogs/:handle" element={<SingleBlogLayout />} />
+                  <Route path="/blogs/:id" element={<SingleBlogLayout />} />
                   <Route
                     path="/write"
                     element={<WriteBlogLayout></WriteBlogLayout>}
