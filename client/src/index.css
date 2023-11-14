@@ -17,17 +17,17 @@
   }
 } */
 ::-webkit-scrollbar-track {
-  background: #eadeff;
+  background: #d4e5ff;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #b08cf3;
+  background: #67a1ff;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #8957e5;
+  background: #3b82f6;
 }
 * {
   margin: 0;

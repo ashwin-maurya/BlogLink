@@ -44,8 +44,8 @@ export default function EditProfileImg(props) {
             <div className="flex items-center justify-center w-full">
               <label className="flex flex-col rounded-lg border-4 border-dashed w-full p-10 group text-center">
                 <div className=" w-full text-center flex  items-center justify-center  flex-row">
-                  <p className="pointer-none dark:text-white text-white mb-5">
-                    <span className="text-sm">
+                  <p className="pointer-none mb-5">
+                    <span className="text-sm text-gray-600 dark:text-gray-200">
                       {selectedImageName
                         ? selectedImageName
                         : "Please select an jpg/jpeg file from your computer"}
