@@ -105,7 +105,7 @@ const SingleBlog = ({ blog1, loading }) => {
             )}
           </div>
         </div>
-        <div className="max-md:flex max-md:flex-col 2xl:hidden border-t-[2px] dark:border-gray-500   flex w-full  justify-center">
+        <div className="max-md:flex max-md:flex-col mt-5 2xl:hidden border-t-[2px] dark:border-gray-500   flex w-full  justify-center">
           <div className="w-[30%] max-2xl:w-full flex border-r-[2px] dark:border-gray-500 ">
             {loading ? (
               <LeftSectionSkeleton></LeftSectionSkeleton>
@@ -121,7 +121,7 @@ const SingleBlog = ({ blog1, loading }) => {
             )}
           </div>
         </div>
-        <div className="w-[58%] mt-10">
+        <div className="w-[70%] mt-10">
           <Comments blog={blog1} />
         </div>
       </section>

@@ -19,7 +19,7 @@ const CommentSchema = new mongoose.Schema({
 
     author: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'UserDetail'
     },
 
 

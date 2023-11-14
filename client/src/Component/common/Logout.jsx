@@ -25,6 +25,7 @@ export default function Logout() {
             setUserDetails();
             setLoggedin({});
             localStorage.removeItem("UserData");
+            window.location.reload();
           }}
         >
           Sign out

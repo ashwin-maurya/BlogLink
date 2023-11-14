@@ -7,20 +7,46 @@ import blogContext from "../../Helper/Context/blogContext";
 import { useContext, useEffect, useState, useRef } from "react";
 import AuthContext from "../../Helper/Context/AuthContext";
 import { profileDefault } from "../../Assets/icons";
+
 import CommentLikeContext from "../../Helper/Context/CommentLikeContext";
-export default function BlogCard({ card }) {
+import FilterContext from "../../Helper/Context/FilterContext";
+export default function BlogCard({ card, isBookmark }) {
   const context = useContext(blogContext);
   const context5 = useContext(CommentLikeContext);
-  const { addbookmark } = context5;
-  const { deletenote, host } = context;
+  const context6 = useContext(FilterContext);
+
+  const { addbookmark, deletebookmark } = context5;
+  const { deletenote } = context6;
   const context3 = useContext(AuthContext);
   const navigate = useNavigate();
   const { UserDetails, AuthStatus } = context3;
-  const [date, setdate] = useState("");
   const [ShowEdit, setShowEdit] = useState(false);
-  const [user, setuser] = useState("");
+  // console.log(isBookmark);
+  const [Bookmarked, setBookmarked] = useState(isBookmark);
+
   const modalRef = useRef(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+
+  const bookmark = async () => {
+    // setBookmarked(!Bookmarked);
+    console.log(Bookmarked);
+
+    if (Bookmarked == true) {
+      await deletebookmark({
+        userID: JSON.parse(localStorage.getItem("UserData")).userDetailId,
+        postID: card?._id,
+      });
+      toast.success("Bookmark deleted");
+      setBookmarked(!Bookmarked);
+    } else {
+      await addBookmark({
+        userID: JSON.parse(localStorage.getItem("UserData")).userDetailId,
+        postID: card?._id,
+      });
+      toast.success("Bookmark addedd");
+      setBookmarked(!Bookmarked);
+    }
+  };
 
   const handleOutsideClick = (event) => {
     console.log("CLICED");
@@ -33,13 +59,16 @@ export default function BlogCard({ card }) {
   };
 
   const onDelete = async () => {
-    await deletenote(card?.postID);
+    await deletenote(card?._id);
     toast.success("Blog Deleted");
   };
 
   useEffect(() => {
     if (AuthStatus) {
-      if (card?.userID === UserDetails?._id) {
+      if (
+        card?.author?._id ===
+        JSON.parse(localStorage.getItem("UserData")).userDetailId
+      ) {
         setShowEdit(true);
       } else {
         setShowEdit(false);
@@ -51,7 +80,10 @@ export default function BlogCard({ card }) {
   }, [UserDetails, card]);
 
   const addBookmark = async () => {
-    await addbookmark({ userID: UserDetails?._id, postID: card?._id });
+    await addbookmark({
+      userID: JSON.parse(localStorage.getItem("UserData")).userDetailId,
+      postID: card?._id,
+    });
     toast.success("Bookmark Added");
   };
 
@@ -67,8 +99,8 @@ export default function BlogCard({ card }) {
                   onClick={() => {
                     toast.success("Welcome to Profile");
 
-                    navigate(`/profile/${card?.UserName}`, {
-                      state: { id: card?.userID },
+                    navigate(`/profile/${card?.author?.username}`, {
+                      state: { id: card?.author?.username },
                     });
                   }}
                 >
@@ -92,7 +124,7 @@ export default function BlogCard({ card }) {
                         );
                       }}
                     >
-                      {card?.UserName}
+                      {card?.author.username}
                     </p>
                     <span className="text-sm ml-2 font-semibold font-palanquin text-gray-400 dark:text-darkTextPrimary max-lg:hidden">
                       -
@@ -113,7 +145,7 @@ export default function BlogCard({ card }) {
           <div
             className="flex flex-col "
             onClick={() => {
-              navigate(`/blogs/${card?.Title?.replace(/\s+/g, "-")}`, {
+              navigate(`/blogs/${card._id}`, {
                 state: {
                   id: card._id,
                   userID: card.userID,
@@ -189,12 +221,18 @@ export default function BlogCard({ card }) {
           ))}{" "}
         </div>
         <div className="flex   items-center mr-1 mt-2">
-          <div className="rounded-full py-2 px-4 hover:bg-darkBgMain flex justify-center items-center">
-            <i
-              className="dark:text-white fa fa-bookmark  text-gray-600 hover:text-primaryMain text-[15px] "
-              onClick={addBookmark}
-            ></i>
-          </div>
+          {
+            <div className="rounded-full py-2 px-4 hover:bg-darkBgMain flex justify-center items-center">
+              <i
+                className={`dark:text-white  border-2    text-${
+                  Bookmarked
+                    ? "primaryMain fa fa-bookmark"
+                    : " fa fa-bookmark-o"
+                } hover:text-primaryMain text-[15px] `}
+                onClick={bookmark}
+              ></i>
+            </div>
+          }
 
           <div className="rounded-full py-2 px-4 hover:bg-darkBgMain flex justify-center items-center">
             <i className="dark:text-white fa fa-share  text-gray-600 hover:text-primaryMain text-[15px] "></i>

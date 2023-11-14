@@ -52,7 +52,7 @@ router.post("/postblogcontent", fetchuser, async (req, res) => {
     });
 
     const savedblog = await blog2.save();
-    console.log(savedblog);
+    // console.log(savedblog);
     const Blog = new blogCard({
       Title,
       UserName,
@@ -65,7 +65,7 @@ router.post("/postblogcontent", fetchuser, async (req, res) => {
       author: userID,
     });
     const savedblog2 = await Blog.save();
-    console.log(savedblog2);
+    // console.log(savedblog2);
     res.json(savedblog2);
   } catch (error) {
     console.error(error.message);
@@ -86,7 +86,7 @@ router.post(
       // If there are errors , return Bad request and the errors
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        console.log("hello");
+        // console.log("hello");
 
         return res.status(400).json({ errors: errors.array() });
       }
@@ -96,9 +96,11 @@ router.post(
         UserName,
         postID,
         userID,
+        author: userID,
         Category,
         tags,
         Blog_url,
+        view: "0"
       });
       const savedblog = await blog.save();
       res.json(savedblog);
@@ -113,13 +115,12 @@ router.post(
 router.post("/getsingleblogcontent", async (req, res) => {
   try {
     const { id } = req.body;
+    console.log(typeof id)
     const blogs = await blogCard
       .find({ _id: id })
       .populate("blogcontent")
       .populate("author");
 
-    console.log("BlogContent");
-    console.log(blogs);
 
     res.json(blogs);
   } catch (error) {
@@ -133,10 +134,10 @@ router.post("/getsingleblogcontent", async (req, res) => {
 //ROUTE 1: Get all the blogs using : GET "/api/blogs/fetchallblogs". Login required
 router.get("/fetchallblogCards", async (req, res) => {
   try {
-    console.log("hello");
+    // console.log("hello");
     const blogs = await blogCard.find({}).populate("author");
     //   console.log(req.user.id)
-    console.log(blogs);
+    // console.log(blogs);
     res.json(blogs);
   } catch (error) {
     console.error(error.message);
@@ -214,14 +215,14 @@ router.put("/updateblog/:id", fetchuser, async (req, res) => {
   }
 });
 
+
 // ROUTE 4:Delete an existing note using : DELETE "/api/notes/deletenote" .login required
 
 router.delete("/deleteblog/:id", async (req, res) => {
   try {
     // Find the note to be deleted and delete it
-    let blog1 = await blogCard.find({ postID: req.params.id });
-    let blog2 = await blog.find({ postID: req.params.id });
-    if (!blog1 || !blog2) {
+    let blog1 = await blogCard.find({ _id: req.params.id })
+    if (!blog1) {
       return res.status(404).send("not found");
     }
 
@@ -230,9 +231,12 @@ router.delete("/deleteblog/:id", async (req, res) => {
     //   return res.status(401).send("Not Alowed")
     // }
 
-    blog1 = await blogCard.findOneAndDelete({ postID: req.params.id });
-    blog2 = await blog.findOneAndDelete({ postID: req.params.id });
+    blog1 = await blogCard.findOneAndDelete({ _id: req.params.id }).populate('blogcontent');
+    console.log(blog1.blogcontent)
+    let blog2 = await blog.findOneAndDelete({ _id: blog1.blogcontent._id });
 
+    console.log(blog1)
+    console.log(blog2)
     return res.json({
       success: "note has been deleted",
       blog1: blog1,

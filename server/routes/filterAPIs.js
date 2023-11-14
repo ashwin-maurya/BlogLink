@@ -9,92 +9,118 @@ var jwt = require("jsonwebtoken");
 const JWT_SECRET = "YouwillDieforThat";
 const blogCard = require("../models/BlogCard");
 const blog = require("../models/BlogContent");
+const moment = require('moment');
+
 
 // API:TO GET RELEVANT FORM DATABASE
-router.post("/getRelevantBlogs", fetchuser, async (req, res) => {
-    try {
-        const { data } = req.body
-        console.log(data.length)
-
-        let blogarr = []
 
 
-        for (let i = 0; i < data.length; i++) {
-            console.log(typeof data[i])
-
-            let blog2 = await blogCard.find({ "Category": data[i] })
-
-            console.log(blog2)
-            blogarr.push(blog2[0])
-
-
-        }
-        res.json(blogarr)
-        // let detail = blogCard.findOne({ userID: id })
-        // if (detail) {
-        // return res.status(404).send("not found");
-        // }
-
-        // cosnt arr=relevants.map
-
-
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).send("Internal Sever error,Something in the way");
-    }
-
-
-
-
-})
-
-
-router.get("/getLatestBLogs", async (req, res) => {
-    try {
-
-        const startDate = new Date('2023-10-14T09:42:37.800+00:00');
-        const endDate = new Date().toISOString();
-
-
-        // Create a MongoDB query to filter documents with a date field within the specified range
-        const query = {
-            Date: {
-                $gte: startDate, // Greater than or equal to start date
-                $lte: endDate,   // Less than or equal to end date
-            }
-        };
-        const blogs = await blogCard.find(query)
-        console.log(blogs)
-        res.json(blogs)
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).send("Internal Sever error,Something in the way");
-    }
-})
-
-// router.put("/updateViews",async(req,res)={
+// 
 
 
 // })
 
 
-router.post("/gettopblogs/:range", async (req, res) => {
+
+router.put("/updateViews", async (req, res) => {
     try {
-        console.log(req.params.range)
-        console.log("req.params.range")
-
-        let blog = await blogCard.find().sort({ view: 1 }).collation({ locale: "en_US", numericOrdering: true })
 
 
-        res.json(blog)
+        // Use the $gte operator for views greater than or equal to minViews
+        const result = await blogCard.find({ views: { $gte: 0 } }).toArray();
+
+        console.log(result)
+        res.json(result);
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Sever error,Something in the way");
     }
+});
 
 
+router.post('/sortByViews/:interval', async (req, res) => {
+    try {
+        const { interval } = req.params;
+        console.log(interval)
+        let startDate;
+        if (interval === 'week') {
+            startDate = moment().subtract(1, 'weeks').toDate();
+        } else if (interval === 'month') {
+            startDate = moment().subtract(1, 'months').toDate();
+        } else if (interval === 'year') {
+            startDate = moment().subtract(1, 'years').toDate();
+        } else if (interval === 'all') {
+            startDate = moment(0).toDate(); // Start of time
+        } else {
+            return res.status(400).json({ error: 'Invalid interval' });
+        }
+
+        // Find and sort blogCards based on views and the specified time interval
+        const sortedBlogCards = await blogCard.find({ Date: { $gte: startDate } }).populate('author')
+            .sort({ view: -1 })
+
+
+        res.json(sortedBlogCards);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+
+
+
+router.post("/getRelevantBlogs", fetchuser, async (req, res) => {
+
+    try {
+
+        // const { keywords } = ;
+
+        console.log(typeof req.body.data)
+        // Create a text index on the fields you want to search
+
+
+        // Use the $text operator for text search with $in operator to match any keyword
+        const result = await blogCard.find({ Category: { $in: ["Javascript", "python"] } }).populate('author');
+        // return result;
+        console.log(result)
+        res.json(result);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Sever error,Something in the way");
+    }
 })
 
+
+
+router.get("/getAllCategories", async (req, res) => {
+    try {
+        // Use find to retrieve all documents, but only project the "category" field
+        const result = await blogCard.find({}, { Category: 1 });
+
+        console.log(result);
+        res.json(result);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error, Something in the way");
+    }
+});
+
+router.get('/getlatestblogs', async (req, res) => {
+    try {
+        // Specify the date range (e.g., the last 7 days)
+        const startDate = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000); // 7 days ago
+
+        // Find and sort blogCards based on the creation date
+        const latestBlogCards = await blogCard.find({ Date: { $gte: startDate } }).populate("author").sort({ Date: -1 }) // Sort by creation date in descending order
+
+        res.json(latestBlogCards);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 
 module.exports = router;

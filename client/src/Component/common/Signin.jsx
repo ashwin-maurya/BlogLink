@@ -7,7 +7,7 @@ export default function Signin() {
   const [showModal, setModal] = useState(false);
   const context = useContext(AuthContext);
   const { setAuthStatus } = context;
-  console.log("HI123");
+  // console.log("HI123");
   const ModalStatus = () => {
     console.log("HI");
     setModal((showModal) => !showModal);

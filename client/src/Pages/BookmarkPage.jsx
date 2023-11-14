@@ -10,7 +10,7 @@ const BookmarkPage = () => {
   const { getbookmark, allbookmarks } = context;
 
   useEffect(() => {
-    getbookmark(userID);
+    getbookmark(JSON.parse(localStorage.getItem("UserData")).userDetailId);
     console.log(allbookmarks);
   }, []);
 

@@ -14,7 +14,7 @@ import ShowPreview from "../Component/common/WriteComponents/ShowPreview";
 import SaveasDraft from "../Component/common/WriteComponents/SaveasDraft";
 const WriteBlog = ({ postid, UserDetails }) => {
   const [blogs, setblog] = useState({
-    userID: JSON.parse(localStorage.getItem("UserData")).UserID,
+    userID: JSON.parse(localStorage.getItem("UserData")).userDetailId,
   });
 
   const [blogContent, setblogContent] = useState({});
@@ -41,7 +41,7 @@ const WriteBlog = ({ postid, UserDetails }) => {
 
   useEffect(() => {
     if (
-      JSON.parse(localStorage.getItem("BlogData")).Title ||
+      JSON.parse(localStorage.getItem("BlogData"))?.Title ||
       blogs.Title != ""
     ) {
       localStorage.setItem(
