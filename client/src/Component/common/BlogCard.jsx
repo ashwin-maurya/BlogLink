@@ -28,7 +28,6 @@ export default function BlogCard({ card, isBookmark }) {
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [shareModalVisible, setShareModalVisible] = useState(false);
 
-
   const bookmark = async () => {
     // setBookmarked(!Bookmarked);
     console.log(Bookmarked);
@@ -49,7 +48,6 @@ export default function BlogCard({ card, isBookmark }) {
       setBookmarked(!Bookmarked);
     }
   };
-
 
   const sharemodal = () => {
     setShareModalVisible(!shareModalVisible);
@@ -116,62 +114,53 @@ export default function BlogCard({ card, isBookmark }) {
                     onClick={() => {
                       toast.success("Welcome to Profile");
 
-                    navigate(`/profile/${card?.author?.username}`, {
-                      state: { id: card?.author?.username },
-                    });
-                  }}
-                >
-                  <img
-                    // src={user}
-                    src={
-                      card?.author?.profileImg != ""
-                        ? card?.author?.profileImg
-                        : profileDefault
-                    }
-                    className="border-[1px] border-purple-300 bg-white h-7 w-7  rounded-full object-contain"
-                    alt="img"
-                  />
-                  <div className="flex flex-row ml-2 max-lg:flex-col">
-                    <p
-                      className="text-md cursor-pointer font-semibold font-palanquin text-gray-700 dark:text-darkTextMain"
-                      onClick={() => {
-                        navigate(
-                          `/profile/${card?.UserName?.replace(/\s+/g, "-")}`,
-                          {}
-                        );
-                      }}
-                    >
-                      {card?.author.username}
-                    </p>
-                    <span className="text-sm ml-2 font-semibold font-palanquin text-gray-400 dark:text-darkTextPrimary max-lg:hidden">
-                      -
-                    </span>
-                    <p className="text-sm ml-1 max-lg:ml-0 font-semibold font-palanquin text-gray-500 dark:text-darkTextPrimary">
-                      {new Date(card?.Date).toLocaleString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
-                    </p>
-
+                      navigate(`/profile/${card?.author?.username}`, {
+                        state: { id: card?.author?.username },
+                      });
+                    }}
+                  >
+                    <img
+                      // src={user}
+                      src={
+                        card?.author?.profileImg != ""
+                          ? card?.author?.profileImg
+                          : profileDefault
+                      }
+                      className="border-[1px] border-purple-300 bg-white h-7 w-7  rounded-full object-contain"
+                      alt="img"
+                    />
+                    <div className="flex flex-row ml-2 max-lg:flex-col">
+                      <p
+                        className="text-md cursor-pointer font-semibold font-palanquin text-gray-700 dark:text-darkTextMain"
+                        onClick={() => {
+                          navigate(
+                            `/profile/${card?.UserName?.replace(/\s+/g, "-")}`,
+                            {}
+                          );
+                        }}
+                      >
+                        {card?.author.username}
+                      </p>
+                      <span className="text-sm ml-2 font-semibold font-palanquin text-gray-400 dark:text-darkTextPrimary max-lg:hidden">
+                        -
+                      </span>
+                      <p className="text-sm ml-1 max-lg:ml-0 font-semibold font-palanquin text-gray-500 dark:text-darkTextPrimary">
+                        {new Date(card?.Date).toLocaleString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-
             <div
               className="flex flex-col "
-
               onClick={() => {
-                navigate(`/blogs/${card?.Title?.replace(/\s+/g, "-")}`, {
-                  state: {
-                    id: card._id,
-                    userID: card.userID,
-                    view: card?.view,
-                    username: card?.UserName,
-                  },
-                });
+                navigate(`/blogs/${card._id}`);
               }}
             >
               <h3 className="theme-font-minor text-xl my-1 font-bold font-serif hover:text-primaryMain  dark:hover:text-secondary dark:text-darkTextMain  cursor-pointer max-sm:text-md capitalize max-sm:font-medium">
@@ -233,26 +222,25 @@ export default function BlogCard({ card, isBookmark }) {
           </div>
         </div>
 
-      <div className="relative pb-1 flex justify-between items-center  flex-wrap w-full mt-1">
-        <div className="flex gap-3  items-center ">
-          {card?.tags.slice(0, 3)?.map((tag, index) => (
-            <Tags key={index} tags={tag} />
-          ))}{" "}
-        </div>
-        <div className="flex   items-center mr-1 mt-2">
-          {
-            <div className="rounded-full py-2 px-4 hover:bg-darkBgMain flex justify-center items-center">
-              <i
-                className={`dark:text-white  border-2    text-${
-                  Bookmarked
-                    ? "primaryMain fa fa-bookmark"
-                    : " fa fa-bookmark-o"
-                } hover:text-primaryMain text-[15px] `}
-                onClick={bookmark}
-              ></i>
-            </div>
-          }
-
+        <div className="relative pb-1 flex justify-between items-center  flex-wrap w-full mt-1">
+          <div className="flex gap-3  items-center ">
+            {card?.tags.slice(0, 3)?.map((tag, index) => (
+              <Tags key={index} tags={tag} />
+            ))}{" "}
+          </div>
+          <div className="flex   items-center mr-1 mt-2">
+            {
+              <div className="rounded-full py-2 px-4 hover:bg-darkBgMain flex justify-center items-center">
+                <i
+                  className={`dark:text-white     text-${
+                    Bookmarked
+                      ? "primaryMain fa fa-bookmark"
+                      : " fa fa-bookmark-o"
+                  } hover:text-primaryMain text-[15px] `}
+                  onClick={bookmark}
+                ></i>
+              </div>
+            }
 
             <div className="rounded-full py-2 px-4 hover:bg-primaryMain group/btn dark:hover:bg-darkBgMain flex justify-center items-center transition ease-in-out">
               {" "}
