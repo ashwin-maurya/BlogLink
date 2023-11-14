@@ -223,7 +223,7 @@ export default function LeftSection() {
             </button>
           </div>
         </div>
-        <div className="p-3">
+        <div className="p-3 px-20 max-sm:px-2 w-full">
           {loading
             ? Array.from({ length: 3 }, (_, index) => (
                 <BlogCardSkeleton key={index} />

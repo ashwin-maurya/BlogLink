@@ -11,24 +11,26 @@ export default function Logout() {
     setUserDetails,
     setLoggedin,
   } = context;
+
+  const handleLogout = () => {
+    setAuthStatus(false);
+    setLoggedinStatus(false);
+    setUserExistStatus();
+    setUserDetails();
+    setLoggedin({});
+    localStorage.removeItem("UserData");
+    window.location.reload();
+  };
+
   return (
     <>
       {
-        <a
-          href="#"
+        <span
           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-          onClick={() => {
-            setAuthStatus(false);
-            setLoggedinStatus(false);
-            setUserExistStatus();
-            setUserExistStatus();
-            setUserDetails();
-            setLoggedin({});
-            localStorage.removeItem("UserData");
-          }}
+          onClick={handleLogout}
         >
           Sign out
-        </a>
+        </span>
       }
     </>
   );

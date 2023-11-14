@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function SideBar() {
   return (
     <>
-      <div className="w-[100%] max-w-[400px]  max-lg:w-full max-lg:max-w-full bottom-0  bg-darkBgMain flex justify-evenl overflow-hidden flex-col p-2">
+      <div className="w-[100%] max-w-[400px]  max-lg:w-full max-lg:max-w-full bottom-0 border-t-[1px] border-gray-200 dark:border-gray-800 bg-white  dark:bg-darkBgMain flex justify-evenl overflow-hidden flex-col p-2 max-sm:p-0">
         <ul className="flex-1 flex items-center flex-col max-lg:flex-row ">
           <li className="w-[80%] flex  hover:dark:bg-darkBgPrimary hover:bg-bgBlue  rounded-lg my-1">
             <Link

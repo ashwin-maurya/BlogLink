@@ -1,25 +1,28 @@
 const mongoose = require("mongoose");
 const express = require("express");
+const UserDetail = require("./UserDetails");
 const { Schema } = mongoose;
 const router = express.Router();
-const FeedbackSchema = new Schema({
-  userID: {
-    type: String,
-    required: true,
+const feedbackSchema = new mongoose.Schema({
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: UserDetail,
   },
   type: {
     type: String,
+    enum: ["complaint", "review", "bug"],
+    required: true,
   },
-  author: {
-    type:
-  }
   description: {
     type: String,
+    required: true,
   },
   rating: {
-    type: String,
+    type: Number,
+    default: 0,
+    min: 0,
+    max: 5,
   },
 });
-
-const Feedback = mongoose.model("Feedback", FeedbackSchema);
+const Feedback = mongoose.model("Feedback", feedbackSchema);
 module.exports = Feedback;

@@ -1,13 +1,15 @@
-import { useRef, useEffect, useContext, useState } from "react";
-
+import { useRef, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { reviewEmojis } from "../constants";
 export default function FeedbackModal({ FeedbackMenu }) {
+  const host = "http://localhost:5001";
   const modalRef = useRef(null);
   const [feedbackData, setFeedbackData] = useState({
     feedbackType: "",
     feedbackText: "",
-    rating: 0,
+    rating: 1,
   });
-
   const handleOutsideClick = (event) => {
     if (modalRef.current === event.target) {
       FeedbackMenu();
@@ -23,39 +25,38 @@ export default function FeedbackModal({ FeedbackMenu }) {
 
   const handleFeedbackSubmit = async () => {
     try {
-      // Exclude 'rating' field if feedbackType is 'review'
-      const payload =
-        feedbackData.feedbackType === "review"
-          ? {
-              userID: feedbackData.userID,
-              type: feedbackData.feedbackType,
-              description: feedbackData.feedbackText,
-            }
-          : feedbackData;
       const obj = JSON.parse(localStorage.getItem("UserData"));
 
       const response = await fetch(
-        "http://localhost:5001/api/feedback/submitFeedback",
+        `${host}/api/feedback/submitFeedback`,
+
         {
           method: "POST",
           headers: {
-            "auth-token": obj.authtoken,
             "Content-Type": "application/json",
+            "auth-token": obj.authtoken,
           },
-          body: JSON.stringify(payload),
+          body: JSON.stringify({
+            userID: obj.userDetailId,
+            type: feedbackData.feedbackType,
+            description: feedbackData.feedbackText,
+            rating: feedbackData.rating,
+          }),
         }
       );
-
       const result = await response.json();
       console.log("Server response:", result);
+      if (result.success) {
+        toast.success("Thank You for your Feedback!!");
 
-      setFeedbackData({
-        feedbackType: "",
-        feedbackText: "",
-        rating: 0,
-      });
+        setFeedbackData({
+          feedbackType: "",
+          feedbackText: "",
+          rating: 1,
+        });
 
-      FeedbackMenu();
+        FeedbackMenu();
+      }
     } catch (error) {
       console.error("Error submitting feedback:", error);
     }
@@ -105,22 +106,29 @@ export default function FeedbackModal({ FeedbackMenu }) {
                   htmlFor="rating"
                   className="block text-sm font-semibold text-gray-600 dark:text-white"
                 >
-                  Rating (1 to 5)
+                  Rating
                 </label>
-                <input
-                  type="number"
-                  id="rating"
-                  className="w-full border border-gray-300 bg-transparent dark:text-darkTextPrimary rounded-md p-2 mb-2 focus:outline-none dark:focus:border-secondary focus:border-primaryMain"
-                  value={feedbackData.rating}
-                  onChange={(e) =>
-                    handleInputChange("rating", Number(e.target.value))
-                  }
-                  min="1"
-                  max="5"
-                />
+                <div className="flex items-center space-x-2">
+                  {reviewEmojis.map((emoji, index) => (
+                    <button
+                      key={index}
+                      type="button"
+                      onClick={() => handleInputChange("rating", index + 1)}
+                      className={`w-8 h-8 bg-transparent focus:outline-none border-transparent`}
+                    >
+                      <span
+                        className={`${
+                          feedbackData.rating === index + 1
+                            ? "fill-red-500"
+                            : "fill-gray-300  dark:fill-gray-500"
+                        }`}
+                        dangerouslySetInnerHTML={{ __html: emoji.svg }}
+                      />
+                    </button>
+                  ))}
+                </div>
               </div>
             )}
-
             <div className="mb-4">
               <label
                 htmlFor="feedbackText"

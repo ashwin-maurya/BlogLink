@@ -38,6 +38,7 @@ export default function Authentication(props) {
         ModalStatus();
         setAuthStatus(true);
         toast.success("Google Loggedin Succesfully");
+        window.location.reload();
       } else {
         toast.error("Invalid Credentials");
       }

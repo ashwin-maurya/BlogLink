@@ -37,21 +37,21 @@ const Hero = () => {
         ) : (
           randomBlog && (
             <>
-              <div className="max-h-[400px] min-h-[400px] w-full overflow-hidden dark:bg-gray-700">
+              <div className="max-h-[400px] min-h-[400px] w-full max-sm:max-h-[300px] max-sm:min-h-[300px] overflow-hidden dark:bg-gray-700">
                 <img
                   src={randomBlog?.Blog_url}
                   alt="hero-image"
-                  className="w-full h-auto"
+                  className="w-full "
                 />
               </div>
 
-              <div className="relative rounded-xl w-[60%] bg-white max-lg:bottom-[30px] bottom-[100px] max-lg:w-[90%] shadow-[0_18px_10px_-15px_rgba(0,0,0,0.1)] group dark:bg-darkBgPrimary">
-                <div className="px-20 py-10 flex flex-col items-center max-lg:px-10 max-lg:py-5">
+              <div className="relative rounded-xl w-[65%] bg-white max-lg:bottom-[50px] bottom-[100px] max-lg:w-[90%] shadow-[0_18px_10px_-15px_rgba(0,0,0,0.1)] group dark:bg-darkBgPrimary">
+                <div className="px-20 max-sm:px-10 py-10 max-sm:py-5 flex flex-col items-center max-lg:px-10 max-lg:py-5">
                   <span className="text-primaryMain dark:text-secondary text-[18px] font-medium max-lg:text-[12px] tracking-[5px] uppercase cursor-pointer">
                     {randomBlog?.Category}
                   </span>
                   <h1
-                    className="text-[40px] font-bold py-5 text-center max-lg:py-2 max-lg:text-[20px] font-serif hover:text-primaryMain dark:text-darkTextMain dark:hover:text-secondary capitalize cursor-pointer"
+                    className="text-[40px] font-bold py-5 text-center max-lg:py-2 max-lg:text-[22px] font-serif hover:text-primaryMain dark:text-darkTextMain dark:hover:text-secondary capitalize cursor-pointer"
                     onClick={() => {
                       navigate(
                         `/blogs/${randomBlog?.Title?.replace(/\s+/g, "-")}`,

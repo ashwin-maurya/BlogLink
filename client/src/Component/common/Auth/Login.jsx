@@ -34,6 +34,7 @@ export default function Login({ setSign, ModalStatus, goolesignin }) {
 
       ModalStatus();
       setAuthStatus(true);
+      window.location.reload();
 
       toast.success("Account Loggedin Succesfully");
     } else {

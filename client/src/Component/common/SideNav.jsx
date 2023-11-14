@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import AuthContext from "../../Helper/Context/AuthContext";
 import { Profile } from "../common";
 import { useNavigate } from "react-router";
-
+import FeedbackButton from "../Feedback/FeedbackButton";
 import Signin from "./Signin";
 export default function SideNav(props) {
   const { NavStatus } = props;
@@ -71,6 +71,36 @@ export default function SideNav(props) {
                 </Link>
               </li>
             ))}
+            <li className="w-[100%] bg-bgBlue  dark:bg-darkBgPrimary  rounded-lg my-1">
+              <Link
+                to="/settings"
+                onClick={NavStatus}
+                className="w-full inline-block text-center font-montserrat leading-normal py-4 text-lg font-semibold dark:hover:text-secondary text-gray-400 hover:text-primaryMain text-slate-gray dark:text-darkTextMain"
+              >
+                Settings
+              </Link>
+            </li>
+            <li className="w-[100%] bg-bgBlue  dark:bg-darkBgPrimary  rounded-lg my-1">
+              <span
+                onClick={() => {
+                  navigate(`/bookmarks`, {
+                    state: {
+                      userID: UserDetails?.userID,
+                    },
+                  });
+                  NavStatus();
+                }}
+                className="w-full inline-block text-center font-montserrat leading-normal py-4 text-lg font-semibold dark:hover:text-secondary text-gray-400 hover:text-primaryMain text-slate-gray dark:text-darkTextMain"
+              >
+                Bookmarks
+              </span>
+            </li>
+
+            <li className="w-[100%] bg-bgBlue  dark:bg-darkBgPrimary  rounded-lg my-1">
+              <span className="w-full inline-block text-center font-montserrat leading-normal py-2 text-lg font-semibold dark:hover:text-secondary text-gray-400 hover:text-primaryMain text-slate-gray dark:text-darkTextMain">
+                <FeedbackButton />
+              </span>
+            </li>
           </ul>
           <div className="flex gap-2 text-lg leading-normal py-4 dark:bg-darkBgPrimary  text-gray-400 justify-center font-medium  bg-bgBlue rounded-lg">
             {!AuthStatus ? (

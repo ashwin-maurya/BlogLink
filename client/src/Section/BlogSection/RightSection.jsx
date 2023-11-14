@@ -26,7 +26,7 @@ export default function RightSection() {
         <h1 className="text-xl font-medium my-4 dark:text-darkTextMain ">
           Recommended topics
         </h1>
-        <div className="relative flex flex-wrap w-full">
+        <div className="relative flex flex-wrap w-full ">
           {blog.map((card, index) => {
             let v = card?.tags.map((tag, index) => (
               <Tags key={index} tags={tag} />

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { reviews } from "../../Component/constants";
+import { reviewEmojis } from "../../Component/constants";
+
 export default function Reviews() {
+  const [reviews, setReviews] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const nextSlide = () => {
@@ -16,13 +18,42 @@ export default function Reviews() {
   };
 
   useEffect(() => {
-    const interval = setInterval(nextSlide, 10000);
-    return () => clearInterval(interval);
-  }, []);
+    const fetchReviews = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:5001/api/feedback/getReviews",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
+        if (response.ok) {
+          const data = await response.json();
+          setReviews(data.success ? data.reviews : []);
+        } else {
+          console.error("Error fetching reviews:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Error fetching reviews:", error);
+      }
+    };
+
+    fetchReviews();
+  }, []);
+  const getEmojiFillColor = (index, rating) => {
+    const fillClass =
+      index === rating - 1
+        ? "fill-red-500"
+        : "fill-gray-300 dark:fill-gray-500";
+    const sizeClass = index === rating - 1 ? "w-12" : " w-10"; // Increase size for the selected emoji
+    return `${fillClass} ${sizeClass}`;
+  };
   return (
     <>
-      <div className="my-32 max-lg:my-20 mx-auto ">
+      <div className="my-32 max-sm:my-16 max-lg:my-20 mx-auto ">
         <div className="flex flex-col text-center w-full mb-10">
           <h2 className="text-xs dark:text-secondary text-primaryMain font-medium title-font tracking-[5px]">
             USER EXPERIENCES
@@ -37,22 +68,41 @@ export default function Reviews() {
           </button>{" "}
           <div className="xl:w-[50%] lg:w-3/4 w-full mx-auto text-center">
             <i className="fa fa-quote-right text-4xl text-gray-400  dark:text-darkTextPrimary mb-8"></i>
+            <p className="text-gray-500 dark:text-darkTextPrimary flex justify-center my-3">
+              <p className="text-gray-500 dark:text-darkTextPrimary flex justify-center my-3 items-center">
+                {Array.from({ length: 5 }, (_, index) => (
+                  <span
+                    className={`${getEmojiFillColor(
+                      index,
+                      reviews[currentIndex]?.rating
+                    )}  rounded-full mx-1`}
+                    key={index}
+                    dangerouslySetInnerHTML={{
+                      __html: reviewEmojis[index]?.svg,
+                    }}
+                  />
+                ))}
+              </p>
+            </p>
             <p className="leading-relaxed text-lg max-lg:text-md text-lightTextMain dark:text-darkTextMain ">
-              {reviews[currentIndex].review}
+              {reviews[currentIndex]?.description &&
+              reviews[currentIndex]?.description.length > 200
+                ? reviews[currentIndex]?.description.slice(0, 200) + "..."
+                : reviews[currentIndex]?.description}
             </p>
             <span className="inline-block h-1 w-10 rounded bg-primaryMain dark:bg-secondary mt-8 mb-6"></span>
             <img
-              src="https://d2r55xnwy6nx47.cloudfront.net/uploads/2022/02/YSaplakoglu_1.jpg"
+              src={reviews[currentIndex]?.author.profileImg}
               alt=""
               className="rounded-full m-auto mb-1 "
               width={35}
               height={35}
             />
             <h2 className="font-medium title-font tracking-wider text-sm text-lightTextMain dark:text-darkTextMain">
-              {reviews[currentIndex].author}
+              {reviews[currentIndex]?.author.username}
             </h2>
             <p className="text-gray-500 dark:text-darkTextPrimary">
-              {reviews[currentIndex].jobTitle}
+              {reviews[currentIndex]?.author.work}
             </p>
           </div>
           <button

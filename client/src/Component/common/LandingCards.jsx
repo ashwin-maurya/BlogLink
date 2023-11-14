@@ -72,8 +72,8 @@ export default function LandingCards({ card }) {
 
   return (
     <>
-      <article className="break-inside-avoid mx-auto w-[100%] max-md:w-[95%] p-6 bg-bgBlue rounded-xl  dark:bg-darkBgPrimary flex flex-col bg-clip-border  my-5 group">
-        <div className="flex pb-4 items-center justify-between">
+      <article className="break-inside-avoid mx-auto w-[100%] max-md:w-[95%] p-6 max-sm:p-3 bg-bgBlue rounded-xl  dark:bg-darkBgPrimary flex flex-col bg-clip-border  my-5 group">
+        <div className="flex pb-4 max-sm:pb-2 items-center justify-between">
           <div className="flex">
             <img className="rounded-full max-w-none w-10 h-10" src={user} />
             <div className="flex flex-col justify-center ml-2">
@@ -95,7 +95,7 @@ export default function LandingCards({ card }) {
           </div>
         </div>
         <h2
-          className="text-xl max-lg:text-md max-sm:text-sm leading-7 font-bold font-serif  dark:text-darkTextMain hover:text-primaryMain  dark:hover:text-secondary  cursor-pointer "
+          className="text-xl max-lg:text-md max-sm:text-sm leading-7 font-bold font-serif  dark:text-darkTextMain hover:text-primaryMain  dark:hover:text-secondary  cursor-pointer capitalize"
           onClick={() => {
             navigate(`/blogs/${card?.Title?.replace(/\s+/g, "-")}`, {
               state: { id: card.postID, view: card?.view },
@@ -105,10 +105,10 @@ export default function LandingCards({ card }) {
           {" "}
           {card.Title}
         </h2>
-        <div className="py-4">
+        <div className="py-4 max-sm:py-2">
           <img className="max-w-full rounded-lg" src={card.Blog_url} />
         </div>
-        <div className="pt-4">
+        <div className="pt-4 max-sm:pt-0">
           <a className="inline-flex items-center" href="#">
             <span className="mr-2">
               <svg
