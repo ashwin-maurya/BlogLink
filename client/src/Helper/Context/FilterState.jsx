@@ -51,6 +51,23 @@ const FilterState = (props) => {
     console.log(resp);
     setfilterBlogs(resp);
   };
+  const getcategoryblogs = async (data) => {
+    console.log(data);
+    const obj = JSON.parse(localStorage.getItem("UserData"));
+    const response = await fetch(`${host}/api/filter/getCategoryBlogs`, {
+      method: "PUT",
+      headers: {
+        "auth-token": obj.authtoken,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ category: data }),
+    });
+
+    const resp = await response.json();
+    console.log(resp);
+    // setfilterBlogs(resp);
+    return resp;
+  };
 
   const getlatestblogs = async () => {
     let response = await fetch(`${host}/api/filter/getlatestblogs`, {
@@ -96,6 +113,7 @@ const FilterState = (props) => {
     });
     setfilterBlogs(output);
   };
+
   return (
     <FilterContext.Provider
       value={{
@@ -107,6 +125,7 @@ const FilterState = (props) => {
         getTopBlogs,
         getallblogs,
         deletenote,
+        getcategoryblogs,
       }}
     >
       {props.children}

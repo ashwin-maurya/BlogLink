@@ -67,11 +67,11 @@ export default function ProfileModal({ profileMenu }) {
               to="/"
               className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               onClick={() => {
-                navigate(`/bookmarks`, {
-                  state: {
-                    userID: UserDetails?.userID,
-                  },
-                });
+                navigate(
+                  `/bookmarks/${
+                    JSON.parse(localStorage.getItem("UserData")).userDetailId
+                  }`
+                );
                 profileMenu();
               }}
             >

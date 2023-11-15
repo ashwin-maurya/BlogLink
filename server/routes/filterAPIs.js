@@ -122,5 +122,40 @@ router.get('/getlatestblogs', async (req, res) => {
     }
 });
 
+router.get('/getlikecount', async (req, res) => {
+    try {
+
+        const postId = req.body.id
+
+        const likescount = await
+
+
+
+            res.json(likes);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+
+
+router.put("/getCategoryBlogs", async (req, res) => {
+
+    try {
+        const category = req.body.category;
+        console.log(category)
+        const blogs = await blogCard.find({ Category: category });
+
+        res.json(blogs);
+
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
+
 
 module.exports = router;

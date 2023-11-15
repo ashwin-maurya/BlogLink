@@ -25,7 +25,7 @@ const Category = ({ blogs, getInput, setcategory, category }) => {
         ></Select>
         {/* <input
           name="Category"
-          value={category}
+          value={blogs?.category}
           onChange={(e) => {
             getInput(e);
           }}

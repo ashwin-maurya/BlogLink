@@ -10,7 +10,6 @@ import Category from "../Component/common/WriteComponents/Category";
 import Tag from "../Component/common/WriteComponents/Tag";
 
 const UpdateBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
-  console.log(blog2);
   const [featuredImage, setfeaturedImage] = useState("");
   const [category, setcategory] = useState(blog2[0]?.Category);
   useEffect(() => {
@@ -22,6 +21,7 @@ const UpdateBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
   const { addblogCard, addblogcontent, updateblog } = context;
 
   const [blogs, setblog] = useState({ ...blog2[0] });
+  console.log(blogs);
   const [blogContent, setblogContent] = useState({
     ...blog2[0],
   });
@@ -118,6 +118,7 @@ const UpdateBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
     console.log({ ...blogs, ...blogContent });
     updateblog({ ...blogs, ...blogContent }, blog2[0].postID);
     console.log("Saved to Database");
+    toast.success("Blog Updated Successfully");
   };
 
   return (
@@ -149,7 +150,7 @@ const UpdateBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
           className="mx-3 rounded-md border-2 dark:bg-white dark:text-black dark:hover:bg-secondary dark:hover:text-white dark:hover:border-0  text-white    pr-10 pl-10 pt-2 pb-2  bg-primaryMain"
           onClick={handleadd}
         >
-          Create
+          Update
         </button>
       </div>
 

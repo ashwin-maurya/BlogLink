@@ -238,6 +238,9 @@ export default function LeftSection() {
                 <BlogCardSkeleton key={index} />
               ))
             : filterBlogs?.map((card, index) => {
+                console.log(checklike);
+                console.log(checkbookmark);
+
                 return (
                   <BlogCard
                     key={index}

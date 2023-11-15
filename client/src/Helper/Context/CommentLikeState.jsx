@@ -236,6 +236,37 @@ const CommentLikeState = (props) => {
     setcheckbookmark(resp2?.postId);
   };
 
+  const countLike = async (data) => {
+    console.log(data);
+
+    const resp = await fetch(`${host}/api/comments/countlike/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data }),
+    });
+
+    const resp2 = await resp.json();
+    console.log(resp2);
+    return resp2;
+  };
+  const countBookmark = async (data) => {
+    console.log(data);
+
+    const resp = await fetch(`${host}/api/comments/countbookmark/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data }),
+    });
+
+    const resp2 = await resp.json();
+    console.log(resp2);
+    return resp2;
+  };
+
   return (
     <CommentLikeContext.Provider
       value={{
@@ -258,6 +289,8 @@ const CommentLikeState = (props) => {
         checklike,
         deletebookmark,
         deletelike,
+        countLike,
+        countBookmark,
       }}
     >
       {props.children}

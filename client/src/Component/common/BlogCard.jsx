@@ -15,7 +15,14 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
   const context5 = useContext(CommentLikeContext);
   const context6 = useContext(FilterContext);
 
-  const { addbookmark, deletebookmark, deletelike, addlike } = context5;
+  const {
+    addbookmark,
+    deletebookmark,
+    deletelike,
+    addlike,
+    countLike,
+    countBookmark,
+  } = context5;
   const { deletenote } = context6;
   const context3 = useContext(AuthContext);
   const navigate = useNavigate();
@@ -24,6 +31,15 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
   // console.log(isBookmark);
   const [Bookmarked, setBookmarked] = useState(isBookmark);
   const [liked, setliked] = useState(isLiked);
+  const [likecount, setlikecount] = useState(0);
+  const [bookmarkcount, setbookmarkcount] = useState(0);
+  useEffect(() => {
+    async function countLike2() {
+      setlikecount(await countLike(card._id));
+      setbookmarkcount(await countBookmark(card._id));
+    }
+    countLike2();
+  }, [card]);
 
   const modalRef = useRef(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -31,10 +47,10 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
 
   const bookmark = async () => {
     // setBookmarked(!Bookmarked);
-    if (!AuthStatus) {
-      setAuthModal((showAuthModal) => !showAuthModal);
-      return;
-    }
+    // if (!AuthStatus) {
+    //   setAuthModal((showAuthModal) => !showAuthModal);
+    //   return;
+    // }
     console.log(Bookmarked);
 
     if (Bookmarked == true) {
@@ -42,6 +58,8 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
         userID: JSON.parse(localStorage.getItem("UserData")).userDetailId,
         postID: card?._id,
       });
+      setbookmarkcount(await countBookmark(card._id));
+
       toast.success("Bookmark deleted");
       setBookmarked(!Bookmarked);
     } else {
@@ -49,6 +67,8 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
         userID: JSON.parse(localStorage.getItem("UserData")).userDetailId,
         postID: card?._id,
       });
+      setbookmarkcount(await countBookmark(card._id));
+
       toast.success("Bookmark addedd");
       setBookmarked(!Bookmarked);
     }
@@ -65,6 +85,8 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
         userID: JSON.parse(localStorage.getItem("UserData")).userDetailId,
         postID: card?._id,
       });
+      setlikecount(await countLike(card._id));
+
       toast.success("like deleted");
       setliked(!liked);
     } else {
@@ -72,6 +94,7 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
         userID: JSON.parse(localStorage.getItem("UserData")).userDetailId,
         postID: card?._id,
       });
+      setlikecount(await countLike(card._id));
       toast.success("like addedd");
       setliked(!liked);
     }
@@ -139,9 +162,7 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
                   <div
                     className="group/author  flex items-center "
                     onClick={() => {
-                      navigate(`/profile/${card?.author?.username}`, {
-                        state: { id: card?.author?.username },
-                      });
+                      navigate(`/profile/${card?.author?.username}`);
                     }}
                   >
                     <img
@@ -187,7 +208,7 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
                 navigate(`/blogs/${card._id}`);
               }}
             >
-              <h3 className="theme-font-minor text-xl my-1 font-bold font-serif hover:text-primaryMain  dark:hover:text-secondary dark:text-darkTextMain  cursor-pointer max-sm:text-md capitalize max-sm:font-medium">
+              <h3 className="theme-font-minor text-xl my-1 font-bold font-serif hover:text-primaryMain  dark:hover:text-secondary dark:text-darkTextMain  cursor-pointer max-sm:text-md capitalize max-sm:font-medium ">
                 {card?.Title}
               </h3>
             </div>
@@ -219,9 +240,7 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
               <div
                 className="overflow-hidden mt-2 rounded-lg z-20"
                 onClick={() => {
-                  navigate(`/blogs/${card?.Title?.replace(/\s+/g, "-")}`, {
-                    state: { id: card.postID, view: card?.view },
-                  });
+                  navigate(`/blogs/${card?._id}`);
                 }}
               >
                 <img
@@ -248,18 +267,18 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
           </div>
 
           <div className="flex  items-center mr-1 mt-2">
-            <div className="mr-1 w-[100%] py-2 px-1 flex items-center justify-center">
-              <p className="text-xs font-bold text-gray-600 dark:text-white max-sm:text-xs ">
+            <div className="mr-1 w-[100%] py-2 px-1 flex   items-center justify-center">
+              <p className="text-xs  text-gray-700 dark:text-gray-300 max-sm:text-xs ">
                 {card?.view}
               </p>
-              <i className="fa fa-eye ml-1  text-gray-600 dark:text-white  text-[13px] "></i>
+              <i className="fa fa-eye ml-[4px]  text-gray-700 dark:text-white  text-[13px] "></i>
             </div>
-            <div
-              className="rounded-full py-2 px-3  max-sm:px-[7px] max-sm:py-[6px]  flex justify-center items-center  cursor-pointer "
-              onClick={bookmark}
-            >
+            <div className="rounded-full py-2  px-3  max-sm:px-[7px] max-sm:py-[6px]  flex justify-center items-center">
+              <p className="text-xs  text-gray-700 dark:text-gray-300 max-sm:text-xs ">
+                {bookmarkcount}
+              </p>
               <i
-                className={` dark:text-white  ${
+                className={`ml-[4px]    ${
                   Bookmarked
                     ? "text-primaryMain dark:text-primaryMain fa fa-bookmark"
                     : " fa fa-bookmark-o "
@@ -267,13 +286,13 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
               ></i>
             </div>
 
-            <div
-              className="rounded-full max-sm:px-[7px] max-sm:py-[6px]  py-2 px-3    group/btn flex justify-center items-center transition ease-in-out  cursor-pointer "
-              onClick={like}
-            >
+            <div className="rounded-full max-sm:px-[7px]  max-sm:py-[6px]  py-2 px-3    group/btn flex justify-center items-center transition ease-in-out">
               {" "}
+              <p className="text-xs   text-gray-700 dark:text-gray-300 max-sm:text-xs ">
+                {likecount}
+              </p>
               <i
-                className={` dark:text-white    ${
+                className={` ml-[4px] dark:text-white    ${
                   liked
                     ? "text-red-500 dark:text-red-500 fa fa-heart"
                     : " fa fa-heart-o "
@@ -310,9 +329,7 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
                             to="/"
                             className="block cursor-pointer max-sm:px-1 max-sm:py-1 px-3 py-2 max-sm:rounded-md hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                             onClick={() => {
-                              navigate("/updateblog", {
-                                state: { id: card?.postID },
-                              });
+                              navigate(`/updateblog/${card._id}`);
                             }}
                           >
                             Update

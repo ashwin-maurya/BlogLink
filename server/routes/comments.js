@@ -10,6 +10,7 @@ const { default: mongoose } = require("mongoose");
 const Like = require("../models/LikeSchema");
 
 
+
 // ROUTE 3: Put all a blog in the database : POST "/api/blogs/addblog"
 router.post(
     "/addcomment",
@@ -580,6 +581,7 @@ router.put("/checklike", fetchuser, async (req, res) => {
 
 
 
+
         let user = await Like.findOne({ userId: req.body.data })
 
         // let bk = await Userdetail.findOne({ userID: req.body.data })
@@ -592,6 +594,35 @@ router.put("/checklike", fetchuser, async (req, res) => {
     }
 })
 
+router.put("/countlike", async (req, res) => {
+    try {
+
+        console.log(req.body)
+        const count = await Like.find({ postId: { $in: [req.body.data] } }).count()
+        console.log(count)
+        // let bk = await Userdetail.findOne({ userID: req.body.data })
+        res.json(count);
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Sever error,Something in the way");
+    }
+})
+
+router.put("/countbookmark", async (req, res) => {
+    try {
+
+        console.log(req.body)
+        const count = await Bookmark.find({ postId: { $in: [req.body.data] } }).count()
+        console.log(count)
+        // let bk = await Userdetail.findOne({ userID: req.body.data })
+        res.json(count);
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Sever error,Something in the way");
+    }
+})
 
 
 // router.put("/removeBookmark", async (req, res) => {
