@@ -5,7 +5,7 @@ import { useContext } from "react";
 const CommentLikeState = (props) => {
   const [allbookmarks, setallbookmarks] = useState([]);
   const [checkbookmark, setcheckbookmark] = useState([]);
-
+  const [checklike, setchecklike] = useState([]);
   const context = useContext(blogContext);
   // const {}
   const [reply, setreply] = useState({});
@@ -147,6 +147,60 @@ const CommentLikeState = (props) => {
 
     console.log(resp2);
   };
+
+  const addlike = async (data) => {
+    console.log(data);
+    const obj = JSON.parse(localStorage.getItem("UserData"));
+
+    const resp = await fetch(`${host}/api/comments/addlike/`, {
+      method: "PUT",
+      headers: {
+        "auth-token": obj.authtoken,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const resp2 = await resp.json();
+
+    console.log(resp2);
+  };
+
+  const deletelike = async (data) => {
+    console.log(data);
+    const obj = JSON.parse(localStorage.getItem("UserData"));
+
+    const resp = await fetch(`${host}/api/comments/deletelike/`, {
+      method: "PUT",
+      headers: {
+        "auth-token": obj.authtoken,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    const resp2 = await resp.json();
+
+    console.log(resp2);
+  };
+  const Checklike = async (data) => {
+    console.log(data);
+    const obj = JSON.parse(localStorage.getItem("UserData"));
+
+    const resp = await fetch(`${host}/api/comments/checklike/`, {
+      method: "PUT",
+      headers: {
+        "auth-token": obj.authtoken,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data }),
+    });
+
+    const resp2 = await resp.json();
+    console.log(resp2);
+    setchecklike(resp2?.postId);
+  };
+
   const getbookmark = async (data) => {
     console.log(data);
     const obj = JSON.parse(localStorage.getItem("UserData"));
@@ -191,15 +245,19 @@ const CommentLikeState = (props) => {
         getreply,
         setreply,
         addbookmark,
+        addlike,
         getbookmark,
         setallbookmarks,
         allbookmarks,
         Checkbookmark,
+        Checklike,
         addcomment,
         SingleBlogComment,
         getsingleblogComment,
         checkbookmark,
+        checklike,
         deletebookmark,
+        deletelike,
       }}
     >
       {props.children}

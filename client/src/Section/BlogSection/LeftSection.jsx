@@ -20,8 +20,8 @@ export default function LeftSection() {
   const context3 = useContext(AuthContext);
   const { UserDetails, AuthStatus } = context3;
   const context4 = useContext(CommentLikeContext);
-  const { Checkbookmark, checkbookmark } = context4;
-  const [filterState, setfilterState] = useState("");
+  const { Checkbookmark, checkbookmark, Checklike, checklike } = context4;
+  const [filterState, setfilterState] = useState(null);
   // const [isLogged,setisLoggen]=useState(localStorage.getItem("UserData") != null)
   const [BLogsArray, setBLogsArray] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,8 +35,9 @@ export default function LeftSection() {
 
   useEffect(() => {
     // console.log(UserDetails.relevant);
-    setfilterState(localStorage.getItem("filterval"));
+    // setfilterState(localStorage.getItem("filterval"));
     if (JSON.parse(localStorage.getItem("UserData"))) {
+      Checklike(JSON.parse(localStorage?.getItem("UserData"))?.userDetailId);
       Checkbookmark(
         JSON.parse(localStorage?.getItem("UserData"))?.userDetailId
       ).then(() => {
@@ -52,10 +53,11 @@ export default function LeftSection() {
         setLoading(false);
       });
     // console.log(localStorage.getItem("UserData"));
-  }, []);
+  }, [filterState === null]);
 
   // setfilterstate on localstorage.filterval change--------------------------------------------------
-
+  const [showMoreOption, setshowMoreOption] = useState(false);
+  const [Range, setRange] = useState("week");
   // console.log(blog);
 
   useEffect(() => {
@@ -66,96 +68,85 @@ export default function LeftSection() {
     // }
   }, [filterBlogs]);
 
-  //filter frontend section-------------------------------------------------------------------
-  const onRelevanthandle = (e) => {
-    setshowMoreOption(() => {
-      false;
-    });
-    setInLocal(e);
+  const handleclick = (tab) => {
+    setfilterState(tab);
   };
+  useEffect(() => {
+    if (filterState == "top") {
+      setshowMoreOption(true);
+    } else {
+      setshowMoreOption(false);
+    }
+  }, [filterState]);
 
-  const onLatesthandle = (e) => {
-    setshowMoreOption(() => {
-      false;
-    });
-    setInLocal(e);
-  };
-
-  // show more filter option on Top click-------------------
-  const [showMoreOption, setshowMoreOption] = useState(false);
-  const [value, setvalue] = useState("");
-
-  const filterTop = (e) => {
-    setshowMoreOption(true);
-
-    console.log();
-    setInLocal(e);
-  };
-
-  // ------------------------------------------
-  // FILTER TOP
-
-  const Topfilter = (e) => {
-    localStorage.setItem("filterTop", e.target.value);
-    setvalue(e.target.value);
-  };
-
-  const setInLocal = (e) => {
-    localStorage.setItem("filterval", e.target.value);
-
-    setvalue(e.target.value);
-  };
-
-  useEffect(() => {}, [value]);
+  // useEffect(() => {}, [filterState]);
 
   return (
     <section className=" flex justify-center max-lg:justify-start  flex-col rounded-md ">
       <div className=" flex flex-col w-full items-center ">
         <div className="flex max-lg:flex-col justify-evenly items-start  w-full max-lg:ml-1  ">
           <div className="flex   gap-1">
-            {/* <button
-              className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
-                localStorage.getItem("filterval") == "all" && "bg-bgBlue"
-              } p-2 rounded-md`}
-              value="all"
-              onClick={(e) => {
-                onRelevanthandle(e);
-              }}
-            >
-              All
-            </button> */}
             <button
               className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
-                localStorage.getItem("filterval") == "relevant" && "bg-bgBlue"
+                filterState === "relevant" && "bg-bgBlue"
               } p-2 rounded-md`}
               value="relevant"
               onClick={(e) => {
-                onRelevanthandle(e);
-                getrelevantblogs(UserDetails?.relevant);
+                handleclick("relevant");
+                setLoading(true);
+
+                getrelevantblogs(UserDetails?.relevant)
+                  .then(() => {
+                    setLoading(false);
+                  })
+                  .catch((error) => {
+                    console.error("Error fetching blog data:", error);
+                    setLoading(false);
+                  });
               }}
             >
               Relevant
             </button>
             <button
               className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
-                localStorage.getItem("filterval") == "latest" && "bg-bgBlue"
+                filterState === "latest" && "bg-bgBlue"
               } p-2 rounded-md`}
               value="latest"
-              onClick={(e) => {
-                onLatesthandle(e);
-                getlatestblogs();
+              onClick={async (e) => {
+                setLoading(true);
+                console.log(filterState);
+                handleclick("latest");
+
+                // onLatesthandle(e);
+                getlatestblogs()
+                  .then(() => {
+                    setLoading(false);
+                  })
+                  .catch((error) => {
+                    console.error("Error fetching blog data:", error);
+                    setLoading(false);
+                  });
               }}
             >
               Latest
             </button>
             <button
               className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
-                localStorage.getItem("filterval") == "top" && "bg-bgBlue"
+                filterState == "top" && "bg-bgBlue"
               }  p-2 rounded-md`}
               value="top"
               onClick={(e) => {
-                filterTop(e);
-                getTopBlogs(localStorage.getItem("filterTop"));
+                setLoading(true);
+                handleclick("top");
+                // filterTop(e);
+                getTopBlogs("week")
+                  .then(() => {
+                    setLoading(false);
+                  })
+                  .catch((error) => {
+                    console.error("Error fetching blog data:", error);
+                    setLoading(false);
+                  });
               }}
             >
               Top
@@ -168,48 +159,86 @@ export default function LeftSection() {
           >
             <button
               className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
-                localStorage.getItem("filterTop") == "week" && "bg-bgBlue"
+                Range === "week" && "bg-bgBlue"
               }  p-2  rounded-md`}
               value="week"
               onClick={(e) => {
-                Topfilter(e);
-                getTopBlogs(localStorage.getItem("filterTop"));
+                setLoading(true);
+                // setfilterState("")
+                setRange("week");
+
+                // Topfilter(e);
+                getTopBlogs("week")
+                  .then(() => {
+                    setLoading(false);
+                  })
+                  .catch((error) => {
+                    console.error("Error fetching blog data:", error);
+                    setLoading(false);
+                  });
               }}
             >
               Week
             </button>
             <button
               className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
-                localStorage.getItem("filterTop") == "month" && "bg-bgBlue"
+                Range === "month" && "bg-bgBlue"
               }  p-2 rounded-md`}
               value="month"
               onClick={(e) => {
-                Topfilter(e);
-                getTopBlogs(localStorage.getItem("filterTop"));
+                setLoading(true);
+                setRange("month");
+                // Topfilter(e);
+                getTopBlogs("month")
+                  .then(() => {
+                    setLoading(false);
+                  })
+                  .catch((error) => {
+                    console.error("Error fetching blog data:", error);
+                    setLoading(false);
+                  });
               }}
             >
               Month
             </button>
             <button
               className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
-                localStorage.getItem("filterTop") == "year" && "bg-bgBlue"
+                Range === "year" && "bg-bgBlue"
               }  p-2 rounded-md`}
               value="year"
               onClick={(e) => {
-                Topfilter(e);
-                getTopBlogs(localStorage.getItem("filterTop"));
+                // Topfilter(e);
+                setLoading(true);
+                setRange("year");
+                getTopBlogs("year")
+                  .then(() => {
+                    setLoading(false);
+                  })
+                  .catch((error) => {
+                    console.error("Error fetching blog data:", error);
+                    setLoading(false);
+                  });
               }}
             >
               Year
             </button>
             <button
               className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
-                localStorage.getItem("filterTop") == "all" && "bg-bgBlue"
+                Range === "all" && "bg-bgBlue"
               }  p-2 rounded-md`}
               value="all"
               onClick={(e) => {
-                Topfilter(e);
-                getTopBlogs(localStorage.getItem("filterTop"));
+                setLoading(true);
+                setRange("all");
+                // Topfilter(e);
+                getTopBlogs(localStorage.getItem("filterTop"))
+                  .then(() => {
+                    setLoading(false);
+                  })
+                  .catch((error) => {
+                    console.error("Error fetching blog data:", error);
+                    setLoading(false);
+                  });
               }}
             >
               Infinity
@@ -226,6 +255,7 @@ export default function LeftSection() {
                   <BlogCard
                     key={index}
                     isBookmark={AuthStatus && checkbookmark?.includes(card._id)}
+                    isLiked={AuthStatus && checklike?.includes(card._id)}
                     card={card}
                   ></BlogCard>
                 );

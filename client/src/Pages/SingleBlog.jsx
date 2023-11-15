@@ -12,6 +12,7 @@ import LeftSectionSkeleton from "../Component/SkeletonLoaders/SingleBlogPageSkel
 import TopSectionSkeleton from "../Component/SkeletonLoaders/SingleBlogPageSkeleton/TopSectionSkeleton";
 import MiddleSectionSkeleton from "../Component/SkeletonLoaders/SingleBlogPageSkeleton/MiddleSectionSkeleton";
 import RightSectionSkeleton from "../Component/SkeletonLoaders/SingleBlogPageSkeleton/RightSectionSkeleton";
+
 const SingleBlog = ({ blog1, loading }) => {
   // console.log(window.innerHeight);
   // const context = useContext(blogContext);
@@ -71,6 +72,17 @@ const SingleBlog = ({ blog1, loading }) => {
     console.log(startTime);
   }, [ch]);
 
+  const commentSectionRef = useRef(null);
+  const scrollToCommentSection = () => {
+    if (commentSectionRef.current) {
+      const element = commentSectionRef.current;
+      const rect = element.getBoundingClientRect();
+      window.scrollTo({
+        top: rect.top + window.scrollY,
+        behavior: "smooth",
+      });
+    }
+  };
   return (
     <>
       <section
@@ -90,7 +102,7 @@ const SingleBlog = ({ blog1, loading }) => {
               <LeftSection blog={blog1}></LeftSection>
             )}
           </div>
-          <div className="xl:w-[70%] max-xl:w-[70%] mx-14 max-md:w-[90%]  ">
+          <div className="xl:w-[70%] max-sm:w-[80%]   max-sm:mt-[-26px] max-xl:w-[70%] mx-14 max-md:w-[90%]  ">
             {loading ? (
               <MiddleSectionSkeleton></MiddleSectionSkeleton>
             ) : (
@@ -105,8 +117,8 @@ const SingleBlog = ({ blog1, loading }) => {
             )}
           </div>
         </div>
-        <div className="max-md:flex max-md:flex-col mt-5 2xl:hidden border-t-[2px] dark:border-gray-500   flex w-full  justify-center">
-          <div className="w-[30%] max-2xl:w-full flex border-r-[2px] dark:border-gray-500 ">
+        <div className="rounded-md max-md:flex max-md:flex-col mt-5 2xl:hidden border-t-[2px] dark:border-gray-500   flex w-full  justify-center">
+          <div className="w-[30%] max-2xl:w-full flex border-r-[2px]  dark:border-gray-500 ">
             {loading ? (
               <LeftSectionSkeleton></LeftSectionSkeleton>
             ) : (
@@ -121,11 +133,15 @@ const SingleBlog = ({ blog1, loading }) => {
             )}
           </div>
         </div>
-        <div className="w-[70%] mt-10">
+        <div ref={commentSectionRef} className="w-[70%] mt-10">
           <Comments blog={blog1} />
         </div>
       </section>
-      <TopicBar navbarRef={navbarRef} card={blog1}></TopicBar>
+      <TopicBar
+        scrollToCommentSection={scrollToCommentSection}
+        navbarRef={navbarRef}
+        card={blog1}
+      ></TopicBar>
     </>
   );
 };

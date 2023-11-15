@@ -7,6 +7,7 @@ const Comment = require("../models/Comments");
 const blogCard = require("../models/BlogCard");
 const Userdetail = require("../models/UserDetails");
 const { default: mongoose } = require("mongoose");
+const Like = require("../models/LikeSchema");
 
 
 // ROUTE 3: Put all a blog in the database : POST "/api/blogs/addblog"
@@ -385,7 +386,14 @@ router.put("/getbookmark", fetchuser, async (req, res) => {
 
 
 
-        let user = await Bookmark.findOne({ userId: req.body.data }).populate('postId')
+        let user = await Bookmark.findOne({ userId: req.body.data }).populate({
+            path: 'postId',
+            model: blogCard,
+            populate: {
+                path: 'author',
+                model: Userdetail,
+            }
+        })
 
 
         // let bk = await Userdetail.findOne({ userID: req.body.data })
@@ -408,6 +416,171 @@ router.put("/checkbookmark", fetchuser, async (req, res) => {
 
 
         let user = await Bookmark.findOne({ userId: req.body.data })
+
+        // let bk = await Userdetail.findOne({ userID: req.body.data })
+        console.log(user)
+        res.json(user);
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Sever error,Something in the way");
+    }
+})
+
+
+
+// router.put("/removeBookmark", async (req, res) => {
+
+module.exports = router;
+
+router.put("/addlike", async (req, res) => {
+    try {
+
+
+
+
+        let { postID, userID, postIDString } = req.body
+        console.log(req.body)
+        let bookmark = await Like.findOne({ userId: userID })
+        console.log("search")
+        console.log(bookmark)
+        if (!bookmark) {
+
+
+            bookmark = await Like.create({ userId: userID, postId: postID, postIDString: postID })
+            console.log("create")
+            console.log(bookmark)
+            return res.json(bookmark)
+
+
+        }
+
+
+        if (bookmark.postId.includes(postID)) {
+            return res.status(400).json({ error: 'Post is already bookmarked' });
+        }
+
+        console.log("allready")
+
+        const newbookmark = await Like.findOneAndUpdate({ userId: userID }, {
+            $push: {
+                postId: postID,
+                postIDString: postID
+            }
+        })
+
+        const book = newbookmark.save()
+
+
+
+
+
+        res.json(book)
+
+
+
+
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Sever error,Something in the way");
+    }
+
+
+}
+)
+
+
+
+router.put("/deletelike", async (req, res) => {
+    try {
+
+
+
+
+        let { postID, userID } = req.body
+        console.log(req.body)
+        let bookmark = await Like.findOne({ userId: userID })
+        console.log("search")
+        console.log(bookmark)
+
+        if (!bookmark) {
+            return res.json("Not found user")
+        }
+
+
+
+        const newbookmark = await Like.findOneAndUpdate({ userId: userID }, {
+            $pull: {
+                postId: postID,
+                postIDString: postID
+            }
+        })
+
+        // const book = newbookmark.save()
+
+        console.log(newbookmark)
+
+
+
+
+
+        res.json(newbookmark)
+
+
+
+
+
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Sever error,Something in the way");
+    }
+
+
+}
+)
+
+
+
+// router.put("/getbookmark", fetchuser, async (req, res) => {
+//     try {
+
+//         console.log(req.body)
+
+
+
+
+
+//         let user = await Bookmark.findOne({ userId: req.body.data }).populate({
+//             path: 'postId',
+//             model: blogCard,
+//             populate: {
+//                 path: 'author',
+//                 model: Userdetail,
+//             }
+//         })
+
+
+//         // let bk = await Userdetail.findOne({ userID: req.body.data })
+//         console.log("bookmark data")
+//         console.log(user)
+//         res.json(user);
+
+//     } catch (error) {
+//         console.error(error.message);
+//         res.status(500).send("Internal Sever error,Something in the way");
+//     }
+// })
+router.put("/checklike", fetchuser, async (req, res) => {
+    try {
+
+        console.log(req.body)
+
+
+
+
+
+        let user = await Like.findOne({ userId: req.body.data })
 
         // let bk = await Userdetail.findOne({ userID: req.body.data })
         console.log(user)
