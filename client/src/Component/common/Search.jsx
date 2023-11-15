@@ -24,7 +24,7 @@ export default function Search() {
     }
   };
   const handleInputBlur = () => {
-    blurTimeout = setTimeout(() => {
+    const blurTimeout = setTimeout(() => {
       setSearchResultExist(false);
     }, 200);
   };
@@ -108,23 +108,21 @@ export default function Search() {
                   onClick={() => {
                     toast.success("Welcome to Blog");
 
-                    navigate(`/blogs/${card?.Title?.replace(/\s+/g, "-")}`, {
-                      state: {
-                        id: card.postID,
-                        view: card?.view,
-                        username: card?.UserName,
-                      },
-                    });
+                    navigate(`/blogs/${card?._id}`);
                   }}
                   className="flex justify-between  px-4 py-1 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                 >
                   <div className="flex flex-col">
                     <span className="">{card?.Title} </span>
                     <span className="text-gray-400 text-xs my-1">
-                      @{card?.UserName}{" "}
+                      @{card?.author.username}{" "}
                     </span>
                   </div>
-                  <img src={card?.Blog_url} alt="" className="h-8" />
+                  <img
+                    src={card?.Blog_url}
+                    alt=""
+                    className="h-8  object-cover"
+                  />
                 </li>
               ))}
             </ul>

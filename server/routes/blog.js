@@ -266,7 +266,7 @@ router.get("/searchForResults/:searchtext", async (req, res) => {
   try {
     const searchtext = req.params.searchtext; // Access the parameter from req.params
     const searchResults = await blogCard
-      .find({ Title: { $regex: searchtext, $options: "i" } })
+      .find({ Title: { $regex: searchtext, $options: "i" } }).populate('author')
       .sort({ view: -1 })
       .limit(10);
 

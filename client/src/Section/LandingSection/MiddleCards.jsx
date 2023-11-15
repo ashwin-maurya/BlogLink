@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { LandingCards } from "../../Component/common";
 import blogContext from "../../Helper/Context/blogContext";
 import { Link } from "react-router-dom";
+import { dark, darkprofileDefault } from "../../Assets/icons";
 
 const ThreeCarketeers = () => {
   const context = useContext(blogContext);

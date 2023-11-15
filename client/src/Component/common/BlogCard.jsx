@@ -200,19 +200,18 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
                 onClick={() => {
                   toast.success("Welcome to Blog");
 
-                  navigate(`/blogs/${card?.Title?.replace(/\s+/g, "-")}`, {
-                    state: {
-                      id: card._id,
-                      userID: card.userID,
-                      view: card?.view,
-                      username: card?.UserName,
-                    },
-                  });
+                  navigate(`/blogs/${card._id}`);
                 }}
               >
                 Read
               </button>
-              <button className="p-1 rounded-md text-[15px] text-white px-4 bg-primaryMain  border-2 border-slate-200 dark:border-gray-700 hover:border-blue-300 ">
+              <button
+                className={`p-1 rounded-md text-[15px] text-white px-4 bg-primaryMain  border-2 border-slate-200 ${
+                  Bookmarked && "bg-gray-500"
+                }  dark:border-gray-700 hover:border-blue-300 `}
+                onClick={bookmark}
+                disabled={Bookmarked}
+              >
                 Save
               </button>
             </div>
