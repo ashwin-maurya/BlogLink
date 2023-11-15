@@ -11,10 +11,10 @@ const Tag = ({ tags, getTags }) => {
           onChange={(e) => {
             getTags(e);
           }}
-          className="   rounded-md dark:text-black dark:focus:border-secondary dark:border-3 w-full border-2 outline-none  text-[20px]  px-3"
+          className="dark:text-darkTextMain text-gray-900 dark:bg-darkBgPrimary border-gray-300 dark:border-gray-700 hover:border-primaryMain hover:dark:border-secondary focus:border-primaryMain focus:dark:border-secondary outline-none transition-colors duration-300 ease-in-out w-full border-2 rounded text-[20px]  px-3"
           type="text"
         />
-        <button className="flex justify-center items-center bg-primaryMain p-3 rounded-md text-white">
+        <button className="border-2 border-slate-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-400   rounded-md bg-primaryMain dark:bg-secondary px-4 py-1 font-semibold text-white ">
           Add
         </button>
       </div>

@@ -139,44 +139,46 @@ const WriteBlog = ({ postid, UserDetails }) => {
   };
 
   return (
-    <section className="p-4 rounded-lg flex  dark:text-white dark:bg-darkBgMain ">
-      <div className=" w-[70%] px-6 p-3">
-        <TitleandContent blogs={blogs} getInput={getInput}></TitleandContent>
-        <Content blogContent={blogContent} updateDesc={updateDesc}></Content>
-      </div>
-      <div className="w-[30%] flex   flex-col justify-between my-3  ">
-        <div className="">
-          <div className="flex items-center ">
-            <SaveasDraft setblogContent={setblogContent}></SaveasDraft>
-            <ShowPreview blogData={{ ...blogContent, ...blogs }}></ShowPreview>
-          </div>
-          <Category
-            blogs={blogs}
-            setcategory={setcategory}
-            category={category}
-            getInput={getInput}
-          ></Category>
-
-          <Tag tags={tags} getTags={getTags}></Tag>
-          <FeaturedImage
-            setfeaturedImage={setfeaturedImage}
-            featuredImage={featuredImage}
-            blogs={blogs}
-            setblog={setblog}
-            postid={postid}
-            getInput={getInput}
-          ></FeaturedImage>
-        </div>
+    <>
+      <div className="flex w-full justify-end pt-2 pr-5 bg-gray-100 p-3 ">
+        <ShowPreview blogData={{ ...blogContent, ...blogs }}></ShowPreview>
         <button
-          className="mx-3 rounded-md border-2  dark:hover:bg-secondary dark:hover:text-white dark:hover:border-0  text-white    pr-10 pl-10 pt-2 pb-2  bg-primaryMain"
+          className="border-2 border-slate-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-400   rounded-md bg-primaryMain dark:bg-secondary px-4 py-1 font-semibold text-white"
           onClick={handleadd}
         >
-          Create
+          Publish
         </button>
       </div>
 
-      <div className="flex justify-center items-center "></div>
-    </section>
+      <section className="p-4 rounded-lg flex  dark:text-white dark:bg-darkBgMain max-lg:flex-col ">
+        <div className=" w-[70%] px-6 p-3 max-lg:w-full">
+          <TitleandContent blogs={blogs} getInput={getInput}></TitleandContent>
+          <Content blogContent={blogContent} updateDesc={updateDesc}></Content>
+        </div>
+        <div className="w-[30%] flex   flex-col justify-between my-3  max-lg:w-full">
+          <div className="">
+            <Category
+              blogs={blogs}
+              setcategory={setcategory}
+              category={category}
+              getInput={getInput}
+            ></Category>
+
+            <Tag tags={tags} getTags={getTags}></Tag>
+            <FeaturedImage
+              setfeaturedImage={setfeaturedImage}
+              featuredImage={featuredImage}
+              blogs={blogs}
+              setblog={setblog}
+              postid={postid}
+              getInput={getInput}
+            ></FeaturedImage>
+          </div>
+        </div>
+
+        <div className="flex justify-center items-center "></div>
+      </section>
+    </>
   );
 };
 

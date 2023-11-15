@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import { headerLogo, hamburger, light, dark, edit } from "../../Assets/icons";
+import { light, dark } from "../../Assets/icons";
 import Cookies from "js-cookie";
 import { navLinks } from "../constants";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Search, SideNav, ScrollProgress, Login, Profile } from "./";
 import TopicBar from "../SingleBlogComponents/TopicBar";
 import AuthContext from "../../Helper/Context/AuthContext";
+import BlogLinkLogo from "./BlogLinkLogo";
 TopicBar;
 const MainNav = () => {
   const navigate = useNavigate();
@@ -83,16 +84,10 @@ const MainNav = () => {
         ref={navbarRef}
         className="sticky top-0 select-none z-50 transition-all ease-in-out duration-300"
       >
-        <header className="flex items-center  border-b-[1px] border-gray-200 dark:border-darkBorderAll  dark:bg-darkBgMain  sm:px-2 py-1 h-[55px] w-full bg-white ">
+        <header className="flex items-center border-b border-gray-100 dark:border-darkBorderAll  dark:bg-darkBgMain  h-[55px] w-full bg-white ">
+          <BlogLinkLogo />
           <nav className="flex justify-between items-center w-full">
             <div className="flex  items-center w-[70%]">
-              <Link to="/">
-                <img
-                  className="m-0 w-[50px] h-[29px]"
-                  src={headerLogo}
-                  alt="logo"
-                />
-              </Link>
               {location.pathname === "/blog" ? (
                 <Search />
               ) : (
@@ -112,19 +107,18 @@ const MainNav = () => {
             </div>
 
             <div className="flex items-center w-auto">
-              <div className="flex gap-2 px-5">
-                <button
-                  onClick={() => {
-                    toggleDarkMode();
-                  }}
-                >
-                  {darkMode ? (
-                    <img src={dark} alt="dark" />
-                  ) : (
-                    <img src={light} alt="light" />
-                  )}
-                </button>
-              </div>
+              <button
+                onClick={() => {
+                  toggleDarkMode();
+                }}
+                className="w-10 h-10 mr-2 max-sm:mr-1"
+              >
+                {darkMode ? (
+                  <img src={dark} alt="dark" />
+                ) : (
+                  <img src={light} alt="light" />
+                )}
+              </button>
               <div className="max-md:hidden ">
                 <Login />
               </div>

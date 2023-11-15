@@ -1,6 +1,5 @@
 import React from "react";
-import { headerLogo } from "../../Assets/icons";
-
+import BlogLinkLogo from "./BlogLinkLogo";
 export default function Footer() {
   return (
     <>
@@ -8,12 +7,7 @@ export default function Footer() {
         <div className=" w-full p-4 py-6 max-md:px-10 px-20">
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
-              <a href="/" className="flex items-center">
-                <img src={headerLogo} className="h-8 mr-3" alt="BlueSky Logo" />
-                <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-                  Blue Sky
-                </span>
-              </a>
+              <BlogLinkLogo />
             </div>
             <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
               <div>
@@ -73,10 +67,11 @@ export default function Footer() {
           <div className="sm:flex sm:items-center sm:justify-between">
             <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
               © 2023{" "}
-              <a href="/" className="hover:underline">
-                BlueSky™
+              <a href="/" className="hover:underline font-serif">
+                BlogLink
               </a>
-              . All Rights Reserved.
+              <span> . </span>
+              All Rights Reserved.
             </span>
             <div className="flex mt-4 space-x-5 sm:justify-center sm:mt-0">
               <a

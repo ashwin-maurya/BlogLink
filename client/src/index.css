@@ -5,30 +5,6 @@
 @tailwind components;
 @tailwind utilities;
 
-::-webkit-scrollbar {
-  width: 7px;
-  position: absolute;
-}
-
-/* @media not all and (min-width: 604px) {
-  ::-webkit-scrollbar {
-    width: 2px;
-    position: absolute;
-  }
-} */
-::-webkit-scrollbar-track {
-  background: #d4e5ff;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #67a1ff;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #3b82f6;
-}
 * {
   margin: 0;
   padding: 0;

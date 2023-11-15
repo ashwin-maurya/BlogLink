@@ -249,6 +249,7 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
               <Tags key={index} tags={tag} />
             ))}{" "}
           </div>
+
           <div className="flex gap-[8px]   items-center mr-1 mt-2">
             <div className="rounded-full py-2 px-4  max-sm:px-[7px] max-sm:py-[6px] hover:bg-darkBgMain flex justify-center items-center">
               <i

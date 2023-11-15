@@ -16,7 +16,7 @@ import SettingsLayout from "./Layouts/SettingsLayout";
 import FilterState from "./Helper/Context/FilterState";
 import BookmarkLayout from "./Layouts/BookmarkLayout";
 import PreviewLayout from "./Layouts/PreviewLayout";
-
+import AboutUsLayout from "./Layouts/AboutUsLayout";
 const App = () => {
   return (
     <BlogState>
@@ -34,6 +34,7 @@ const App = () => {
                   <Route path="/" element={<LandingLayout />} />
                   <Route path="/home" element={<LandingLayout />} />
                   <Route path="/blog" element={<BlogLayout />} />
+                  <Route path="/about" element={<AboutUsLayout />} />
                   <Route path="/settings/*" element={<SettingsLayout />} />
 
                   <Route path="/blogs/:id" element={<SingleBlogLayout />} />

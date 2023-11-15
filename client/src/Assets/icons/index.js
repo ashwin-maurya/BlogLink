@@ -11,6 +11,7 @@ import view from "./view.svg";
 import bookmark from "./bookmark.svg";
 import target from "./target.svg";
 import chevronRight from "./chevronRight.svg";
+import BlogLink from "./BlogLink.svg";
 export {
   target,
   edit,
@@ -25,4 +26,5 @@ export {
   editPen,
   view,
   bookmark,
+  BlogLink,
 };
