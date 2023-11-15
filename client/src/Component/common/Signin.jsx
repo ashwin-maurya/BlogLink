@@ -4,13 +4,10 @@ import Authentication from "./Auth/Authentication";
 import RelevantModal from "./Auth/RelevantModal";
 
 export default function Signin() {
-  const [showModal, setModal] = useState(false);
   const context = useContext(AuthContext);
-  const { setAuthStatus } = context;
-  // console.log("HI123");
+  const { setAuthStatus, showAuthModal, setAuthModal } = context;
   const ModalStatus = () => {
-    console.log("HI");
-    setModal((showModal) => !showModal);
+    setAuthModal((showAuthModal) => !showAuthModal);
   };
   const [showRelevantModal, setShowRelevantModal] = useState(false);
   const RelevantModalStatus = () => {
@@ -20,7 +17,7 @@ export default function Signin() {
   };
   return (
     <>
-      {showModal && (
+      {showAuthModal && (
         <Authentication
           ModalStatus={ModalStatus}
           setAuthStatus={setAuthStatus}

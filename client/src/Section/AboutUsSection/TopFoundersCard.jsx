@@ -3,77 +3,38 @@ import { Link } from "react-router-dom";
 export default function TopFoundersCard() {
   return (
     <>
-      <h3 className="text-2xl font-semibold text-gray-800 my-4 w-full text-center dark:text-white">
-        Meet the Developers
-      </h3>
-      <div className="flex justify-center items-center m-5 mt-10  max-md:flex-col">
-        <div className="flex flex-col items-center mb-10 lg:mb-14 bg-lightSkeleton mx-10 rounded dark:bg-darkBgPrimary w-full">
-          <div class="overflow-hidden rounded-t-lg w-full">
-            <img
-              src="https://i.postimg.cc/7hBDr1vC/pexels-rodnae-productions-7005064.jpg"
-              alt=""
-              class="object-cover object-top w-full h-48"
-            />
+      <div class="scene">
+        <div class="planet relative mx-auto mt-20 w-80 h-80 bg-gray-300 rounded-full shadow-inset-2xl">
+          <div class="crater absolute left-14 top-11 w-20 h-32 bg-gray-600 rounded-full"></div>
+          <div class="crater absolute left-44 top-52 w-16 h-11 bg-gray-600 transform -rotate-22"></div>
+          <div class="crater absolute left-67 top-34 w-8 h-16 bg-gray-600 transform rotate-12"></div>
+          <div class="crater absolute left-61 top-53 w-3 h-16 bg-gray-600 transform rotate-48"></div>
+          <div class="crater absolute left-71 top-12 w-3 h-18 bg-gray-600 transform -rotate-31"></div>
+          <div class="rover absolute transform -rotate-70 left-40 top-10">
+            <div class="body absolute z-10 w-4 h-6 bg-white rounded-full shadow-left"></div>
+            <div class="wheels absolute left-1.5">
+              <div class="wheels-after-before absolute z-9 bg-black w-20 h-8 rounded-full"></div>
+              <div class="wheels-after-before absolute z-9 bg-black w-20 h-8 rounded-full top-9"></div>
+            </div>
+            <div class="trace absolute left-3 top-12 transform -rotate-24">
+              <div class="trace-after-before absolute w-24 h-40 rounded-full inset-shadow-gray-300"></div>
+              <div class="trace-after-before absolute w-24 h-40 rounded-full left-12 inset-shadow-gray-300"></div>
+            </div>
           </div>
-          <div className="flex p-4 items-center justify-start w-full gap-4">
-            <div class="h-32 w-32 overflow-hidden rounded-full">
-              <img
-                src="https://i.postimg.cc/RhQYkKYk/pexels-italo-melo-2379005.jpg"
-                alt=""
-                class="object-cover object-top"
-              />
-            </div>
-            <div className="text-left w-auto">
-              <h2 className="mb-1 text-2xl font-bold text-gray-700 dark:text-white">
-                Aryan Maurya
-              </h2>
-              <p className="text-gray-700 dark:text-white font-light">
-                Full Stack Developer
-              </p>
-              <div className="flex items-center my-2">
-                <Link to="https://www.linkedin.com/in/aryan-maurya-1a589b24a/">
-                  <i className="fa fa-linkedin text-xl p-2 py-1 text-gray-700 dark:text-white  dark:hover:bg-darkBgMain rounded full"></i>
-                </Link>
-                <Link to="https://github.com/108aryanmaurya">
-                  <i className="fa fa-github text-xl p-2 py-1 text-gray-700 dark:text-white  dark:hover:bg-darkBgMain rounded full"></i>
-                </Link>
-              </div>
-            </div>
+          <div class="flag absolute bg-red-800 py-1 px-2 text-white rounded-tr-sm whitespace-nowrap transform -rotate-32">
+            404
           </div>
         </div>
-        <div className="flex flex-col items-center mb-10 lg:mb-14 mx-10 bg-lightSkeleton  rounded dark:bg-darkBgPrimary w-full">
-          <div class="overflow-hidden rounded-t-lg w-full">
-            <img
-              src="https://i.postimg.cc/7hBDr1vC/pexels-rodnae-productions-7005064.jpg"
-              alt=""
-              class="object-cover object-top w-full h-48"
-            />
-          </div>
-          <div className="flex p-4 items-center justify-start w-full gap-4">
-            <div class="h-32 w-32 overflow-hidden rounded-full">
-              <img
-                src="https://i.postimg.cc/RhQYkKYk/pexels-italo-melo-2379005.jpg"
-                alt=""
-                class="object-cover object-top"
-              />
-            </div>
-            <div className="text-left w-auto">
-              <h2 className="mb-1 text-2xl font-bold text-gray-700 dark:text-white">
-                Ashwin Maurya
-              </h2>
-              <p className="text-gray-700 dark:text-white font-light">
-                Full Stack Developer
-              </p>
-              <div className="flex items-center my-2">
-                <Link to="https://www.linkedin.com/in/ashwin-maurya/">
-                  <i className="fa fa-linkedin text-xl p-2 py-1 text-gray-700 dark:text-white  dark:hover:bg-darkBgMain rounded full"></i>
-                </Link>
-                <Link to="https://github.com/ashwin-maurya">
-                  <i className="fa fa-github text-xl p-2 py-1 text-gray-700 dark:text-white  dark:hover:bg-darkBgMain rounded full"></i>
-                </Link>
-              </div>
-            </div>
-          </div>
+        <div class="message absolute text-gray-400 top-72 w-full text-center cursor-default">
+          <p class="inline-block text-2xl">
+            There is no life, try to find{" "}
+            <a
+              href="https://codepen.io/ddly/"
+              class="text-gray-400 hover:border-b-2 border-dotted border-gray-600"
+            >
+              something else
+            </a>
+          </p>
         </div>
       </div>
     </>

@@ -140,7 +140,7 @@ const WriteBlog = ({ postid, UserDetails }) => {
 
   return (
     <>
-      <div className="flex w-full justify-end pt-2 pr-5 bg-gray-100 p-3 dark:bg-darkBgPrimary">
+      <div className="flex w-full justify-end pt-2 pr-5 bg-gray-100 p-3 dark:bg-darkBgPrimary z-50">
         <ShowPreview blogData={{ ...blogContent, ...blogs }}></ShowPreview>
         <button
           className="border-2 border-slate-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-400   rounded-md bg-primaryMain dark:bg-secondary px-4 py-1 font-semibold text-white"

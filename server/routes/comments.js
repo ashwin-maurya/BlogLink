@@ -594,7 +594,7 @@ router.put("/checklike", fetchuser, async (req, res) => {
     }
 })
 
-router.put("/countlike", fetchuser, async (req, res) => {
+router.put("/countlike", async (req, res) => {
     try {
 
         console.log(req.body)
@@ -609,7 +609,7 @@ router.put("/countlike", fetchuser, async (req, res) => {
     }
 })
 
-router.put("/countbookmark", fetchuser, async (req, res) => {
+router.put("/countbookmark", async (req, res) => {
     try {
 
         console.log(req.body)

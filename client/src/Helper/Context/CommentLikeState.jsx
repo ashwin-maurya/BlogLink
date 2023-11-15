@@ -238,12 +238,10 @@ const CommentLikeState = (props) => {
 
   const countLike = async (data) => {
     console.log(data);
-    const obj = JSON.parse(localStorage.getItem("UserData"));
 
     const resp = await fetch(`${host}/api/comments/countlike/`, {
       method: "PUT",
       headers: {
-        "auth-token": obj.authtoken,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ data }),
@@ -255,12 +253,10 @@ const CommentLikeState = (props) => {
   };
   const countBookmark = async (data) => {
     console.log(data);
-    const obj = JSON.parse(localStorage.getItem("UserData"));
 
     const resp = await fetch(`${host}/api/comments/countbookmark/`, {
       method: "PUT",
       headers: {
-        "auth-token": obj.authtoken,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ data }),

@@ -11,6 +11,7 @@ const AuthState = (props) => {
   const [loggedin, setLoggedin] = useState({});
   const [loggedinStatus, setLoggedinStatus] = useState(false);
   const [userDetailExist, setUserDetailExist] = useState();
+  const [showAuthModal, setAuthModal] = useState(false);
 
   //Get all notes
   const googlelogin = async (GoogleCreds) => {
@@ -349,6 +350,8 @@ const AuthState = (props) => {
         userdetailexist,
         updateuserdetail,
         addImg,
+        showAuthModal,
+        setAuthModal,
       }}
     >
       {props.children}
