@@ -17,7 +17,7 @@ export default function Comments({ blog }) {
     setcomment({
       comment,
       postID: blog?._id,
-      userID: JSON.parse(localStorage.getItem("UserData")).userDetailId,
+      userID: JSON.parse(localStorage?.getItem("UserData"))?.userDetailId,
     });
   }, [blog, UserDetails]);
 
