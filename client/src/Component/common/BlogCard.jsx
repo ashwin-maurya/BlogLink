@@ -280,8 +280,8 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
               <i
                 className={`ml-[4px]    ${
                   Bookmarked
-                    ? "text-primaryMain dark:text-primaryMain fa fa-bookmark"
-                    : " fa fa-bookmark-o "
+                    ? "text-primaryMain  dark:text-primaryMain fa fa-bookmark"
+                    : " fa fa-bookmark-o dark:text-white"
                 } hover:text-primaryMain  text-[13px] `}
               ></i>
             </div>
