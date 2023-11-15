@@ -284,7 +284,7 @@ router.get("/fetchrandomblog", async (req, res) => {
   try {
     const totalBlogs = await blogCard.countDocuments();
     const randomIndex = Math.floor(Math.random() * totalBlogs);
-    const randomBlog = await blogCard.findOne().skip(randomIndex).exec();
+    const randomBlog = await blogCard.findOne().populate('author').skip(randomIndex).exec();
 
     if (randomBlog) {
       res.json(randomBlog);

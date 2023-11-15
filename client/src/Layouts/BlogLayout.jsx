@@ -4,10 +4,7 @@ import Blog from "../Pages/Blog";
 
 export default function BlogLayout() {
   const [loading, setloading] = useState(true);
-  useEffect(() => {
-    // if (!true) {
-    // }
-  }, []);
+
   return (
     <section>
       <Blog></Blog>

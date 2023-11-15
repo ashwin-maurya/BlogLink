@@ -9,6 +9,7 @@ const FeaturedImage = ({
   featuredImage,
   setfeaturedImage,
 }) => {
+  console.log(blogs);
   const [progress, setProgress] = useState(0);
   const [select, setselect] = useState(false);
 
@@ -23,6 +24,10 @@ const FeaturedImage = ({
       console.log(blogs);
     }
   };
+  const getInput2 = (e) => {
+    setfeaturedImage(e.target.value);
+  };
+
   useEffect(() => {
     setblog({ ...blogs, ...{ Blog_url: featuredImage } });
     console.log(blogs);
@@ -95,6 +100,7 @@ const FeaturedImage = ({
                 onChange={(e) => {
                   getInput(e);
                 }}
+                // value={blogs.Blog_url}
                 type="file"
                 className="hidden dark:text-darkTextMain text-gray-900 dark:bg-darkBgPrimary border-gray-300 dark:border-gray-700 hover:border-primaryMain hover:dark:border-secondary focus:border-primaryMain focus:dark:border-secondary outline-none transition-colors duration-300 ease-in-out w-full border-2 rounded text-[20px]  px-3"
               />
@@ -116,7 +122,7 @@ const FeaturedImage = ({
               name="Blog_url"
               value={blogs?.Blog_url}
               onChange={(e) => {
-                getInput(e);
+                getInput2(e);
               }}
               className="dark:text-darkTextMain text-gray-900 dark:bg-darkBgPrimary border-gray-300 dark:border-gray-700 hover:border-primaryMain hover:dark:border-secondary focus:border-primaryMain focus:dark:border-secondary outline-none transition-colors duration-300 ease-in-out w-full rounded-md border-2 mx-2 dark:focus:border-secondary dark:border-3 p-1.5 text-[17px]"
               accept="image/*"

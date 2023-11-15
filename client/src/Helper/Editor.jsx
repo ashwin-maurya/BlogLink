@@ -14,7 +14,7 @@ function TinyMCEEditor({ blogs, description }) {
             selector: "textarea", // change this value according to your HTML
 
             height: 650,
-            menubar: false,
+            menubar: true,
 
             plugins: [
               "advlist autolink lists link image charmap print preview anchor",
@@ -42,7 +42,7 @@ function TinyMCEEditor({ blogs, description }) {
               { text: "C++", value: "cpp" },
             ],
           }}
-          value={blogs?.description}
+          value={blogs?.blogcontent?.description}
           onEditorChange={handleEditorChange}
         />
       </div>

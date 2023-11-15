@@ -3,7 +3,7 @@ import getUniqueID from "../Helper/getUniqueID";
 
 import WriteBlogPage from "../Pages/WriteBlogPage";
 import AuthContext from "../Helper/Context/AuthContext";
-import { useLocation } from "react-router";
+import { useLocation, useParams } from "react-router";
 import blogContext from "../Helper/Context/blogContext";
 import UpdateBlog from "../Pages/updateBlog";
 
@@ -14,13 +14,11 @@ const UpdateBlogLayout = () => {
   const context2 = useContext(AuthContext);
   const { UserDetails } = context2;
   // console.log(UserDetails.username);
-
-  const location = useLocation();
+  const { id } = useParams();
   const context = useContext(blogContext);
   const { SingleBlogContent, getsingleblogContent } = context;
 
   console.log("I work in writeblogLAyotu");
-  let id = location.state?.id;
   let data = SingleBlogContent;
   console.log(id);
 

@@ -53,7 +53,7 @@ const App = () => {
                     {" "}
                   </Route>
                   <Route
-                    path="/updateblog"
+                    path="/updateblog/:id"
                     element={<UpdateBlogLayout></UpdateBlogLayout>}
                   ></Route>
                   <Route
@@ -61,7 +61,7 @@ const App = () => {
                     element={<PreviewLayout></PreviewLayout>}
                   ></Route>
                   <Route
-                    path="/bookmarks"
+                    path="/bookmarks/:userId"
                     element={<BookmarkLayout></BookmarkLayout>}
                   ></Route>
 

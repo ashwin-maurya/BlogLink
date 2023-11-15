@@ -53,17 +53,7 @@ const Hero = () => {
                   <h1
                     className="text-[40px] font-bold py-5 text-center max-lg:py-2 max-lg:text-[22px] font-serif hover:text-primaryMain dark:text-darkTextMain dark:hover:text-secondary capitalize cursor-pointer"
                     onClick={() => {
-                      navigate(
-                        `/blogs/${randomBlog?.Title?.replace(/\s+/g, "-")}`,
-                        {
-                          state: {
-                            id: randomBlog._id,
-                            userID: randomBlog.userID,
-                            view: randomBlog?.view,
-                            username: randomBlog?.UserName,
-                          },
-                        }
-                      );
+                      navigate(`/blogs/${randomBlog?._id}`);
                     }}
                   >
                     {randomBlog?.Title}
@@ -75,12 +65,10 @@ const Hero = () => {
                       onClick={() => {
                         toast.success("Welcome to Profile");
 
-                        navigate(`/profile/${randomBlog?.UserName}`, {
-                          state: { id: randomBlog?.userID },
-                        });
+                        navigate(`/profile/${randomBlog?.author?.username}`);
                       }}
                     >
-                      By {randomBlog.UserName}
+                      By {randomBlog?.author?.username}
                     </p>
                     <span className="text-lg max-lg:text-[15px] max-lg:text-sm ml-2 font-semibold font-palanquin text-gray-400">
                       -
