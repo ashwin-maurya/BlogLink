@@ -17,6 +17,7 @@ import FilterState from "./Helper/Context/FilterState";
 import BookmarkLayout from "./Layouts/BookmarkLayout";
 import PreviewLayout from "./Layouts/PreviewLayout";
 import AboutUsLayout from "./Layouts/AboutUsLayout";
+import PageNotFoundMoon from "./Component/PageNotFound/PageNotFoundMoon";
 const App = () => {
   return (
     <BlogState>
@@ -65,7 +66,7 @@ const App = () => {
                     element={<BookmarkLayout></BookmarkLayout>}
                   ></Route>
 
-                  {/* <Route path="/*" element={<NotFound />} /> */}
+                  <Route path="*" element={<PageNotFoundMoon />} />
                 </Routes>
                 <Footer />
               </Router>

@@ -19,7 +19,7 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
   const { deletenote } = context6;
   const context3 = useContext(AuthContext);
   const navigate = useNavigate();
-  const { UserDetails, AuthStatus } = context3;
+  const { UserDetails, AuthStatus, showAuthModal, setAuthModal } = context3;
   const [ShowEdit, setShowEdit] = useState(false);
   // console.log(isBookmark);
   const [Bookmarked, setBookmarked] = useState(isBookmark);
@@ -31,6 +31,10 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
 
   const bookmark = async () => {
     // setBookmarked(!Bookmarked);
+    if (!AuthStatus) {
+      setAuthModal((showAuthModal) => !showAuthModal);
+      return;
+    }
     console.log(Bookmarked);
 
     if (Bookmarked == true) {
@@ -50,7 +54,10 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
     }
   };
   const like = async () => {
-    // setBookmarked(!Bookmarked);
+    if (!AuthStatus) {
+      setAuthModal((showAuthModal) => !showAuthModal);
+      return;
+    }
     console.log(like);
 
     if (liked == true) {
@@ -138,13 +145,12 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
                     }}
                   >
                     <img
-                      // src={user}
                       src={
                         card?.author?.profileImg != ""
                           ? card?.author?.profileImg
                           : profileDefault
                       }
-                      className="border-[1px] border-purple-300 bg-white h-7 w-7  rounded-full object-contain"
+                      className="border-[1px] border-purple-300 bg-white h-7 w-7  rounded-full object-cover object-top"
                       alt="img"
                     />
                     <div className="flex flex-row ml-2 max-lg:flex-col">
@@ -243,23 +249,28 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
 
           <div className="flex  items-center mr-1 mt-2">
             <div className="mr-1 w-[100%] py-2 px-1 flex items-center justify-center">
-              <p className="text-xs font-bold text-black dark:text-white max-sm:text-xs ">
+              <p className="text-xs font-bold text-gray-600 dark:text-white max-sm:text-xs ">
                 {card?.view}
               </p>
-              <i className="fa fa-eye ml-1  text-black dark:text-white  text-[13px] "></i>
+              <i className="fa fa-eye ml-1  text-gray-600 dark:text-white  text-[13px] "></i>
             </div>
-            <div className="rounded-full py-2 px-3  max-sm:px-[7px] max-sm:py-[6px]  flex justify-center items-center">
+            <div
+              className="rounded-full py-2 px-3  max-sm:px-[7px] max-sm:py-[6px]  flex justify-center items-center  cursor-pointer "
+              onClick={bookmark}
+            >
               <i
                 className={` dark:text-white  ${
                   Bookmarked
                     ? "text-primaryMain dark:text-primaryMain fa fa-bookmark"
                     : " fa fa-bookmark-o "
                 } hover:text-primaryMain  text-[13px] `}
-                onClick={bookmark}
               ></i>
             </div>
 
-            <div className="rounded-full max-sm:px-[7px] max-sm:py-[6px]  py-2 px-3    group/btn flex justify-center items-center transition ease-in-out">
+            <div
+              className="rounded-full max-sm:px-[7px] max-sm:py-[6px]  py-2 px-3    group/btn flex justify-center items-center transition ease-in-out  cursor-pointer "
+              onClick={like}
+            >
               {" "}
               <i
                 className={` dark:text-white    ${
@@ -267,15 +278,14 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
                     ? "text-red-500 dark:text-red-500 fa fa-heart"
                     : " fa fa-heart-o "
                 }   text-[13px] `}
-                onClick={like}
               ></i>
             </div>
-            <div className="rounded-full max-sm:px-[7px] max-sm:py-[6px]   py-2 px-3  flex justify-center items-center transition ease-in-out">
+            <div
+              className="rounded-full max-sm:px-[7px] max-sm:py-[6px]   py-2 px-3  flex justify-center items-center transition ease-in-out  cursor-pointer "
+              onClick={sharemodal}
+            >
               {" "}
-              <i
-                className="dark:text-white  fa fa-share  text-gray-600 text-[13px] "
-                onClick={sharemodal}
-              ></i>
+              <i className="dark:text-white  fa fa-share  text-gray-600 text-[13px] "></i>
             </div>
             {ShowEdit && window.location.pathname != "/profile" && (
               <div className="relative">
@@ -298,8 +308,7 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
                         <li>
                           <span
                             to="/"
-                            className="block text-center max-sm:px-1  
-                   max-sm:py-1 px-4 py-2 max-sm:rounded-md hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            className="block cursor-pointer max-sm:px-1 max-sm:py-1 px-3 py-2 max-sm:rounded-md hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                             onClick={() => {
                               navigate("/updateblog", {
                                 state: { id: card?.postID },
@@ -312,8 +321,7 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
                         <li>
                           <span
                             onClick={onDelete}
-                            className="block px-4 py-2 
-                            max-sm:rounded-md     max-sm:px-1 max-sm:py-1 text-center hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            className="block cursor-pointer max-sm:px-1 max-sm:py-1 px-3 py-2 max-sm:rounded-md hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                           >
                             Delete
                           </span>
@@ -323,10 +331,10 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
                   </div>
                 )}
                 <div
-                  className="rounded-full py-2 px-4 max-sm:py-[6px] max-sm:px-[11px]  hover:bg-darkBgMain flex justify-center items-center"
+                  className="rounded-full max-sm:px-[7px] max-sm:py-[6px]  py-2 px-3    group/btn flex justify-center items-center transition ease-in-out  cursor-pointer "
                   onClick={profileMenu}
                 >
-                  <i className="block max-sm:text-[15px] dark:text-white fa fa-ellipsis-v"></i>
+                  <i className="block max-sm:text-[15px] text-gray-600 dark:text-white fa fa-ellipsis-v"></i>
                 </div>
               </div>
             )}

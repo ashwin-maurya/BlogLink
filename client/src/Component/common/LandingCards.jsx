@@ -77,11 +77,11 @@ export default function LandingCards({ card }) {
 
   return (
     <>
-      <article className="break-inside-avoid mx-auto w-[100%] max-md:w-[95%] p-6 max-sm:p-3 bg-bgBlue rounded-xl  dark:bg-darkBgPrimary flex flex-col bg-clip-border  my-5 group">
+      <article className="break-inside-avoid mx-auto w-[100%] max-md:w-[95%] p-6 max-sm:p-3 bg-bgBlue rounded-xl  dark:bg-darkBgPrimary flex flex-col bg-clip-border  my-5 group ">
         <div className="flex pb-4 max-sm:pb-2 items-center justify-between">
           <div className="flex">
             <img
-              className="rounded-full  dark:bg-darkBgMain bg-white max-w-none w-10 h-10"
+              className="rounded-full  dark:bg-darkBgMain bg-white max-w-none w-10 h-10 object-cover object-top"
               src={
                 card.author.profileImg == ""
                   ? profileDefault

@@ -94,9 +94,7 @@ export default function Reviews() {
             <img
               src={reviews[currentIndex]?.author.profileImg}
               alt=""
-              className="rounded-full m-auto mb-1 "
-              width={35}
-              height={35}
+              className="w-10 h-10 object-cover object-top rounded-full  m-auto mb-1 "
             />
             <h2 className="font-medium title-font tracking-wider text-sm text-lightTextMain dark:text-darkTextMain">
               {reviews[currentIndex]?.author.username}

@@ -5,6 +5,8 @@ import BlogCardSkeleton from "../../Component/SkeletonLoaders/BlogCardSkeleton";
 import FilterContext from "../../Helper/Context/FilterContext";
 import AuthContext from "../../Helper/Context/AuthContext";
 import CommentLikeContext from "../../Helper/Context/CommentLikeContext";
+import "../../Component/PageNotFound/PageNotFoundMoon.css";
+
 CommentLikeContext;
 export default function LeftSection() {
   const context = useContext(blogContext);
@@ -62,13 +64,18 @@ export default function LeftSection() {
   }, [filterState]);
 
   return (
-    <section className=" flex justify-center max-lg:justify-start  flex-col rounded-md ">
-      <div className=" flex flex-col w-full items-center ">
-        <div className="flex max-lg:flex-col justify-evenly items-center  w-full max-lg:ml-1  ">
+    <section className=" flex justify-center max-lg:justify-start  flex-col rounded-md">
+      <div id="stars"></div>
+      <div id="stars2"></div>
+      <div id="stars3"></div>
+      <div className=" flex flex-col w-full items-center z-30">
+        <div className="flex max-lg:flex-col justify-evenly items-center  w-full max-lg:ml-1">
           <div className="flex mt-3  gap-1">
             <button
-              className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
-                filterState === "relevant" && "bg-bgBlue"
+              className={`${
+                AuthStatus ? "block" : "hidden"
+              } dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
+                filterState === "relevant" && "bg-bgBlue dark:bg-secondary"
               } p-1 px-3 rounded-md`}
               value="relevant"
               onClick={(e) => {
@@ -89,7 +96,7 @@ export default function LeftSection() {
             </button>
             <button
               className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
-                filterState === "latest" && "bg-bgBlue"
+                filterState === "latest" && "bg-bgBlue dark:bg-secondary "
               } p-1 px-3 rounded-md`}
               value="latest"
               onClick={async (e) => {
@@ -112,7 +119,7 @@ export default function LeftSection() {
             </button>
             <button
               className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
-                filterState == "top" && "bg-bgBlue"
+                filterState == "top" && "bg-bgBlue dark:bg-secondary "
               }  p-1 px-3 rounded-md`}
               value="top"
               onClick={(e) => {
@@ -139,7 +146,7 @@ export default function LeftSection() {
           >
             <button
               className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
-                Range === "week" && "bg-bgBlue"
+                Range === "week" && "bg-bgBlue dark:bg-secondary "
               }  p-1 px-3  rounded-md`}
               value="week"
               onClick={(e) => {
@@ -162,7 +169,7 @@ export default function LeftSection() {
             </button>
             <button
               className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
-                Range === "month" && "bg-bgBlue"
+                Range === "month" && "bg-bgBlue dark:bg-secondary "
               }  p-1 px-3 rounded-md`}
               value="month"
               onClick={(e) => {
@@ -183,7 +190,7 @@ export default function LeftSection() {
             </button>
             <button
               className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
-                Range === "year" && "bg-bgBlue"
+                Range === "year" && "bg-bgBlue dark:bg-secondary "
               }  p-1 px-3 rounded-md`}
               value="year"
               onClick={(e) => {
@@ -204,7 +211,7 @@ export default function LeftSection() {
             </button>
             <button
               className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
-                Range === "all" && "bg-bgBlue"
+                Range === "all" && "bg-bgBlue dark:bg-secondary "
               }  p-1 px-3 rounded-md`}
               value="all"
               onClick={(e) => {

@@ -4,6 +4,7 @@ import WriteBlogPage from "../Pages/WriteBlogPage";
 import AuthContext from "../Helper/Context/AuthContext";
 import { useLocation } from "react-router";
 import blogContext from "../Helper/Context/blogContext";
+import "../Component/PageNotFound/PageNotFoundMoon.css";
 
 // toast.configure();
 const WriteBlogLayout = () => {
@@ -38,9 +39,14 @@ const WriteBlogLayout = () => {
   console.log("blog1 from writeLayout");
 
   return (
-    <div className="">
-      <WriteBlogPage postid={postid} UserDetails={UserDetails}></WriteBlogPage>
-    </div>
+    <>
+      <div className="">
+        <WriteBlogPage
+          postid={postid}
+          UserDetails={UserDetails}
+        ></WriteBlogPage>
+      </div>
+    </>
   );
 };
 
