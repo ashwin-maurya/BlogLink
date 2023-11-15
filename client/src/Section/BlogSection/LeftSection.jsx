@@ -25,17 +25,8 @@ export default function LeftSection() {
   // const [isLogged,setisLoggen]=useState(localStorage.getItem("UserData") != null)
   const [BLogsArray, setBLogsArray] = useState([]);
   const [loading, setLoading] = useState(true);
-  // get all blogs and intialize filterval from previous refresh-------------------------------
-
-  // useEffect(() => {
-  //   console.log(
-  //     AuthStatus + "LoggedinStatus---------------sdvsdjvsjdvdnv fnvfn "
-  //   );
-  // }, [AuthStatus]);
 
   useEffect(() => {
-    // console.log(UserDetails.relevant);
-    // setfilterState(localStorage.getItem("filterval"));
     if (JSON.parse(localStorage.getItem("UserData"))) {
       Checklike(JSON.parse(localStorage?.getItem("UserData"))?.userDetailId);
       Checkbookmark(
@@ -52,21 +43,12 @@ export default function LeftSection() {
         console.error("Error fetching blog data:", error);
         setLoading(false);
       });
-    // console.log(localStorage.getItem("UserData"));
   }, [filterState === null]);
 
-  // setfilterstate on localstorage.filterval change--------------------------------------------------
   const [showMoreOption, setshowMoreOption] = useState(false);
   const [Range, setRange] = useState("week");
-  // console.log(blog);
 
-  useEffect(() => {
-    // if (localStorage.getItem("filterval") == "relevant") {
-    //   getrelevantblogs(UserDetails?.relevant).then(() => {
-    //     setLoading(false);
-    //   });
-    // }
-  }, [filterBlogs]);
+  useEffect(() => {}, [filterBlogs]);
 
   const handleclick = (tab) => {
     setfilterState(tab);
@@ -79,17 +61,15 @@ export default function LeftSection() {
     }
   }, [filterState]);
 
-  // useEffect(() => {}, [filterState]);
-
   return (
     <section className=" flex justify-center max-lg:justify-start  flex-col rounded-md ">
       <div className=" flex flex-col w-full items-center ">
-        <div className="flex max-lg:flex-col justify-evenly items-start  w-full max-lg:ml-1  ">
-          <div className="flex   gap-1">
+        <div className="flex max-lg:flex-col justify-evenly items-center  w-full max-lg:ml-1  ">
+          <div className="flex mt-3  gap-1">
             <button
               className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
                 filterState === "relevant" && "bg-bgBlue"
-              } p-2 rounded-md`}
+              } p-1 px-3 rounded-md`}
               value="relevant"
               onClick={(e) => {
                 handleclick("relevant");
@@ -110,7 +90,7 @@ export default function LeftSection() {
             <button
               className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
                 filterState === "latest" && "bg-bgBlue"
-              } p-2 rounded-md`}
+              } p-1 px-3 rounded-md`}
               value="latest"
               onClick={async (e) => {
                 setLoading(true);
@@ -133,7 +113,7 @@ export default function LeftSection() {
             <button
               className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
                 filterState == "top" && "bg-bgBlue"
-              }  p-2 rounded-md`}
+              }  p-1 px-3 rounded-md`}
               value="top"
               onClick={(e) => {
                 setLoading(true);
@@ -155,12 +135,12 @@ export default function LeftSection() {
           <div
             className={`${
               showMoreOption ? "block" : "hidden"
-            } flex max-lg:mt-3 gap-1`}
+            } flex max-lg:mt-3 gap-1 mt-3`}
           >
             <button
               className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
                 Range === "week" && "bg-bgBlue"
-              }  p-2  rounded-md`}
+              }  p-1 px-3  rounded-md`}
               value="week"
               onClick={(e) => {
                 setLoading(true);
@@ -183,7 +163,7 @@ export default function LeftSection() {
             <button
               className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
                 Range === "month" && "bg-bgBlue"
-              }  p-2 rounded-md`}
+              }  p-1 px-3 rounded-md`}
               value="month"
               onClick={(e) => {
                 setLoading(true);
@@ -204,7 +184,7 @@ export default function LeftSection() {
             <button
               className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
                 Range === "year" && "bg-bgBlue"
-              }  p-2 rounded-md`}
+              }  p-1 px-3 rounded-md`}
               value="year"
               onClick={(e) => {
                 // Topfilter(e);
@@ -225,7 +205,7 @@ export default function LeftSection() {
             <button
               className={`dark:text-white hover:bg-bgBlue dark:bg-darkBgPrimary dark:hover:bg-secondary  ${
                 Range === "all" && "bg-bgBlue"
-              }  p-2 rounded-md`}
+              }  p-1 px-3 rounded-md`}
               value="all"
               onClick={(e) => {
                 setLoading(true);

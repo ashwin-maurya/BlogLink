@@ -7,6 +7,7 @@ import { Profile } from "../common";
 import { useNavigate } from "react-router";
 import FeedbackButton from "../Feedback/FeedbackButton";
 import Signin from "./Signin";
+import { profileDefault } from "../../Assets/icons";
 export default function SideNav(props) {
   const { NavStatus } = props;
   const navRef = useRef(null);

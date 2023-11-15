@@ -110,7 +110,6 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
       userID: JSON.parse(localStorage.getItem("UserData")).userDetailId,
       postID: card?._id,
     });
-    toast.success("Bookmark Added");
   };
 
   return (
@@ -133,8 +132,6 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
                   <div
                     className="group/author  flex items-center "
                     onClick={() => {
-                      toast.success("Welcome to Profile");
-
                       navigate(`/profile/${card?.author?.username}`, {
                         state: { id: card?.author?.username },
                       });
@@ -188,12 +185,7 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
                 {card?.Title}
               </h3>
             </div>
-            <div className="ml-1 w-[100%] flex items-center">
-              <i className="fa fa-eye  text-gray-500 dark:text-gray-400 text-xs"></i>
-              <p className="text-xs font-bold text-gray-500 ml-1 max-sm:text-xs  dark:text-gray-400">
-                {card?.view}
-              </p>
-            </div>
+
             <div className="py-1 flex gap-2 justify-start items-center">
               <button
                 className="p-1 rounded-md text-[15px] text-white px-4 border-2 border-slate-200 dark:border-gray-700 hover:border-blue-300  bg-primaryMain "
@@ -245,38 +237,44 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
 
         <div className="relative pb-1 flex justify-between items-center  flex-wrap w-full mt-1">
           <div className="flex gap-3  items-center ">
-            {card?.tags.slice(0, 3)?.map((tag, index) => (
+            {card?.tags.slice(0, 2)?.map((tag, index) => (
               <Tags key={index} tags={tag} />
             ))}{" "}
           </div>
 
-          <div className="flex gap-[8px]   items-center mr-1 mt-2">
-            <div className="rounded-full py-2 px-4  max-sm:px-[7px] max-sm:py-[6px] hover:bg-darkBgMain flex justify-center items-center">
+          <div className="flex  items-center mr-1 mt-2">
+            <div className="mr-1 w-[100%] py-2 px-1 flex items-center justify-center">
+              <p className="text-xs font-bold text-black dark:text-white max-sm:text-xs ">
+                {card?.view}
+              </p>
+              <i className="fa fa-eye ml-1  text-black dark:text-white  text-[13px] "></i>
+            </div>
+            <div className="rounded-full py-2 px-3  max-sm:px-[7px] max-sm:py-[6px]  flex justify-center items-center">
               <i
-                className={`dark:text-white     ${
+                className={` dark:text-white  ${
                   Bookmarked
                     ? "text-primaryMain dark:text-primaryMain fa fa-bookmark"
                     : " fa fa-bookmark-o "
-                } hover:text-primaryMain max-sm:text-[12px] text-[15px] `}
+                } hover:text-primaryMain  text-[13px] `}
                 onClick={bookmark}
               ></i>
             </div>
 
-            <div className="rounded-full max-sm:px-[7px] max-sm:py-[6px] py-2 px-4 hover:bg-primaryMain group/btn dark:hover:bg-darkBgMain flex justify-center items-center transition ease-in-out">
+            <div className="rounded-full max-sm:px-[7px] max-sm:py-[6px]  py-2 px-3    group/btn flex justify-center items-center transition ease-in-out">
               {" "}
               <i
-                className={`dark:text-white     ${
+                className={` dark:text-white    ${
                   liked
-                    ? "text-red-500 dark:text-primaryMain fa fa-heart"
+                    ? "text-red-500 dark:text-red-500 fa fa-heart"
                     : " fa fa-heart-o "
-                } hover:text-primaryMain max-sm:text-[12px] text-[15px] `}
+                }   text-[13px] `}
                 onClick={like}
               ></i>
             </div>
-            <div className="rounded-full max-sm:px-[7px] max-sm:py-[6px]   py-2 px-4 hover:bg-primaryMain group/btn dark:hover:bg-darkBgMain flex justify-center items-center transition ease-in-out">
+            <div className="rounded-full max-sm:px-[7px] max-sm:py-[6px]   py-2 px-3  flex justify-center items-center transition ease-in-out">
               {" "}
               <i
-                className="dark:text-white max-sm:text-[12px] fa fa-share  text-gray-600 group-hover/btn:text-white text-[15px] "
+                className="dark:text-white  fa fa-share  text-gray-600 text-[13px] "
                 onClick={sharemodal}
               ></i>
             </div>

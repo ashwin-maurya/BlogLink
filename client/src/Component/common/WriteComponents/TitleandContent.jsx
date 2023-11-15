@@ -2,7 +2,7 @@ import React from "react";
 
 const TitleandContent = ({ blogs, getInput }) => {
   return (
-    <div className="  flex-col  flex  bg-gray-100 p-3 rounded ">
+    <div className="  flex-col  flex  bg-gray-100 p-3 rounded dark:bg-darkBgPrimary">
       <div className="">Title</div>
       <div className="">
         <input
