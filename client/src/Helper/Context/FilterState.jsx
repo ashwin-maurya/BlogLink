@@ -53,11 +53,9 @@ const FilterState = (props) => {
   };
   const getcategoryblogs = async (data) => {
     console.log(data);
-    const obj = JSON.parse(localStorage.getItem("UserData"));
     const response = await fetch(`${host}/api/filter/getCategoryBlogs`, {
       method: "PUT",
       headers: {
-        "auth-token": obj.authtoken,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ category: data }),
