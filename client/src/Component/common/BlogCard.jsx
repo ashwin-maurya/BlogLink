@@ -232,9 +232,9 @@ export default function BlogCard({ card, isBookmark }) {
             {
               <div className="rounded-full py-2 px-4 hover:bg-darkBgMain flex justify-center items-center">
                 <i
-                  className={`dark:text-white     text-${
+                  className={`dark:text-white  ${
                     Bookmarked
-                      ? "primaryMain fa fa-bookmark"
+                      ? "text-primaryMain dark:text-primaryMain fa fa-bookmark"
                       : " fa fa-bookmark-o"
                   } hover:text-primaryMain text-[15px] `}
                   onClick={bookmark}

@@ -11,11 +11,11 @@ const Category = ({ blogs, getInput, setcategory, category }) => {
   };
 
   return (
-    <div className="flex-col  group flex dark:bg-darkBgPrimary bg-gray-100 gap-4  rounded-md p-4 m-3  ">
+    <div className="flex-col  group flex dark:bg-darkBgPrimary bg-gray-100 gap-4  rounded-md p-4 mx-3  ">
       <div className=" ">Category</div>
       <div className="">
         <Select
-          className="dark:bg-darkBgMain"
+          className="rounded-md text-black dark:text-black border-2 dark:bg-darkBgPrimary border-gray-300 dark:border-gray-700 hover:border-primaryMain hover:dark:border-secondary focus:border-primaryMain focus:dark:border-secondary outline-none transition-colors duration-300 ease-in-out "
           name="category"
           value={blogs?.category}
           onChange={handleSelectChange}

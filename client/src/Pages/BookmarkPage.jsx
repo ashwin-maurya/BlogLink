@@ -17,7 +17,7 @@ const BookmarkPage = () => {
   return (
     <>
       {allbookmarks?.map((card, index) => (
-        <BlogCard key={index} card={card}></BlogCard>
+        <BlogCard key={index} isBookmark={true} card={card}></BlogCard>
       ))}
     </>
   );

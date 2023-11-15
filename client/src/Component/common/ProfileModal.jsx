@@ -79,6 +79,18 @@ export default function ProfileModal({ profileMenu }) {
             </span>
           </li>
           <li>
+            <span
+              to="/"
+              className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+              onClick={() => {
+                navigate(`/write`);
+                profileMenu();
+              }}
+            >
+              Create Your Blog
+            </span>
+          </li>
+          <li>
             <FeedbackButton />
           </li>
           <li>

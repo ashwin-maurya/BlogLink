@@ -1,7 +1,7 @@
 export const navLinks = [
   { href: "/home", label: "Home" },
   { href: "/blog", label: "Blogs" },
-  { href: "/write", label: "Write" },
+  { href: "/about", label: "About" },
 ];
 
 export const TagData = [
