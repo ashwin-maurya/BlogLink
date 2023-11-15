@@ -35,7 +35,7 @@ const SingleBlogLayout = () => {
   }, [Id]);
   console.log(SingleBlogContent);
 
-  const [viewCount, setViewCount] = useState(0);
+  // const [viewCount, setViewCount] = useState(0);
   useEffect(() => {
     // Start the timer when the component mounts
     const startTime = Date.now();
@@ -45,11 +45,14 @@ const SingleBlogLayout = () => {
 
       // If the user has stayed on the page for more than 3 minutes (180 seconds), increase the view count
       if (elapsedSeconds >= 10) {
-        setViewCount((prevViewCount) => prevViewCount + 1);
+        // setViewCount((prevViewCount) => prevViewCount + 1);
         // console.log();
-        console.log({ viewCount, id });
-
-        updateViews({ view: SingleBlogContent[0]?.view, id });
+        console.log({ viewCount: SingleBlogContent[0]?.view, id });
+        if (SingleBlogContent[0]?.view === "NaN") {
+          updateViews({ view: "0", id });
+        } else {
+          updateViews({ view: SingleBlogContent[0]?.view, id });
+        }
         clearInterval(intervalId); // Stop the timer
       }
     }, 1000);
@@ -57,7 +60,7 @@ const SingleBlogLayout = () => {
     // setTimer(intervalId);
 
     // Clean up the timer when the component unmounts
-  }, []);
+  }, [SingleBlogContent]);
   return (
     <>
       {

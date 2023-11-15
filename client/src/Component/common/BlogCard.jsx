@@ -10,12 +10,12 @@ import { profileDefault } from "../../Assets/icons";
 import CommentLikeContext from "../../Helper/Context/CommentLikeContext";
 import ShareModal from "../SingleBlogComponents/ShareModal";
 import FilterContext from "../../Helper/Context/FilterContext";
-export default function BlogCard({ card, isBookmark }) {
+export default function BlogCard({ card, isBookmark, isLiked }) {
   const context = useContext(blogContext);
   const context5 = useContext(CommentLikeContext);
   const context6 = useContext(FilterContext);
 
-  const { addbookmark, deletebookmark } = context5;
+  const { addbookmark, deletebookmark, deletelike, addlike } = context5;
   const { deletenote } = context6;
   const context3 = useContext(AuthContext);
   const navigate = useNavigate();
@@ -23,6 +23,7 @@ export default function BlogCard({ card, isBookmark }) {
   const [ShowEdit, setShowEdit] = useState(false);
   // console.log(isBookmark);
   const [Bookmarked, setBookmarked] = useState(isBookmark);
+  const [liked, setliked] = useState(isLiked);
 
   const modalRef = useRef(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
@@ -46,6 +47,26 @@ export default function BlogCard({ card, isBookmark }) {
       });
       toast.success("Bookmark addedd");
       setBookmarked(!Bookmarked);
+    }
+  };
+  const like = async () => {
+    // setBookmarked(!Bookmarked);
+    console.log(like);
+
+    if (liked == true) {
+      await deletelike({
+        userID: JSON.parse(localStorage.getItem("UserData")).userDetailId,
+        postID: card?._id,
+      });
+      toast.success("like deleted");
+      setliked(!liked);
+    } else {
+      await addlike({
+        userID: JSON.parse(localStorage.getItem("UserData")).userDetailId,
+        postID: card?._id,
+      });
+      toast.success("like addedd");
+      setliked(!liked);
     }
   };
 
@@ -228,24 +249,33 @@ export default function BlogCard({ card, isBookmark }) {
               <Tags key={index} tags={tag} />
             ))}{" "}
           </div>
-          <div className="flex   items-center mr-1 mt-2">
-            {
-              <div className="rounded-full py-2 px-4 hover:bg-darkBgMain flex justify-center items-center">
-                <i
-                  className={`dark:text-white     text-${
-                    Bookmarked
-                      ? "primaryMain fa fa-bookmark"
-                      : " fa fa-bookmark-o"
-                  } hover:text-primaryMain text-[15px] `}
-                  onClick={bookmark}
-                ></i>
-              </div>
-            }
+          <div className="flex gap-[8px]   items-center mr-1 mt-2">
+            <div className="rounded-full py-2 px-4  max-sm:px-[7px] max-sm:py-[6px] hover:bg-darkBgMain flex justify-center items-center">
+              <i
+                className={`dark:text-white     ${
+                  Bookmarked
+                    ? "text-primaryMain dark:text-primaryMain fa fa-bookmark"
+                    : " fa fa-bookmark-o "
+                } hover:text-primaryMain max-sm:text-[12px] text-[15px] `}
+                onClick={bookmark}
+              ></i>
+            </div>
 
-            <div className="rounded-full py-2 px-4 hover:bg-primaryMain group/btn dark:hover:bg-darkBgMain flex justify-center items-center transition ease-in-out">
+            <div className="rounded-full max-sm:px-[7px] max-sm:py-[6px] py-2 px-4 hover:bg-primaryMain group/btn dark:hover:bg-darkBgMain flex justify-center items-center transition ease-in-out">
               {" "}
               <i
-                className="dark:text-white fa fa-share  text-gray-600 group-hover/btn:text-white text-[15px] "
+                className={`dark:text-white     ${
+                  liked
+                    ? "text-red-500 dark:text-primaryMain fa fa-heart"
+                    : " fa fa-heart-o "
+                } hover:text-primaryMain max-sm:text-[12px] text-[15px] `}
+                onClick={like}
+              ></i>
+            </div>
+            <div className="rounded-full max-sm:px-[7px] max-sm:py-[6px]   py-2 px-4 hover:bg-primaryMain group/btn dark:hover:bg-darkBgMain flex justify-center items-center transition ease-in-out">
+              {" "}
+              <i
+                className="dark:text-white max-sm:text-[12px] fa fa-share  text-gray-600 group-hover/btn:text-white text-[15px] "
                 onClick={sharemodal}
               ></i>
             </div>
@@ -261,16 +291,17 @@ export default function BlogCard({ card, isBookmark }) {
                     ></div>
                     <div
                       id="dropdownAvatarName"
-                      className="z-50 block absolute top-6 left-4  bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-32 dark:bg-darkBgPrimary dark:divide-gray-600 border dark:border-gray-600"
+                      className="z-50 block absolute top-6 left-4  max-sm:left-[-20px] max-sm:top-[-65px] max-sm:w-14 bg-white divide-y divide-gray-100 max-sm:rounded-md rounded-lg shadow-sm w-32 dark:bg-darkBgPrimary dark:divide-gray-600 border dark:border-gray-600"
                     >
                       <ul
-                        className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                        className="py-2 max-sm:py-0 text-sm text-gray-700 dark:text-gray-200"
                         aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton"
                       >
                         <li>
                           <span
                             to="/"
-                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            className="block text-center max-sm:px-1  
+                   max-sm:py-1 px-4 py-2 max-sm:rounded-md hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                             onClick={() => {
                               navigate("/updateblog", {
                                 state: { id: card?.postID },
@@ -283,7 +314,8 @@ export default function BlogCard({ card, isBookmark }) {
                         <li>
                           <span
                             onClick={onDelete}
-                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                            className="block px-4 py-2 
+                            max-sm:rounded-md     max-sm:px-1 max-sm:py-1 text-center hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                           >
                             Delete
                           </span>
@@ -293,10 +325,10 @@ export default function BlogCard({ card, isBookmark }) {
                   </div>
                 )}
                 <div
-                  className="rounded-full py-2 px-4 hover:bg-darkBgMain flex justify-center items-center"
+                  className="rounded-full py-2 px-4 max-sm:py-[6px] max-sm:px-[11px]  hover:bg-darkBgMain flex justify-center items-center"
                   onClick={profileMenu}
                 >
-                  <i className="block dark:text-white fa fa-ellipsis-v"></i>
+                  <i className="block max-sm:text-[15px] dark:text-white fa fa-ellipsis-v"></i>
                 </div>
               </div>
             )}
