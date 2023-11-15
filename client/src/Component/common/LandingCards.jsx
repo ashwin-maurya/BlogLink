@@ -8,7 +8,12 @@ import { useContext, useEffect, useState } from "react";
 import HelperContext from "../../Helper/Context/HelperContext";
 import AuthContext from "../../Helper/Context/AuthContext";
 import { code1 } from "../../Assets/images";
-import { profileDefault, view } from "../../Assets/icons";
+import {
+  dark,
+  darkprofileDefault,
+  profileDefault,
+  view,
+} from "../../Assets/icons";
 
 export default function LandingCards({ card }) {
   const context = useContext(blogContext);
@@ -75,18 +80,25 @@ export default function LandingCards({ card }) {
       <article className="break-inside-avoid mx-auto w-[100%] max-md:w-[95%] p-6 max-sm:p-3 bg-bgBlue rounded-xl  dark:bg-darkBgPrimary flex flex-col bg-clip-border  my-5 group">
         <div className="flex pb-4 max-sm:pb-2 items-center justify-between">
           <div className="flex">
-            <img className="rounded-full max-w-none w-10 h-10" src={user} />
+            <img
+              className="rounded-full  dark:bg-darkBgMain bg-white max-w-none w-10 h-10"
+              src={
+                card.author.profileImg == ""
+                  ? profileDefault
+                  : card.author.profileImg
+              }
+            />
             <div className="flex flex-col justify-center ml-2">
               <div
-                className="flex items-center dark:text-darkTextMain cursor-pointer font-semibold"
+                className="flex items-center text-[17px] tracking-[0.8px] dark:text-darkTextMain cursor-pointer font-semibold"
                 onClick={() => {
                   navigate(
-                    `/profile/${card?.UserName?.replace(/\s+/g, "-")}`,
+                    `/profile/${card?.author.username?.replace(/\s+/g, "-")}`,
                     {}
                   );
                 }}
               >
-                {card?.UserName}
+                {card?.author.username}
               </div>
               <div className="text-slate-500 text-xs  dark:text-darkTextPrimary">
                 {date}
@@ -97,32 +109,19 @@ export default function LandingCards({ card }) {
         <h2
           className="text-xl max-lg:text-md max-sm:text-sm leading-7 font-bold font-serif  dark:text-darkTextMain hover:text-primaryMain  dark:hover:text-secondary  cursor-pointer capitalize"
           onClick={() => {
-            navigate(`/blogs/${card?.Title?.replace(/\s+/g, "-")}`, {
-              state: { id: card.postID, view: card?.view },
-            });
+            navigate(`/blogs/${card?._id}`);
           }}
         >
           {" "}
           {card.Title}
         </h2>
-        <div className="py-4 max-sm:py-2">
+        <div className="py-3 max-sm:py-2">
           <img className="max-w-full rounded-lg" src={card.Blog_url} />
         </div>
-        <div className="pt-4 max-sm:pt-0">
-          <a className="inline-flex items-center" href="#">
-            <span className="mr-2">
-              <svg
-                className="fill-rose-600 dark:fill-rose-400"
-                style={{ width: "24px", height: "24px" }}
-                viewBox="0 0 24 24"
-              >
-                <path d="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"></path>
-              </svg>
-            </span>
-            <span className="text-lg font-bold  dark:text-darkTextMain">
-              68
-            </span>
-          </a>
+        <div className=" max-sm:pt-0">
+          <i className="fa fa-heart text-red-500 mr-1 "></i>
+
+          <span className="text-lg font-bold  dark:text-darkTextMain">68</span>
         </div>
       </article>
     </>

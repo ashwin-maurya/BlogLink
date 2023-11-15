@@ -5,6 +5,7 @@ import light from "./light.svg";
 import edit from "./edit.png";
 import dark from "./dark.svg";
 import profileDefault from "./profileDefault.svg";
+import darkprofileDefault from "./darkprofileDefault.svg";
 import editPen from "./editPen.svg";
 import trash from "./trash.svg";
 import view from "./view.svg";
@@ -27,4 +28,5 @@ export {
   view,
   bookmark,
   BlogLink,
+  darkprofileDefault
 };
