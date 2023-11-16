@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { Share } from "../../Component/common";
-import { shareData } from "../../Component/constants";
+
 import FilterContext from "../../Helper/Context/FilterContext";
 import CategoryBlogs from "../../Component/SingleBlogComponents/CategoryBlogs";
+import { Link } from "react-router-dom";
 
 const RightSection = ({ blog }) => {
   const [catBlog, setcatBlog] = useState([]);
@@ -17,27 +17,22 @@ const RightSection = ({ blog }) => {
   }, [blog]);
 
   return (
-    <section className="flex max-2xl:mt-1     flex-col mt-[8%] justify-center items-center ">
-      <div className="max-xl:flex max-xl:flex-col  pb-8 border-b-2 items-center justify-center flex flex-col max-xl:justify-center max-xl:items-center">
-        <p className="text-3xl max-md:text-[26px] font-semibold py-3">
-          Share the article
-        </p>
-        {
-          <ul className="grid grid-cols-2  max-xl:gap-5 justify-start items-center gap-2  ">
-            {shareData.map((share, index) => (
-              <Share share={share} check={false} key={index}></Share>
-            ))}
-          </ul>
-        }
-      </div>
-
-      <div className=" mt-20 ">
-        <p>Also from {blog?.Category} blogs</p>
-        <div className="mt-4  max-md:w-full flex flex-col justify-center items-center">
+    <section className="flex flex-col justify-center items-center">
+      <div className="w-[90%] p-2 dark:border-gray-700">
+        <h5 className="text-xl w-full my-2 font-bold leading-none text-gray-900 dark:text-white">
+          Similar Blogs
+        </h5>
+        <ul className="divide-y divide-gray-200 dark:divide-darkBorderAll">
           {catBlog?.map((blog, index) => (
             <CategoryBlogs key={blog._id} blog={blog}></CategoryBlogs>
           ))}
-        </div>
+        </ul>
+        <Link
+          to="/blog"
+          className="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500"
+        >
+          View all
+        </Link>
       </div>
     </section>
   );

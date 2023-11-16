@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { code1 } from "../../Assets/images";
-
+import Signin from "../common/Signin";
 import CommentLikeContext from "../../Helper/Context/CommentLikeContext";
 import { useEffect } from "react";
 import CommentBox from "./CommentBox";
@@ -9,11 +9,13 @@ import AuthContext from "../../Helper/Context/AuthContext";
 export default function Comments({ blog }) {
   const context = useContext(CommentLikeContext);
   const context2 = useContext(AuthContext);
-  const { UserDetails } = context2;
+  const { UserDetails, AuthStatus, showAuthModal, setAuthModal } = context2;
   const { addcomment, getsingleblogComment, SingleBlogComment } = context;
+  const ModalStatus = () => {
+    setAuthModal((showAuthModal) => !showAuthModal);
+  };
 
   useEffect(() => {
-    // console.log(UserDetails);
     setcomment({
       comment,
       postID: blog?._id,
@@ -53,15 +55,16 @@ export default function Comments({ blog }) {
     <>
       <section
         id="comment"
-        className="bg-slate-50 w-[100%]  dark:bg-transparent  py-8 lg:py-16 antialiased"
+        className="bg-slate-50 w-full  dark:bg-transparent  py-8 lg:py-16 antialiased"
       >
-        <div className=" mx-auto px-4">
+        <div className="w-full mx-auto px-4">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">
-              Discussion (20)
+              Comments
             </h2>
           </div>
-          <form className="mb-6">
+
+          <form>
             <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-darkBgPrimary dark:border-gray-700">
               <label className="sr-only">Your comment</label>
               <textarea
@@ -79,7 +82,9 @@ export default function Comments({ blog }) {
             </div>
             <button
               // type="submit"
-              className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-primaryMain rounded-lg focus:ring-4     "
+              className={`mb-6 ${
+                AuthStatus ? "block" : "hidden"
+              } border-2 border-slate-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-400   rounded-md bg-primaryMain dark:bg-secondary px-4 py-1 font-semibold text-white`}
               onClick={(e) => {
                 onsubmit(e);
               }}
@@ -87,6 +92,13 @@ export default function Comments({ blog }) {
               Post comment
             </button>
           </form>
+          <button
+            className={`mb-6 ${
+              AuthStatus ? "hidden" : "block"
+            } border-2 border-slate-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-400   rounded-md bg-primaryMain dark:bg-secondary px-4 py-1 font-semibold text-white !hover:text-white`}
+          >
+            <Signin />
+          </button>
           <div>
             {SingleBlogComment?.comment?.map((comment) => {
               return (

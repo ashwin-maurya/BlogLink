@@ -47,10 +47,9 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
 
   const bookmark = async () => {
     // setBookmarked(!Bookmarked);
-    // if (!AuthStatus) {
-    //   setAuthModal((showAuthModal) => !showAuthModal);
-    //   return;
-    // }
+    if (!AuthStatus) {
+      setAuthModal((showAuthModal) => !showAuthModal);
+    }
     console.log(Bookmarked);
 
     if (Bookmarked == true) {
@@ -76,7 +75,6 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
   const like = async () => {
     if (!AuthStatus) {
       setAuthModal((showAuthModal) => !showAuthModal);
-      return;
     }
     console.log(like);
 
@@ -273,7 +271,10 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
               </p>
               <i className="fa fa-eye ml-[4px]  text-gray-700 dark:text-white  text-[13px] "></i>
             </div>
-            <div className="rounded-full py-2  px-3  max-sm:px-[7px] max-sm:py-[6px]  flex justify-center items-center">
+            <div
+              className="rounded-full py-2  px-3  max-sm:px-[7px] max-sm:py-[6px]  flex justify-center items-center"
+              onClick={bookmark}
+            >
               <p className="text-xs  text-gray-700 dark:text-gray-300 max-sm:text-xs ">
                 {bookmarkcount}
               </p>
@@ -286,7 +287,10 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
               ></i>
             </div>
 
-            <div className="rounded-full max-sm:px-[7px]  max-sm:py-[6px]  py-2 px-3    group/btn flex justify-center items-center transition ease-in-out">
+            <div
+              className="rounded-full max-sm:px-[7px]  max-sm:py-[6px]  py-2 px-3    group/btn flex justify-center items-center transition ease-in-out"
+              onClick={like}
+            >
               {" "}
               <p className="text-xs   text-gray-700 dark:text-gray-300 max-sm:text-xs ">
                 {likecount}

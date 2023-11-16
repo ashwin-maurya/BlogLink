@@ -1,48 +1,37 @@
+import { useContext, useRef, useState, useEffect } from "react";
+import blogContext from "../Helper/Context/blogContext";
+import HelperContext from "../Helper/Context/HelperContext";
+import TopSection from "../Section/SingleBlogSection/TopSection";
 import LeftSection from "../Section/SingleBlogSection/LeftSection";
 import MiddleSection from "../Section/SingleBlogSection/MiddleSection";
 import RightSection from "../Section/SingleBlogSection/RightSection";
-import { useContext, useRef, useState } from "react";
-import blogContext from "../Helper/Context/blogContext";
-import { useEffect } from "react";
-import TopicBar from "../Component/SingleBlogComponents/TopicBar";
-import { Comments } from "../Component/common";
-import HelperContext from "../Helper/Context/HelperContext";
-import TopSection from "../Section/SingleBlogSection/TopSection";
 import LeftSectionSkeleton from "../Component/SkeletonLoaders/SingleBlogPageSkeleton/LeftSectionSkeleton";
 import TopSectionSkeleton from "../Component/SkeletonLoaders/SingleBlogPageSkeleton/TopSectionSkeleton";
 import MiddleSectionSkeleton from "../Component/SkeletonLoaders/SingleBlogPageSkeleton/MiddleSectionSkeleton";
 import RightSectionSkeleton from "../Component/SkeletonLoaders/SingleBlogPageSkeleton/RightSectionSkeleton";
+import { Comments } from "../Component/common";
+import TopicBar from "../Component/SingleBlogComponents/TopicBar";
 
 const SingleBlog = ({ blog1, loading }) => {
-  // console.log(window.innerHeight);
-  // const context = useContext(blogContext);
-  // const { blog, getblogs } = context;
-  // // console.log(blog1);
-  // useEffect(() => {
-  //   const fetchdata = async () => {
-  //     await getblogs();
-  //   };
-  //   fetchdata();
-  //   console.log(blog);
-  // }, []);
-  // console.log(blog1.description);
   const [scrollDirection, setScrollDirection] = useState("up");
   const [prevScrollPos, setPrevScrollPos] = useState(0);
 
   const navbarRef = useRef(null);
   const pageRef = useRef(null);
+  const commentSectionRef = useRef(null);
 
-  // let top = window.pageYOffset + window.innerHeight;
-  // console.log(top);
+  const context2 = useContext(HelperContext);
+  const { startTime, setstartTime } = context2;
+  const ch = startTime === "";
+
+  useEffect(() => {
+    setstartTime({ start: new Date().getTime() });
+  }, [ch]);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
-      if (prevScrollPos > currentScrollPos) {
-        setScrollDirection("up");
-      } else {
-        setScrollDirection("down");
-      }
+      setScrollDirection(prevScrollPos > currentScrollPos ? "up" : "down");
       setPrevScrollPos(currentScrollPos);
     };
 
@@ -54,7 +43,7 @@ const SingleBlog = ({ blog1, loading }) => {
   }, [prevScrollPos]);
 
   useEffect(() => {
-    const navbarHeight = navbarRef.current.clientHeight;
+    const navbarHeight = navbarRef.current?.clientHeight;
     if (scrollDirection === "up") {
       navbarRef.current.style.top = `-${navbarHeight}px`;
     } else {
@@ -62,17 +51,6 @@ const SingleBlog = ({ blog1, loading }) => {
     }
   }, [scrollDirection]);
 
-  const context2 = useContext(HelperContext);
-  const { startTime, setstartTime } = context2;
-
-  // console.log(endTime);
-  let ch = startTime == "";
-  useEffect(() => {
-    setstartTime({ start: new Date().getTime() });
-    console.log(startTime);
-  }, [ch]);
-
-  const commentSectionRef = useRef(null);
   const scrollToCommentSection = () => {
     if (commentSectionRef.current) {
       const element = commentSectionRef.current;
@@ -83,57 +61,38 @@ const SingleBlog = ({ blog1, loading }) => {
       });
     }
   };
+
   return (
     <>
       <section
-        className="flex bg-slate-50 dark:text-white dark:bg-darkBgMain flex-col   justify-center items-center"
+        className="flex bg-slate-50 dark:text-white dark:bg-darkBgMain flex-col justify-center items-center"
         ref={pageRef}
       >
-        {loading ? (
-          <TopSectionSkeleton></TopSectionSkeleton>
-        ) : (
-          <TopSection blog1={blog1}></TopSection>
-        )}
-        <div className="flex max-xl:w-full w-full px-4  max-xl:flex max-xl:flex-col max-xl:justify-evenly max-xl:items-center justify-evenly">
-          <div className="w-[26%] max-2xl:hidden ">
+        {loading ? <TopSectionSkeleton /> : <TopSection blog1={blog1} />}
+        <div className="flex max-xl:w-full w-full max-xl:flex max-xl:flex-col max-xl:justify-evenly max-xl:items-center justify-evenly">
+          <div className="w-[20%] max-2xl:hidden">
+            {loading ? <LeftSectionSkeleton /> : <LeftSection blog={blog1} />}
+          </div>
+          <div className="w-[60%] max-2xl:w-[70%] max-lg:w-[100%] max-lg:mt-0 mt-5">
             {loading ? (
-              <LeftSectionSkeleton></LeftSectionSkeleton>
+              <MiddleSectionSkeleton />
             ) : (
-              <LeftSection blog={blog1}></LeftSection>
+              <MiddleSection blog={blog1} />
             )}
           </div>
-          <div className="xl:w-[70%] max-sm:w-[80%]   max-sm:mt-[-26px] max-xl:w-[70%] mx-14 max-md:w-[90%]  ">
-            {loading ? (
-              <MiddleSectionSkeleton></MiddleSectionSkeleton>
-            ) : (
-              <MiddleSection blog={blog1}></MiddleSection>
-            )}
-          </div>
-          <div className="w-[26%] max-2xl:hidden">
-            {loading ? (
-              <RightSectionSkeleton></RightSectionSkeleton>
-            ) : (
-              <RightSection blog={blog1}></RightSection>
-            )}
+          <div className="w-[20%] mt-10 max-2xl:hidden">
+            {loading ? <RightSectionSkeleton /> : <RightSection blog={blog1} />}
           </div>
         </div>
-        <div className="rounded-md max-md:flex max-md:flex-col mt-5 2xl:hidden border-t-[2px] dark:border-gray-500   flex w-full  justify-center">
-          <div className="w-[30%] max-2xl:w-full flex border-r-[2px]  dark:border-gray-500 ">
-            {loading ? (
-              <LeftSectionSkeleton></LeftSectionSkeleton>
-            ) : (
-              <LeftSection blog={blog1}></LeftSection>
-            )}
+        <div className="rounded-md max-md:flex max-md:flex-col mt-5 2xl:hidden border-t-[1px] dark:border-darkBorderAll flex w-full justify-center">
+          <div className="w-full flex border-r-[1px] dark:border-darkBorderAll">
+            {loading ? <LeftSectionSkeleton /> : <LeftSection blog={blog1} />}
           </div>
-          <div className="w-[30%] max-2xl:w-full flex justify-center items-center">
-            {loading ? (
-              <RightSectionSkeleton></RightSectionSkeleton>
-            ) : (
-              <RightSection blog={blog1}></RightSection>
-            )}
+          <div className="w-full ">
+            {loading ? <RightSectionSkeleton /> : <RightSection blog={blog1} />}
           </div>
         </div>
-        <div ref={commentSectionRef} className="w-[70%] mt-10">
+        <div ref={commentSectionRef} className="w-[70%] mt-10 max-md:w-full">
           <Comments blog={blog1} />
         </div>
       </section>
@@ -141,7 +100,7 @@ const SingleBlog = ({ blog1, loading }) => {
         scrollToCommentSection={scrollToCommentSection}
         navbarRef={navbarRef}
         card={blog1}
-      ></TopicBar>
+      />
     </>
   );
 };
