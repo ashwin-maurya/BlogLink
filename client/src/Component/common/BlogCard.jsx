@@ -31,12 +31,11 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
   const [shareModalVisible, setShareModalVisible] = useState(false);
 
   const bookmark = async () => {
-    // setBookmarked(!Bookmarked);
-    // if (!AuthStatus) {
-    //   setAuthModal((showAuthModal) => !showAuthModal);
-    //   return;
-    // }
-    console.log(bookmarked);
+
+    if (!AuthStatus) {
+      setAuthModal((showAuthModal) => !showAuthModal);
+    }
+    console.log(Bookmarked);
 
     if (bookmarked == true) {
       await deletebookmark({
@@ -56,6 +55,7 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
       setbookmarked(!bookmarked);
     }
   };
+
   const sharemodal = () => {
     setShareModalVisible(!shareModalVisible);
   };
@@ -228,6 +228,7 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
 
             <Bookmark setbookmarked={setbookmarked} card={card}></Bookmark>
             <Like card={card}></Like>
+
 
             <div
               className="rounded-full max-sm:px-[7px] max-sm:py-[6px]   py-2 px-3  flex justify-center items-center transition ease-in-out  cursor-pointer "

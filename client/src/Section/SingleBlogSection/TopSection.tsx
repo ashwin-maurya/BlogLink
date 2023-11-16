@@ -1,21 +1,19 @@
 import React from "react";
 
 const TopSection = ({ blog1 }) => {
-  // console.log(blog1)
   return (
-    <div className="flex bg-slate-50 dark:text-white dark:bg-darkBgMain flex-col gap-20 py-10 justify-center items-center w-[70%]  ">
-      <div className=" relative flex  flex-col   justify-center  gap-2">
-        <p className="tracking-[1.5px] max-md:text-[12px] text-[15px]   rounded-md    font-semibold dark:text-secondary text-primaryMain m-1 uppercase">
+    <div className="flex bg-slate-50 dark:text-white dark:bg-darkBgMain flex-col items-center w-[70%] max-lg:w-full">
+      <div className="relative flex flex-col gap-1 w-full mt-5 mb-6 max-sm:mb-1">
+        <p className="tracking-[1.5px] text-[20px] max-md:text-[12px] rounded-md font-semibold dark:text-secondary text-primaryMain m-1 uppercase text-center">
           {blog1?.Category}
         </p>
-        <h1 className="max-md:leading-6  max-md:mt-[-10px] my-[-26px] max-md:text-[29px]  font-bold leading-[50px] mt-[-10px] text-[40px] font-montserrat capitalize">
-          {blog1?.Title}{" "}
+        <h1 className="max-md:leading-6 text-[40px] max-lg:text-[35px] max-md:text-[28px] max-sm:text-[20px] font-bold leading-[50px] font-montserrat capitalize mb-4 text-center max-lg:px-2">
+          {blog1?.Title}
         </h1>
       </div>
-      <div className=" mt-[-35px] max-md:mt-[-55px] overflow-hidden mb-[-28px] max-lg:h-auto max-sm:mt-[-80px]">
-
+      <div className="overflow-hidden w-full max-h-[400px] max-sm:max-h-[300px]">
         <img
-          className="overflow-hidden  h-[400px] object-contain w-[100%]"
+          className="w-full object-cover"
           src={blog1?.Blog_url}
           alt="Blog_url"
         />

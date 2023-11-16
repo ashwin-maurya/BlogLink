@@ -14,14 +14,8 @@ const SingleBlogLayout = () => {
   const context2 = useContext(CommentLikeContext);
   const { updateViews } = context2;
   const [loading, setloading] = useState(true);
-  // console.log("I work in writeblogLAyotu");
-  // const id = location.state?.id;
-  // const userID = location.state?.userID;
-  // const view = location.state?.view;
 
-  // const username = location.state?.username;
   const { id } = useParams();
-  console.log(id + " id -----------------------sjcner verjv ervjeve rjverjv n");
   const [Id, setId] = useState(id);
   useEffect(() => {
     getsingleblogContent(id)
@@ -32,10 +26,9 @@ const SingleBlogLayout = () => {
         console.error("Error fetching blog data:", error);
         setloading(false);
       });
-  }, [Id]);
+  }, [Id, id]);
   console.log(SingleBlogContent);
 
-  // const [viewCount, setViewCount] = useState(0);
   useEffect(() => {
     // Start the timer when the component mounts
     const startTime = Date.now();

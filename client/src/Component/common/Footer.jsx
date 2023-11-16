@@ -1,10 +1,11 @@
 import React from "react";
 import BlogLinkLogo from "./BlogLinkLogo";
+import { Link } from "react-router-dom";
 export default function Footer() {
   return (
     <>
       <footer className="bg-white dark:bg-darkBgPrimary border-t z-50 border-gray-200 dark:border-darkBorderAll">
-        <div className=" w-full p-4 py-6 max-md:px-10 px-20">
+        <div className=" w-full py-6 max-lg:py-2 px-20 max-lg:px-5">
           <div className="md:flex md:justify-between">
             <div className="mb-6 md:mb-0">
               <BlogLinkLogo />
@@ -16,14 +17,14 @@ export default function Footer() {
                 </h2>
                 <ul className="text-gray-500 dark:text-gray-400 font-medium">
                   <li className="mb-4">
-                    <a href="/" className="hover:underline">
+                    <Link to="/" className="hover:underline">
                       BlueSky
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="/" className="hover:underline">
+                    <Link to="/" className="hover:underline">
                       Tailwind CSS
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -33,14 +34,14 @@ export default function Footer() {
                 </h2>
                 <ul className="text-gray-500 dark:text-gray-400 font-medium">
                   <li className="mb-4">
-                    <a href="/" className="hover:underline ">
+                    <Link to="/" className="hover:underline ">
                       Github
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="/" className="hover:underline">
+                    <Link to="/" className="hover:underline">
                       Linkedin
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -50,14 +51,14 @@ export default function Footer() {
                 </h2>
                 <ul className="text-gray-500 dark:text-gray-400 font-medium">
                   <li className="mb-4">
-                    <a href="#" className="hover:underline">
+                    <Link to="/" className="hover:underline">
                       Privacy Policy
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a href="#" className="hover:underline">
+                    <Link to="/" className="hover:underline">
                       Terms &amp; Conditions
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -67,43 +68,43 @@ export default function Footer() {
           <div className="sm:flex sm:items-center sm:justify-between">
             <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
               © 2023{" "}
-              <a href="/" className="hover:underline font-serif">
+              <Link to="/" className="hover:underline font-serif">
                 BlogLink
-              </a>
+              </Link>
               <span> . </span>
               All Rights Reserved.
             </span>
             <div className="flex mt-4 space-x-5 sm:justify-center sm:mt-0">
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
               >
                 <i className="fa fa-facebook"></i>
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="/"
                 className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
               >
                 <i className="fa fa-linkedin"></i>
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="/"
                 className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
               >
                 <i className="fa fa-twitter"></i>
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="/"
                 className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
               >
                 <i className="fa fa-github"></i>
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="/"
                 className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
               >
                 <i className="fa fa-codepen"></i>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
