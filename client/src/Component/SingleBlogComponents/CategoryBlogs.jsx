@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router";
 const CategoryBlogs = ({ blog }) => {
   const navigate = useNavigate();
-  console.log(blog);
+  // console.log(blog);
   return (
     <>
       <li

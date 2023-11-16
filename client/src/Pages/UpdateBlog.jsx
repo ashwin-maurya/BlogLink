@@ -9,58 +9,52 @@ import Content from "../Component/common/WriteComponents/Content";
 import Category from "../Component/common/WriteComponents/Category";
 import Tag from "../Component/common/WriteComponents/Tag";
 
-const UpdateBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
-  const [featuredImage, setfeaturedImage] = useState("");
-  const [category, setcategory] = useState(blog2[0]?.Category);
-  useEffect(() => {
-    if (id == undefined) setcheck(!check);
-  }, []);
-  console.log("blog2 from update page ");
+const UpdateBlog = ({ UserDetails, blog2 }) => {
+  const [blogs, setblog] = useState(blog2[0]);
+  console.log(blog2);
 
-  const context = useContext(blogContext);
-  const { addblogCard, addblogcontent, updateblog } = context;
+  const [category, setcategory] = useState("");
+  const [featuredImage, setfeaturedImage] = useState(blog2[0]?.Blog_url);
 
-  const [blogs, setblog] = useState({ ...blog2[0] });
-  console.log(blogs);
-  const [blogContent, setblogContent] = useState({
-    ...blog2[0],
-  });
-  const [tags, settags] = useState(blog2[0]?.tags);
   useEffect(() => {
-    setblog({ ...blog2[0] });
-    setblogContent({ ...blog2[0] });
+    setblog(blog2[0]);
+    setcategory(blog2[0]?.Category);
     settags(blog2[0]?.tags);
-  }, [blog2[0]]);
+    setfeaturedImage(blog2[0]?.Blog_url);
+  }, [blog2]);
 
   useEffect(() => {
-    console.log(featuredImage);
     let input = {
       Blog_url: featuredImage,
     };
     setblog({
       ...blogs,
-      UserName: UserDetails?.username,
       ...input,
       Category: category,
     });
-    setblogContent({ ...blogContent, ...blogs, ...input, Category: category });
-    console.log(category);
     console.log(blogs);
-    console.log(blogContent);
   }, [featuredImage, category]);
 
   useEffect(() => {
-    setblog({ ...blogs, UserName: UserDetails?.username });
-  }, [UserDetails]);
+    localStorage.setItem(
+      "BlogData",
+      JSON.stringify({ ...blogs, author: UserDetails })
+    );
+  }, [blogs]);
+
+  const context = useContext(blogContext);
+
+  const { updateblog } = context;
+
+  const [tags, settags] = useState(blog2[0]?.tags);
 
   const updateDesc = (content) => {
-    let input = {
+    let blogcontent = {
+      _id: blog2[0]?.blogcontent?._id,
       description: content,
     };
-    console.log(input);
-    setblogContent({ ...input });
 
-    console.log(blogContent);
+    setblog({ ...blogs, blogcontent });
   };
   const getTags = (e) => {
     let str = e.target.value;
@@ -68,7 +62,7 @@ const UpdateBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
 
     settags(strarr);
 
-    setblog({ ...blogs, tags: strarr, UserName: UserDetails?.username });
+    setblog({ ...blogs, tags: strarr });
     console.log(blogs);
   };
   const getInput = (event) => {
@@ -76,56 +70,26 @@ const UpdateBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
     let input = {
       [name]: value,
     };
-    setblog({ ...blogs, ...input, UserName: UserDetails?.username });
+    setblog({ ...blogs, ...input });
     console.log(blogs);
   };
-
-  useEffect(() => {
-    console.log(featuredImage);
-    let input = {
-      Blog_url: featuredImage,
-    };
-    setblog({ ...blogs, UserName: UserDetails?.username, ...input });
-    setblogContent({ ...blogContent, ...blogs, ...input });
-
-    console.log(blogs);
-    console.log(blogContent);
-  }, [featuredImage]);
   const handleadd = () => {
-    // try {
-    let input = {
-      Blog_url: featuredImage,
-      Category: "category",
-    };
-
-    setblog({
-      ...blogs,
-      ...input,
-      UserName: UserDetails,
-      Category: category,
-    });
-    console.log(blogs);
-    console.log(category);
-
-    setblogContent({
-      ...blogContent,
-      ...input,
-      Category: category,
-    });
-
-    console.log(blogs);
-    console.log(blog2[0]);
-    console.log({ ...blogs, ...blogContent });
-    updateblog({ ...blogs, ...blogContent }, blog2[0].postID);
-    console.log("Saved to Database");
-    toast.success("Blog Updated Successfully");
+    try {
+      console.log(blog2[0]);
+      console.log({ blogs });
+      updateblog(blogs, blog2[0]._id);
+      console.log("Saved to Database");
+      toast.success("Blog Updated Successfully");
+    } catch (error) {
+      toast.error("Error occured while adding your blog");
+    }
   };
 
   return (
     <section className="p-4 rounded-lg flex  dark:text-white dark:bg-darkBgPrimary">
       <div className=" w-[70%] px-6 p-3">
         <TitleandContent blogs={blogs} getInput={getInput}></TitleandContent>
-        <Content blogContent={blogContent} updateDesc={updateDesc}></Content>
+        <Content blogs={blogs} updateDesc={updateDesc}></Content>
       </div>
       <div className="w-[30%] flex   flex-col justify-between my-3  ">
         <div className="">
@@ -142,7 +106,6 @@ const UpdateBlog = ({ postid, UserDetails, id, check, setcheck, blog2 }) => {
             featuredImage={featuredImage}
             blogs={blogs}
             setblog={setblog}
-            postid={postid}
             getInput={getInput}
           ></FeaturedImage>
         </div>

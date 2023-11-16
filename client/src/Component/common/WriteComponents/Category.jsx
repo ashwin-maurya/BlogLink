@@ -1,11 +1,11 @@
 import React from "react";
 import Select from "react-select";
 
-const Category = ({ blogs, getInput, setcategory, category }) => {
+const Category = ({ blogs, setcategory }) => {
   const options = ["python", "Javascript", "CSS", "Tech"];
 
   const handleSelectChange = (selectedOption) => {
-    console.log(category);
+    // console.log(category);
     setcategory(selectedOption.value);
     // getInput(selectedOption);
   };

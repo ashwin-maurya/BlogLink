@@ -90,10 +90,6 @@ export const uploadBannerImage = async (
 
 export const uploadFeaturedImage = async (
   file,
-
-  postID,
-
-  setFile,
   setfeaturedImage,
   setProgress
 ) => {
@@ -120,11 +116,6 @@ export const uploadFeaturedImage = async (
       console.log(response);
       console.log("response");
       setProgress(0);
-      // setFile({});
-      // setCurrentBannerImage({});
-      // addImg({ key: "bannerImg", imgUrl: response, userID: userID });
-      // setProgress(0);
-      // BannerModal();
     }
   );
 };

@@ -37,7 +37,7 @@ export default function Comments({ blog }) {
     e.preventDefault();
     console.log(comment);
     await addcomment(comment);
-    getsingleblogComment(blog?._id);
+    await getsingleblogComment(blog?._id);
     console.log(SingleBlogComment);
   };
   // console.log
@@ -80,6 +80,7 @@ export default function Comments({ blog }) {
                 required
               ></textarea>
             </div>
+
             <button
               // type="submit"
               className={`mb-6 ${
@@ -104,9 +105,9 @@ export default function Comments({ blog }) {
               return (
                 <>
                   <CommentBox
+                    key={comment?._id}
                     depth={0}
                     maxdepth={3}
-                    key={comment?._id}
                     comment={comment}
                   ></CommentBox>
                 </>

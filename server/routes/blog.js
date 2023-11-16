@@ -14,16 +14,12 @@ const UserDetail = require("../models/UserDetails");
 router.post("/postblogcontent", fetchuser, async (req, res) => {
   try {
     const {
-      // userID,
 
-      // postID,
-      // Title,
       description,
       userID,
       postID,
       Title,
       Category,
-      UserName,
       tags,
       Blog_url,
     } = req.body;
@@ -34,29 +30,13 @@ router.post("/postblogcontent", fetchuser, async (req, res) => {
     }
 
     const blog2 = new blog({
-      userID,
-      postID,
-      Title,
-      Category,
-      UserName,
-      tags,
-      Blog_url,
-      // userID,
-      // postID,
-      // Title,
       description,
-
-      // tags,
-      // Category,
-      // Blog_url,
     });
 
     const savedblog = await blog2.save();
     // console.log(savedblog);
     const Blog = new blogCard({
       Title,
-      UserName,
-      postID,
       userID,
       Category,
       tags,
@@ -93,7 +73,6 @@ router.post(
 
       const blog = new blogCard({
         Title,
-        UserName,
         postID,
         userID,
         author: userID,
@@ -115,13 +94,13 @@ router.post(
 router.post("/getsingleblogcontent", async (req, res) => {
   try {
     const { id } = req.body;
-    console.log(typeof id)
     const blogs = await blogCard
       .find({ _id: id })
       .populate("blogcontent")
       .populate("author");
 
-
+    console.log(blogs);
+    console.log("blogs descroption");
     res.json(blogs);
   } catch (error) {
     console.error(error.message);
@@ -165,8 +144,9 @@ router.get("/filterblog", async (req, res) => {
 
 router.put("/updateblog/:id", fetchuser, async (req, res) => {
   try {
-    const { Title, description, tags, Category, Blog_url } = req.body;
+    const { Title, blogcontent, tags, Category, Blog_url } = req.body;
     // let blog1 = await blogCard.find({ postID: req.params.id })
+
     const newblog = {};
     // const newblog = {};
     if (Title) {
@@ -183,13 +163,11 @@ router.put("/updateblog/:id", fetchuser, async (req, res) => {
     if (Blog_url) {
       newblog.Blog_url = Blog_url;
     }
-    if (description) {
-      newblog.description = description;
-    }
+
 
     // Find the note to be updated and update it
-    let Blog = await blogCard.find({ postID: req.params.id });
-    let Blog2 = await blog.find({ postID: req.params.id });
+    let Blog = await blogCard.find({ _id: req.params.id });
+    let Blog2 = await blog.find({ _id: blogcontent?._id });
     if (!Blog || !Blog2) {
       return res.status(404).send("not found");
     }
@@ -199,13 +177,13 @@ router.put("/updateblog/:id", fetchuser, async (req, res) => {
     //   }
 
     Blog = await blogCard.findOneAndUpdate(
-      { postID: req.params.id },
+      { _id: req.params.id },
       { $set: newblog },
       { new: true }
     );
     Blog2 = await blog.findOneAndUpdate(
-      { postID: req.params.id },
-      { $set: { ...newblog, description: description } },
+      { _id: blogcontent?._id },
+      { $set: { description: blogcontent?.description } },
       { new: true }
     );
     res.json({ Blog, Blog2 });

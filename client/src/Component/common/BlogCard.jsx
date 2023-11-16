@@ -10,91 +10,49 @@ import { profileDefault } from "../../Assets/icons";
 import CommentLikeContext from "../../Helper/Context/CommentLikeContext";
 import ShareModal from "../SingleBlogComponents/ShareModal";
 import FilterContext from "../../Helper/Context/FilterContext";
+import Bookmark from "./IconComponents/Bookmark";
+import Like from "./IconComponents/Like";
 export default function BlogCard({ card, isBookmark, isLiked }) {
   const context = useContext(blogContext);
-  const context5 = useContext(CommentLikeContext);
   const context6 = useContext(FilterContext);
+  const context5 = useContext(CommentLikeContext);
 
-  const {
-    addbookmark,
-    deletebookmark,
-    deletelike,
-    addlike,
-    countLike,
-    countBookmark,
-  } = context5;
+  const { addbookmark, deletebookmark } = context5;
   const { deletenote } = context6;
   const context3 = useContext(AuthContext);
   const navigate = useNavigate();
   const { UserDetails, AuthStatus, showAuthModal, setAuthModal } = context3;
   const [ShowEdit, setShowEdit] = useState(false);
   // console.log(isBookmark);
-  const [Bookmarked, setBookmarked] = useState(isBookmark);
-  const [liked, setliked] = useState(isLiked);
-  const [likecount, setlikecount] = useState(0);
-  const [bookmarkcount, setbookmarkcount] = useState(0);
-  useEffect(() => {
-    async function countLike2() {
-      setlikecount(await countLike(card._id));
-      setbookmarkcount(await countBookmark(card._id));
-    }
-    countLike2();
-  }, [card]);
+  const [bookmarked, setbookmarked] = useState(false);
 
   const modalRef = useRef(null);
   const [isDropdownVisible, setIsDropdownVisible] = useState(false);
   const [shareModalVisible, setShareModalVisible] = useState(false);
 
   const bookmark = async () => {
-    // setBookmarked(!Bookmarked);
+
     if (!AuthStatus) {
       setAuthModal((showAuthModal) => !showAuthModal);
     }
     console.log(Bookmarked);
 
-    if (Bookmarked == true) {
+    if (bookmarked == true) {
       await deletebookmark({
         userID: JSON.parse(localStorage.getItem("UserData")).userDetailId,
         postID: card?._id,
       });
-      setbookmarkcount(await countBookmark(card._id));
 
       toast.success("Bookmark deleted");
-      setBookmarked(!Bookmarked);
+      setbookmarked(!bookmarked);
     } else {
-      await addBookmark({
+      await addbookmark({
         userID: JSON.parse(localStorage.getItem("UserData")).userDetailId,
         postID: card?._id,
       });
-      setbookmarkcount(await countBookmark(card._id));
 
       toast.success("Bookmark addedd");
-      setBookmarked(!Bookmarked);
-    }
-  };
-  const like = async () => {
-    if (!AuthStatus) {
-      setAuthModal((showAuthModal) => !showAuthModal);
-    }
-    console.log(like);
-
-    if (liked == true) {
-      await deletelike({
-        userID: JSON.parse(localStorage.getItem("UserData")).userDetailId,
-        postID: card?._id,
-      });
-      setlikecount(await countLike(card._id));
-
-      toast.success("like deleted");
-      setliked(!liked);
-    } else {
-      await addlike({
-        userID: JSON.parse(localStorage.getItem("UserData")).userDetailId,
-        postID: card?._id,
-      });
-      setlikecount(await countLike(card._id));
-      toast.success("like addedd");
-      setliked(!liked);
+      setbookmarked(!bookmarked);
     }
   };
 
@@ -102,6 +60,9 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
     setShareModalVisible(!shareModalVisible);
   };
 
+  useEffect(() => {
+    console.log(bookmarked);
+  }, [bookmarked]);
   const handleOutsideClick = (event) => {
     console.log("CLICED");
     if (modalRef.current === event.target) {
@@ -131,14 +92,7 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
       setShowEdit(false);
     }
     // getUser(card?.UserName);
-  }, [UserDetails, card]);
-
-  const addBookmark = async () => {
-    await addbookmark({
-      userID: JSON.parse(localStorage.getItem("UserData")).userDetailId,
-      postID: card?._id,
-    });
-  };
+  }, [UserDetails, card, bookmarked]);
 
   return (
     <>
@@ -224,10 +178,10 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
               </button>
               <button
                 className={`p-1 rounded-md text-[15px] text-white px-4 bg-primaryMain  border-2 border-slate-200 ${
-                  Bookmarked && "bg-gray-500"
+                  bookmarked && "bg-gray-500"
                 }  dark:border-gray-700 hover:border-blue-300 `}
                 onClick={bookmark}
-                disabled={Bookmarked}
+                disabled={bookmarked}
               >
                 Save
               </button>
@@ -269,46 +223,19 @@ export default function BlogCard({ card, isBookmark, isLiked }) {
               <p className="text-xs  text-gray-700 dark:text-gray-300 max-sm:text-xs ">
                 {card?.view}
               </p>
-              <i className="fa fa-eye ml-[4px]  text-gray-700 dark:text-white  text-[13px] "></i>
-            </div>
-            <div
-              className="rounded-full py-2  px-3  max-sm:px-[7px] max-sm:py-[6px]  flex justify-center items-center"
-              onClick={bookmark}
-            >
-              <p className="text-xs  text-gray-700 dark:text-gray-300 max-sm:text-xs ">
-                {bookmarkcount}
-              </p>
-              <i
-                className={`ml-[4px]    ${
-                  Bookmarked
-                    ? "text-primaryMain  dark:text-primaryMain fa fa-bookmark"
-                    : " fa fa-bookmark-o dark:text-white"
-                } hover:text-primaryMain  text-[13px] `}
-              ></i>
+              <i className="fa fa-eye ml-[4px]  text-gray-700 dark:text-white  text-[16px] "></i>
             </div>
 
-            <div
-              className="rounded-full max-sm:px-[7px]  max-sm:py-[6px]  py-2 px-3    group/btn flex justify-center items-center transition ease-in-out"
-              onClick={like}
-            >
-              {" "}
-              <p className="text-xs   text-gray-700 dark:text-gray-300 max-sm:text-xs ">
-                {likecount}
-              </p>
-              <i
-                className={` ml-[4px] dark:text-white    ${
-                  liked
-                    ? "text-red-500 dark:text-red-500 fa fa-heart"
-                    : " fa fa-heart-o "
-                }   text-[13px] `}
-              ></i>
-            </div>
+            <Bookmark setbookmarked={setbookmarked} card={card}></Bookmark>
+            <Like card={card}></Like>
+
+
             <div
               className="rounded-full max-sm:px-[7px] max-sm:py-[6px]   py-2 px-3  flex justify-center items-center transition ease-in-out  cursor-pointer "
               onClick={sharemodal}
             >
               {" "}
-              <i className="dark:text-white  fa fa-share  text-gray-600 text-[13px] "></i>
+              <i className="dark:text-white  fa fa-share  text-gray-600 text-[16px] "></i>
             </div>
             {ShowEdit && window.location.pathname != "/profile" && (
               <div className="relative">

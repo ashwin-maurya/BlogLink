@@ -8,7 +8,6 @@ import "../Component/PageNotFound/PageNotFoundMoon.css";
 
 // toast.configure();
 const WriteBlogLayout = () => {
-  const postid = getUniqueID();
   const [check, setcheck] = useState(false);
   const context2 = useContext(AuthContext);
   const { UserDetails } = context2;
@@ -41,10 +40,7 @@ const WriteBlogLayout = () => {
   return (
     <>
       <div className="">
-        <WriteBlogPage
-          postid={postid}
-          UserDetails={UserDetails}
-        ></WriteBlogPage>
+        <WriteBlogPage UserDetails={UserDetails}></WriteBlogPage>
       </div>
     </>
   );

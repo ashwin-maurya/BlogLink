@@ -2,38 +2,22 @@ import React, { useEffect, useState } from "react";
 
 import { uploadFeaturedImage } from "../../../api/ImageUpload";
 import { Button, Progress } from "antd";
-const FeaturedImage = ({
-  blogs,
-  setblog,
-  postid,
-  featuredImage,
-  setfeaturedImage,
-}) => {
-  console.log(blogs);
+const FeaturedImage = ({ blogs, setfeaturedImage }) => {
+  // console.log(blogs);
   const [progress, setProgress] = useState(0);
   const [select, setselect] = useState(false);
-
+  console.log(blogs);
   const [file, setFile] = useState(null);
   const getInput = (e) => {
-    if (select == false) {
-      setFile(e.target.files[0]);
-      console.log(e.target.files[0]);
-      // console.log(file)
-    } else {
-      setblog({ ...blogs, ...{ Blog_url: e.target.value } });
-      console.log(blogs);
-    }
+    setFile(e.target.files[0]);
+    console.log(e.target.files[0]);
   };
   const getInput2 = (e) => {
     setfeaturedImage(e.target.value);
   };
 
-  useEffect(() => {
-    setblog({ ...blogs, ...{ Blog_url: featuredImage } });
-    console.log(blogs);
-  }, [featuredImage]);
   const upload = (e) => {
-    uploadFeaturedImage(file, postid, setFile, setfeaturedImage, setProgress);
+    uploadFeaturedImage(file, setfeaturedImage, setProgress);
   };
   return (
     <div className="flex-col dark:bg-darkBgPrimary text-white  flex bg-gray-100 gap-4 rounded-md p-4 m-3 ">
@@ -110,7 +94,9 @@ const FeaturedImage = ({
               key="submit"
               type="primary"
               onClick={upload}
-              className="border-2 border-slate-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-400   rounded-md bg-primaryMain dark:bg-secondary px-4 py-1 font-semibold text-white "
+              className={`${
+                file == null ? "bg-gray-500" : "bg-primaryMain"
+              } border-2 border-slate-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-400   rounded-md   px-4 py-1 font-semibold text-white `}
             >
               Upload
             </button>
@@ -128,13 +114,13 @@ const FeaturedImage = ({
               accept="image/*"
             />
 
-            <Button
+            {/* <Button
               type="primary"
               // onClick={upload}
-              className="border-2 border-slate-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-400   rounded-md bg-primaryMain dark:bg-secondary px-4 py-1 font-semibold text-white "
+              className="border-2 h-auto border-slate-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-400   rounded-md bg-primaryMain dark:bg-secondary px-4 py-1 text-[19px] font-semibold text-white "
             >
               Insert
-            </Button>
+            </Button> */}
           </>
         )}
       </div>
