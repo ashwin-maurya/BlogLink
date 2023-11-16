@@ -4,6 +4,7 @@ import Reply from "./Reply";
 import UserReplies from "./UserReplies";
 import HelperContext from "../../Helper/Context/HelperContext";
 import CommentLikeContext from "../../Helper/Context/CommentLikeContext";
+import { profileDefault } from "../../Assets/icons";
 
 const CommentBox = ({ comment, depth, maxdepth }) => {
   const constext = useContext(HelperContext);
@@ -12,6 +13,7 @@ const CommentBox = ({ comment, depth, maxdepth }) => {
   const { formatUTCDate, date } = constext;
   // console.log(comment);
   const [data, setdata] = useState({});
+  const [showReply, setshowReply] = useState(false);
 
   // const comData = getreply(comment?._id);
   useEffect(() => {
@@ -45,7 +47,11 @@ const CommentBox = ({ comment, depth, maxdepth }) => {
             <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
               <img
                 className="mr-2 w-6 h-6 rounded-full"
-                src={comment?.author?.profileImg}
+                src={
+                  comment?.author?.profileImg
+                    ? comment?.author?.profileImg
+                    : profileDefault
+                }
                 alt="Ram Ghanshyam"
               />
               {comment?.author?.username}
@@ -74,8 +80,14 @@ const CommentBox = ({ comment, depth, maxdepth }) => {
         </footer>
         <div className="border-l-2 pl-2">
           <p className=" text-gray-500 dark:text-gray-400">{comment.text}</p>
-          <div className="flex mt-4 gap-7  items-center">
+          <div className="flex mt-4 gap-3 flex-col items-start">
             <div className="flex items-center  space-x-4">
+              <button>
+                <i className="fa fa-thumbs-up "></i>
+              </button>
+              <button>
+                <i className="fa fa-thumbs-down "></i>
+              </button>
               <button
                 type="button"
                 className="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium"
@@ -102,25 +114,34 @@ const CommentBox = ({ comment, depth, maxdepth }) => {
                 Reply
               </button>
             </div>
-            <div className="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium">
-              {/* {comment?.reply.length != 0 &&
-              `(${comment?.reply.length}) Replies `} */}
+            <div
+              className="flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium"
+              onClick={() => {
+                setshowReply(!showReply);
+              }}
+            >
+              <i className="fa fa-angle-down mr-1 "></i>
+              {data.children?.length > 0 && data.children?.length} Reply
             </div>
           </div>
-          <Reply
-            // reply={reply}
-            // setreply={setreply}
-            comment={comment}
-            // commentID={comment?._id}
-            setshow={setreplyBox}
-            show={replyBox}
-            onReplySubmit={handleReplySubmit}
-          ></Reply>
+          {JSON.parse(localStorage.getItem("UserData")) && (
+            <Reply
+              // reply={reply}
+              // setreply={setreply}
+              key={comment?._id}
+              comment={comment}
+              // commentID={comment?._id}
+              setshow={setreplyBox}
+              show={replyBox}
+              onReplySubmit={handleReplySubmit}
+            ></Reply>
+          )}
         </div>
         {
           // depth < maxdepth &&
           // data.children &&
-          data.children?.length > 0 &&
+          showReply &&
+            data.children?.length > 0 &&
             data?.children?.map((item) => {
               // console.log(item);
               return (

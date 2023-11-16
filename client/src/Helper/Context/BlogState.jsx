@@ -104,20 +104,6 @@ const BlogState = (props) => {
       description,
     } = data;
 
-    // const response1 = await fetch(
-    //   `${host}/api/auth/getCurrentUserDetails/${userID}`,
-    //   {
-    //     method: "GET",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   }
-    // );
-
-    // let resp = await response1.json();
-    // console.log("resp");
-    // console.log(resp);
-
     const obj = JSON.parse(localStorage.getItem("UserData"));
     const response = await fetch(`${host}/api/blogs/postblogcontent`, {
       method: "POST",
@@ -130,7 +116,6 @@ const BlogState = (props) => {
         postID,
         Title,
         description,
-        UserName,
         tags,
         Category,
         Blog_url,
@@ -146,16 +131,7 @@ const BlogState = (props) => {
   const updateblog = async (data, id) => {
     //API call
     console.log(data);
-    const {
-      Title,
-      UserName,
-      postID,
-      userID,
-      Category,
-      tags,
-      Blog_url,
-      description,
-    } = data;
+    const { Title, Category, tags, Blog_url, blogcontent } = data;
 
     console.log(data);
     console.log("data from blog state");
@@ -170,13 +146,10 @@ const BlogState = (props) => {
       },
       body: JSON.stringify({
         Title,
-        UserName,
-        postID,
-        userID,
         Category,
         tags,
         Blog_url,
-        description,
+        blogcontent,
       }),
     });
     const json = await response.json();

@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router";
 const CategoryBlogs = ({ blog }) => {
   const navigate = useNavigate();
-  console.log(blog);
+  // console.log(blog);
   return (
     <article className="flex items-center rounded-sm  p-[10px]    bg-gray-200 mb-2 flex-col ">
       <div

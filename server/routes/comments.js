@@ -27,7 +27,6 @@ router.post(
             // If there are errors , return Bad request and the errors
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
-                console.log("hello");
 
                 return res.status(400).json({ errors: errors.array() });
             }
@@ -45,7 +44,6 @@ router.post(
             const blog = await blogCard.findByIdAndUpdate(postID, { $push: { comment: savedcomment._id } }, { new: true });
 
             const updateblog = await blog.save()
-            console.log(updateblog)
             res.json(savedcomment);
         } catch (error) {
             console.error(error.message);
@@ -68,13 +66,11 @@ router.post(
             } =
                 req.body;
 
-            console.log(req.body)
 
 
             // If there are errors , return Bad request and the errors
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
-                console.log("hello");
 
                 return res.status(400).json({ errors: errors.array() });
             }
@@ -91,7 +87,6 @@ router.post(
 
 
             let comments = await Comment.findByIdAndUpdate(id, { $push: { children: savedcomment._id } }, { new: true });
-            console.log(comments)
 
 
 
@@ -128,7 +123,6 @@ router.get('/getreply/:id', async (req, res) => {
                     ]
             }
         )
-        console.log(comment)
         res.json(comment)
 
     } catch (error) {
@@ -233,7 +227,6 @@ router.get("/getallcommentsbypostID/:id", async (req, res) => {
                     ]
             }
         )
-        console.log(comment)
         res.json(comment);
     } catch (error) {
         console.error(error.message);
@@ -246,9 +239,7 @@ router.put("/postViews/:id", async (req, res) => {
     const { view } = req.body
     let view2 = parseInt(view)
     view2 = view2 + 1
-    console.log(view2)
 
-    console.log(req.params.id)
     let blog1 = await blogCard.findById({ _id: req.params.id });
     if (!blog1) {
         return res.status(404).send("not found");
@@ -276,16 +267,11 @@ router.put("/addbookmark", async (req, res) => {
 
 
         let { postID, userID, postIDString } = req.body
-        console.log(req.body)
         let bookmark = await Bookmark.findOne({ userId: userID })
-        console.log("search")
-        console.log(bookmark)
         if (!bookmark) {
 
 
             bookmark = await Bookmark.create({ userId: userID, postId: postID, postIDString: postID })
-            console.log("create")
-            console.log(bookmark)
             return res.json(bookmark)
 
 
@@ -296,7 +282,6 @@ router.put("/addbookmark", async (req, res) => {
             return res.status(400).json({ error: 'Post is already bookmarked' });
         }
 
-        console.log("allready")
 
         const newbookmark = await Bookmark.findOneAndUpdate({ userId: userID }, {
             $push: {
@@ -335,10 +320,7 @@ router.put("/deletebookmark", async (req, res) => {
 
 
         let { postID, userID } = req.body
-        console.log(req.body)
         let bookmark = await Bookmark.findOne({ userId: userID })
-        console.log("search")
-        console.log(bookmark)
 
         if (!bookmark) {
             return res.json("Not found user")
@@ -353,9 +335,7 @@ router.put("/deletebookmark", async (req, res) => {
             }
         })
 
-        // const book = newbookmark.save()
 
-        console.log(newbookmark)
 
 
 
@@ -381,7 +361,6 @@ router.put("/deletebookmark", async (req, res) => {
 router.put("/getbookmark", fetchuser, async (req, res) => {
     try {
 
-        console.log(req.body)
 
 
 
@@ -398,8 +377,6 @@ router.put("/getbookmark", fetchuser, async (req, res) => {
 
 
         // let bk = await Userdetail.findOne({ userID: req.body.data })
-        console.log("bookmark data")
-        console.log(user)
         res.json(user);
 
     } catch (error) {
@@ -410,17 +387,23 @@ router.put("/getbookmark", fetchuser, async (req, res) => {
 router.put("/checkbookmark", fetchuser, async (req, res) => {
     try {
 
-        console.log(req.body)
 
 
 
 
 
-        let user = await Bookmark.findOne({ userId: req.body.data })
+        let user = await Bookmark.findOne({ userId: req.body.userId, postIDString: { $in: req.body.postId } })
 
         // let bk = await Userdetail.findOne({ userID: req.body.data })
-        console.log(user)
-        res.json(user);
+
+        if (user) {
+            res.json(true)
+        }
+        else {
+            res.json(false);
+
+        }
+
 
     } catch (error) {
         console.error(error.message);
@@ -441,16 +424,13 @@ router.put("/addlike", async (req, res) => {
 
 
         let { postID, userID, postIDString } = req.body
-        console.log(req.body)
         let bookmark = await Like.findOne({ userId: userID })
-        console.log("search")
-        console.log(bookmark)
+
         if (!bookmark) {
 
 
             bookmark = await Like.create({ userId: userID, postId: postID, postIDString: postID })
-            console.log("create")
-            console.log(bookmark)
+
             return res.json(bookmark)
 
 
@@ -461,7 +441,6 @@ router.put("/addlike", async (req, res) => {
             return res.status(400).json({ error: 'Post is already bookmarked' });
         }
 
-        console.log("allready")
 
         const newbookmark = await Like.findOneAndUpdate({ userId: userID }, {
             $push: {
@@ -500,10 +479,7 @@ router.put("/deletelike", async (req, res) => {
 
 
         let { postID, userID } = req.body
-        console.log(req.body)
         let bookmark = await Like.findOne({ userId: userID })
-        console.log("search")
-        console.log(bookmark)
 
         if (!bookmark) {
             return res.json("Not found user")
@@ -520,7 +496,6 @@ router.put("/deletelike", async (req, res) => {
 
         // const book = newbookmark.save()
 
-        console.log(newbookmark)
 
 
 
@@ -542,51 +517,26 @@ router.put("/deletelike", async (req, res) => {
 )
 
 
-
-// router.put("/getbookmark", fetchuser, async (req, res) => {
-//     try {
-
-//         console.log(req.body)
-
-
-
-
-
-//         let user = await Bookmark.findOne({ userId: req.body.data }).populate({
-//             path: 'postId',
-//             model: blogCard,
-//             populate: {
-//                 path: 'author',
-//                 model: Userdetail,
-//             }
-//         })
-
-
-//         // let bk = await Userdetail.findOne({ userID: req.body.data })
-//         console.log("bookmark data")
-//         console.log(user)
-//         res.json(user);
-
-//     } catch (error) {
-//         console.error(error.message);
-//         res.status(500).send("Internal Sever error,Something in the way");
-//     }
-// })
 router.put("/checklike", fetchuser, async (req, res) => {
     try {
 
-        console.log(req.body)
 
 
 
 
 
 
-        let user = await Like.findOne({ userId: req.body.data })
 
-        // let bk = await Userdetail.findOne({ userID: req.body.data })
-        console.log(user)
-        res.json(user);
+        let user = await Like.findOne({ userId: req.body.userId, postIDString: { $in: req.body.postId } })
+
+
+        if (user) {
+            res.json(true)
+        }
+        else {
+            res.json(false);
+
+        };
 
     } catch (error) {
         console.error(error.message);
@@ -597,9 +547,7 @@ router.put("/checklike", fetchuser, async (req, res) => {
 router.put("/countlike", async (req, res) => {
     try {
 
-        console.log(req.body)
         const count = await Like.find({ postId: { $in: [req.body.data] } }).count()
-        console.log(count)
         // let bk = await Userdetail.findOne({ userID: req.body.data })
         res.json(count);
 
@@ -612,9 +560,7 @@ router.put("/countlike", async (req, res) => {
 router.put("/countbookmark", async (req, res) => {
     try {
 
-        console.log(req.body)
         const count = await Bookmark.find({ postId: { $in: [req.body.data] } }).count()
-        console.log(count)
         // let bk = await Userdetail.findOne({ userID: req.body.data })
         res.json(count);
 
@@ -625,6 +571,5 @@ router.put("/countbookmark", async (req, res) => {
 })
 
 
-// router.put("/removeBookmark", async (req, res) => {
 
 module.exports = router;

@@ -14,9 +14,7 @@ const BlogCardSchema = new mongoose.Schema({
     type: String,
     // required: true
   },
-  UserName: {
-    type: String,
-  },
+
 
   Category: {
     type: String,

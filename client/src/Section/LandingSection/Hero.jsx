@@ -19,14 +19,14 @@ const Hero = () => {
         );
         const data = await response?.json();
         setRandomBlog(data);
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching random blog:", error);
-        setLoading(false);
       }
     };
 
-    fetchRandomBlog();
+    fetchRandomBlog().then(() => {
+      setLoading(false);
+    });
   }, []);
 
   return (

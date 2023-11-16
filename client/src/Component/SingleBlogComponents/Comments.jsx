@@ -35,7 +35,7 @@ export default function Comments({ blog }) {
     e.preventDefault();
     console.log(comment);
     await addcomment(comment);
-    getsingleblogComment(blog?._id);
+    await getsingleblogComment(blog?._id);
     console.log(SingleBlogComment);
   };
   // console.log
@@ -77,24 +77,26 @@ export default function Comments({ blog }) {
                 required
               ></textarea>
             </div>
-            <button
-              // type="submit"
-              className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-primaryMain rounded-lg focus:ring-4     "
-              onClick={(e) => {
-                onsubmit(e);
-              }}
-            >
-              Post comment
-            </button>
+            {
+              <button
+                // type="submit"
+                className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-primaryMain rounded-lg focus:ring-4     "
+                onClick={(e) => {
+                  onsubmit(e);
+                }}
+              >
+                Post comment
+              </button>
+            }
           </form>
           <div>
             {SingleBlogComment?.comment?.map((comment) => {
               return (
                 <>
                   <CommentBox
+                    key={comment?._id}
                     depth={0}
                     maxdepth={3}
-                    key={comment?._id}
                     comment={comment}
                   ></CommentBox>
                 </>

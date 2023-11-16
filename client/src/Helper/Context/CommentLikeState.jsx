@@ -193,12 +193,12 @@ const CommentLikeState = (props) => {
         "auth-token": obj.authtoken,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ data }),
+      body: JSON.stringify({ userId: data.userId, postId: data.postId }),
     });
 
     const resp2 = await resp.json();
     console.log(resp2);
-    setchecklike(resp2?.postId);
+    return resp2;
   };
 
   const getbookmark = async (data) => {
@@ -228,12 +228,15 @@ const CommentLikeState = (props) => {
         "auth-token": obj.authtoken,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ data }),
+      body: JSON.stringify({ userId: data.userId, postId: data.postId }),
     });
 
     const resp2 = await resp.json();
     console.log(resp2);
-    setcheckbookmark(resp2?.postId);
+
+    return resp2;
+
+    // setcheckbookmark(resp2?.postId);
   };
 
   const countLike = async (data) => {
@@ -286,7 +289,6 @@ const CommentLikeState = (props) => {
         SingleBlogComment,
         getsingleblogComment,
         checkbookmark,
-        checklike,
         deletebookmark,
         deletelike,
         countLike,
