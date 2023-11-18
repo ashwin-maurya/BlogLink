@@ -179,7 +179,7 @@ export default function LandingCards({ card }) {
               </span>
             </div>
             <div className=" max-sm:pt-0">
-              <i className="fa fa-eye  text-gray-600  mr-1 "></i>
+              <i className="fa fa-eye  text-gray-600  mr-1 dark:text-gray-200"></i>
 
               <span className="text-lg font-bold   dark:text-darkTextMain">
                 {card?.view}
